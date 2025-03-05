@@ -12,5 +12,7 @@ public class Player {
     this.boardGame = boardGame;
   }
 
-  
+  public void placeOnTile(Tile tile) {
+    this.currentTile = tile;
+  }
 }
