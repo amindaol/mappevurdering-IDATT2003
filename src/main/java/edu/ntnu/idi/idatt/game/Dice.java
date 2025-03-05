@@ -30,5 +30,12 @@ public class Dice {
     return diceValue;
   }
 
+  /**
+   * @param dieNumber
+   * @return
+   */
+  public Die getDie(int dieNumber) {
+    return dice[dieNumber];
+  }
 
 }
