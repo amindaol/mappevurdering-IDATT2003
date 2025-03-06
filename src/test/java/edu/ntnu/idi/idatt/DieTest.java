@@ -32,7 +32,14 @@ class DieTest {
   @Test
   void getValue_shouldThrowExceptionIfNotRolled() {
     assertThrows(IllegalStateException.class, () -> die.getValue());
+  }
 
+  @Test
+  void roll_multipleRollsInRange() {
+    for (int i = 0; i < 100; i++) {
+      int rolledValue = die.roll();
+      assertTrue(rolledValue >= 1 && rolledValue <= 6);
+    }
   }
 
 }
