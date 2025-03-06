@@ -23,6 +23,14 @@ class DieTest {
 
   @Test
   void getValue_returnMostRecentValue() {
+    int rolledValue = die.roll();
+    int valueFromGetValue = die.getValue();
+    assertEquals(valueFromGetValue, rolledValue);
+
+  }
+
+  @Test
+  void getValue_throwExceptionIfNotRolled() {
 
   }
 
