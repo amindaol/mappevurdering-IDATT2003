@@ -30,7 +30,8 @@ class DieTest {
   }
 
   @Test
-  void getValue_throwExceptionIfNotRolled() {
+  void getValue_shouldThrowExceptionIfNotRolled() {
+    assertThrows(IllegalStateException.class, () -> die.getValue());
 
   }
 

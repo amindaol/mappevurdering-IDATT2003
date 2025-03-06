@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a31226b-78d0-4655-a47d-fb091cce478d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/DieTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/DieTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,6 +56,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.DieTest.getValue_returnMostRecentValue.executor": "Run",
     "JUnit.DieTest.roll_returnValueOneToSix.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -72,7 +74,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.DieTest.getValue_returnMostRecentValue">
+  <component name="RunManager" selected="JUnit.DieTest.getValue_shouldThrowExceptionIfNotRolled">
     <configuration name="DieTest.getValue_returnMostRecentValue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
@@ -84,6 +86,22 @@
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
       <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DieTest" />
       <option name="METHOD_NAME" value="getValue_returnMostRecentValue" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DieTest.getValue_shouldThrowExceptionIfNotRolled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mappevurdering-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DieTest" />
+      <option name="METHOD_NAME" value="getValue_shouldThrowExceptionIfNotRolled" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -107,6 +125,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DieTest.getValue_shouldThrowExceptionIfNotRolled" />
         <item itemvalue="JUnit.DieTest.getValue_returnMostRecentValue" />
         <item itemvalue="JUnit.DieTest.roll_returnValueOneToSix" />
       </list>
