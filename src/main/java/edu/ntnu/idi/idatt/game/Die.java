@@ -28,8 +28,12 @@ public class Die {
    * Returns the value of the die.
    *
    * @return the value of the die.
+   * @throws IllegalStateException if the die has not been rolled yet.
    */
   public int getValue() {
+    if (value == 0) {
+      throw new IllegalStateException("Die has not been rolled yet.");
+    }
     return this.value;
   }
 }
