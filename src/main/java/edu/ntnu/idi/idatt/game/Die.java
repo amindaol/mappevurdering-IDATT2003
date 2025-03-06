@@ -30,6 +30,9 @@ public class Die {
    * @return the value of the die.
    */
   public int getValue() {
+    if (value == 0) {
+      throw new IllegalStateException("Die has not been rolled yet.");
+    }
     return this.value;
   }
 }
