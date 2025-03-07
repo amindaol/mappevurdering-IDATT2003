@@ -22,10 +22,16 @@ public class LadderAction implements TileAction {
 
   }
 
+  /**
+   * @return
+   */
   public int getDestinationTileId() {
     return destinationTileId;
   }
 
+  /**
+   * @return
+   */
   public String getDescription() {
     return description;
   }
