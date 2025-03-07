@@ -1,5 +1,38 @@
 package edu.ntnu.idi.idatt.game;
 
-public class LadderAction {
+/**
+ *
+ */
+public class LadderAction implements TileAction {
 
+  private final int destinationTileId;
+  private final String description;
+
+  /**
+   * @param destinationTileId
+   * @param description
+   */
+  public LadderAction(int destinationTileId, String description) {
+    this.destinationTileId = destinationTileId;
+    this.description = description;
+  }
+
+  @Override
+  public void perform(Player player) {
+
+  }
+
+  /**
+   * @return
+   */
+  public int getDestinationTileId() {
+    return destinationTileId;
+  }
+
+  /**
+   * @return
+   */
+  public String getDescription() {
+    return description;
+  }
 }
