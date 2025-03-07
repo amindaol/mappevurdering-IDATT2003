@@ -6,6 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test for {@link Die}.
+ * <p>These tests cover the core behavior of the Die class, including rolling, retrieving values
+ * and handling error cases.</p>
+ */
 class DieTest {
 
   private Die die;
