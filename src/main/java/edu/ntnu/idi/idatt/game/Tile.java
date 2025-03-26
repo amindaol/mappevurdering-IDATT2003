@@ -10,5 +10,19 @@ public class Tile {
     this.tileId = tileId;
   }
 
-  
+  public void landPlayer(Player player) {
+
+  }
+
+  public void leavePlayer(Player player) {
+
+  }
+
+  public void setTile(Tile nextTile) {
+
+  }
+
+  public int getTileId() {
+    return tileId;
+  }
 }
