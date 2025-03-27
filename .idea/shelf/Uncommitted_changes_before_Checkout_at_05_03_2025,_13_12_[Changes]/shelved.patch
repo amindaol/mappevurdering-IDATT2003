@@ -1,0 +1,15 @@
+Index: src/main/java/edu/ntnu/idi/idatt/game/TileAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.ntnu.idi.idatt.game;\n\npublic interface TileAction {\n\n}\n
+===================================================================
+diff --git a/src/main/java/edu/ntnu/idi/idatt/game/TileAction.java b/src/main/java/edu/ntnu/idi/idatt/game/TileAction.java
+--- a/src/main/java/edu/ntnu/idi/idatt/game/TileAction.java	(revision 874b9251dd316a25e6b5da8067152a9f97f1bc2f)
++++ b/src/main/java/edu/ntnu/idi/idatt/game/TileAction.java	(date 1741176727986)
+@@ -1,5 +1,5 @@
+ package edu.ntnu.idi.idatt.game;
+ 
+-public interface TileAction {
++public inter TileAction {
+ 
+ }

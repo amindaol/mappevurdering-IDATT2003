@@ -12,16 +12,24 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="FormatOnSaveOptions">
     <option name="myRunOnSave" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -48,11 +56,16 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.DieTest.getValue_returnMostRecentValue.executor": "Run",
+    "JUnit.DieTest.getValue_shouldThrowExceptionIfNotRolled.executor": "Run",
+    "JUnit.DieTest.roll_multipleRollsInRange.executor": "Run",
+    "JUnit.DieTest.roll_returnValueOneToSix.executor": "Run",
+    "JUnit.DieTest.valueUpdatesOnRoll.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Board",
+
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/ingrid/Documents/V25/Prog 2/Mappevurdering/mappevurdering-IDATT2003",
+    "last_opened_file_path": "/home/ingrid/Documents/V25/Prog 2/oeving5/cardGame",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -64,6 +77,97 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager" selected="JUnit.DieTest.valueUpdatesOnRoll">
+    <configuration name="DieTest.getValue_returnMostRecentValue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mappevurdering-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DieTest" />
+      <option name="METHOD_NAME" value="getValue_returnMostRecentValue" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DieTest.getValue_shouldThrowExceptionIfNotRolled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mappevurdering-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DieTest" />
+      <option name="METHOD_NAME" value="getValue_shouldThrowExceptionIfNotRolled" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DieTest.roll_multipleRollsInRange" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mappevurdering-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DieTest" />
+      <option name="METHOD_NAME" value="roll_multipleRollsInRange" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DieTest.roll_returnValueOneToSix" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mappevurdering-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DieTest" />
+      <option name="METHOD_NAME" value="roll_returnValueOneToSix" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DieTest.valueUpdatesOnRoll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mappevurdering-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DieTest" />
+      <option name="METHOD_NAME" value="valueUpdatesOnRoll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.DieTest.valueUpdatesOnRoll" />
+        <item itemvalue="JUnit.DieTest.roll_multipleRollsInRange" />
+        <item itemvalue="JUnit.DieTest.getValue_shouldThrowExceptionIfNotRolled" />
+        <item itemvalue="JUnit.DieTest.getValue_returnMostRecentValue" />
+        <item itemvalue="JUnit.DieTest.roll_returnValueOneToSix" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -85,10 +189,22 @@
       <workItem from="1740563951123" duration="427000" />
       <workItem from="1740564743809" duration="11000" />
       <workItem from="1740564763692" duration="1016000" />
+      <workItem from="1740654412757" duration="271000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
