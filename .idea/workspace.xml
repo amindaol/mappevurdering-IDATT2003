@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a31226b-78d0-4655-a47d-fb091cce478d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/game/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/game/BoardGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_06_03_2025,_11_28_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_06_03_2025__11_25__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_06_03_2025__11_28__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_26_03_2025,_13_02_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_26_03_2025__10_43__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_26_03_2025__13_02__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +46,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/amindaol/mappevurdering-IDATT2003.git&quot;,
-    &quot;accountId&quot;: &quot;42a305cd-45b9-46aa-a642-f481845ffccd&quot;
+    &quot;accountId&quot;: &quot;a8a957b9-e0a4-4af7-b2df-6be0a9ed9b87&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -54,29 +60,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JUnit.DieTest.getValue_returnMostRecentValue.executor": "Run",
-    "JUnit.DieTest.getValue_shouldThrowExceptionIfNotRolled.executor": "Run",
-    "JUnit.DieTest.roll_multipleRollsInRange.executor": "Run",
-    "JUnit.DieTest.roll_returnValueOneToSix.executor": "Run",
-    "JUnit.DieTest.valueUpdatesOnRoll.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Board",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/ingrid/Documents/V25/Prog 2/oeving5/cardGame",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.infernus.idea.checkstyle.CheckStyleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.DieTest.getValue_returnMostRecentValue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DieTest.getValue_shouldThrowExceptionIfNotRolled.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DieTest.roll_multipleRollsInRange.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DieTest.roll_returnValueOneToSix.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DieTest.valueUpdatesOnRoll.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Board&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/ingrid/Documents/V25/Prog 2/oeving5/cardGame&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.infernus.idea.checkstyle.CheckStyleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="JUnit.DieTest.valueUpdatesOnRoll">
     <configuration name="DieTest.getValue_returnMostRecentValue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
@@ -171,8 +177,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
-        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
       </set>
     </attachedChunks>
   </component>
@@ -190,6 +196,8 @@
       <workItem from="1740564743809" duration="11000" />
       <workItem from="1740564763692" duration="1016000" />
       <workItem from="1740654412757" duration="271000" />
+      <workItem from="1743516079260" duration="279000" />
+      <workItem from="1743682286339" duration="699000" />
     </task>
     <servers />
   </component>
