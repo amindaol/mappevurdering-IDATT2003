@@ -11,11 +11,12 @@ public class Player {
   private final BoardGame boardGame;
 
   /**
-   * Constructs a player with a name and a reference to the board game it is part of. Player should
-   * also know what tile it is currently on.
+   * Constructs a player with a name and a reference to the board game it is part of. The player
+   * initially has no tile assigned.
    *
-   * @param name      name of the player.
-   * @param boardGame the board game.
+   * @param name      the name of the player.
+   * @param boardGame the board game the player belongs to.
+   * @throws NullPointerException if {@code name} or {@code boardGame} is {@code null}.
    */
   public Player(String name, BoardGame boardGame) {
     if (name == null) {
@@ -31,9 +32,10 @@ public class Player {
   }
 
   /**
-   * Places the player on a certain tile.
+   * Places the player on a specific tile.
    *
-   * @param tile new tile for the player to be placed on.
+   * @param tile the tile to place the player on.
+   * @throws NullPointerException if {@code tile} is {@code null}.
    */
   public void placeOnTile(Tile tile) {
     if (tile == null) {
@@ -44,7 +46,11 @@ public class Player {
   }
 
   /**
-   * @param steps
+   * Moves the player a given number of steps along the board. Movement follows the next tiles. If
+   * there are no more tiles, the player stops.
+   *
+   * @param steps the number of steps to move.
+   * @throws IllegalStateException if the player is not currently placed on any tile.
    */
   public void move(int steps) {
     if (currentTile == null) {
@@ -63,14 +69,19 @@ public class Player {
   }
 
   /**
-   * Returns the tile the player is currently on
+   * Returns the tile the player is currently on.
    *
-   * @return current tile
+   * @return the current tile
    */
   public Tile getCurrentTile() {
     return currentTile;
   }
 
+  /**
+   * Returns the name of the player.
+   *
+   * @return the player's name.
+   */
   public String getName() {
     return name;
   }
