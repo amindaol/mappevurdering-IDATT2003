@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a31226b-78d0-4655-a47d-fb091cce478d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/PlayerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/LadderActionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/LadderActionTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,13 +63,15 @@
     "JUnit.DieTest.roll_returnValueOneToSix.executor": "Run",
     "JUnit.DieTest.valueUpdatesOnRoll.executor": "Run",
     "JUnit.LadderActionTest.constructor_setsDestinationTileId.executor": "Run",
+    "JUnit.PlayerTest.constructor_setsName.executor": "Run",
+    "JUnit.PlayerTest.testPlaceOnTile.executor": "Run",
     "JUnit.TileTest.ConstructorTileId.executor": "Run",
     "JUnit.TileTest.testConstructorTileId.executor": "Run",
     "JUnit.TileTest.testLandPlayer.executor": "Run",
     "JUnit.TileTest.testSetNextTile.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Tile",
+    "git-widget-placeholder": "Player",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/ingrid/Documents/V25/Prog 2/oeving5/cardGame",
     "node.js.detected.package.tslint": "true",
@@ -83,8 +85,8 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.LadderActionTest.invalidDestinationTileId_throwsException">
-    <configuration name="LadderActionTest.constructor_invalidDestinationTileId_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.PlayerTest.getBoardGame_returnsCorrectBoardGame">
+    <configuration name="PlayerTest.getBoardGame_returnsCorrectBoardGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -93,14 +95,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.LadderActionTest" />
-      <option name="METHOD_NAME" value="constructor_invalidDestinationTileId_throwsException" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.PlayerTest" />
+      <option name="METHOD_NAME" value="getBoardGame_returnsCorrectBoardGame" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LadderActionTest.constructor_setsDescription" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PlayerTest.getCurrentTile_returnsCorrectTile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -109,14 +111,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.LadderActionTest" />
-      <option name="METHOD_NAME" value="constructor_setsDescription" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.PlayerTest" />
+      <option name="METHOD_NAME" value="getCurrentTile_returnsCorrectTile" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LadderActionTest.invalidDestinationTileId_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PlayerTest.move_withoutTile_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -125,14 +127,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.LadderActionTest" />
-      <option name="METHOD_NAME" value="invalidDestinationTileId_throwsException" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.PlayerTest" />
+      <option name="METHOD_NAME" value="move_withoutTile_throwsException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LadderActionTest.nullDescription_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PlayerTest.movesCorrectNumberOfSteps" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -141,14 +143,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.LadderActionTest" />
-      <option name="METHOD_NAME" value="nullDescription_throwsException" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.PlayerTest" />
+      <option name="METHOD_NAME" value="movesCorrectNumberOfSteps" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LadderActionTest.perform_movesPlayer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PlayerTest.testPlaceOnTile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -157,8 +159,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.LadderActionTest" />
-      <option name="METHOD_NAME" value="perform_movesPlayer" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.PlayerTest" />
+      <option name="METHOD_NAME" value="testPlaceOnTile" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -166,11 +168,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LadderActionTest.invalidDestinationTileId_throwsException" />
-        <item itemvalue="JUnit.LadderActionTest.nullDescription_throwsException" />
-        <item itemvalue="JUnit.LadderActionTest.constructor_invalidDestinationTileId_throwsException" />
-        <item itemvalue="JUnit.LadderActionTest.perform_movesPlayer" />
-        <item itemvalue="JUnit.LadderActionTest.constructor_setsDescription" />
+        <item itemvalue="JUnit.PlayerTest.getBoardGame_returnsCorrectBoardGame" />
+        <item itemvalue="JUnit.PlayerTest.getCurrentTile_returnsCorrectTile" />
+        <item itemvalue="JUnit.PlayerTest.move_withoutTile_throwsException" />
+        <item itemvalue="JUnit.PlayerTest.movesCorrectNumberOfSteps" />
+        <item itemvalue="JUnit.PlayerTest.testPlaceOnTile" />
       </list>
     </recent_temporary>
   </component>
