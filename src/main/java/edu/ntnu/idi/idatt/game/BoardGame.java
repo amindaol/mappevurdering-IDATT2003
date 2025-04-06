@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the main game controller that manages players, the board, and dice.
- * <p>
- * This class is responsible for initializing the game, adding players and starting gameplay.
+ * Represents the main game controller that manages players, the board, and dice. This class is
+ * responsible for initializing the game, adding players and starting gameplay.
  */
 public class BoardGame {
 
   private Board board;
   private Player currentPlayer;
-  private List<Player> players;
+  private final List<Player> players;
   private Dice dice;
 
   /**
