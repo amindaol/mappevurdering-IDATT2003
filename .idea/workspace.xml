@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a31226b-78d0-4655-a47d-fb091cce478d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/BoardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/DiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/DiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +57,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.BoardTest.addTile_addsTileSuccessfully.executor": "Run",
+    "JUnit.BoardTest.addTile_nullTile_throwsException.executor": "Run",
+    "JUnit.BoardTest.getTile_returnsCorrectTile.executor": "Run",
+    "JUnit.BoardTest.size_returnsCorrectNumberOfTiles.executor": "Run",
     "JUnit.DiceTest.constructor_createsCorrectNumberOfDice.executor": "Run",
     "JUnit.DieTest.getValue_returnMostRecentValue.executor": "Run",
     "JUnit.DieTest.getValue_shouldThrowExceptionIfNotRolled.executor": "Run",
@@ -72,7 +76,7 @@
     "JUnit.TileTest.testSetNextTile.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Die-class",
+    "git-widget-placeholder": "Board",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/ingrid/Documents/V25/Prog 2/oeving5/cardGame",
     "node.js.detected.package.tslint": "true",
@@ -86,8 +90,8 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="DiceTest.constructor_createsCorrectNumberOfDice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.BoardTest.addTile_nullTile_throwsException">
+    <configuration name="BoardTest.addTile_addsTileSuccessfully" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -96,8 +100,56 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DiceTest" />
-      <option name="METHOD_NAME" value="constructor_createsCorrectNumberOfDice" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.BoardTest" />
+      <option name="METHOD_NAME" value="addTile_addsTileSuccessfully" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoardTest.addTile_nullTile_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mappevurdering-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.BoardTest" />
+      <option name="METHOD_NAME" value="addTile_nullTile_throwsException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoardTest.getTile_returnsCorrectTile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mappevurdering-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.BoardTest" />
+      <option name="METHOD_NAME" value="getTile_returnsCorrectTile" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoardTest.size_returnsCorrectNumberOfTiles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mappevurdering-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.BoardTest" />
+      <option name="METHOD_NAME" value="size_returnsCorrectNumberOfTiles" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -119,61 +171,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DiceTest.getDie_invalidIndex_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="mappevurdering-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DiceTest" />
-      <option name="METHOD_NAME" value="getDie_invalidIndex_throwsException" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DiceTest.getDie_returnsDie" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="mappevurdering-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DiceTest" />
-      <option name="METHOD_NAME" value="getDie_returnsDie" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DiceTest.roll_returnsSumInValidRange" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="mappevurdering-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DiceTest" />
-      <option name="METHOD_NAME" value="roll_returnsSumInValidRange" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BoardTest.addTile_nullTile_throwsException" />
+        <item itemvalue="JUnit.BoardTest.size_returnsCorrectNumberOfTiles" />
+        <item itemvalue="JUnit.BoardTest.getTile_returnsCorrectTile" />
+        <item itemvalue="JUnit.BoardTest.addTile_addsTileSuccessfully" />
         <item itemvalue="JUnit.DiceTest.constructor_invalidDiceAmount_throwsException" />
-        <item itemvalue="JUnit.DiceTest.getDie_invalidIndex_throwsException" />
-        <item itemvalue="JUnit.DiceTest.getDie_returnsDie" />
-        <item itemvalue="JUnit.DiceTest.roll_returnsSumInValidRange" />
-        <item itemvalue="JUnit.DiceTest.constructor_createsCorrectNumberOfDice" />
       </list>
     </recent_temporary>
   </component>
