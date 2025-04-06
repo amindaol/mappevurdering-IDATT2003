@@ -2,14 +2,14 @@ package edu.ntnu.idi.idatt.game;
 
 /**
  * Represents a single tile on the game board.
- * <p>
- * A tile can link to a next tile and optionally have a special action that is triggered when a
+ *
+ * <p>A tile can link to a next tile and optionally have a special action that is triggered when a
  * player lands on it.
  */
 public class Tile {
 
   private Tile nextTile;
-  private int tileId;
+  private final int tileId;
   private TileAction landAction;
 
   /**
@@ -32,9 +32,9 @@ public class Tile {
 
   /**
    * Handles logic when a player lands on this tile.
-   * <p>
-   * The player is placed on this tile, and any associated {@link TileAction} is preformed (such as
-   * climbing a ladder).
+   *
+   * <p>The player is placed on this tile, and any associated {@link TileAction} is preformed (such
+   * as climbing a ladder).
    *
    * @param player the player landing on this tile.
    */
@@ -48,8 +48,8 @@ public class Tile {
 
   /**
    * Called when a player leaves this tile.
-   * <p>
-   * Currently used for logging purposes.
+   *
+   * <p>Currently used for logging purposes.
    *
    * @param player the player leaving the tile.
    */

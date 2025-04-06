@@ -17,8 +17,18 @@ public class LadderAction implements TileAction {
    * @param destinationTileId the ID of the tile the player should be moved to.
    * @param description       a textual description of the ladder action (e.g., "Climb to tile
    *                          14").
+   * @throws IllegalArgumentException if {@code destinationTileId} is not positive.
+   * @throws NullPointerException     if {@code description} is {@code null}.
    */
   public LadderAction(int destinationTileId, String description) {
+    if (destinationTileId <= 0) {
+      throw new IllegalArgumentException("Destination tile id must be positive");
+    }
+
+    if (description == null) {
+      throw new IllegalArgumentException("Description cannot be null");
+    }
+
     this.destinationTileId = destinationTileId;
     this.description = description;
   }
