@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0a31226b-78d0-4655-a47d-fb091cce478d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/game/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/game/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/game/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/game/BoardGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/TileTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/TileTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,9 +63,12 @@
     "JUnit.DieTest.roll_returnValueOneToSix.executor": "Run",
     "JUnit.DieTest.valueUpdatesOnRoll.executor": "Run",
     "JUnit.TileTest.ConstructorTileId.executor": "Run",
+    "JUnit.TileTest.testConstructorTileId.executor": "Run",
+    "JUnit.TileTest.testLandPlayer.executor": "Run",
+    "JUnit.TileTest.testSetNextTile.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Board",
+    "git-widget-placeholder": "Tile",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/ingrid/Documents/V25/Prog 2/oeving5/cardGame",
     "node.js.detected.package.tslint": "true",
@@ -80,56 +82,8 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.TileTest.testSetNextTile">
-    <configuration name="DieTest.getValue_shouldThrowExceptionIfNotRolled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="mappevurdering-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DieTest" />
-      <option name="METHOD_NAME" value="getValue_shouldThrowExceptionIfNotRolled" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DieTest.roll_multipleRollsInRange" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="mappevurdering-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DieTest" />
-      <option name="METHOD_NAME" value="roll_multipleRollsInRange" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DieTest.valueUpdatesOnRoll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="mappevurdering-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DieTest" />
-      <option name="METHOD_NAME" value="valueUpdatesOnRoll" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TileTest.ConstructorTileId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="TileTest.landPlayerTriggerAction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -139,13 +93,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
       <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.TileTest" />
-      <option name="METHOD_NAME" value="ConstructorTileId" />
+      <option name="METHOD_NAME" value="landPlayerTriggerAction" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TileTest.testSetNextTile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TileTest.landPlayer_nullPlayer_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -155,7 +109,55 @@
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
       <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.TileTest" />
-      <option name="METHOD_NAME" value="testSetNextTile" />
+      <option name="METHOD_NAME" value="landPlayer_nullPlayer_throwsException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TileTest.leavePlayer_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mappevurdering-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.TileTest" />
+      <option name="METHOD_NAME" value="leavePlayer_throwsException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TileTest.nullPlayer_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mappevurdering-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.TileTest" />
+      <option name="METHOD_NAME" value="nullPlayer_throwsException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TileTest.testLeavePlayerNoException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mappevurdering-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.TileTest" />
+      <option name="METHOD_NAME" value="testLeavePlayerNoException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -163,11 +165,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TileTest.testSetNextTile" />
-        <item itemvalue="JUnit.TileTest.ConstructorTileId" />
-        <item itemvalue="JUnit.DieTest.valueUpdatesOnRoll" />
-        <item itemvalue="JUnit.DieTest.roll_multipleRollsInRange" />
-        <item itemvalue="JUnit.DieTest.getValue_shouldThrowExceptionIfNotRolled" />
+        <item itemvalue="JUnit.TileTest.leavePlayer_throwsException" />
+        <item itemvalue="JUnit.TileTest.nullPlayer_throwsException" />
+        <item itemvalue="JUnit.TileTest.landPlayer_nullPlayer_throwsException" />
+        <item itemvalue="JUnit.TileTest.landPlayerTriggerAction" />
+        <item itemvalue="JUnit.TileTest.testLeavePlayerNoException" />
       </list>
     </recent_temporary>
   </component>
