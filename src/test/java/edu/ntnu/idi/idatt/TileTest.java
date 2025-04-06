@@ -20,4 +20,20 @@ class TileTest {
     tile = new Tile(1);
     player = new Player("Test player", game);
   }
+
+  @Test
+  void testConstructorTileId() {
+    assertEquals(1, tile.getTileId(), "Tile ID should be set correctly in "
+        + "constructor.");
+  }
+
+  @Test
+  void testSetNextTile() {
+    Tile nextTile = new Tile(2);
+    tile.setNextTile(nextTile);
+    assertEquals(nextTile, tile.getNextTile());
+  }
+
+  @Test
+  void
 }
