@@ -33,7 +33,7 @@ public class Tile {
   /**
    * Handles logic when a player lands on this tile.
    *
-   * <p>The player is placed on this tile, and any associated {@link TileAction} is preformed (such
+   * <p>The player is placed on this tile, and any associated {@link TileAction} is performed (such
    * as climbing a ladder).
    *
    * @param player the player landing on this tile.

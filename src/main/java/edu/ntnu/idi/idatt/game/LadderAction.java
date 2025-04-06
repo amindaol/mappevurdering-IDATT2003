@@ -26,7 +26,7 @@ public class LadderAction implements TileAction {
     }
 
     if (description == null) {
-      throw new IllegalArgumentException("Description cannot be null");
+      throw new NullPointerException("Description cannot be null");
     }
 
     this.destinationTileId = destinationTileId;
@@ -35,15 +35,22 @@ public class LadderAction implements TileAction {
 
   /**
    * Performs the ladder action on the given player.
-   * <p>
-   * This method should move the player to the destination tile. Implementation will be completed
-   * once Player and Board are fully defined.
    *
    * @param player the player who landed on the tile with this action.
+   * @throws NullPointerException
    */
   @Override
   public void perform(Player player) {
-    // To be implemented later!
+    if (player == null) {
+      throw new NullPointerException("Player cannot be null when performing LadderAction.");
+    }
+
+    Tile destination = player.getBoardGame().getBoard().getTile(destinationTileId);
+    if (destination == null) {
+      throw new IllegalArgumentException("Destination tile does not exist");
+    }
+
+    player.placeOnTile(destination);
   }
 
   /**
