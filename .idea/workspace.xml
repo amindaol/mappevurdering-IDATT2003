@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a31226b-78d0-4655-a47d-fb091cce478d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/PlayerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/DiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/DiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +57,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.DiceTest.constructor_createsCorrectNumberOfDice.executor": "Run",
     "JUnit.DieTest.getValue_returnMostRecentValue.executor": "Run",
     "JUnit.DieTest.getValue_shouldThrowExceptionIfNotRolled.executor": "Run",
     "JUnit.DieTest.roll_multipleRollsInRange.executor": "Run",
@@ -71,7 +72,7 @@
     "JUnit.TileTest.testSetNextTile.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Player",
+    "git-widget-placeholder": "Die-class",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/ingrid/Documents/V25/Prog 2/oeving5/cardGame",
     "node.js.detected.package.tslint": "true",
@@ -85,8 +86,8 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.PlayerTest.getBoardGame_returnsCorrectBoardGame">
-    <configuration name="PlayerTest.getBoardGame_returnsCorrectBoardGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="DiceTest.constructor_createsCorrectNumberOfDice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -95,14 +96,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.PlayerTest" />
-      <option name="METHOD_NAME" value="getBoardGame_returnsCorrectBoardGame" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DiceTest" />
+      <option name="METHOD_NAME" value="constructor_createsCorrectNumberOfDice" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayerTest.getCurrentTile_returnsCorrectTile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DiceTest.constructor_invalidDiceAmount_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -111,14 +112,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.PlayerTest" />
-      <option name="METHOD_NAME" value="getCurrentTile_returnsCorrectTile" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DiceTest" />
+      <option name="METHOD_NAME" value="constructor_invalidDiceAmount_throwsException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayerTest.move_withoutTile_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DiceTest.getDie_invalidIndex_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -127,14 +128,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.PlayerTest" />
-      <option name="METHOD_NAME" value="move_withoutTile_throwsException" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DiceTest" />
+      <option name="METHOD_NAME" value="getDie_invalidIndex_throwsException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayerTest.movesCorrectNumberOfSteps" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DiceTest.getDie_returnsDie" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -143,14 +144,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.PlayerTest" />
-      <option name="METHOD_NAME" value="movesCorrectNumberOfSteps" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DiceTest" />
+      <option name="METHOD_NAME" value="getDie_returnsDie" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayerTest.testPlaceOnTile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DiceTest.roll_returnsSumInValidRange" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -159,8 +160,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.PlayerTest" />
-      <option name="METHOD_NAME" value="testPlaceOnTile" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DiceTest" />
+      <option name="METHOD_NAME" value="roll_returnsSumInValidRange" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -168,11 +169,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PlayerTest.getBoardGame_returnsCorrectBoardGame" />
-        <item itemvalue="JUnit.PlayerTest.getCurrentTile_returnsCorrectTile" />
-        <item itemvalue="JUnit.PlayerTest.move_withoutTile_throwsException" />
-        <item itemvalue="JUnit.PlayerTest.movesCorrectNumberOfSteps" />
-        <item itemvalue="JUnit.PlayerTest.testPlaceOnTile" />
+        <item itemvalue="JUnit.DiceTest.constructor_invalidDiceAmount_throwsException" />
+        <item itemvalue="JUnit.DiceTest.getDie_invalidIndex_throwsException" />
+        <item itemvalue="JUnit.DiceTest.getDie_returnsDie" />
+        <item itemvalue="JUnit.DiceTest.roll_returnsSumInValidRange" />
+        <item itemvalue="JUnit.DiceTest.constructor_createsCorrectNumberOfDice" />
       </list>
     </recent_temporary>
   </component>
