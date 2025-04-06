@@ -4,14 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents the game board consisting of tiles.
- * <p>
- * Each tile is identified by a unique integer ID and stored in a map for easy access. This class
- * provides methods to add tiles and retrieve them by their ID.
+ * Represents the game board consisting of tiles. Each tile is identified by a unique integer ID and
+ * stored in a map for easy access. This class provides methods to add tiles and retrieve them by
+ * their ID.
  */
 public class Board {
 
-  private Map<Integer, Tile> tiles;
+  private final Map<Integer, Tile> tiles;
 
   /**
    * Constructs an empty game board.
@@ -24,8 +23,12 @@ public class Board {
    * Adds a tile to the board. If a tile with the same ID already exists, it will be overwritten.
    *
    * @param tile the tile to add to the board.
+   * @throws NullPointerException if {@code tile} is {@code null}.
    */
   public void addTile(Tile tile) {
+    if (tile == null) {
+      throw new NullPointerException("Tile cannot be null when adding to board.");
+    }
     tiles.put(tile.getTileId(), tile);
   }
 
