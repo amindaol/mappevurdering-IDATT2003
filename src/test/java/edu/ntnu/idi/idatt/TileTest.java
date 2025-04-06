@@ -35,5 +35,40 @@ class TileTest {
   }
 
   @Test
-  void
+  void testLandPlayer() {
+    tile.landPlayer(player);
+    assertEquals(tile, player.getCurrentTile(), "Player should be placed on the tile while "
+        + "landing.");
+  }
+
+  @Test
+  void testLeavePlayerNoException() {
+    assertDoesNotThrow(() -> tile.leavePlayer(player), "Leaving a tile should not throw an "
+        + "exception.");
+  }
+
+  @Test
+  void landPlayerTriggerAction() {
+    Tile targetTile = new Tile(2);
+    tile.setLandAction(p -> p.placeOnTile(targetTile));
+
+    tile.landPlayer(player);
+
+    assertEquals(targetTile, player.getCurrentTile(), "Land action should move the player "
+        + "to a different tile.");
+  }
+
+  @Test
+  void landPlayer_throwsException() {
+    assertThrows(NullPointerException.class, () -> tile.landPlayer(null),
+        "Landing with null player should throw NullPointerException.");
+  }
+
+  @Test
+  void leavePlayer_throwsException() {
+    assertThrows(NullPointerException.class, () -> tile.leavePlayer(null),
+        "Leaving with null player should throw NullPointerException.");
+  }
+
+
 }
