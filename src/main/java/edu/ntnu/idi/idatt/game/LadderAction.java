@@ -34,10 +34,12 @@ public class LadderAction implements TileAction {
   }
 
   /**
-   * Performs the ladder action on the given player.
+   * Performs the ladder action on the given player. This method moves the player directly to the
+   * destination tile.
    *
    * @param player the player who landed on the tile with this action.
-   * @throws NullPointerException
+   * @throws NullPointerException     if {@code player} is {@code null}.
+   * @throws IllegalArgumentException if the destination tile does not exist.
    */
   @Override
   public void perform(Player player) {
