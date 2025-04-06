@@ -6,18 +6,25 @@ package edu.ntnu.idi.idatt.game;
  */
 public class Player {
 
-  private String name;
+  private final String name;
   private Tile currentTile;
-  private BoardGame boardGame;
+  private final BoardGame boardGame;
 
   /**
    * Constructs a player with a name and a reference to the board game it is part of. Player should
    * also know what tile it is currently on.
    *
    * @param name      name of the player.
-   * @param boardGame the boardgame.
+   * @param boardGame the board game.
    */
   public Player(String name, BoardGame boardGame) {
+    if (name == null) {
+      throw new NullPointerException("Player name cannot be null.");
+    }
+    if (boardGame == null) {
+      throw new NullPointerException("BoardGame reference cannot be null.");
+    }
+
     this.name = name;
     this.boardGame = boardGame;
     this.currentTile = null;
@@ -29,11 +36,21 @@ public class Player {
    * @param tile new tile for the player to be placed on.
    */
   public void placeOnTile(Tile tile) {
+    if (tile == null) {
+      throw new NullPointerException("Tile cannot be null when placing player.");
+    }
+
     this.currentTile = tile;
   }
 
-
+  /**
+   * @param steps
+   */
   public void move(int steps) {
+    if (currentTile == null) {
+      throw new IllegalStateException("Cannot move player: Player is not on any tile.");
+    }
+
     Tile destination = currentTile;
     for (int i = 0; i < steps; i++) {
       if (destination.getNextTile() != null) {
