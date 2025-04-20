@@ -7,12 +7,12 @@ package edu.ntnu.idi.idatt.game;
 public class Player {
 
   private final String name;
+  private String token;
   private Tile currentTile;
-  private final BoardGame boardGame;
+  private BoardGame boardGame;
 
   /**
-   * Constructs a player with a name and a reference to the board game it is part of. The player
-   * initially has no tile assigned.
+   * Primary constructor used by the game logic.
    *
    * @param name      the name of the player.
    * @param boardGame the board game the player belongs to.
@@ -29,6 +29,37 @@ public class Player {
     this.name = name;
     this.boardGame = boardGame;
     this.currentTile = null;
+  }
+
+  /**
+   * Secondary constructor used by DAO (CSV) when loading players. BoardGame reference can be
+   * injected later via setter.
+   *
+   * @param name  the player's name
+   * @param token the identifier for the player's token (e.g. "TopHat")
+   * @throws NullPointerException if {@code name} is {@code null}
+   */
+  public Player(String name, String token) {
+    if (name == null) {
+      throw new NullPointerException("Player name cannot be null.");
+    }
+    this.name = name;
+    this.token = token;
+    this.currentTile = null;
+    this.boardGame = null;
+  }
+
+  /**
+   * Associates this player with a specific BoardGame instance.
+   *
+   * @param boardGame the BoardGame to set
+   * @throws NullPointerException if {@code boardGame} is {@code null}
+   */
+  public void setBoardGame(BoardGame boardGame) {
+    if (boardGame == null) {
+      throw new NullPointerException("BoardGame reference cannot be null.");
+    }
+    this.boardGame = boardGame;
   }
 
   /**
@@ -55,6 +86,9 @@ public class Player {
   public void move(int steps) {
     if (currentTile == null) {
       throw new IllegalStateException("Cannot move player: Player is not on any tile.");
+    }
+    if (steps < 0) {
+      throw new IllegalArgumentException("Steps cannot be negative.");
     }
 
     Tile destination = currentTile;
@@ -88,5 +122,14 @@ public class Player {
 
   public BoardGame getBoardGame() {
     return boardGame;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  @Override
+  public String toString() {
+    return "Player{name='" + name + "', token='" + token + "'}";
   }
 }
