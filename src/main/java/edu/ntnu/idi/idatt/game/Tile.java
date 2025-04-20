@@ -83,4 +83,22 @@ public class Tile {
   public void setLandAction(TileAction landAction) {
     this.landAction = landAction;
   }
+
+  /**
+   * Returns the action assigned to this tile when landed on.
+   *
+   * @return the TileAction, or null if none is set
+   */
+  public TileAction getLandAction() {
+    return landAction;
+  }
+
+  /**
+   * Notifies that a player is leaving this tile. (For debug/logging)
+   *
+   * @param playerName name of the player leaving the tile
+   */
+  public void leave(String playerName) {
+    System.out.println(playerName + " leaves tile " + tileId);
+  }
 }
