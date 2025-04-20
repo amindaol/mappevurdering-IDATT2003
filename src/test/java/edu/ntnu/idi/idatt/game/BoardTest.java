@@ -1,8 +1,5 @@
-package edu.ntnu.idi.idatt;
+package edu.ntnu.idi.idatt.game;
 
-import edu.ntnu.idi.idatt.game.Board;
-import edu.ntnu.idi.idatt.game.Tile;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
