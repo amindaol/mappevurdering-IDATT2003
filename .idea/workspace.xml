@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a31226b-78d0-4655-a47d-fb091cce478d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/dao/BoardJsonDaoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +57,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.BoardJsonDaoTest.executor": "Coverage",
     "JUnit.BoardTest.addTile_addsTileSuccessfully.executor": "Run",
     "JUnit.BoardTest.addTile_nullTile_throwsException.executor": "Run",
     "JUnit.BoardTest.getTile_returnsCorrectTile.executor": "Run",
@@ -97,7 +98,7 @@
       <recent name="edu.ntnu.idi.idatt.game" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BoardTest.addTile_addsTileSuccessfully">
+  <component name="RunManager">
     <configuration name="BoardTest.addTile_addsTileSuccessfully" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
@@ -245,7 +246,21 @@
       </map>
     </option>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/game/Tile.java</url>
+          <line>83</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/mappevurdering_IDATT2003$BoardJsonDaoTest.ic" NAME="BoardJsonDaoTest Coverage Results" MODIFIED="1745155747824" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>edu.ntnu.idi.idatt.dao.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/mappevurdering_IDATT2003$PlayerCsvDaoTest.ic" NAME="PlayerCsvDaoTest Coverage Results" MODIFIED="1745151533544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>edu.ntnu.idi.idatt.dao.*</FILTER>
     </SUITE>

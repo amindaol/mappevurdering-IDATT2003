@@ -8,6 +8,7 @@ import edu.ntnu.idi.idatt.game.Tile;
 import edu.ntnu.idi.idatt.game.LadderAction;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -16,6 +17,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+
 
 /**
  * JSON-based implementation of {@link BoardDao} using Gson.
@@ -95,14 +97,43 @@ public class BoardJsonDao implements BoardDao {
   }
 
   /**
-   * Writes the given {@link Board} instance to the configured JSON file. This operation is not yet
-   * implemented.
+   * Writes the given {@link Board} to the JSON file. The board is serialized with a "tiles" array
+   * containing each tile's id, nextTile, and optional action.
    *
-   * @param board the Board to serialize to JSON
-   * @throws DaoException if an error occurs during writing
+   * @param board the Board instance to serialize
+   * @throws DaoException if an I/O error occurs during writing
    */
   @Override
   public void writeBoard(Board board) throws DaoException {
-    throw new UnsupportedOperationException("writeBoard not implemented yet");
+
+    JsonObject root = new JsonObject();
+    JsonArray tilesArray = new JsonArray();
+    int total = board.size();
+
+    for (int id = 1; id <= total; id++) {
+      Tile tile = board.getTile(id);
+      JsonObject tileObj = new JsonObject();
+      tileObj.addProperty("id", tile.getTileId());
+      if (tile.getNextTile() != null) {
+        tileObj.addProperty("nextTile", tile.getNextTile().getTileId());
+      }
+      if (tile.getLandAction() instanceof LadderAction) {
+        LadderAction la = (LadderAction) tile.getLandAction();
+        JsonObject actionObj = new JsonObject();
+        actionObj.addProperty("type", "LadderAction");
+        actionObj.addProperty("destinationTileId", la.getDestinationTileId());
+        actionObj.addProperty("description", la.getDescription());
+        tileObj.add("action", actionObj);
+      }
+      tilesArray.add(tileObj);
+    }
+    root.add("tiles", tilesArray);
+
+    try (Writer writer = Files.newBufferedWriter(jsonFile)) {
+      writer.write(root.toString());
+    } catch (IOException e) {
+      throw new DaoException("Failed to write board JSON file", e);
+    }
   }
+
 }
