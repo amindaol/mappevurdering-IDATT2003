@@ -46,14 +46,13 @@ class BoardJsonDaoTest {
     Files.writeString(jsonFile, json);
 
     Board board = dao.readBoard();
-    // Validate number of tiles
+
     assertEquals(3, board.size());
-    // Validate nextTile linkage
+
     Tile tile1 = board.getTile(1);
     assertNotNull(tile1.getNextTile());
     assertEquals(2, tile1.getNextTile().getTileId());
 
-    // Validate action on tile 2
     Tile tile2 = board.getTile(2);
     assertNotNull(tile2.getLandAction());
     assertTrue(tile2.getLandAction() instanceof LadderAction);
@@ -82,5 +81,38 @@ class BoardJsonDaoTest {
         () -> dao.readBoard()
     );
     assertTrue(ex.getMessage().contains("Malformed JSON"));
+  }
+  
+  @Test
+  void testWriteAndReadBoardRoundTrip() throws IOException {
+    // Arrange: create a board with 3 tiles and a ladder action
+    Board board = new Board();
+    Tile tile1 = new Tile(1);
+    Tile tile2 = new Tile(2);
+    Tile tile3 = new Tile(3);
+    board.addTile(tile1);
+    board.addTile(tile2);
+    board.addTile(tile3);
+    tile1.setNextTile(tile2);
+    tile2.setNextTile(tile3);
+    LadderAction ladder = new LadderAction(3, "Up to 3");
+    tile2.setLandAction(ladder);
+
+    dao.writeBoard(board);
+    assertTrue(Files.exists(jsonFile), "JSON file should be created after write");
+    Board loaded = dao.readBoard();
+
+    assertEquals(3, loaded.size(), "Loaded board should have 3 tiles");
+    Tile loaded1 = loaded.getTile(1);
+    Tile loaded2 = loaded.getTile(2);
+    Tile loaded3 = loaded.getTile(3);
+    assertEquals(2, loaded1.getNextTile().getTileId());
+    assertEquals(3, loaded2.getNextTile().getTileId());
+    assertNull(loaded3.getNextTile(), "Last tile should have no next tile");
+    assertTrue(loaded2.getLandAction() instanceof LadderAction, "Tile 2 should have a "
+        + "LadderAction");
+    LadderAction loadedAction = (LadderAction) loaded2.getLandAction();
+    assertEquals(3, loadedAction.getDestinationTileId());
+    assertEquals("Up to 3", loadedAction.getDescription());
   }
 }
