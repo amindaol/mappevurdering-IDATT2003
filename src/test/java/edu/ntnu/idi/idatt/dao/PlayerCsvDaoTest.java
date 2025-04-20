@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for {@link PlayerCsvDao}.
  */
-public class PlayerCsvDaoTest {
+class PlayerCsvDaoTest {
 
   @TempDir
   Path tempDir;
