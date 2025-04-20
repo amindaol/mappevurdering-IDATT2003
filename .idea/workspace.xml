@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a31226b-78d0-4655-a47d-fb091cce478d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/BoardTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/dao/PlayerCsvDaoTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/BoardGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/game/BoardGameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/game/BoardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/DiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/game/DiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/DieTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/game/DieTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/LadderActionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/game/LadderActionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/game/PlayerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/TileTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/game/TileTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +24,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -68,6 +77,7 @@
     "JUnit.DieTest.roll_returnValueOneToSix.executor": "Run",
     "JUnit.DieTest.valueUpdatesOnRoll.executor": "Run",
     "JUnit.LadderActionTest.constructor_setsDestinationTileId.executor": "Run",
+    "JUnit.PlayerCsvDaoTest.executor": "Run",
     "JUnit.PlayerTest.constructor_setsName.executor": "Run",
     "JUnit.PlayerTest.testPlaceOnTile.executor": "Run",
     "JUnit.TileTest.ConstructorTileId.executor": "Run",
@@ -76,7 +86,8 @@
     "JUnit.TileTest.testSetNextTile.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Board",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "feature/add-player-csv-dao-",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/ingrid/Documents/V25/Prog 2/oeving5/cardGame",
     "node.js.detected.package.tslint": "true",
@@ -90,17 +101,22 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="edu.ntnu.idi.idatt.game" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="BoardTest.addTile_addsTileSuccessfully" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.game.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.BoardTest" />
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt.game" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.game.BoardTest" />
       <option name="METHOD_NAME" value="addTile_addsTileSuccessfully" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -111,12 +127,12 @@
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.game.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.BoardTest" />
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt.game" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.game.BoardTest" />
       <option name="METHOD_NAME" value="addTile_nullTile_throwsException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -127,12 +143,12 @@
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.game.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.BoardTest" />
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt.game" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.game.BoardTest" />
       <option name="METHOD_NAME" value="getTile_returnsCorrectTile" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -143,12 +159,12 @@
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.game.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.BoardTest" />
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt.game" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.game.BoardTest" />
       <option name="METHOD_NAME" value="size_returnsCorrectNumberOfTiles" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -159,12 +175,12 @@
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.game.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt" />
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.DiceTest" />
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt.game" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.game.DiceTest" />
       <option name="METHOD_NAME" value="constructor_invalidDiceAmount_throwsException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -207,6 +223,8 @@
       <workItem from="1743682286339" duration="1507000" />
       <workItem from="1743766586893" duration="3279000" />
       <workItem from="1743771653556" duration="2455000" />
+      <workItem from="1744208464857" duration="89000" />
+      <workItem from="1745146734160" duration="3994000" />
     </task>
     <servers />
   </component>
