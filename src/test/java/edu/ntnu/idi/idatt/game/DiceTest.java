@@ -1,5 +1,7 @@
 package edu.ntnu.idi.idatt.game;
 
+import edu.ntnu.idi.idatt.model.game.Dice;
+import edu.ntnu.idi.idatt.model.game.Die;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

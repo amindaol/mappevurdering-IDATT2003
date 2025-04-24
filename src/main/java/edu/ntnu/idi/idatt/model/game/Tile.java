@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.game;
+package edu.ntnu.idi.idatt.model.game;
 
 /**
  * Represents a single tile on the game board.

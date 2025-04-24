@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.game;
 
+import edu.ntnu.idi.idatt.model.game.Die;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

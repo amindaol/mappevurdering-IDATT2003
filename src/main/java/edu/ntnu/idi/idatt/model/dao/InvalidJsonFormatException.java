@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.dao;
+package edu.ntnu.idi.idatt.model.dao;
 
 /**
  * Thrown when JSON data cannot be parsed into a valid Board structure.

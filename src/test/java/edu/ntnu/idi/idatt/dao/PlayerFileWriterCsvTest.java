@@ -1,6 +1,10 @@
 package edu.ntnu.idi.idatt.dao;
 
-import edu.ntnu.idi.idatt.game.Player;
+import edu.ntnu.idi.idatt.model.dao.PlayerFileReader;
+import edu.ntnu.idi.idatt.model.dao.PlayerFileReaderCsv;
+import edu.ntnu.idi.idatt.model.dao.PlayerFileWriter;
+import edu.ntnu.idi.idatt.model.dao.PlayerFileWriterCsv;
+import edu.ntnu.idi.idatt.model.game.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;

@@ -1,7 +1,7 @@
-package edu.ntnu.idi.idatt.game;
+package edu.ntnu.idi.idatt.model.game;
 
-import edu.ntnu.idi.idatt.observer.BoardGameEvent;
-import edu.ntnu.idi.idatt.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.model.observer.BoardGameEvent;
+import edu.ntnu.idi.idatt.model.observer.BoardGameObserver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

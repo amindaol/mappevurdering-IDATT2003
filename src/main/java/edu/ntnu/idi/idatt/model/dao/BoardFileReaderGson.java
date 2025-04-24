@@ -1,13 +1,13 @@
-package edu.ntnu.idi.idatt.dao;
+package edu.ntnu.idi.idatt.model.dao;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
-import edu.ntnu.idi.idatt.game.Board;
-import edu.ntnu.idi.idatt.game.LadderAction;
-import edu.ntnu.idi.idatt.game.Tile;
+import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.LadderAction;
+import edu.ntnu.idi.idatt.model.game.Tile;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;

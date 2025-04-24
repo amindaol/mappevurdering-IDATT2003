@@ -1,5 +1,8 @@
 package edu.ntnu.idi.idatt.game;
 
+import edu.ntnu.idi.idatt.model.game.BoardGame;
+import edu.ntnu.idi.idatt.model.game.LadderAction;
+import edu.ntnu.idi.idatt.model.game.Player;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

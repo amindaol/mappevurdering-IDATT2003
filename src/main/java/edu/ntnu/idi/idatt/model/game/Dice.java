@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.game;
+package edu.ntnu.idi.idatt.model.game;
 
 /**
  * The {@code Dice} class represents a set of dice. It allows rolling all dice at once and accessing

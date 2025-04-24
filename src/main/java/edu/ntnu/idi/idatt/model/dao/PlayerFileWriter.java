@@ -1,6 +1,6 @@
-package edu.ntnu.idi.idatt.dao;
+package edu.ntnu.idi.idatt.model.dao;
 
-import edu.ntnu.idi.idatt.game.Player;
+import edu.ntnu.idi.idatt.model.game.Player;
 import java.nio.file.Path;
 import java.util.List;
 

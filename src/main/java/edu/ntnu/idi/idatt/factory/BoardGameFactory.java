@@ -1,11 +1,11 @@
 package edu.ntnu.idi.idatt.factory;
 
-import edu.ntnu.idi.idatt.dao.BoardFileReaderGson;
-import edu.ntnu.idi.idatt.dao.PlayerFileReader;
-import edu.ntnu.idi.idatt.dao.PlayerFileReaderCsv;
-import edu.ntnu.idi.idatt.game.Board;
-import edu.ntnu.idi.idatt.game.BoardGame;
-import edu.ntnu.idi.idatt.game.Player;
+import edu.ntnu.idi.idatt.model.dao.BoardFileReaderGson;
+import edu.ntnu.idi.idatt.model.dao.PlayerFileReader;
+import edu.ntnu.idi.idatt.model.dao.PlayerFileReaderCsv;
+import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.BoardGame;
+import edu.ntnu.idi.idatt.model.game.Player;
 import java.nio.file.Path;
 import java.util.List;
 

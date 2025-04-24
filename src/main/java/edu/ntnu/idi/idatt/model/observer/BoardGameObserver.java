@@ -1,6 +1,6 @@
-package edu.ntnu.idi.idatt.observer;
+package edu.ntnu.idi.idatt.model.observer;
 
-import edu.ntnu.idi.idatt.game.BoardGame;
+import edu.ntnu.idi.idatt.model.game.BoardGame;
 import java.util.EventListener;
 
 /**

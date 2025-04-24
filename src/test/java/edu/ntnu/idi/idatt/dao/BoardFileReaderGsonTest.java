@@ -1,8 +1,10 @@
 package edu.ntnu.idi.idatt.dao;
 
-import edu.ntnu.idi.idatt.game.Board;
-import edu.ntnu.idi.idatt.game.LadderAction;
-import edu.ntnu.idi.idatt.game.Tile;
+import edu.ntnu.idi.idatt.model.dao.BoardFileReaderGson;
+import edu.ntnu.idi.idatt.model.dao.InvalidJsonFormatException;
+import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.LadderAction;
+import edu.ntnu.idi.idatt.model.game.Tile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;

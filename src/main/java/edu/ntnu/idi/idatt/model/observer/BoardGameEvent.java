@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.observer;
+package edu.ntnu.idi.idatt.model.observer;
 
 public enum BoardGameEvent {
   GAME_START,

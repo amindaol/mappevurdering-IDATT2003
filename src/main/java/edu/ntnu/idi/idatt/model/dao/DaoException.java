@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.dao;
+package edu.ntnu.idi.idatt.model.dao;
 
 /**
  * Exception thrown when a data access operation fails.

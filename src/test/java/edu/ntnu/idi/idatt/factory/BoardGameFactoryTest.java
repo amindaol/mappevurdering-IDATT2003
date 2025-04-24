@@ -1,8 +1,8 @@
 package edu.ntnu.idi.idatt.factory;
 
-import edu.ntnu.idi.idatt.game.BoardGame;
-import edu.ntnu.idi.idatt.game.Tile;
-import edu.ntnu.idi.idatt.game.Player;
+import edu.ntnu.idi.idatt.model.game.BoardGame;
+import edu.ntnu.idi.idatt.model.game.Tile;
+import edu.ntnu.idi.idatt.model.game.Player;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
