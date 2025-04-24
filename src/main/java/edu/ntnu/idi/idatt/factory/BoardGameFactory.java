@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.game.factory;
+package edu.ntnu.idi.idatt.factory;
 
 import edu.ntnu.idi.idatt.dao.BoardFileReaderGson;
 import edu.ntnu.idi.idatt.dao.PlayerFileReader;
