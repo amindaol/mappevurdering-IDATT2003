@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a31226b-78d0-4655-a47d-fb091cce478d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/dao/PlayerCsvDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/dao/PlayerFileReaderCsvTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/dao/PlayerFileReaderCsvTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +98,7 @@
       <recent name="edu.ntnu.idi.idatt.game" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BoardTest.addTile_addsTileSuccessfully">
+  <component name="RunManager">
     <configuration name="BoardTest.addTile_addsTileSuccessfully" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
