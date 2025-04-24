@@ -1,7 +1,10 @@
 package edu.ntnu.idi.idatt.game;
 
+import edu.ntnu.idi.idatt.observer.BoardGameEvent;
+import edu.ntnu.idi.idatt.observer.BoardGameObserver;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Represents the main game controller that manages players, the board, and dice. This class is
@@ -13,6 +16,43 @@ public class BoardGame {
   private Player currentPlayer;
   private final List<Player> players;
   private Dice dice;
+
+
+  /**
+   * List of observers that are notified of game state changes. Followed
+   */
+  private final List<BoardGameObserver> observers = new CopyOnWriteArrayList<>();
+
+  /**
+   * Adds an observer to the game. Observers are notified of game state changes.
+   *
+   * @param observer the observer to add.
+   * @throws NullPointerException if {@code observer} is {@code null}.
+   */
+  public void addObserver(BoardGameObserver observer) {
+    if (observer == null) {
+      throw new NullPointerException("Observer cannot be null.");
+    }
+    observers.add(observer);
+  }
+
+  /**
+   * Removes an observer from the game.
+   *
+   * @param observer the observer to remove.
+   */
+  public void removeObserver(BoardGameObserver observer) {
+    observers.remove(observer);
+  }
+
+  /**
+   * Notifies all observers of a game state change.
+   */
+  private void notifyObservers(BoardGameEvent event) {
+    for (BoardGameObserver observer : observers) {
+      observer.onGameStateChange(this, event);
+    }
+  }
 
   /**
    * Constructs a new BoardGame instance with an empty player list.
