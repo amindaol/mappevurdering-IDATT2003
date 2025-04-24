@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a31226b-78d0-4655-a47d-fb091cce478d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/dao/PlayerFileReaderCsv.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/dao/PlayerFileWriterCsv.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/dao/PlayerCsvDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/dao/PlayerCsvDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/dao/PlayerCsvDao.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +58,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "JUnit.BoardJsonDaoTest.executor": "Coverage",
-    "JUnit.BoardTest.addTile_addsTileSuccessfully.executor": "Run",
+    "JUnit.BoardTest.addTile_addsTileSuccessfully.executor": "Coverage",
     "JUnit.BoardTest.addTile_nullTile_throwsException.executor": "Run",
     "JUnit.BoardTest.getTile_returnsCorrectTile.executor": "Run",
     "JUnit.BoardTest.size_returnsCorrectNumberOfTiles.executor": "Run",
@@ -184,10 +181,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BoardTest.addTile_addsTileSuccessfully" />
         <item itemvalue="JUnit.BoardTest.addTile_nullTile_throwsException" />
         <item itemvalue="JUnit.BoardTest.size_returnsCorrectNumberOfTiles" />
         <item itemvalue="JUnit.BoardTest.getTile_returnsCorrectTile" />
-        <item itemvalue="JUnit.BoardTest.addTile_addsTileSuccessfully" />
         <item itemvalue="JUnit.DiceTest.constructor_invalidDiceAmount_throwsException" />
       </list>
     </recent_temporary>

@@ -14,8 +14,9 @@ import java.util.List;
 public class PlayerFileReaderCsv implements PlayerFileReader {
 
   /**
-   * Reads all players from the CSV file. Each line is expected in format: name,token
+   * Reads all players from the CSV file. Each line is expected in format: name,token.
    *
+   * @param csvFile path to the CSV file where players will be read
    * @return a List of Player objects
    * @throws DaoException if file I/O fails or CSV line format is invalid
    */
