@@ -1,25 +1,19 @@
 package edu.ntnu.idi.idatt.dao;
 
-import edu.ntnu.idi.idatt.game.Board;
-import edu.ntnu.idi.idatt.game.Tile;
-import edu.ntnu.idi.idatt.game.LadderAction;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import edu.ntnu.idi.idatt.game.Board;
+import edu.ntnu.idi.idatt.game.LadderAction;
+import edu.ntnu.idi.idatt.game.Tile;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-
-/**
- * JSON-based implementation of {@link BoardFileReader, BoardFileWriter} using Gson.
- */
-public class BoardJsonDao implements BoardFileReader, BoardFileWriter {
+public class BoardFileReaderGson implements BoardFileReader {
 
   private final Path jsonFile;
 
@@ -28,9 +22,10 @@ public class BoardJsonDao implements BoardFileReader, BoardFileWriter {
    *
    * @param jsonFile path to the JSON file storing board configuration
    */
-  public BoardJsonDao(Path jsonFile) {
+  public BoardFileReaderGson(Path jsonFile) {
     this.jsonFile = jsonFile;
   }
+
 
   /**
    * Reads a {@link Board} object from the configured JSON file. The JSON is expected to contain a
@@ -42,8 +37,8 @@ public class BoardJsonDao implements BoardFileReader, BoardFileWriter {
    * @throws InvalidJsonFormatException if the JSON is malformed or missing required elements
    */
   @Override
-  public Board readBoard() throws DaoException {
-    try (Reader reader = Files.newBufferedReader(jsonFile)) {
+  public Board readBoard(Path path) throws DaoException {
+    try (Reader reader = Files.newBufferedReader(path)) {
       JsonElement rootEl = JsonParser.parseReader(reader);
       if (!rootEl.isJsonObject()) {
         throw new InvalidJsonFormatException("Root element is not a JSON object", null);
@@ -92,45 +87,4 @@ public class BoardJsonDao implements BoardFileReader, BoardFileWriter {
       throw new InvalidJsonFormatException("Malformed JSON in board file", e);
     }
   }
-
-  /**
-   * Writes the given {@link Board} to the JSON file. The board is serialized with a "tiles" array
-   * containing each tile's id, nextTile, and optional action.
-   *
-   * @param board the Board instance to serialize
-   * @throws DaoException if an I/O error occurs during writing
-   */
-  @Override
-  public void writeBoard(Board board) throws DaoException {
-
-    JsonObject root = new JsonObject();
-    JsonArray tilesArray = new JsonArray();
-    int total = board.size();
-
-    for (int id = 1; id <= total; id++) {
-      Tile tile = board.getTile(id);
-      JsonObject tileObj = new JsonObject();
-      tileObj.addProperty("id", tile.getTileId());
-      if (tile.getNextTile() != null) {
-        tileObj.addProperty("nextTile", tile.getNextTile().getTileId());
-      }
-      if (tile.getLandAction() instanceof LadderAction) {
-        LadderAction la = (LadderAction) tile.getLandAction();
-        JsonObject actionObj = new JsonObject();
-        actionObj.addProperty("type", "LadderAction");
-        actionObj.addProperty("destinationTileId", la.getDestinationTileId());
-        actionObj.addProperty("description", la.getDescription());
-        tileObj.add("action", actionObj);
-      }
-      tilesArray.add(tileObj);
-    }
-    root.add("tiles", tilesArray);
-
-    try (Writer writer = Files.newBufferedWriter(jsonFile)) {
-      writer.write(root.toString());
-    } catch (IOException e) {
-      throw new DaoException("Failed to write board JSON file", e);
-    }
-  }
-
 }

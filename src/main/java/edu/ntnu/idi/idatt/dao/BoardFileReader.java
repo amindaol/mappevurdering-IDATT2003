@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt.dao;
 
 import edu.ntnu.idi.idatt.game.Board;
+import java.nio.file.Path;
 
 /**
  * Reads a Board from a file.
