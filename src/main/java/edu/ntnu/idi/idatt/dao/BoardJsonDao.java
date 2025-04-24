@@ -1,8 +1,5 @@
 package edu.ntnu.idi.idatt.dao;
 
-import edu.ntnu.idi.idatt.dao.DaoException;
-import edu.ntnu.idi.idatt.dao.InvalidJsonFormatException;
-import edu.ntnu.idi.idatt.dao.BoardDao;
 import edu.ntnu.idi.idatt.game.Board;
 import edu.ntnu.idi.idatt.game.Tile;
 import edu.ntnu.idi.idatt.game.LadderAction;
@@ -20,9 +17,9 @@ import com.google.gson.JsonParser;
 
 
 /**
- * JSON-based implementation of {@link BoardDao} using Gson.
+ * JSON-based implementation of {@link BoardFileReader, BoardFileWriter} using Gson.
  */
-public class BoardJsonDao implements BoardDao {
+public class BoardJsonDao implements BoardFileReader, BoardFileWriter {
 
   private final Path jsonFile;
 
