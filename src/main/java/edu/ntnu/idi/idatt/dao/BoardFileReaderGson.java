@@ -13,19 +13,10 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Gson-based implementation of {@link BoardFileReader}.
+ */
 public class BoardFileReaderGson implements BoardFileReader {
-
-  private final Path jsonFile;
-
-  /**
-   * Constructs a BoardJsonDao for reading/writing boards in JSON.
-   *
-   * @param jsonFile path to the JSON file storing board configuration
-   */
-  public BoardFileReaderGson(Path jsonFile) {
-    this.jsonFile = jsonFile;
-  }
-
 
   /**
    * Reads a {@link Board} object from the configured JSON file. The JSON is expected to contain a
