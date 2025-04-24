@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a31226b-78d0-4655-a47d-fb091cce478d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/dao/PlayerFileReaderCsvTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/dao/PlayerFileReaderCsvTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardGameFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +81,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "feature/split-file-daos",
+    "git-widget-placeholder": "feature/add-boardgame-factory",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/ingrid/Documents/V25/Prog 2/oeving5/cardGame",
     "node.js.detected.package.tslint": "true",
@@ -98,7 +100,7 @@
       <recent name="edu.ntnu.idi.idatt.game" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.BoardTest.addTile_addsTileSuccessfully">
     <configuration name="BoardTest.addTile_addsTileSuccessfully" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mappevurdering-IDATT2003" />
       <extension name="coverage">
@@ -261,7 +263,22 @@
     <SUITE FILE_PATH="coverage/mappevurdering_IDATT2003$BoardJsonDaoTest.ic" NAME="BoardJsonDaoTest Coverage Results" MODIFIED="1745155747824" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>edu.ntnu.idi.idatt.dao.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/mappevurdering_IDATT2003$PlayerFileWriterCsvTest.ic" NAME="PlayerFileWriterCsvTest Coverage Results" MODIFIED="1745482988376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>edu.ntnu.idi.idatt.dao.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/mappevurdering_IDATT2003$PlayerFileReaderCsvTest.ic" NAME="PlayerFileReaderCsvTest Coverage Results" MODIFIED="1745482992177" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>edu.ntnu.idi.idatt.dao.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/mappevurdering_IDATT2003$BoardTest_addTile_addsTileSuccessfully.ic" NAME="BoardTest.addTile_addsTileSuccessfully Coverage Results" MODIFIED="1745482957336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>edu.ntnu.idi.idatt.game.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/mappevurdering_IDATT2003$BoardFileWriterGsonTest.ic" NAME="BoardFileWriterGsonTest Coverage Results" MODIFIED="1745482977067" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>edu.ntnu.idi.idatt.dao.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/mappevurdering_IDATT2003$PlayerCsvDaoTest.ic" NAME="PlayerCsvDaoTest Coverage Results" MODIFIED="1745151533544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>edu.ntnu.idi.idatt.dao.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/mappevurdering_IDATT2003$BoardFileReaderGsonTest.ic" NAME="BoardFileReaderGsonTest Coverage Results" MODIFIED="1745482984347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>edu.ntnu.idi.idatt.dao.*</FILTER>
     </SUITE>
   </component>

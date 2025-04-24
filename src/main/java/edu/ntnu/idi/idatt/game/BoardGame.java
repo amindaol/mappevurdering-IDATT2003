@@ -127,4 +127,23 @@ public class BoardGame {
   public List<Player> getPlayers() {
     return players;
   }
+
+
+  /**
+   * Replaces the current game board with the given board instance.
+   *
+   * <p>This method is typically used by the factory or loader to inject
+   * a fully configured {@link Board} (e.g., loaded from JSON) into the game.
+   *
+   * @param board the {@link Board} to set as the game’s active board
+   * @throws NullPointerException if {@code board} is {@code null}
+   */
+  public void setBoard(Board board) {
+    if (board == null) {
+      throw new NullPointerException("Board cannot be null");
+    }
+    this.board = board;
+  }
+
+
 }
