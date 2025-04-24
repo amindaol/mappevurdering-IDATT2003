@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a31226b-78d0-4655-a47d-fb091cce478d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/dao/BoardJsonDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/dao/BoardJsonDaoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/dao/PlayerFileReaderCsvTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/ntnu/idi/idatt/dao/PlayerFileReaderCsvTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +58,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "JUnit.BoardJsonDaoTest.executor": "Coverage",
-    "JUnit.BoardTest.addTile_addsTileSuccessfully.executor": "Run",
+    "JUnit.BoardTest.addTile_addsTileSuccessfully.executor": "Coverage",
     "JUnit.BoardTest.addTile_nullTile_throwsException.executor": "Run",
     "JUnit.BoardTest.getTile_returnsCorrectTile.executor": "Run",
     "JUnit.BoardTest.size_returnsCorrectNumberOfTiles.executor": "Run",
@@ -79,7 +79,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "feature/add-board-json-dao",
+    "git-widget-placeholder": "feature/split-file-daos",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/ingrid/Documents/V25/Prog 2/oeving5/cardGame",
     "node.js.detected.package.tslint": "true",
@@ -181,10 +181,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BoardTest.addTile_addsTileSuccessfully" />
         <item itemvalue="JUnit.BoardTest.addTile_nullTile_throwsException" />
         <item itemvalue="JUnit.BoardTest.size_returnsCorrectNumberOfTiles" />
         <item itemvalue="JUnit.BoardTest.getTile_returnsCorrectTile" />
-        <item itemvalue="JUnit.BoardTest.addTile_addsTileSuccessfully" />
         <item itemvalue="JUnit.DiceTest.constructor_invalidDiceAmount_throwsException" />
       </list>
     </recent_temporary>
