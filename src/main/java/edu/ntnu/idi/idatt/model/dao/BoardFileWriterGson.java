@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.LadderAction;
 import edu.ntnu.idi.idatt.model.game.Tile;
+import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;

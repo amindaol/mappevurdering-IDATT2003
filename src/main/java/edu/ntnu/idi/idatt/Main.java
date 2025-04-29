@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt;
 
-import edu.ntnu.idi.idatt.view.UiController;
+import edu.ntnu.idi.idatt.controller.UiController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
