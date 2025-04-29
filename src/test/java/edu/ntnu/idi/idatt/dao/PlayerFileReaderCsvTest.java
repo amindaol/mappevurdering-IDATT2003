@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.dao;
 
-import edu.ntnu.idi.idatt.model.dao.DaoException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 import edu.ntnu.idi.idatt.model.dao.PlayerFileReader;
 import edu.ntnu.idi.idatt.model.dao.PlayerFileReaderCsv;
 import edu.ntnu.idi.idatt.model.game.Player;

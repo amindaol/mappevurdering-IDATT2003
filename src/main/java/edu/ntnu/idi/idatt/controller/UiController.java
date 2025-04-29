@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.view;
+package edu.ntnu.idi.idatt.controller;
 
 import main.java.edu.ntnu.idi.idatt.view.home.HomeView;
 import java.util.Objects;
