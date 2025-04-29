@@ -1,10 +1,20 @@
 package edu.ntnu.idi.idatt;
 
+import edu.ntnu.idi.idatt.view.UiController;
 import javafx.application.Application;
+import javafx.stage.Stage;
 
 public class Main extends Application {
 
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    UiController controller = new UiController(primaryStage);
+    controller.showHomePage();
+
+    primaryStage.show();
+  }
+
   public static void main(String[] args) {
-    System.out.println("Hello world!");
+    launch(args);
   }
 }
