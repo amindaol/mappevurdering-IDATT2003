@@ -14,7 +14,12 @@ public class UiController {
 
     stage.setMaximized(true);
 
-    homeScene = new Scene(HomeView.create(this));
+    HomeView homeView = new HomeView();
+    homeScene = new Scene(homeView.getRoot());
+    homeScene.getStylesheets().add(
+        getClass().getResource("/css/home.css").toExternalForm()
+    );
+
   }
 
   public void showHomePage() {
