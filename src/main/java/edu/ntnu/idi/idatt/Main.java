@@ -1,14 +1,14 @@
 package edu.ntnu.idi.idatt;
 
+import edu.ntnu.idi.idatt.view.UiController;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import main.java.edu.ntnu.idi.idatt.view.UiController;
 
 public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    UiController controller = new UiController();
+    UiController controller = new UiController(primaryStage);
     controller.showHomePage();
 
     primaryStage.show();

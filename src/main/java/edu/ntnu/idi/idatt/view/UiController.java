@@ -1,5 +1,6 @@
-package main.java.edu.ntnu.idi.idatt.view;
+package edu.ntnu.idi.idatt.view;
 
+import java.util.Objects;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.java.edu.ntnu.idi.idatt.view.home.HomeView;
@@ -17,9 +18,12 @@ public class UiController {
     HomeView homeView = new HomeView();
     homeScene = new Scene(homeView.getRoot());
     homeScene.getStylesheets().add(
-        getClass().getResource("/css/home.css").toExternalForm()
+        Objects.requireNonNull(
+                getClass().getResource("/css/styles.css"),
+                "Could not find /css/home.css in the classpath"
+            )
+            .toExternalForm()
     );
-
   }
 
   public void showHomePage() {

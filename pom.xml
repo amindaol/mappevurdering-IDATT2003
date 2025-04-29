@@ -70,7 +70,7 @@
         <version>0.0.8</version>
         <configuration>
           <!-- TODO: Replace with your own main-class -->
-          <mainClass>org.openjfx.Main</mainClass>
+          <mainClass>edu.ntnu.idi.idatt.Main</mainClass>
         </configuration>
       </plugin>
     </plugins>
