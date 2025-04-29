@@ -2,6 +2,7 @@ package main.java.edu.ntnu.idi.idatt.view;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.java.edu.ntnu.idi.idatt.view.home.HomeView;
 
 public class UiController {
 

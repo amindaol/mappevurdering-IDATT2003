@@ -1,0 +1,20 @@
+/* styles.css */
+
+/* background */
+body {
+  -fx-background-color: #FFE5F2;
+}
+
+.title-label {
+  -fx-font-size: 36px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+}
+
+.nav-button {
+  -fx-background-color: white;
+  -fx-font-size: 14px;
+  -fx-padding: 8 16 8 16;
+  -fx-background-radius: 4;
+}
+
