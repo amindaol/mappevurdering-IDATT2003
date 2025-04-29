@@ -1,9 +1,9 @@
 package edu.ntnu.idi.idatt.view;
 
+import main.java.edu.ntnu.idi.idatt.view.home.HomeView;
 import java.util.Objects;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.java.edu.ntnu.idi.idatt.view.home.HomeView;
 
 public class UiController {
 
@@ -24,11 +24,28 @@ public class UiController {
             )
             .toExternalForm()
     );
+
+    homeView.getLoveAndLaddersButton()
+        .setOnAction(event -> {
+          System.out.println("Love & Ladders button clicked");
+        });
+    homeView.getBestieBattlesButton()
+        .setOnAction(event -> {
+          System.out.println("Bestie Battles button clicked");
+        });
   }
 
   public void showHomePage() {
     stage.setTitle("Slayboard - Home");
     stage.setScene(homeScene);
+  }
+
+  public void showLoveAndLaddersPage() {
+    // TODO: Implement this method
+  }
+
+  public void showBestieBattlesPage() {
+    // TODO: Implement this method
   }
 
 }
