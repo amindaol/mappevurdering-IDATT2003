@@ -1,7 +1,7 @@
-package edu.ntnu.idi.idatt.dao;
+package edu.ntnu.idi.idatt.model.dao;
 
 import edu.ntnu.idi.idatt.model.dao.BoardFileReaderGson;
-import edu.ntnu.idi.idatt.model.dao.InvalidJsonFormatException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidJsonFormatException;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.LadderAction;
 import edu.ntnu.idi.idatt.model.game.Tile;

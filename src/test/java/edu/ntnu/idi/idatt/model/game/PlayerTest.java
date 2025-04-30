@@ -1,8 +1,10 @@
-package edu.ntnu.idi.idatt.game;
+package edu.ntnu.idi.idatt.model.game;
 
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
+import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -49,5 +51,22 @@ class PlayerTest {
   @Test
   void getBoardGame_returnsCorrectBoardGame() {
     assertEquals(boardGame, player.getBoardGame());
+  }
+
+
+  @Test
+  void placeOnTileNullThrowsNPE() {
+    assertThrows(NullPointerException.class, () -> player.placeOnTile(null));
+  }
+
+  @Test
+  void moveBeforePlacementThrowsGameNotInitialized() {
+    assertThrows(GameNotInitializedException.class, () -> player.move(3));
+  }
+
+  @Test
+  void moveNegativeStepsThrowsInvalidMove() {
+    player.placeOnTile(new Tile(1));
+    assertThrows(InvalidMoveException.class, () -> player.move(-5));
   }
 }

@@ -2,13 +2,20 @@ package edu.ntnu.idi.idatt.model.game;
 
 import edu.ntnu.idi.idatt.model.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.model.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.TooManyPlayersException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.GameAlreadyFinishedException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.PlayerNotFoundException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Represents the main game controller that manages players, the board, and dice. This class is
- * responsible for initializing the game, adding players and starting gameplay.
+ * Represents the main game controller that manages the board, dice, players,
+ * and the turn-based gameplay loop. This class fires observer events
+ * and throws domain-specific exceptions on invalid operations.
  */
 public class BoardGame {
 
@@ -16,7 +23,14 @@ public class BoardGame {
   private Player currentPlayer;
   private final List<Player> players;
   private Dice dice;
+  public static final int MAX_PLAYERS = 6;
 
+  /**
+   * Constructs a new BoardGame instance with an empty player list.
+   */
+  public BoardGame() {
+    this.players = new ArrayList<>();
+  }
 
   /**
    * List of observers that are notified of game state changes. Followed
@@ -55,21 +69,18 @@ public class BoardGame {
   }
 
   /**
-   * Constructs a new BoardGame instance with an empty player list.
-   */
-  public BoardGame() {
-    this.players = new ArrayList<>();
-  }
-
-  /**
    * Adds a player to the game.
    *
    * @param player the player to add to the game.
    * @throws NullPointerException if {@code player} is {@code null}.
+   * @throws TooManyPlayersException    if adding would exceed the maximum of {@value #MAX_PLAYERS}
    */
   public void addPlayer(Player player) {
     if (player == null) {
       throw new NullPointerException("Player cannot be null.");
+    }
+    if (players.size() >= MAX_PLAYERS) {
+      throw new TooManyPlayersException(MAX_PLAYERS);
     }
     players.add(player);
   }
@@ -97,29 +108,45 @@ public class BoardGame {
    * Starts the game loop. Each player takes turns rolling the dice and moving on the board. The
    * first player to reach the last tile wins the game.
    *
-   * @throws IllegalStateException if the board, dice, or players are not initialized.
+   * @throws GameNotInitializedException if the board or dice are not set up
+   * @throws NoPlayersException          if no players have been added
    */
   public void play() {
-    if (board == null || dice == null || players.isEmpty()) {
-      throw new IllegalStateException(
-          "Board, dice, and players must be initialized before playing.");
+
+    if (board == null || dice == null) {
+      throw new GameNotInitializedException();
     }
 
-    System.out.println("Game started with " + players.size() + " players!");
+    if (players.isEmpty()) {
+      throw new NoPlayersException();
+    }
+
+    Tile last = board.getTile(board.size());
+    if (players.stream().anyMatch(p ->
+        p.getCurrentTile() != null &&
+            p.getCurrentTile().getTileId() == last.getTileId())) {
+      throw new GameAlreadyFinishedException();
+    }
+
+    Tile start = board.getTile(1);
+    for (Player p : players) {
+      p.placeOnTile(start);
+    }
+
+    notifyObservers(BoardGameEvent.GAME_START);
 
     boolean gameWon = false;
-
     while (!gameWon) {
       for (Player player : players) {
         int steps = dice.roll();
-        System.out.println("Player " + player.getName() + " rolled a " + steps);
+        notifyObservers(BoardGameEvent.DICE_ROLLED);
 
         player.move(steps);
-        System.out.println("Player " + player.getName() + " moved to tile " + player
-            .getCurrentTile().getTileId());
+        notifyObservers(BoardGameEvent.PLAYER_MOVED);
 
-        if (player.getCurrentTile().getTileId() == 30) {
-          System.out.println("Congratulations " + player.getName() + "! You won!");
+        if (player.getCurrentTile().getTileId() == last.getTileId()) {
+          notifyObservers(BoardGameEvent.GAME_WON);
+          notifyObservers(BoardGameEvent.GAME_ENDED);
           gameWon = true;
           break;
         }
@@ -127,26 +154,33 @@ public class BoardGame {
     }
   }
 
+
+
   /**
    * Returns the winner of the game, if any player has reached the last tile.
    *
    * @return the winning player, or null if the game is not finished.
+   * @throws GameNotInitializedException if the game is not yet won.
    */
   public Player getWinner() {
-    for (Player player : players) {
-      if (player.getCurrentTile() != null && player.getCurrentTile().getTileId() == 30) {
-        return player;
-      }
+    Player winner = players.stream()
+        .filter(p -> p.getCurrentTile() != null && p.getCurrentTile().getTileId() == 30)
+        .findFirst()
+        .orElse(null);
+    if (winner == null) {
+      throw new GameNotInitializedException();
     }
-    return null;
+    return winner;
   }
 
   /**
    * Returns the game board.
    *
    * @return the Board used in the game.
+   * @throws GameNotInitializedException if the board has not been created
    */
   public Board getBoard() {
+    if (board == null) throw new GameNotInitializedException();
     return board;
   }
 
@@ -154,8 +188,10 @@ public class BoardGame {
    * Returns the dice used in the game.
    *
    * @return the Dice instance.
+   * @throws GameNotInitializedException if the dice has not been created
    */
   public Dice getDice() {
+    if (dice == null) throw new GameNotInitializedException();
     return dice;
   }
 
@@ -184,6 +220,4 @@ public class BoardGame {
     }
     this.board = board;
   }
-
-
 }

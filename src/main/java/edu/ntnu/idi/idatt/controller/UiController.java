@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.view;
+package edu.ntnu.idi.idatt.controller;
 
 import edu.ntnu.idi.idatt.view.layouts.HomeView;
 import edu.ntnu.idi.idatt.view.layouts.SettingsView;

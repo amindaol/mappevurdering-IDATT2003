@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.model.game;
 
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,8 +38,13 @@ public class Board {
    *
    * @param tileId the ID of the tile to retrieve.
    * @return the Tile with the specified ID, or null if it does not exist.
+   * @throws InvalidMoveException if no tile exists with the given ID
    */
   public Tile getTile(int tileId) {
+    Tile tile = tiles.get(tileId);
+    if (tile == null) {
+      throw new InvalidMoveException("Tile not found: " + tileId);
+    }
     return tiles.get(tileId);
   }
 
@@ -50,4 +56,16 @@ public class Board {
   public int size() {
     return tiles.size();
   }
+
+  /**
+   * @return the tile with the highest ID on the board
+   * @throws InvalidMoveException if the board is empty
+   */
+  public Tile getLastTile() {
+    if (tiles.isEmpty()) {
+      throw new InvalidMoveException("Board is empty");
+    }
+    return getTile(size());
+  }
+
 }
