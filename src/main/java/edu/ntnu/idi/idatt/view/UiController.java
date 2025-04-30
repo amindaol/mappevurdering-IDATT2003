@@ -1,8 +1,11 @@
 package edu.ntnu.idi.idatt.view;
 
-import main.java.edu.ntnu.idi.idatt.view.home.HomeView;
+import edu.ntnu.idi.idatt.view.layouts.HomeView;
+import edu.ntnu.idi.idatt.view.layouts.SettingsView;
 import java.util.Objects;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class UiController {
@@ -26,13 +29,16 @@ public class UiController {
     );
 
     homeView.getLoveAndLaddersButton()
-        .setOnAction(event -> {
-          System.out.println("Love & Ladders button clicked");
-        });
+        .setOnAction(event -> showLoveAndLaddersPage());
     homeView.getBestieBattlesButton()
         .setOnAction(event -> {
           System.out.println("Bestie Battles button clicked");
         });
+
+    SettingsView loveAndLaddersView = new SettingsView("Love & Ladders",
+        () -> showHomePage(),
+        () -> System.out.println("Help button clicked"),
+        new Label("Love & Ladders content"));
   }
 
   public void showHomePage() {
@@ -41,7 +47,8 @@ public class UiController {
   }
 
   public void showLoveAndLaddersPage() {
-    // TODO: Implement this method
+    stage.setTitle("Slayboard - Love & Ladders");
+    stage.setScene(new Scene(new Label("Love & Ladders content")));
   }
 
   public void showBestieBattlesPage() {

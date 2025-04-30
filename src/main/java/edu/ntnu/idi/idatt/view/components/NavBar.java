@@ -2,19 +2,20 @@ package edu.ntnu.idi.idatt.view.components;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-public class NavBar {
+public class NavBar extends Node {
 
   private final HBox root;
   private final Button homeButton;
   private final Button helpButton;
 
-  public NavBar(String titleText, Runnable onHelp) {
+  public NavBar(String titleText, Runnable onHome, Runnable onHelp) {
     root = new HBox(8);
 
     // TODO: Add .css styling to the navbar
@@ -30,12 +31,27 @@ public class NavBar {
     homeButton = new Button();
     homeButton.setPrefSize(homeIcon.getWidth() + 8, homeIcon.getHeight() + 8);
     homeButton.setGraphic(homeImageView);
+    homeButton.setOnAction(event -> onHome.run());
 
     helpButton = new Button();
 
-    root.getChildren().addAll(titleLabel, homeButton, helpButton);
+    helpButton.setOnAction(event -> onHelp.run());
 
+    HBox spacer = new HBox();
+    HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+
+    root.getChildren().addAll(titleLabel, spacer, homeButton, helpButton);
   }
 
+  public Node getRoot() {
+    return root;
+  }
 
+  public Button getHomeButton() {
+    return homeButton;
+  }
+
+  public Button getHelpButton() {
+    return helpButton;
+  }
 }
