@@ -112,6 +112,7 @@ public class BoardGame {
    * @throws NoPlayersException          if no players have been added
    */
   public void play() {
+
     if (board == null || dice == null) {
       throw new GameNotInitializedException();
     }
@@ -120,27 +121,40 @@ public class BoardGame {
       throw new NoPlayersException();
     }
 
-    System.out.println("Game started with " + players.size() + " players!");
+    Tile last = board.getTile(board.size());
+    if (players.stream().anyMatch(p ->
+        p.getCurrentTile() != null &&
+            p.getCurrentTile().getTileId() == last.getTileId())) {
+      throw new GameAlreadyFinishedException();
+    }
+
+    Tile start = board.getTile(1);
+    for (Player p : players) {
+      p.placeOnTile(start);
+    }
+
+    notifyObservers(BoardGameEvent.GAME_START);
 
     boolean gameWon = false;
-
     while (!gameWon) {
       for (Player player : players) {
         int steps = dice.roll();
-        System.out.println("Player " + player.getName() + " rolled a " + steps);
+        notifyObservers(BoardGameEvent.DICE_ROLLED);
 
         player.move(steps);
-        System.out.println("Player " + player.getName() + " moved to tile " + player
-            .getCurrentTile().getTileId());
+        notifyObservers(BoardGameEvent.PLAYER_MOVED);
 
-        if (player.getCurrentTile().getTileId() == 30) {
-          System.out.println("Congratulations " + player.getName() + "! You won!");
+        if (player.getCurrentTile().getTileId() == last.getTileId()) {
+          notifyObservers(BoardGameEvent.GAME_WON);
+          notifyObservers(BoardGameEvent.GAME_ENDED);
           gameWon = true;
           break;
         }
       }
     }
   }
+
+
 
   /**
    * Returns the winner of the game, if any player has reached the last tile.

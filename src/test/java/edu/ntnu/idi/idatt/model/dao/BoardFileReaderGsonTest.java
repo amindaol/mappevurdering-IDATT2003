@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.dao;
+package edu.ntnu.idi.idatt.model.dao;
 
 import edu.ntnu.idi.idatt.model.dao.BoardFileReaderGson;
 import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidJsonFormatException;

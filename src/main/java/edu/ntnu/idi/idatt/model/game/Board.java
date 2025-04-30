@@ -56,4 +56,16 @@ public class Board {
   public int size() {
     return tiles.size();
   }
+
+  /**
+   * @return the tile with the highest ID on the board
+   * @throws InvalidMoveException if the board is empty
+   */
+  public Tile getLastTile() {
+    if (tiles.isEmpty()) {
+      throw new InvalidMoveException("Board is empty");
+    }
+    return getTile(size());
+  }
+
 }

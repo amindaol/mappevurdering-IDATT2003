@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.game;
+package edu.ntnu.idi.idatt.model.game;
 
 import edu.ntnu.idi.idatt.model.game.Die;
 import org.junit.jupiter.api.BeforeEach;

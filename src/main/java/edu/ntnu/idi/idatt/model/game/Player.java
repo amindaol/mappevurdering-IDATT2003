@@ -114,13 +114,9 @@ public class Player {
   /**
    * Returns the tile the player is currently on.
    *
-   * @return the current tile.
-   * @throws GameNotInitializedException if the player has not been placed on any tile.
+   * @return the current tile, or null if the player has not been placed yet.
    */
   public Tile getCurrentTile() {
-    if (currentTile == null) {
-      throw new GameNotInitializedException();
-    }
     return currentTile;
   }
 

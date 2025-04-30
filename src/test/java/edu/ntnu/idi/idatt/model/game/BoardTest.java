@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.game;
+package edu.ntnu.idi.idatt.model.game;
 
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Tile;
