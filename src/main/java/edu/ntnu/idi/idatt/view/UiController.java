@@ -12,6 +12,7 @@ public class UiController {
 
   private final Stage stage;
   private final Scene homeScene;
+  private final Scene loveAndLaddersScene;
 
   public UiController(Stage stage) {
     this.stage = stage;
@@ -35,10 +36,16 @@ public class UiController {
           System.out.println("Bestie Battles button clicked");
         });
 
-    SettingsView loveAndLaddersView = new SettingsView("Love & Ladders",
-        () -> showHomePage(),
+    SettingsView loveAndLaddersView = new SettingsView(
+        "Love & Ladders",
+        this::showHomePage,
         () -> System.out.println("Help button clicked"),
-        new Label("Love & Ladders content"));
+        new Label("Love & Ladders content")
+    );
+
+    loveAndLaddersScene = new Scene(loveAndLaddersView.getRoot());
+    // TODO: Add .css styling to the loveAndLaddersScene
+
   }
 
   public void showHomePage() {
@@ -48,7 +55,7 @@ public class UiController {
 
   public void showLoveAndLaddersPage() {
     stage.setTitle("Slayboard - Love & Ladders");
-    stage.setScene(new Scene(new Label("Love & Ladders content")));
+    stage.setScene(loveAndLaddersScene);
   }
 
   public void showBestieBattlesPage() {
