@@ -36,8 +36,15 @@ class DiceTest {
   }
 
   @Test
-  void constructor_invalidDiceAmount_throwsException() {
+  void constructorZeroDiceThrowsIAE() {
     assertThrows(IllegalArgumentException.class, () -> new Dice(0));
+  }
+
+  @Test
+  void getDieOutOfBoundsThrowsIAE() {
+    Dice dice = new Dice(2);
+    assertThrows(IllegalArgumentException.class, () -> dice.getDie(-1));
+    assertThrows(IllegalArgumentException.class, () -> dice.getDie(2));
   }
 
 

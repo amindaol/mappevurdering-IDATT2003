@@ -23,7 +23,7 @@ public class BoardGame {
   private Player currentPlayer;
   private final List<Player> players;
   private Dice dice;
-  private static final int MAX_PLAYERS = 6;
+  public static final int MAX_PLAYERS = 6;
 
   /**
    * Constructs a new BoardGame instance with an empty player list.
