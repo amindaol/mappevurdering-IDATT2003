@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.util.exceptionHandling;
+package edu.ntnu.idi.idatt.util.ExceptionHandling;
 
 /**
  * Thrown when JSON data cannot be parsed into a valid Board structure.
