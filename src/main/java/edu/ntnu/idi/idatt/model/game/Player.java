@@ -1,6 +1,9 @@
 package edu.ntnu.idi.idatt.model.game;
 
 
+import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
+
 /**
  * Represents a player in a board game.
  */
@@ -67,10 +70,15 @@ public class Player {
    *
    * @param tile the tile to place the player on.
    * @throws NullPointerException if {@code tile} is {@code null}.
+   * @throws GameNotInitializedException if the BoardGame is not set.
    */
   public void placeOnTile(Tile tile) {
     if (tile == null) {
       throw new NullPointerException("Tile cannot be null when placing player.");
+    }
+
+    if (boardGame == null) {
+      throw new GameNotInitializedException();
     }
 
     this.currentTile = tile;
@@ -81,14 +89,15 @@ public class Player {
    * there are no more tiles, the player stops.
    *
    * @param steps the number of steps to move.
-   * @throws IllegalStateException if the player is not currently placed on any tile.
+   * @throws GameNotInitializedException if the player has not been placed on a tile
+   * @throws InvalidMoveException       if steps is negative
    */
   public void move(int steps) {
     if (currentTile == null) {
-      throw new IllegalStateException("Cannot move player: Player is not on any tile.");
+      throw new GameNotInitializedException();
     }
     if (steps < 0) {
-      throw new IllegalArgumentException("Steps cannot be negative.");
+      throw new InvalidMoveException("Steps cannot be negative: " + steps);
     }
 
     Tile destination = currentTile;
@@ -105,9 +114,13 @@ public class Player {
   /**
    * Returns the tile the player is currently on.
    *
-   * @return the current tile
+   * @return the current tile.
+   * @throws GameNotInitializedException if the player has not been placed on any tile.
    */
   public Tile getCurrentTile() {
+    if (currentTile == null) {
+      throw new GameNotInitializedException();
+    }
     return currentTile;
   }
 
@@ -120,10 +133,24 @@ public class Player {
     return name;
   }
 
+  /**
+   * Returns the associated BoardGame instance.
+   *
+   * @return the BoardGame
+   * @throws GameNotInitializedException if no BoardGame has been set
+   */
   public BoardGame getBoardGame() {
+    if (boardGame == null) {
+      throw new GameNotInitializedException();
+    }
     return boardGame;
   }
 
+  /**
+   * Returns the player's token identifier.
+   *
+   * @return the token string
+   */
   public String getToken() {
     return token;
   }
