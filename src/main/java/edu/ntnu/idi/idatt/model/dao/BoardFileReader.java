@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.model.dao;
 
 import edu.ntnu.idi.idatt.model.game.Board;
-import edu.ntnu.idi.idatt.util.ExceptionHandling.DaoException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 import java.nio.file.Path;
 
 /**

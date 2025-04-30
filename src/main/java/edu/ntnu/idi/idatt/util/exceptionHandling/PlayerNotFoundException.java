@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.util.ExceptionHandling;
+package edu.ntnu.idi.idatt.util.exceptionHandling;
 
 /**
  * Thrown when attempting to look up a player that does not exist in the game.

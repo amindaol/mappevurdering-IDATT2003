@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.util.ExceptionHandling;
+package edu.ntnu.idi.idatt.util.exceptionHandling;
 
 /**
  * Exception thrown when a data access operation fails.

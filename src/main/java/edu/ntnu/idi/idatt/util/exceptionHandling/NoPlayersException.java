@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.util.ExceptionHandling;
+package edu.ntnu.idi.idatt.util.exceptionHandling;
 
 /**
  * Thrown when attempting to play a turn without any players added.
