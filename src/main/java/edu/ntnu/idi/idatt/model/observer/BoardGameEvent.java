@@ -5,6 +5,6 @@ public enum BoardGameEvent {
   DICE_ROLLED,
   PLAYER_MOVED,
   LADDER_CLIMBED,
-  GAME_WOM,
+  GAME_WON,
   GAME_ENDED,
 }
