@@ -11,15 +11,6 @@
   -fx-text-fill: #8B5C73;
 }
 
-.home-button {
-  -fx-background-color: white;
-  -fx-font-size: 14px;
-  -fx-padding: 8 16 8 16;
-  -fx-background-radius: 4;
-  -fx-text-fill: #8B5C73;
-  -fx-font-weight: bold;
-}
-
 .nav-button {
   -fx-background-color: #AD6C8C;
   -fx-font-size: 14px;
@@ -27,5 +18,34 @@
   -fx-background-radius: 4;
   -fx-text-fill: white;
   -fx-font-weight: bold;
+  -fx-cursor: hand;
+}
+
+.nav-bar {
+  -fx-padding: 10;
+  -fx-background-color: transparent;
+}
+
+.nav-title {
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #8B5C73;
+}
+
+.icon-button {
+  -fx-background-color: #8B5C73;
+  -fx-background-radius: 4;
+  -fx-cursor: hand;
+  -fx-pref-width: 32;
+  -fx-pref-height: 32;
+  -fx-padding: 4;
+}
+
+.settings-root {
+  -fx-background-color: white;
+  -fx-padding: 12;
+  -fx-border-color: #FFC0CB;
+  -fx-border-width: 8;
+  -fx-border-radius: 8;
 }
 

@@ -44,7 +44,13 @@ public class UiController {
     );
 
     loveAndLaddersScene = new Scene(loveAndLaddersView.getRoot());
-    // TODO: Add .css styling to the loveAndLaddersScene
+    loveAndLaddersScene.getStylesheets().add(
+        Objects.requireNonNull(
+                getClass().getResource("/css/styles.css"),
+                "Could not find /css/loveAndLadders.css in the classpath"
+            )
+            .toExternalForm()
+    );
 
   }
 

@@ -20,7 +20,7 @@ public class SettingsView {
       Node content) {
 
     root = new BorderPane();
-    root.getStyleClass().add("home-root");
+    root.getStyleClass().add("settings-root");
 
     navBar = new NavBar(gameTitle, onHome, onHelp);
     root.setTop(navBar.getRoot());
