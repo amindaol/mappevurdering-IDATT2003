@@ -11,12 +11,21 @@
   -fx-text-fill: #8B5C73;
 }
 
-.nav-button {
+.home-button {
   -fx-background-color: white;
   -fx-font-size: 14px;
   -fx-padding: 8 16 8 16;
   -fx-background-radius: 4;
   -fx-text-fill: #8B5C73;
+  -fx-font-weight: bold;
+}
+
+.nav-button {
+  -fx-background-color: #AD6C8C;
+  -fx-font-size: 14px;
+  -fx-padding: 8 16 8 16;
+  -fx-background-radius: 4;
+  -fx-text-fill: white;
   -fx-font-weight: bold;
 }
 
