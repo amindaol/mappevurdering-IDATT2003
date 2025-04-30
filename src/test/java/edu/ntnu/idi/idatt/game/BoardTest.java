@@ -2,6 +2,7 @@ package edu.ntnu.idi.idatt.game;
 
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Tile;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,9 +34,16 @@ class BoardTest {
   }
 
   @Test
-  void addTile_nullTile_throwsException() {
+  void addTileNullThrowsNPE() {
     Board board = new Board();
     assertThrows(NullPointerException.class, () -> board.addTile(null));
+  }
+
+  @Test
+  void getTileMissingThrowsInvalidMove() {
+    Board board = new Board();
+    board.addTile(new Tile(1));
+    assertThrows(InvalidMoveException.class, () -> board.getTile(42));
   }
 
 }
