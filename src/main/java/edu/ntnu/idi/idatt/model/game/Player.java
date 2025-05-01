@@ -9,6 +9,7 @@ import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
  */
 public class Player {
 
+  private boolean skipNextTurn = false;
   private final String name;
   private String token;
   private Tile currentTile;
@@ -154,5 +155,20 @@ public class Player {
   @Override
   public String toString() {
     return "Player{name='" + name + "', token='" + token + "'}";
+  }
+
+  /**
+   * @return true hvis spilleren skal stå over neste kast.
+   */
+  public boolean isSkipNextTurn() {
+    return skipNextTurn;
+  }
+
+  /**
+   * Setter om spilleren skal stå over sitt neste kast.
+   * @param skipNextTurn true for å hoppe over
+   */
+  public void setSkipNextTurn(boolean skipNextTurn) {
+    this.skipNextTurn = skipNextTurn;
   }
 }
