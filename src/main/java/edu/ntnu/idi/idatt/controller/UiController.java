@@ -29,8 +29,6 @@ public class UiController {
   public UiController(Stage stage) {
     this.stage = stage;
 
-    stage.setMaximized(true);
-
     HomeView homeView = new HomeView();
     homeScene = new Scene(homeView.getRoot());
     homeScene.getStylesheets().add(
@@ -60,11 +58,17 @@ public class UiController {
 
   }
 
+  /**
+   * Display the Home scene.
+   */
   public void showHomePage() {
     stage.setTitle("Slayboard - Home");
     stage.setScene(homeScene);
   }
 
+  /**
+   * Show settings page for Love & Ladders, then start the game.
+   */
   public void showLoveAndLaddersPage() {
     SettingsView settings = new SettingsView(
         "Love & Ladders",
@@ -83,6 +87,10 @@ public class UiController {
     stage.setScene(settingsScene);
   }
 
+
+  /**
+   * Stub for Bestie Battles settings.
+   */
   public void showBestieBattlesPage() {
     SettingsView settings = new SettingsView(
         "Bestie Battles",
@@ -127,7 +135,7 @@ public class UiController {
     game.addPlayer(new Player(name1, game));
     game.addPlayer(new Player(name2, game));
 
-    BoardView boardView = new BoardView(5, 6);
+    BoardView boardView = new BoardView(9, 10);
     GameController controller = new GameController(game, boardView);
 
     Button rollBtn = new Button("Roll Dice");
@@ -145,6 +153,8 @@ public class UiController {
     );
     stage.setTitle("Slayboard - " + gameType);
     stage.setScene(gameScene);
+    stage.sizeToScene();
+    stage.centerOnScreen();
   }
 
 }
