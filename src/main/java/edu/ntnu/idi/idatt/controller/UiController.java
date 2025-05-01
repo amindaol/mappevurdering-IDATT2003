@@ -177,7 +177,6 @@ public class UiController {
 
   private void showGameScene(BoardGame game, String variant, String p1, String p2) {
     BoardView boardView = new BoardView(9, 10);
-
     GameController ctrl = new GameController(game, boardView);
 
     Scene gameScene = new Scene(boardView.getRoot());
