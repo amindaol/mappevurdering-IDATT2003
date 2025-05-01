@@ -6,9 +6,8 @@ import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.TooManyPlayersException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameAlreadyFinishedException;
-import edu.ntnu.idi.idatt.util.exceptionHandling.PlayerNotFoundException;
-import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -24,6 +23,9 @@ public class BoardGame {
   private final List<Player> players;
   private Dice dice;
   public static final int MAX_PLAYERS = 6;
+  private Iterator<Player> turnIterator;
+  private boolean gameEnded = false;
+
 
   /**
    * Constructs a new BoardGame instance with an empty player list.
@@ -195,8 +197,6 @@ public class BoardGame {
     }
   }
 
-
-
   /**
    * Returns the winner of the game, if any player has reached the last tile.
    *
@@ -267,8 +267,5 @@ public class BoardGame {
    */
   public Player getCurrentPlayer() {
     return currentPlayer;
-  }
-
-  public void playOneTurn() {
   }
 }
