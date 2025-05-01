@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 /**
- * Unit tests for {@link BoardGameFactory#createGameFromConfig(Path, Path)}.
+ * Unit tests for {@link BoardGameFactory}.
  */
 class BoardGameFactoryTest {
 
@@ -22,22 +22,18 @@ class BoardGameFactoryTest {
 
   @Test
   void testCreateGameFromConfigValid() throws Exception {
-    // Prepare sample board JSON
     Path boardJson = tempDir.resolve("board.json");
     String json = "{" +
         "\"rows\":1,\"cols\":2,\"specialTiles\":[]" +
         "}";
     Files.writeString(boardJson, json);
 
-    // Prepare sample players CSV
     Path playersCsv = tempDir.resolve("players.csv");
     String csv = "Alice,hat\nBob,boot\n";
     Files.writeString(playersCsv, csv);
 
-    // Execute factory
     BoardGame game = BoardGameFactory.createGameFromConfig(boardJson, playersCsv);
 
-    // Assertions
     assertNotNull(game, "Game should not be null");
     assertEquals(2, game.getBoard().size(), "Board should have 2 tiles");
 

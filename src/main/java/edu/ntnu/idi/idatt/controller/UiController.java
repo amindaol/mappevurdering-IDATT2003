@@ -7,6 +7,7 @@ import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.view.layouts.BoardView;
 import edu.ntnu.idi.idatt.controller.GameController;
+import javafx.scene.control.ChoiceBox;
 import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,6 +16,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Central UI controller that manages navigation from Home and
@@ -100,16 +104,41 @@ public class UiController {
    * Create the VBox with player name fields and Start button.
    */
   private VBox createSettingsControls(String gameType) {
-    Label lbl1 = new Label("Player 1:");
-    TextField tf1 = new TextField();
-    Label lbl2 = new Label("Player 2:");
-    TextField tf2 = new TextField();
+    Label lblGame = new Label("Select variant:");
+    ChoiceBox<String> cbGame = new ChoiceBox<>();
+    cbGame.getItems().addAll("Love & Ladders", "Bestie Battles");
+    cbGame.getSelectionModel().selectFirst();
 
-    Button startBtn = new Button("Start " + gameType);
-    startBtn.getStyleClass().add("nav-button");
-    startBtn.setOnAction(e -> startGame(gameType, tf1.getText(), tf2.getText()));
+    Label lblP1 = new Label("Player 1 Name:");
+    TextField tf1 = new TextField("Alice");
+    Label lblP2 = new Label("Player 2 Name:");
+    TextField tf2 = new TextField("Bob");
 
-    VBox box = new VBox(10, lbl1, tf1, lbl2, tf2, startBtn);
+    Button startBtn = new Button("Start Game");
+    startBtn.setOnAction(e -> {
+      try {
+
+        String variant = cbGame.getValue();
+
+        URL boardUrl = getClass().getResource("/boards/" + variant + ".json");
+        Path boardJson = Paths.get(boardUrl.toURI());
+
+        Path playersCsv = Paths.get("src/main/resources/players.csv");
+
+        BoardGame game = BoardGameFactory.createGameFromConfig(boardJson, playersCsv);
+        showGameScene(game, variant, tf1.getText(), tf2.getText());
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    });
+
+    VBox box = new VBox(
+        12,      // spacing
+        lblGame, cbGame,
+        lblP1, tf1,
+        lblP2, tf2,
+        startBtn
+    );
     box.setAlignment(Pos.CENTER);
     return box;
   }
@@ -144,5 +173,22 @@ public class UiController {
     stage.setScene(gameScene);
     stage.sizeToScene();
     stage.centerOnScreen();
+  }
+
+  private void showGameScene(BoardGame game, String variant, String p1, String p2) {
+    BoardView boardView = new BoardView(9, 10);
+
+    GameController ctrl = new GameController(game, boardView);
+
+    Scene gameScene = new Scene(boardView.getRoot());
+    gameScene.getStylesheets().add(
+        Objects.requireNonNull(
+            getClass().getResource("/css/styles.css"),
+            "Kunne ikke finne styles.css"
+        ).toExternalForm()
+    );
+
+    stage.setTitle("Slayboard – " + variant);
+    stage.setScene(gameScene);
   }
 }
