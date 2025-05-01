@@ -91,3 +91,12 @@
   -fx-border-radius: 5;
 }
 
+.tile {
+  -fx-border-color: #CC6699;
+  -fx-background-color: #FFCCDD;
+}
+
+.player-token {
+  -fx-fill: #EE3399;
+}
+

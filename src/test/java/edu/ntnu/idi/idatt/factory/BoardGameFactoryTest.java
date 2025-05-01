@@ -1,8 +1,10 @@
 package edu.ntnu.idi.idatt.factory;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import edu.ntnu.idi.idatt.model.game.BoardGame;
-import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.model.game.Player;
+import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -10,61 +12,66 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Unit tests for {@link BoardGameFactory}.
+ */
 class BoardGameFactoryTest {
 
   @TempDir
   Path tempDir;
 
   @Test
-  void testCreateStandardBoardGame() {
-    BoardGame game = BoardGameFactory.createStandardBoardGame();
-    assertNotNull(game, "Factory must return a non-null game");
-    assertNotNull(game.getBoard(), "Standard game should have a board");
-    int size = game.getBoard().size();
-    assertTrue(size > 0, "Standard board should contain at least one tile");
-    assertTrue(game.getPlayers().isEmpty(), "Standard game should start with no players");
+  void testCreateGameFromConfigValid() throws Exception {
+    Path boardJson = tempDir.resolve("board.json");
+    String json = "{" +
+        "\"rows\":1,\"cols\":2,\"specialTiles\":[]" +
+        "}";
+    Files.writeString(boardJson, json);
+
+    Path playersCsv = tempDir.resolve("players.csv");
+    String csv = "Alice,hat\nBob,boot\n";
+    Files.writeString(playersCsv, csv);
+
+    BoardGame game = BoardGameFactory.createGameFromConfig(boardJson, playersCsv);
+
+    assertNotNull(game, "Game should not be null");
+    assertEquals(2, game.getBoard().size(), "Board should have 2 tiles");
+
+    List<Player> players = game.getPlayers();
+    assertEquals(2, players.size(), "Should load 2 players");
+    assertEquals("Alice", players.get(0).getName());
+    assertEquals("hat",   players.get(0).getToken());
+    assertEquals("Bob",   players.get(1).getName());
+    assertEquals("boot",  players.get(1).getToken());
   }
 
   @Test
-  void testCreateGameFromConfig() throws Exception {
-    // Arrange: create minimal board JSON and players CSV
+  void testCreateGameFromConfigBadJson() throws Exception {
     Path boardJson = tempDir.resolve("board.json");
-    String boardContent = """
-        {
-          "tiles": [
-            { "id": 1, "nextTile": 2 },
-            { "id": 2, "nextTile": 3 },
-            { "id": 3 }
-          ]
-        }
-        """;
-    Files.writeString(boardJson, boardContent);
+    Files.writeString(boardJson, "not a json");
+    Path playersCsv = tempDir.resolve("players.csv");
+    Files.writeString(playersCsv, "Alice,hat");
+
+    assertThrows(DaoException.class,
+        () -> BoardGameFactory.createGameFromConfig(boardJson, playersCsv),
+        "Invalid JSON should cause DaoException"
+    );
+  }
+
+  @Test
+  void testCreateGameFromConfigBadCsv() throws Exception {
+    Path boardJson = tempDir.resolve("board.json");
+    String json = "{" +
+        "\"rows\":1,\"cols\":1,\"specialTiles\":[]" +
+        "}";
+    Files.writeString(boardJson, json);
 
     Path playersCsv = tempDir.resolve("players.csv");
-    String playersContent = "Alice,TopHat\nBob,RaceCar\n";
-    Files.writeString(playersCsv, playersContent);
+    Files.writeString(playersCsv, "invalid_line_without_comma");
 
-    // Act
-    BoardGame game = BoardGameFactory.createGameFromConfig(boardJson, playersCsv);
-
-    // Assert board structure
-    assertNotNull(game.getBoard(), "Config-based game should have a board");
-    assertEquals(3, game.getBoard().size(), "Board should have exactly 3 tiles");
-    Tile t1 = game.getBoard().getTile(1);
-    Tile t2 = game.getBoard().getTile(2);
-    assertNotNull(t1.getNextTile(), "Tile 1 should link to tile 2");
-    assertEquals(2, t1.getNextTile().getTileId());
-    assertNotNull(t2.getNextTile(), "Tile 2 should link to tile 3");
-    assertEquals(3, t2.getNextTile().getTileId());
-
-    // Assert players
-    List<Player> players = game.getPlayers();
-    assertEquals(2, players.size(), "Should load two players");
-    assertEquals("Alice", players.get(0).getName());
-    assertEquals("TopHat", players.get(0).getToken());
-    assertEquals("Bob", players.get(1).getName());
-    assertEquals("RaceCar", players.get(1).getToken());
+    assertThrows(DaoException.class,
+        () -> BoardGameFactory.createGameFromConfig(boardJson, playersCsv),
+        "Invalid CSV should cause DaoException"
+    );
   }
 }

@@ -1,24 +1,28 @@
 package edu.ntnu.idi.idatt.factory;
 
 import edu.ntnu.idi.idatt.model.dao.BoardFileReaderGson;
-import edu.ntnu.idi.idatt.model.dao.PlayerFileReader;
 import edu.ntnu.idi.idatt.model.dao.PlayerFileReaderCsv;
-import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
+import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
+
 import java.nio.file.Path;
 import java.util.List;
 
 /**
- * Factory for creating configured {@link BoardGame} instances.
+ * Factory for creating {@link BoardGame} instances, either standard or configured from files.
  */
 public final class BoardGameFactory {
 
   private BoardGameFactory() {
+    // prevent instantiation
   }
 
   /**
-   * Creates a standard game with a hard-coded 30-tile board and one die.
+   * Creates a standard board game with a 9x10 board and one die, without players.
+   * Players must be added separately.
+   *
+   * @return new BoardGame instance with default board and dice
    */
   public static BoardGame createStandardBoardGame() {
     BoardGame game = new BoardGame();
@@ -28,24 +32,29 @@ public final class BoardGameFactory {
   }
 
   /**
-   * Creates a game by loading board configuration from JSON and player list from CSV.
+   * Creates a board game configured from JSON and CSV files.
    *
-   * @param boardJson  path to the JSON file defining the board
-   * @param playersCsv path to the CSV file defining players
-   * @return a configured {@link BoardGame} instance
+   * @param boardJson  path to JSON file defining board layout and special tiles
+   * @param playersCsv path to CSV file listing players (name,token)
+   * @return configured BoardGame with board, dice, and players
+   * @throws DaoException if reading board or players fails
    */
-  public static BoardGame createGameFromConfig(Path boardJson, Path playersCsv) {
-    BoardGame game = new BoardGame();
-
+  public static BoardGame createGameFromConfig(Path boardJson, Path playersCsv) throws DaoException {
     BoardFileReaderGson boardReader = new BoardFileReaderGson();
-    Board board = boardReader.readBoard(boardJson);
-    game.setBoard(board);
+    var board = boardReader.readBoard(boardJson);
 
-    PlayerFileReader playerReader = new PlayerFileReaderCsv();
+    PlayerFileReaderCsv playerReader = new PlayerFileReaderCsv();
     List<Player> players = playerReader.readPlayers(playersCsv);
-    game.getPlayers().clear();
-    game.getPlayers().addAll(players);
 
+    BoardGame game = new BoardGame();
+    game.setBoard(board);
+    game.createDice();
+
+    // Attach players
+    for (Player p : players) {
+      p.setBoardGame(game);
+      game.addPlayer(p);
+    }
     return game;
   }
 }

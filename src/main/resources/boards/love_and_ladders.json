@@ -1,0 +1,10 @@
+{
+  "rows": 9,
+  "cols": 10,
+  "specialTiles": [
+    { "id": 3,  "action": { "type": "Ladder",       "destinationTileId": 22 } },
+    { "id": 14, "action": { "type": "Snake",        "destinationTileId": 5  } },
+    { "id": 27, "action": { "type": "GoToStart"                   } },
+    { "id": 32, "action": { "type": "SkipNextTurn"                } }
+  ]
+}
