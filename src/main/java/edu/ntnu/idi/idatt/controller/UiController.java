@@ -24,38 +24,26 @@ public class UiController {
 
   private final Stage stage;
   private final Scene homeScene;
-  private final Scene loveAndLaddersScene;
 
   public UiController(Stage stage) {
     this.stage = stage;
+    stage.setMaximized(true);
 
     HomeView homeView = new HomeView();
     homeScene = new Scene(homeView.getRoot());
     homeScene.getStylesheets().add(
         Objects.requireNonNull(
-                getClass().getResource("/css/styles.css"),
-                "Could not find /css/home.css in the classpath"
-            )
-            .toExternalForm()
+            getClass().getResource("/css/styles.css"),
+            "Could not find /css/styles.css"
+        ).toExternalForm()
     );
 
     homeView.getLoveAndLaddersButton()
-        .setOnAction(event -> showLoveAndLaddersPage());
+        .setOnAction(e -> showLoveAndLaddersSettings());
     homeView.getBestieBattlesButton()
-        .setOnAction(event -> {
-          System.out.println("Bestie Battles button clicked");
-        });
+        .setOnAction(e -> showBestieBattlesSettings());
 
-    SettingsView loveAndLaddersView = new SettingsView(
-        "Love & Ladders",
-        this::showHomePage,
-        () -> System.out.println("Help button clicked"),
-        new Label("Love & Ladders content")
-    );
-
-    loveAndLaddersScene = new Scene(loveAndLaddersView.getRoot());
-    // TODO: Add .css styling to the loveAndLaddersScene
-
+    showHomePage();
   }
 
   /**
@@ -69,35 +57,28 @@ public class UiController {
   /**
    * Show settings page for Love & Ladders, then start the game.
    */
-  public void showLoveAndLaddersPage() {
-    SettingsView settings = new SettingsView(
-        "Love & Ladders",
-        this::showHomePage,
-        () -> System.out.println("Help clicked"),
-        createSettingsControls("Love & Ladders")
-    );
-    Scene settingsScene = new Scene(settings.getRoot());
-    settingsScene.getStylesheets().add(
-        Objects.requireNonNull(
-            getClass().getResource("/css/styles.css"),
-            "Could not find /css/styles.css"
-        ).toExternalForm()
-    );
-    stage.setTitle("Slayboard - Love & Ladders Settings");
-    stage.setScene(settingsScene);
+  private void showLoveAndLaddersSettings() {
+    showSettingsPage("Love & Ladders");
   }
 
+  /**
+   * Show settings page for Bestie Battles.
+   */
+  private void showBestieBattlesSettings() {
+    showSettingsPage("Bestie Battles");
+  }
 
   /**
-   * Stub for Bestie Battles settings.
+   * Common settings page builder.
    */
-  public void showBestieBattlesPage() {
+  private void showSettingsPage(String gameType) {
     SettingsView settings = new SettingsView(
-        "Bestie Battles",
+        gameType,
         this::showHomePage,
-        () -> System.out.println("Help clicked"),
-        new Label("Bestie Battles coming soon!")
+        () -> System.out.println("Help clicked for " + gameType),
+        createSettingsControls(gameType)
     );
+
     Scene settingsScene = new Scene(settings.getRoot());
     settingsScene.getStylesheets().add(
         Objects.requireNonNull(
@@ -105,8 +86,14 @@ public class UiController {
             "Could not find /css/styles.css"
         ).toExternalForm()
     );
-    stage.setTitle("Slayboard - Bestie Battles Settings");
+
+    stage.setTitle("Slayboard - " + gameType + " Settings");
     stage.setScene(settingsScene);
+    stage.sizeToScene();
+    stage.centerOnScreen();
+
+    stage.setMaximized(true);
+    stage.centerOnScreen();
   }
 
   /**
@@ -135,7 +122,7 @@ public class UiController {
     game.addPlayer(new Player(name1, game));
     game.addPlayer(new Player(name2, game));
 
-    BoardView boardView = new BoardView(9, 10);
+    BoardView boardView = new BoardView(9, 10); // 90 tiles
     GameController controller = new GameController(game, boardView);
 
     Button rollBtn = new Button("Roll Dice");
@@ -144,6 +131,7 @@ public class UiController {
 
     VBox root = new VBox(10, boardView.getRoot(), rollBtn);
     root.setAlignment(Pos.CENTER);
+
     Scene gameScene = new Scene(root);
     gameScene.getStylesheets().add(
         Objects.requireNonNull(
@@ -151,10 +139,10 @@ public class UiController {
             "Could not find /css/styles.css"
         ).toExternalForm()
     );
+
     stage.setTitle("Slayboard - " + gameType);
     stage.setScene(gameScene);
     stage.sizeToScene();
     stage.centerOnScreen();
   }
-
 }
