@@ -17,8 +17,6 @@ public class UiController {
   public UiController(Stage stage) {
     this.stage = stage;
 
-    stage.setMaximized(true);
-
     HomeView homeView = new HomeView();
     homeScene = new Scene(homeView.getRoot());
     homeScene.getStylesheets().add(
@@ -51,16 +49,17 @@ public class UiController {
             )
             .toExternalForm()
     );
-
   }
 
   public void showHomePage() {
     stage.setTitle("Slayboard - Home");
+    stage.setMaximized(true);
     stage.setScene(homeScene);
   }
 
   public void showLoveAndLaddersPage() {
     stage.setTitle("Slayboard - Love & Ladders");
+    stage.setMaximized(true);
     stage.setScene(loveAndLaddersScene);
   }
 
