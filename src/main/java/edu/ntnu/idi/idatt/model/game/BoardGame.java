@@ -183,6 +183,11 @@ public class BoardGame {
     }
     currentPlayer = turnIterator.next();
 
+    if (currentPlayer.isSkipNextTurn()) {
+      currentPlayer.setSkipNextTurn(false);
+      return;
+    }
+
     int steps = dice.roll();
     notifyObservers(BoardGameEvent.DICE_ROLLED);
 

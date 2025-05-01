@@ -1,5 +1,7 @@
 package edu.ntnu.idi.idatt.model.game;
 
+import edu.ntnu.idi.idatt.model.game.action.TileAction;
+
 /**
  * Represents a single tile on the game board.
  *
