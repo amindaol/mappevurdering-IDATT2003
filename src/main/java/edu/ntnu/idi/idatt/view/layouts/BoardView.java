@@ -22,11 +22,16 @@ public class BoardView {
 
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
+        int indexInRow = (r % 2 == 0)
+            ? c
+            : (cols - 1 - c);
+
+        int tileId = r * cols + indexInRow + 1;
+
         StackPane cell = new StackPane();
-        cell.setPrefSize(80,80);
+        cell.setPrefSize(80, 80);
         cell.getStyleClass().add("tile");
-        grid.add(cell,c,r);
-        int tileId = r * cols + c + 1;
+        grid.add(cell, c, r);
         tilePanes.put(tileId, cell);
       }
     }
