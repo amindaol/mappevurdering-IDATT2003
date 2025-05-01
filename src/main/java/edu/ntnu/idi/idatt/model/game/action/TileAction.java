@@ -1,4 +1,6 @@
-package edu.ntnu.idi.idatt.model.game;
+package edu.ntnu.idi.idatt.model.game.action;
+
+import edu.ntnu.idi.idatt.model.game.Player;
 
 /**
  * Represents an action that occurs when a player lands on a tile.

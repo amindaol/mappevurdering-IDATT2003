@@ -1,9 +1,7 @@
 package edu.ntnu.idi.idatt.model.dao;
 
-import edu.ntnu.idi.idatt.model.dao.BoardFileReaderGson;
-import edu.ntnu.idi.idatt.model.dao.BoardFileWriterGson;
 import edu.ntnu.idi.idatt.model.game.Board;
-import edu.ntnu.idi.idatt.model.game.LadderAction;
+import edu.ntnu.idi.idatt.model.game.action.LadderAction;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

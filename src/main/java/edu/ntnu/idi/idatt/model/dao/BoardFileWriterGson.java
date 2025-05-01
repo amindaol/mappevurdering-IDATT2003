@@ -3,7 +3,7 @@ package edu.ntnu.idi.idatt.model.dao;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import edu.ntnu.idi.idatt.model.game.Board;
-import edu.ntnu.idi.idatt.model.game.LadderAction;
+import edu.ntnu.idi.idatt.model.game.action.LadderAction;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 import java.io.IOException;

@@ -1,4 +1,7 @@
-package edu.ntnu.idi.idatt.model.game;
+package edu.ntnu.idi.idatt.model.game.action;
+
+import edu.ntnu.idi.idatt.model.game.Player;
+import edu.ntnu.idi.idatt.model.game.Tile;
 
 /**
  * Represents a ladder on the game board.¨
