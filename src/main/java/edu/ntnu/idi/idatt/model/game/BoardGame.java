@@ -6,9 +6,8 @@ import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.TooManyPlayersException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameAlreadyFinishedException;
-import edu.ntnu.idi.idatt.util.exceptionHandling.PlayerNotFoundException;
-import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -24,6 +23,9 @@ public class BoardGame {
   private final List<Player> players;
   private Dice dice;
   public static final int MAX_PLAYERS = 6;
+  private Iterator<Player> turnIterator;
+  private boolean gameEnded = false;
+
 
   /**
    * Constructs a new BoardGame instance with an empty player list.
@@ -154,7 +156,46 @@ public class BoardGame {
     }
   }
 
+  /**
+   * Executes one turn: rolls dice and moves the next player.
+   * Fires events: GAME_START (once), DICE_ROLLED, PLAYER_MOVED, GAME_WON, GAME_ENDED.
+   * @throws GameNotInitializedException if board, dice, or players not set
+   * @throws NoPlayersException if no players added
+   * @throws GameAlreadyFinishedException if game already ended
+   */
+  public void playOneTurn() {
+    if (board == null || dice == null) throw new GameNotInitializedException();
+    if (players.isEmpty()) throw new NoPlayersException();
+    if (gameEnded) throw new GameAlreadyFinishedException();
 
+    if (turnIterator == null) {
+      turnIterator = players.iterator();
+      Board boardRef = board;
+      Tile start = boardRef.getTile(1);
+      for (Player p : players) {
+        p.placeOnTile(start);
+      }
+      notifyObservers(BoardGameEvent.GAME_START);
+    }
+
+    if (!turnIterator.hasNext()) {
+      turnIterator = players.iterator();
+    }
+    currentPlayer = turnIterator.next();
+
+    int steps = dice.roll();
+    notifyObservers(BoardGameEvent.DICE_ROLLED);
+
+    currentPlayer.move(steps);
+    notifyObservers(BoardGameEvent.PLAYER_MOVED);
+
+    int lastId = board.getTile(board.size()).getTileId();
+    if (currentPlayer.getCurrentTile().getTileId() == lastId) {
+      notifyObservers(BoardGameEvent.GAME_WON);
+      notifyObservers(BoardGameEvent.GAME_ENDED);
+      gameEnded = true;
+    }
+  }
 
   /**
    * Returns the winner of the game, if any player has reached the last tile.
@@ -219,5 +260,12 @@ public class BoardGame {
       throw new NullPointerException("Board cannot be null");
     }
     this.board = board;
+  }
+
+  /**
+   * @return the player whose turn was most recently taken
+   */
+  public Player getCurrentPlayer() {
+    return currentPlayer;
   }
 }
