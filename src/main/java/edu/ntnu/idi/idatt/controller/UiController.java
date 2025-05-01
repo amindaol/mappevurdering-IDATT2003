@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.controller;
 
+import edu.ntnu.idi.idatt.view.components.SettingsContent;
 import edu.ntnu.idi.idatt.view.layouts.HomeView;
 import edu.ntnu.idi.idatt.view.layouts.SettingsView;
 import edu.ntnu.idi.idatt.factory.BoardGameFactory;
@@ -31,7 +32,7 @@ public class UiController {
 
   public UiController(Stage stage) {
     this.stage = stage;
-    stage.setMaximized(true);
+
 
     HomeView homeView = new HomeView();
     homeScene = new Scene(homeView.getRoot());
@@ -45,9 +46,26 @@ public class UiController {
     homeView.getLoveAndLaddersButton()
         .setOnAction(e -> showLoveAndLaddersSettings());
     homeView.getBestieBattlesButton()
-        .setOnAction(e -> showBestieBattlesSettings());
+        .setOnAction(event -> {
+          System.out.println("Bestie Battles button clicked");
+        });
 
-    showHomePage();
+    SettingsView loveAndLaddersView = new SettingsView(
+        "Love & Ladders",
+        this::showHomePage,
+        () -> System.out.println("Help button clicked"),
+        new SettingsContent(4).getRoot()
+    );
+
+    loveAndLaddersScene = new Scene(loveAndLaddersView.getRoot());
+    loveAndLaddersScene.getStylesheets().add(
+        Objects.requireNonNull(
+                getClass().getResource("/css/styles.css"),
+                "Could not find /css/loveAndLadders.css in the classpath"
+            )
+            .toExternalForm()
+    );
+
   }
 
   /**
@@ -55,92 +73,16 @@ public class UiController {
    */
   public void showHomePage() {
     stage.setTitle("Slayboard - Home");
+    stage.setMaximized(true);
     stage.setScene(homeScene);
   }
 
-  /**
-   * Show settings page for Love & Ladders, then start the game.
-   */
-  private void showLoveAndLaddersSettings() {
-    showSettingsPage("Love & Ladders");
-  }
 
-  /**
-   * Show settings page for Bestie Battles.
-   */
-  private void showBestieBattlesSettings() {
-    showSettingsPage("Bestie Battles");
-  }
-
-  /**
-   * Common settings page builder.
-   */
-  private void showSettingsPage(String gameType) {
-    SettingsView settings = new SettingsView(
-        gameType,
-        this::showHomePage,
-        () -> System.out.println("Help clicked for " + gameType),
-        createSettingsControls(gameType)
-    );
-
-    Scene settingsScene = new Scene(settings.getRoot());
-    settingsScene.getStylesheets().add(
-        Objects.requireNonNull(
-            getClass().getResource("/css/styles.css"),
-            "Could not find /css/styles.css"
-        ).toExternalForm()
-    );
-
-    stage.setTitle("Slayboard - " + gameType + " Settings");
-    stage.setScene(settingsScene);
-    stage.sizeToScene();
-    stage.centerOnScreen();
-
+  public void showLoveAndLaddersPage() {
+    stage.setTitle("Slayboard - Love & Ladders");
     stage.setMaximized(true);
-    stage.centerOnScreen();
-  }
+    stage.setScene(loveAndLaddersScene);
 
-  /**
-   * Create the VBox with player name fields and Start button.
-   */
-  private VBox createSettingsControls(String gameType) {
-    Label lblGame = new Label("Select variant:");
-    ChoiceBox<String> cbGame = new ChoiceBox<>();
-    cbGame.getItems().addAll("Love & Ladders", "Bestie Battles");
-    cbGame.getSelectionModel().selectFirst();
-
-    Label lblP1 = new Label("Player 1 Name:");
-    TextField tf1 = new TextField("Alice");
-    Label lblP2 = new Label("Player 2 Name:");
-    TextField tf2 = new TextField("Bob");
-
-    Button startBtn = new Button("Start Game");
-    startBtn.setOnAction(e -> {
-      try {
-
-        String variant = cbGame.getValue();
-
-        URL boardUrl = getClass().getResource("/boards/" + variant + ".json");
-        Path boardJson = Paths.get(boardUrl.toURI());
-
-        Path playersCsv = Paths.get("src/main/resources/players.csv");
-
-        BoardGame game = BoardGameFactory.createGameFromConfig(boardJson, playersCsv);
-        showGameScene(game, variant, tf1.getText(), tf2.getText());
-      } catch (Exception ex) {
-        ex.printStackTrace();
-      }
-    });
-
-    VBox box = new VBox(
-        12,      // spacing
-        lblGame, cbGame,
-        lblP1, tf1,
-        lblP2, tf2,
-        startBtn
-    );
-    box.setAlignment(Pos.CENTER);
-    return box;
   }
 
   /**

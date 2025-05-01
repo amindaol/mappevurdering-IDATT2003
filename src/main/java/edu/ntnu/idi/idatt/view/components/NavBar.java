@@ -5,9 +5,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 public class NavBar extends Node {
 
@@ -18,13 +22,26 @@ public class NavBar extends Node {
   public NavBar(String titleText, Runnable onHome, Runnable onHelp) {
     root = new HBox(8);
 
-    // TODO: Add .css styling to the navbar
-
     root.setAlignment(Pos.CENTER_LEFT);
     root.setPadding(new Insets(10));
 
+    HBox titleAndSpacer = new HBox();
+
     Label titleLabel = new Label(titleText);
     titleLabel.getStyleClass().add("title-label");
+
+    Region spacer = new Region();
+    HBox.setHgrow(spacer, Priority.ALWAYS);
+
+    titleAndSpacer.getChildren().addAll(titleLabel, spacer);
+    titleAndSpacer.setAlignment(Pos.CENTER_LEFT);
+
+    Separator titleUnderline = new Separator();
+    titleUnderline.setMaxWidth(Double.MAX_VALUE);
+    HBox.setHgrow(titleUnderline, Priority.ALWAYS);
+
+    VBox leftNavBar = new VBox(titleAndSpacer, titleUnderline);
+    leftNavBar.setAlignment(Pos.BOTTOM_LEFT);
 
     Image homeIcon = new Image("/icons/home.png");
     ImageView homeImageView = new ImageView(homeIcon);
@@ -32,15 +49,25 @@ public class NavBar extends Node {
     homeButton.setPrefSize(homeIcon.getWidth() + 8, homeIcon.getHeight() + 8);
     homeButton.setGraphic(homeImageView);
     homeButton.setOnAction(event -> onHome.run());
+    homeButton.getStyleClass().add("icon-button");
 
+    Image helpIcon = new Image("/icons/help.png");
+    ImageView helpImageView = new ImageView(helpIcon);
     helpButton = new Button();
-
+    helpButton.setPrefSize(helpIcon.getWidth() + 8, helpIcon.getHeight() + 8);
+    helpButton.setGraphic(helpImageView);
     helpButton.setOnAction(event -> onHelp.run());
+    helpButton.getStyleClass().add("icon-button");
 
-    HBox spacer = new HBox();
-    HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+    HBox rightNavBar = new HBox(homeButton, helpButton);
+    rightNavBar.setSpacing(10);
+    rightNavBar.setAlignment(Pos.CENTER_RIGHT);
 
-    root.getChildren().addAll(titleLabel, spacer, homeButton, helpButton);
+    root.getChildren().addAll(leftNavBar, rightNavBar);
+    root.setSpacing(8);
+    HBox.setHgrow(leftNavBar, Priority.ALWAYS);
+    root.setAlignment(Pos.CENTER);
+    root.setPadding(new Insets(10));
   }
 
   public Node getRoot() {
