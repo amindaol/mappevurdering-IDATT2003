@@ -77,4 +77,5 @@ public class GameController implements BoardGameObserver {
       }
     });
   }
+
 }
