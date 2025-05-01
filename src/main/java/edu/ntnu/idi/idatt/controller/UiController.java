@@ -67,6 +67,24 @@ public class UiController {
 
   public void showLoveAndLaddersPage() {
     SettingsView settings = new SettingsView(
+        "Love & Ladders",
+        this::showHomePage,
+        () -> System.out.println("Help clicked"),
+        createSettingsControls("Love & Ladders")
+    );
+    Scene settingsScene = new Scene(settings.getRoot());
+    settingsScene.getStylesheets().add(
+        Objects.requireNonNull(
+            getClass().getResource("/css/styles.css"),
+            "Could not find /css/styles.css"
+        ).toExternalForm()
+    );
+    stage.setTitle("Slayboard - Love & Ladders Settings");
+    stage.setScene(settingsScene);
+  }
+
+  public void showBestieBattlesPage() {
+    SettingsView settings = new SettingsView(
         "Bestie Battles",
         this::showHomePage,
         () -> System.out.println("Help clicked"),
@@ -81,10 +99,6 @@ public class UiController {
     );
     stage.setTitle("Slayboard - Bestie Battles Settings");
     stage.setScene(settingsScene);
-  }
-
-  public void showBestieBattlesPage() {
-    // TODO: Implement this method
   }
 
   /**
