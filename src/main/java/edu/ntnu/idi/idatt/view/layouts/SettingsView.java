@@ -1,12 +1,14 @@
 package edu.ntnu.idi.idatt.view.layouts;
 
 import edu.ntnu.idi.idatt.view.components.NavBar;
+import edu.ntnu.idi.idatt.view.components.SettingsContent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class SettingsView {
 

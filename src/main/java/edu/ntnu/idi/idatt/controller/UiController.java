@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.controller;
 
+import edu.ntnu.idi.idatt.view.components.SettingsContent;
 import edu.ntnu.idi.idatt.view.layouts.HomeView;
 import edu.ntnu.idi.idatt.view.layouts.SettingsView;
 import java.util.Objects;
@@ -38,7 +39,7 @@ public class UiController {
         "Love & Ladders",
         this::showHomePage,
         () -> System.out.println("Help button clicked"),
-        new Label("Love & Ladders content")
+        new SettingsContent(4).getRoot()
     );
 
     loveAndLaddersScene = new Scene(loveAndLaddersView.getRoot());

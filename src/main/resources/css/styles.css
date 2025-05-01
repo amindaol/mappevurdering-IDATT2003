@@ -49,3 +49,45 @@
   -fx-border-radius: 8;
 }
 
+.settings-content {
+  -fx-padding: 12;
+  -fx-background-color: transparent;
+  -fx-border-radius: 8;
+}
+
+.settings-content-label {
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #8B5C73;
+}
+
+.settings-content-radio-button .radio {
+  -fx-background-color: transparent;
+  -fx-shape: "";
+  -fx-padding: 0;
+}
+
+.settings-content-radio-button {
+  -fx-background-color: white;
+  -fx-padding: 10 20;
+  -fx-border-color: #8B5C73;
+  -fx-border-radius: 5;
+  -fx-background-radius: 5;
+  -fx-cursor: hand;
+}
+
+.settings-content-radio-button:hover {
+  -fx-background-color: #FFE5F2;
+}
+
+.settings-content-radio-button:selected {
+  -fx-background-color: #8B5C73;
+  -fx-text-fill: white;
+}
+
+.settings-content-radio-button:selected .radio {
+  -fx-background-color: #8B5C73;
+  -fx-border-color: #8B5C73;
+  -fx-border-radius: 5;
+}
+
