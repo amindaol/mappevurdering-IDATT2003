@@ -154,6 +154,47 @@ public class BoardGame {
     }
   }
 
+  /**
+   * Executes one turn: rolls dice and moves the next player.
+   * Fires events: GAME_START (once), DICE_ROLLED, PLAYER_MOVED, GAME_WON, GAME_ENDED.
+   * @throws GameNotInitializedException if board, dice, or players not set
+   * @throws NoPlayersException if no players added
+   * @throws GameAlreadyFinishedException if game already ended
+   */
+  public void playOneTurn() {
+    if (board == null || dice == null) throw new GameNotInitializedException();
+    if (players.isEmpty()) throw new NoPlayersException();
+    if (gameEnded) throw new GameAlreadyFinishedException();
+
+    if (turnIterator == null) {
+      turnIterator = players.iterator();
+      Board boardRef = board;
+      Tile start = boardRef.getTile(1);
+      for (Player p : players) {
+        p.placeOnTile(start);
+      }
+      notifyObservers(BoardGameEvent.GAME_START);
+    }
+
+    if (!turnIterator.hasNext()) {
+      turnIterator = players.iterator();
+    }
+    currentPlayer = turnIterator.next();
+
+    int steps = dice.roll();
+    notifyObservers(BoardGameEvent.DICE_ROLLED);
+
+    currentPlayer.move(steps);
+    notifyObservers(BoardGameEvent.PLAYER_MOVED);
+
+    int lastId = board.getTile(board.size()).getTileId();
+    if (currentPlayer.getCurrentTile().getTileId() == lastId) {
+      notifyObservers(BoardGameEvent.GAME_WON);
+      notifyObservers(BoardGameEvent.GAME_ENDED);
+      gameEnded = true;
+    }
+  }
+
 
 
   /**
@@ -219,5 +260,15 @@ public class BoardGame {
       throw new NullPointerException("Board cannot be null");
     }
     this.board = board;
+  }
+
+  /**
+   * @return the player whose turn was most recently taken
+   */
+  public Player getCurrentPlayer() {
+    return currentPlayer;
+  }
+
+  public void playOneTurn() {
   }
 }
