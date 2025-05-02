@@ -123,8 +123,8 @@
   -fx-background-color: #FFCCDD;
   -fx-background-radius: 4;
   -fx-cursor: hand;
-  -fx-pref-width: 64;
-  -fx-pref-height: 64;
+  -fx-pref-width: 100;
+  -fx-pref-height: 100;
   -fx-padding: 4;
 }
 

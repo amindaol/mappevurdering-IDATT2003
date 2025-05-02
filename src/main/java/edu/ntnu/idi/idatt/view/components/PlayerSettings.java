@@ -22,6 +22,8 @@ public class PlayerSettings {
     nameField.setPromptText("Player " + playerNumber);
 
     playerContainer.getChildren().addAll(playerIcon, nameField);
+    playerContainer.setSpacing(8);
+    playerContainer.setAlignment(javafx.geometry.Pos.CENTER);
   }
 
   public RadioButton getPlayerIcon() {
@@ -34,5 +36,10 @@ public class PlayerSettings {
 
   public Node getAsNode() {
     return playerContainer;
+  }
+
+  public String getPlayerName() {
+    TextField nameField = (TextField) playerContainer.getChildren().get(1);
+    return nameField.getText();
   }
 }
