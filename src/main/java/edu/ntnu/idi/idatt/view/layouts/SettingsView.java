@@ -19,7 +19,8 @@ public class SettingsView {
   public SettingsView(String gameTitle,
       Runnable onHome,
       Runnable onHelp,
-      Node content) {
+      Node content,
+      Runnable onStartGame) {
 
     root = new BorderPane();
     root.getStyleClass().add("settings-root");
@@ -32,12 +33,17 @@ public class SettingsView {
 
     startGameButton = new Button("Start game");
     // TODO: Add .css styling to the button and action
-    startGameButton.setOnAction(event -> System.out.println("Start game button clicked"));
+    startGameButton
+        .setOnAction(event -> {
+          onStartGame.run();
+        });
 
     HBox bottomBar = new HBox(startGameButton);
-    bottomBar.setAlignment(Pos.CENTER_RIGHT);
-    bottomBar.setPadding(new Insets(10));
-    // TODO: Add .css styling to the bottom bar
+    bottomBar.setAlignment(Pos.CENTER_LEFT);
+    bottomBar.setPadding(new Insets(20));
+    startGameButton.getStyleClass().add("nav-button");
+
+    root.setBottom(bottomBar);
   }
 
   public BorderPane getRoot() {

@@ -21,6 +21,10 @@
   -fx-cursor: hand;
 }
 
+.nav-button:hover {
+  -fx-background-color: #8B5C73;
+}
+
 .nav-bar {
   -fx-padding: 10;
   -fx-background-color: transparent;
@@ -39,6 +43,10 @@
   -fx-pref-width: 32;
   -fx-pref-height: 32;
   -fx-padding: 4;
+}
+
+.icon-button:hover {
+  -fx-background-color: #AD6C8C;
 }
 
 .settings-root {
