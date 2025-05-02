@@ -6,12 +6,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class SettingsContent {
 
   private final VBox root;
+  private PlayerSettingsContainer playerSettingsContainer;
 
   public SettingsContent(int maxPlayers) {
     root = new VBox();
@@ -45,12 +47,16 @@ public class SettingsContent {
     boardButtons.setSpacing(8);
     boardButtons.setAlignment(Pos.CENTER_LEFT);
 
+    BorderPane playerSettings = new BorderPane();
+    playerSettingsContainer = new PlayerSettingsContainer(2);
+    playerSettings.setBottom(playerSettingsContainer.getAsNode());
+
     HBox playersButtons = new HBox();
     Label playersLabel = new Label("Number of players:");
     playersLabel.getStyleClass().add("settings-content-label");
     playersLabel.setAlignment(Pos.CENTER_LEFT);
     ToggleGroup playersGroup = new ToggleGroup();
-    for (int i = 2; i <= maxPlayers + 1; i++) {
+    for (int i = 2; i <= maxPlayers; i++) {
       RadioButton playerButton = new RadioButton(String.valueOf(i));
       playerButton.setUserData(i);
       if (i == 2) {
@@ -60,11 +66,22 @@ public class SettingsContent {
       playersButtons.getChildren().add(playerButton);
       playerButton.setToggleGroup(playersGroup);
       playerButton.getStyleClass().add("settings-content-radio-button");
+
+      playerButton.setOnAction(event -> {
+        int selectedPlayers = (int) playerButton.getUserData();
+        PlayerSettingsContainer newplayerSettingsContainer =
+            new PlayerSettingsContainer(selectedPlayers);
+        playerSettings.setBottom(newplayerSettingsContainer.getAsNode());
+
+      });
     }
+
+    playerSettings.setCenter(playersButtons);
+    playerSettings.setTop(playersLabel);
 
     playersButtons.setSpacing(8);
 
-    root.getChildren().addAll(boardLabel, boardButtons, playersLabel, playersButtons);
+    root.getChildren().addAll(boardLabel, boardButtons, playerSettings);
   }
 
   public Node getRoot() {
