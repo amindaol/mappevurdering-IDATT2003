@@ -47,7 +47,12 @@ public class UiController {
         "Slayboard - Love & Ladders",
         this::showHomePage,
         () -> System.out.println("Help button clicked"),
-        new SettingsContent(5).getRoot()
+        new SettingsContent(5).getRoot(),
+        () -> {
+          String name1 = "Player 1"; // TODO: Get from input
+          String name2 = "Player 2"; // TODO: Get from input
+          startGame("Love & Ladders", name1, name2);
+        }
     );
 
     loveAndLaddersScene = new Scene(loveAndLaddersView.getRoot());
@@ -85,6 +90,7 @@ public class UiController {
    * Initializes the model and switches to the BoardView.
    */
   private void startGame(String gameType, String name1, String name2) {
+    // TODO: 2-5 players
     BoardGame game = BoardGameFactory.createStandardBoardGame();
     game.addPlayer(new Player(name1, game));
     game.addPlayer(new Player(name2, game));
