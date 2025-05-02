@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.view.components;
 
+import javafx.scene.Node;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -8,10 +9,11 @@ import javafx.scene.layout.VBox;
 public class PlayerSettings {
 
   private RadioButton playerIcon;
+  private VBox playerContainer;
 
   public PlayerSettings(int playerNumber) {
 
-    VBox playerContainer = new VBox();
+    playerContainer = new VBox();
     playerContainer.getStyleClass().add("player-settings");
     playerIcon = new RadioButton();
     playerIcon.getStyleClass().add("player-settings-icon");
@@ -28,5 +30,9 @@ public class PlayerSettings {
 
   public void setPlayerIcon(ImageView playerIcon) {
     this.playerIcon.setGraphic(playerIcon);
+  }
+
+  public Node getAsNode() {
+    return playerContainer;
   }
 }
