@@ -108,3 +108,40 @@
   -fx-fill: #EE3399;
 }
 
+.player-settings {
+  -fx-background-color: transparent;
+  -fx-padding: 12;
+}
+
+.player-settings-icon .radio {
+  -fx-background-color: transparent;
+  -fx-shape: "";
+  -fx-padding: 0;
+}
+
+.player-settings-icon {
+  -fx-background-color: #FFCCDD;
+  -fx-background-radius: 4;
+  -fx-cursor: hand;
+  -fx-pref-width: 64;
+  -fx-pref-height: 64;
+  -fx-padding: 4;
+}
+
+.player-settings-icon:hover {
+  -fx-background-color: #FF99BB;
+}
+
+.player-settings-icon:selected {
+  -fx-background-color: #FF6699;
+}
+
+.player-settings-name-field {
+  -fx-background-color: #FFCCDD;
+  -fx-border-color: #CC6699;
+  -fx-border-radius: 4;
+  -fx-padding: 4;
+  -fx-cursor: text;
+  -fx-text-fill: #7c4e65;
+}
+

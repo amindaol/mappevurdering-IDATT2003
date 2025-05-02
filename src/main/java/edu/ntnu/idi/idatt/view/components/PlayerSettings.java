@@ -12,9 +12,11 @@ public class PlayerSettings {
   public PlayerSettings(int playerNumber) {
 
     VBox playerContainer = new VBox();
-
+    playerContainer.getStyleClass().add("player-settings");
     playerIcon = new RadioButton();
+    playerIcon.getStyleClass().add("player-settings-icon");
     TextField nameField = new TextField();
+    nameField.getStyleClass().add("player-settings-name-field");
     nameField.setPromptText("Player " + playerNumber);
 
     playerContainer.getChildren().addAll(playerIcon, nameField);
