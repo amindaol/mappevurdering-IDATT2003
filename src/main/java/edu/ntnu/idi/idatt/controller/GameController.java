@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller that binds the BoardGame model to the BoardView UI.
- * Handles user input (dice roll) and updates player tokens on the board.
+ * Controller that binds the BoardGame model to the BoardView UI. Handles user input (dice roll) and
+ * updates player tokens on the board.
  */
 public class GameController implements BoardGameObserver {
 
@@ -37,23 +37,23 @@ public class GameController implements BoardGameObserver {
       Circle token = new Circle(20);
       token.getStyleClass().add("player-token");
       tokenMap.put(p, token);
-      view.placeToken(1, token);
+      // view.placeToken(1, token);
     }
 
     game.addObserver(this);
   }
 
   /**
-   * Called by the UI when the user clicks the "Roll Dice" button.
-   * Executes a single turn: rolls dice, moves current player, and fires events.
+   * Called by the UI when the user clicks the "Roll Dice" button. Executes a single turn: rolls
+   * dice, moves current player, and fires events.
    */
   public void onRollDice() {
     game.playOneTurn();
   }
 
   /**
-   * Receives notifications from the BoardGame. Updates UI accordingly.
-   * Ensures UI updates run on the JavaFX Application Thread.
+   * Receives notifications from the BoardGame. Updates UI accordingly. Ensures UI updates run on
+   * the JavaFX Application Thread.
    */
   @Override
   public void onGameStateChange(BoardGame game, BoardGameEvent event) {
@@ -67,7 +67,7 @@ public class GameController implements BoardGameObserver {
           Player current = game.getCurrentPlayer();
           int tileId = current.getCurrentTile().getTileId();
           Circle token = tokenMap.get(current);
-          view.moveToken(token, tileId);
+          // view.moveToken(token, tileId);
           break;
         case GAME_WON:
           break;

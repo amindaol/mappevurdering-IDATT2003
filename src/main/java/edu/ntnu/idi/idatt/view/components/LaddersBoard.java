@@ -35,4 +35,8 @@ public class LaddersBoard {
   public Pane getTile(int tileId) {
     return tileMap.get(tileId);
   }
+
+  public GridPane getGrid() {
+    return grid;
+  }
 }
