@@ -27,8 +27,7 @@ public class BoardView extends StackPane {
     return this;
   }
 
-  public void placePlayerIcon(String playerName, Image image, int tileId) {
-    PlayerIcon icon = new PlayerIcon(playerName, image);
+  public void placePlayerIcon(String playerName, PlayerIcon icon, int tileId) {
     playerIcons.put(playerName, icon);
     Pane tile = board.getTile(tileId);
     if (tile != null) {
@@ -41,7 +40,6 @@ public class BoardView extends StackPane {
     if (icon == null) {
       return;
     }
-
     if (icon.getParent() instanceof Pane oldTile) {
       oldTile.getChildren().remove(icon);
     }

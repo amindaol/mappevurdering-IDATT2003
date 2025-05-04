@@ -4,8 +4,11 @@ import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.model.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BoardView;
+import java.util.Objects;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 
 import java.util.HashMap;
@@ -20,7 +23,7 @@ public class GameController implements BoardGameObserver {
 
   private final BoardGame game;
   private final BoardView view;
-  private final Map<Player, Circle> tokenMap = new HashMap<>();
+  private final Map<Player, PlayerIcon> playerIconMap = new HashMap<>();
 
   /**
    * Constructs a GameController, creates tokens for each player, and registers as observer.
@@ -34,12 +37,11 @@ public class GameController implements BoardGameObserver {
 
     List<Player> players = game.getPlayers();
     for (Player p : players) {
-      Circle token = new Circle(20);
-      token.getStyleClass().add("player-token");
-      tokenMap.put(p, token);
-      // view.placeToken(1, token);
+      Image image = new Image(
+          Objects.requireNonNull(getClass().getResourceAsStream("/icons/players/pawn.png")));
+      PlayerIcon icon = new PlayerIcon(p.getName(), image);
+      playerIconMap.put(p, icon);
     }
-
     game.addObserver(this);
   }
 
@@ -60,14 +62,18 @@ public class GameController implements BoardGameObserver {
     Platform.runLater(() -> {
       switch (event) {
         case GAME_START:
-          break;
+          for (Player p : game.getPlayers()) {
+            PlayerIcon icon = playerIconMap.get(p);
+            int startTileId = p.getCurrentTile().getTileId();
+            view.placePlayerIcon(p.getName(), icon, startTileId);
+          }
         case DICE_ROLLED:
           break;
         case PLAYER_MOVED:
           Player current = game.getCurrentPlayer();
           int tileId = current.getCurrentTile().getTileId();
-          Circle token = tokenMap.get(current);
-          // view.moveToken(token, tileId);
+          PlayerIcon playerIcon = playerIconMap.get(current);
+          view.movePlayerIcon(current.getName(), tileId);
           break;
         case GAME_WON:
           break;
