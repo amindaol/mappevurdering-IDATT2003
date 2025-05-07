@@ -2,12 +2,9 @@ package edu.ntnu.idi.idatt.view.layouts;
 
 import edu.ntnu.idi.idatt.view.components.LaddersBoard;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import java.util.HashMap;
@@ -17,10 +14,14 @@ public class BoardView extends StackPane {
 
   private final LaddersBoard board;
   private final Map<String, PlayerIcon> playerIcons = new HashMap<>();
+  private final Button rollDiceButton = new Button("Roll Dice");
 
   public BoardView(int rows, int cols) {
     this.board = new LaddersBoard(rows, cols);
-    this.getChildren().add(board.getGrid());
+    this.getChildren().addAll(board.getGrid(), rollDiceButton);
+
+    this.setAlignment(Pos.CENTER);
+
   }
 
   public Parent getRoot() {
@@ -47,5 +48,9 @@ public class BoardView extends StackPane {
     if (newTile != null) {
       newTile.getChildren().add(icon);
     }
+  }
+
+  public void setRollOnDice(Runnable onRollDice) {
+    rollDiceButton.setOnAction(e -> onRollDice.run());
   }
 }
