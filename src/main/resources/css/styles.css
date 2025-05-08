@@ -2,17 +2,17 @@
 
 /* background */
 .home-root {
-  -fx-background-color: #FFE5F2;
+  -fx-background-color: #FFF5FA;
 }
 
 .title-label {
   -fx-font-size: 36px;
   -fx-font-weight: bold;
-  -fx-text-fill: #8B5C73;
+  -fx-text-fill: #b0206b;
 }
 
 .nav-button {
-  -fx-background-color: #AD6C8C;
+  -fx-background-color: #B0437A;
   -fx-font-size: 14px;
   -fx-padding: 8 16 8 16;
   -fx-background-radius: 4;
@@ -22,7 +22,7 @@
 }
 
 .nav-button:hover {
-  -fx-background-color: #8B5C73;
+  -fx-background-color: #902A64;
 }
 
 .nav-bar {
@@ -33,42 +33,38 @@
 .nav-title {
   -fx-font-size: 20px;
   -fx-font-weight: bold;
-  -fx-text-fill: #8B5C73;
+  -fx-text-fill: #7B3B6E;
 }
 
 .icon-button {
-  -fx-background-color: #8B5C73;
-  -fx-background-radius: 4;
+  -fx-background-color: #C04578; /* darker, more pink */
+  -fx-background-radius: 6;
   -fx-cursor: hand;
-  -fx-pref-width: 32;
-  -fx-pref-height: 32;
-  -fx-padding: 4;
+  -fx-pref-width: 28;
+  -fx-pref-height: 28;
+  -fx-padding: 3;
 }
 
 .icon-button:hover {
-  -fx-background-color: #AD6C8C;
+  -fx-background-color: #A33865;
 }
 
 .settings-root {
-  -fx-background-color: white;
   -fx-padding: 12;
-  -fx-border-color: #FFE5F2;
+  -fx-background-color: #FFF5FA;
   -fx-border-width: 8;
   -fx-border-radius: 8;
 }
 
-.settings-content {
-  -fx-padding: 12;
-  -fx-background-color: transparent;
-  -fx-border-radius: 8;
-}
-
 .settings-content-label {
-  -fx-font-size: 18px;
+  -fx-font-size: 20px;
   -fx-font-weight: bold;
-  -fx-text-fill: #8B5C73;
+  -fx-text-fill:  #b0206b;
+  -fx-border-style: hidden hidden solid hidden;
+  -fx-border-width: 0 0 2 0;
+  -fx-border-color: #C83775;
+  -fx-padding: 0 0 8 0;
 }
-
 .settings-content-radio-button .radio {
   -fx-background-color: transparent;
   -fx-shape: "";
@@ -76,26 +72,29 @@
 }
 
 .settings-content-radio-button {
-  -fx-background-color: white;
-  -fx-padding: 10 20;
-  -fx-border-color: #8B5C73;
-  -fx-border-radius: 5;
-  -fx-background-radius: 5;
+  -fx-background-color:  #F48FB1;
+  -fx-border-color: #AD1457;
+  -fx-border-radius: 6;
+  -fx-background-radius: 6;
+  -fx-padding: 8 16;
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #5E2743;
   -fx-cursor: hand;
 }
-
 .settings-content-radio-button:hover {
-  -fx-background-color: #FFE5F2;
+  -fx-background-color: #F06292;
 }
 
 .settings-content-radio-button:selected {
-  -fx-background-color: #8B5C73;
+  -fx-background-color: #C2185B;
   -fx-text-fill: white;
 }
 
+
 .settings-content-radio-button:selected .radio {
-  -fx-background-color: #8B5C73;
-  -fx-border-color: #8B5C73;
+  -fx-background-color: #902A64;
+  -fx-border-color: #902A64;
   -fx-border-radius: 5;
 }
 
@@ -111,6 +110,7 @@
 .player-settings {
   -fx-background-color: transparent;
   -fx-padding: 12;
+  -fx-boarder-color: transparent;
 }
 
 .player-settings-icon .radio {
@@ -128,31 +128,85 @@
   -fx-padding: 4;
 }
 
-.player-settings-icon:hover {
-  -fx-background-color: #FF99BB;
-}
-
 .player-settings-icon:selected {
-  -fx-background-color: #FF6699;
+  -fx-background-color: #EC407A;;
 }
 
 .player-settings-name-field {
-  -fx-background-color: #FFCCDD;
-  -fx-border-color: #CC6699;
+  -fx-background-color:  #F48FB1;
+  -fx-border-color:#AD1457;
   -fx-border-radius: 4;
   -fx-padding: 4;
   -fx-cursor: text;
-  -fx-text-fill: #7c4e65;
+  -fx-text-fill: #b72b6b;
 }
 
 .die {
   -fx-background-color: white;
-  -fx-border-color: #49293b;
+  -fx-border-color:#6A1B4D;
   -fx-border-radius: 4;
   -fx-padding: 4;
 }
 
 .die-dot {
-  -fx-background-color: #49293b;
+  -fx-background-color:  #6A1B4D;
 }
 
+.player-settings-card {
+  -fx-background-color: #fce4ec;
+  -fx-padding: 12;
+  -fx-spacing: 10;
+  -fx-border-radius: 10;
+  -fx-background-radius: 10;
+  -fx-border-color: #e91e63;
+  -fx-border-width: 1;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 6, 0, 0, 1);
+}
+
+.player-settings-icon:hover {
+  -fx-background-color: #FF99BB;
+  -fx-scale-x: 1.1;
+  -fx-scale-y: 1.1;
+  -fx-cursor: hand;
+}
+
+.settings-content {
+  -fx-padding: 24;
+  -fx-background-color:#FFE3ED;
+  -fx-border-radius: 16;
+  -fx-border-color: #D81B60;
+  -fx-border-width: 2;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 2);
+}
+
+
+.root {
+  -fx-font-family: 'Poppins', sans-serif;
+}
+
+.radio-button:selected {
+  -fx-border-color:#C2185B;
+  -fx-border-width: 2;
+  -fx-background-color: #F8BBD0;
+}
+
+.player-settings-container {
+  -fx-padding: 24;
+  -fx-hgap: 24;
+  -fx-vgap: 24;
+  -fx-alignment: center;
+}
+
+.player-settings-icon:selected {
+  -fx-border-color: #D81B60;
+  -fx-border-width: 2;
+  -fx-background-color: #F06292;
+}
+
+.text-field .text {
+  -fx-fill: #b72b6b;
+}
+
+.text-field .prompt-text {
+  -fx-fill: #b72b6b;
+}

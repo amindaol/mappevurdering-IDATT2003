@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -31,12 +32,16 @@ public class SettingsView {
     BorderPane.setMargin(content, new Insets(10));
     root.setCenter(content);
 
+    ScrollPane scrollPane = new ScrollPane(content);
+    scrollPane.setFitToWidth(true);
+    scrollPane.setFitToHeight(true);
+    scrollPane.setStyle("-fx-background-color: transparent;");
+    BorderPane.setMargin(scrollPane, new Insets(10));
+    root.setCenter(scrollPane);
+
     startGameButton = new Button("Start game");
-    // TODO: Add .css styling to the button and action
-    startGameButton
-        .setOnAction(event -> {
-          onStartGame.run();
-        });
+    startGameButton.setOnAction(event -> onStartGame.run());
+    startGameButton.getStyleClass().add("nav-button");
 
     HBox bottomBar = new HBox(startGameButton);
     bottomBar.setAlignment(Pos.CENTER_LEFT);

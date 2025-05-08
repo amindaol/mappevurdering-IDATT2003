@@ -5,10 +5,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 /**
  * Container holding all player configuration components.
@@ -27,14 +32,33 @@ public class PlayerSettingsContainer {
    */
   public PlayerSettingsContainer(int players) {
     root = new FlowPane();
-    root.setHgap(16);
-    root.setVgap(16);
+    root.getStyleClass().add("player-settings-container");
     root.setAlignment(Pos.CENTER);
+    root.setPrefWrapLength(1000);
+    root.setPadding(new Insets(24));
+    root.setHgap(20);
+    root.setVgap(20);
 
     for (int i = 0; i < players; i++) {
       PlayerSettings playerSettings = new PlayerSettings(i + 1);
       playerSettingsList.add(playerSettings);
+
+      Node playerNode = playerSettings.getAsNode();
       root.getChildren().add(playerSettings.getAsNode());
+
+      playerNode.setOpacity(0);
+      playerNode.setTranslateY(20);
+
+      FadeTransition fade = new FadeTransition(Duration.millis(300), playerNode);
+      fade.setFromValue(0);
+      fade.setToValue(1);
+
+      TranslateTransition slide = new TranslateTransition(Duration.millis(300), playerNode);
+      slide.setFromY(20);
+      slide.setToY(0);
+
+      ParallelTransition combined = new ParallelTransition(fade, slide);
+      combined.play();
     }
     for (PlayerSettings ps : playerSettingsList) {
       ps.setOnTokenSelected(() -> {
@@ -98,5 +122,13 @@ public class PlayerSettingsContainer {
         .map(PlayerSettings::getSelectedIconName)
         .toList();
   }
+
+  public void validateAllInputs() {
+    for (PlayerSettings settings : playerSettingsList) {
+      settings.validateNameField();
+      settings.validateTokenSelection();
+    }
+  }
+
 
 }
