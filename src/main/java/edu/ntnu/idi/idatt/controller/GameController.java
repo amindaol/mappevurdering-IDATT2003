@@ -50,7 +50,13 @@ public class GameController implements BoardGameObserver {
    * dice, moves current player, and fires events.
    */
   public void onRollDice() {
-    game.playOneTurn();
+    System.out.println("Roll Dice button clicked");
+    try {
+      game.playOneTurn();
+    } catch (IllegalStateException e) {
+      System.out.println("Error during game turn: " + e.getMessage());
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -60,6 +66,8 @@ public class GameController implements BoardGameObserver {
   @Override
   public void onGameStateChange(BoardGame game, BoardGameEvent event) {
     Platform.runLater(() -> {
+      System.out.println("Game state changed: " + event);
+
       switch (event) {
         case GAME_START:
           for (Player p : game.getPlayers()) {
@@ -68,6 +76,7 @@ public class GameController implements BoardGameObserver {
             view.placePlayerIcon(p.getName(), icon, startTileId);
           }
         case DICE_ROLLED:
+          System.out.println("Dice rolled: " + game.getDice().getDie(0).getValue());
           break;
         case PLAYER_MOVED:
           Player current = game.getCurrentPlayer();

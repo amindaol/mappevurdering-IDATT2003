@@ -3,14 +3,14 @@ package edu.ntnu.idi.idatt.view.layouts;
 import edu.ntnu.idi.idatt.view.components.DieContainer;
 import edu.ntnu.idi.idatt.view.components.LaddersBoard;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import java.util.HashMap;
-import java.util.Map;
 import javafx.scene.layout.VBox;
 
 public class BoardView extends BorderPane {
@@ -59,6 +59,12 @@ public class BoardView extends BorderPane {
   }
 
   public void setRollOnDice(Runnable onRollDice) {
-    rollDiceButton.setOnAction(e -> onRollDice.run());
+    rollDiceButton.setOnAction(e -> {
+      try {
+        onRollDice.run();
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    });
   }
 }
