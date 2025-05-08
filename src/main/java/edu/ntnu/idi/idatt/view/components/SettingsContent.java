@@ -1,5 +1,7 @@
 package edu.ntnu.idi.idatt.view.components;
 
+import java.time.LocalDate;
+import java.util.List;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -86,5 +88,13 @@ public class SettingsContent {
 
   public Node getRoot() {
     return root;
+  }
+
+  public List<String> getPlayerNames() {
+    return playerSettingsContainer.getPlayerNames();
+  }
+
+  public List<LocalDate> getPlayerBirthdays() {
+    return playerSettingsContainer.getPlayerBirthdays();
   }
 }

@@ -197,4 +197,13 @@ public class Player {
   public int getPoints() {
     return points;
   }
+
+  /**
+   * Returns the player's birthday.
+   *
+   * @return the player's birth date
+   */
+  public LocalDate getBirthday() {
+    return birthday;
+  }
 }

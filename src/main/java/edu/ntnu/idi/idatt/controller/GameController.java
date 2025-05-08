@@ -6,6 +6,7 @@ import edu.ntnu.idi.idatt.model.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.model.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BoardView;
+import java.util.Comparator;
 import java.util.Objects;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
@@ -35,43 +36,45 @@ public class GameController implements BoardGameObserver {
     this.game = game;
     this.view = view;
 
-    view.getRoot().applyCss();
-    view.getRoot().layout();
+     view.getRoot().applyCss();
+  view.getRoot().layout();
 
-    try {
-      List<Player> players = game.getPlayers();
-      System.out.println("Number of players: " + players.size());
+  try {
+    game.getPlayers().sort(Comparator.comparing(Player::getBirthday));
 
-      for (Player p : players) {
-        System.out.println("Player: " + p.getName());
+    List<Player> players = game.getPlayers();
+    System.out.println("Number of players: " + players.size());
 
-        Image image = new Image(
-            Objects.requireNonNull(getClass().getResourceAsStream("/icons/players/pawn.png")));
-        PlayerIcon icon = new PlayerIcon("Player", image);
-        playerIconMap.put(p, icon);
-      }
+    for (Player p : players) {
+      System.out.println("Player: " + p.getName());
 
-      game.addObserver(this);
-      System.out.println("Observer added to game");
+      Image image = new Image(
+          Objects.requireNonNull(getClass().getResourceAsStream("/icons/players/pawn.png")));
+      PlayerIcon icon = new PlayerIcon(p.getName(), image); // Bruk faktisk navn
+      playerIconMap.put(p, icon);
+    }
 
-      Runnable init = () -> {
-        System.out.println("Initializing game...");
-        for (Player p : game.getPlayers()) {
-          PlayerIcon icon = playerIconMap.get(p);
-          if (p.getCurrentTile() == null) {
-            System.out.println("Player " + p.getName() + " has no current tile");
-            continue;
-          }
-          int startTileId = p.getCurrentTile().getTileId();
-          System.out.println("Placing player " + p.getName() + " on tile " + startTileId);
-          view.placePlayerIcon(p.getName(), icon, startTileId);
+    game.addObserver(this);
+    System.out.println("Observer added to game");
+
+    Runnable init = () -> {
+      System.out.println("Initializing game...");
+      for (Player p : game.getPlayers()) {
+        PlayerIcon icon = playerIconMap.get(p);
+        if (p.getCurrentTile() == null) {
+          System.out.println("Player " + p.getName() + " has no current tile");
+          continue;
         }
-        view.getRoot().requestLayout();
-      };
-      Platform.runLater(init);
-    } catch (Exception e) {
-      System.out.println("Error initializing game: " + e.getMessage());
-      e.printStackTrace();
+        int startTileId = p.getCurrentTile().getTileId();
+        System.out.println("Placing player " + p.getName() + " on tile " + startTileId);
+        view.placePlayerIcon(p.getName(), icon, startTileId);
+      }
+      view.getRoot().requestLayout();
+    };
+    Platform.runLater(init);
+  } catch (Exception e) {
+    System.out.println("Error initializing game: " + e.getMessage());
+    e.printStackTrace();
     }
   }
 

@@ -26,6 +26,8 @@ public class UiController {
   private final Scene loveAndLaddersScene;
   private final Scene bestiePointBattlesScene;
   private Scene gameScene;
+  private SettingsContent loveAndLaddersSettings;
+  private SettingsContent bestiePointBattlesSettings;
   private GameController gameController;
 
   public UiController(Stage stage) {
@@ -45,17 +47,15 @@ public class UiController {
     homeView.getBestieBattlesButton()
         .setOnAction(event -> showBestiePointBattlesPage());
 
+    loveAndLaddersSettings = new SettingsContent(5);
     SettingsView loveAndLaddersView = new SettingsView(
         "Slayboard - Love & Ladders",
         this::showHomePage,
         () -> System.out.println("Help button clicked"),
-        new SettingsContent(5).getRoot(),
-        () -> {
-          String name1 = "Player 1"; // TODO: Get from input
-          String name2 = "Player 2"; // TODO: Get from input
-          startGame("Love & Ladders", name1, name2);
-        }
+        loveAndLaddersSettings.getRoot(),
+        () -> startGame("Love & Ladders", loveAndLaddersSettings)
     );
+
 
     loveAndLaddersScene = new Scene(loveAndLaddersView.getRoot());
     loveAndLaddersScene.getStylesheets().add(
@@ -65,19 +65,16 @@ public class UiController {
         ).toExternalForm()
     );
 
-    SettingsView BestiePointBattles = new SettingsView(
+    bestiePointBattlesSettings = new SettingsContent(5);
+    SettingsView BestieView = new SettingsView(
         "Slayboard - Bestie PointBattles",
         this::showHomePage,
         () -> System.out.println("Help button clicked. "),
-        new SettingsContent(5).getRoot(),
-        () -> {
-          String name1 = "Player 1";
-          String name2 = "Player 2";
-          startGame("Bestie PointBattles", name1, name2);
-        }
+        bestiePointBattlesSettings.getRoot(),
+        () -> startGame("Bestie PointBattles", bestiePointBattlesSettings)
     );
 
-    bestiePointBattlesScene = new Scene(BestiePointBattles.getRoot());
+    bestiePointBattlesScene = new Scene(BestieView.getRoot());
     bestiePointBattlesScene.getStylesheets().add(
         Objects.requireNonNull(
             getClass().getResource("/css/styles.css"),
@@ -113,18 +110,19 @@ public class UiController {
   /**
    * Initializes the model and switches to the BoardView.
    */
-  private void startGame(String gameType, String name1, String name2) {
-    // TODO: 2-5 players
+  private void startGame(String gameType, SettingsContent settingsContent) {
     BoardGame game = BoardGameFactory.createStandardBoardGame();
-    LocalDate date1 = LocalDate.of(2001, 1, 1);
-    LocalDate date2 = LocalDate.of(2001, 1, 2);
-    game.addPlayer(new Player(name1, game, date1));
-    game.addPlayer(new Player(name2, game, date2));
 
-    BoardView boardView = new BoardView(9, 10, 2); // 90 tiles
-    gameController = new GameController(game, boardView);
+    var names = settingsContent.getPlayerNames();
+    var birthdays = settingsContent.getPlayerBirthdays();
 
-    boardView.setRollOnDice(gameController::onRollDice);
+    for (int i=0; i<names.size(); i++) {
+      game.addPlayer(new Player(names.get(i),game, birthdays.get(i)));
+    }
+
+    BoardView boardView = new BoardView(9, 10);
+    GameController controller = new GameController(game, boardView);
+    boardView.setRollOnDice(controller::onRollDice);
 
     gameScene = new Scene(boardView.getRoot());
     gameScene.getStylesheets().add(
