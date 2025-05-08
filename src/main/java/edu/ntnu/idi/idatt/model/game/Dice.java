@@ -57,4 +57,13 @@ public class Dice {
     }
     return dice[dieNumber];
   }
+
+  /**
+   * Retrieves the number of dice in this set.
+   *
+   * @return The number of dice.
+   */
+  public int getDiceAmount() {
+    return dice.length;
+  }
 }

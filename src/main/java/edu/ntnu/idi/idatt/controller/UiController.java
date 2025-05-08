@@ -28,6 +28,7 @@ public class UiController {
   private Scene gameScene;
   private SettingsContent loveAndLaddersSettings;
   private SettingsContent bestiePointBattlesSettings;
+  private GameController gameController;
 
   public UiController(Stage stage) {
     this.stage = stage;

@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Represents the main game controller that manages the board, dice, players,
- * and the turn-based gameplay loop. This class fires observer events
- * and throws domain-specific exceptions on invalid operations.
+ * Represents the main game controller that manages the board, dice, players, and the turn-based
+ * gameplay loop. This class fires observer events and throws domain-specific exceptions on invalid
+ * operations.
  */
 public class BoardGame {
 
@@ -74,8 +74,8 @@ public class BoardGame {
    * Adds a player to the game.
    *
    * @param player the player to add to the game.
-   * @throws NullPointerException if {@code player} is {@code null}.
-   * @throws TooManyPlayersException    if adding would exceed the maximum of {@value #MAX_PLAYERS}
+   * @throws NullPointerException    if {@code player} is {@code null}.
+   * @throws TooManyPlayersException if adding would exceed the maximum of {@value #MAX_PLAYERS}
    */
   public void addPlayer(Player player) {
     if (player == null) {
@@ -88,8 +88,8 @@ public class BoardGame {
   }
 
   /**
-   * Initializes the game board with a set number of tiles. Currently creates 30 tiles and adds them
-   * to the board.
+   * Initializes the game board with a set number of tiles. Currently, creates 30 tiles and adds
+   * them to the board.
    */
   public void createBoard() {
     this.board = new Board();
@@ -125,8 +125,8 @@ public class BoardGame {
 
     Tile last = board.getTile(board.size());
     if (players.stream().anyMatch(p ->
-        p.getCurrentTile() != null &&
-            p.getCurrentTile().getTileId() == last.getTileId())) {
+        p.getCurrentTile() != null
+            && p.getCurrentTile().getTileId() == last.getTileId())) {
       throw new GameAlreadyFinishedException();
     }
 
@@ -134,8 +134,6 @@ public class BoardGame {
     for (Player p : players) {
       p.placeOnTile(start);
     }
-
-    notifyObservers(BoardGameEvent.GAME_START);
 
     boolean gameWon = false;
     while (!gameWon) {
@@ -157,16 +155,23 @@ public class BoardGame {
   }
 
   /**
-   * Executes one turn: rolls dice and moves the next player.
-   * Fires events: GAME_START (once), DICE_ROLLED, PLAYER_MOVED, GAME_WON, GAME_ENDED.
-   * @throws GameNotInitializedException if board, dice, or players not set
-   * @throws NoPlayersException if no players added
+   * Executes one turn: rolls dice and moves the next player. Fires events: GAME_START (once),
+   * DICE_ROLLED, PLAYER_MOVED, GAME_WON, GAME_ENDED.
+   *
+   * @throws GameNotInitializedException  if board, dice, or players not set
+   * @throws NoPlayersException           if no players added
    * @throws GameAlreadyFinishedException if game already ended
    */
   public void playOneTurn() {
-    if (board == null || dice == null) throw new GameNotInitializedException();
-    if (players.isEmpty()) throw new NoPlayersException();
-    if (gameEnded) throw new GameAlreadyFinishedException();
+    if (board == null || dice == null) {
+      throw new GameNotInitializedException();
+    }
+    if (players.isEmpty()) {
+      throw new NoPlayersException();
+    }
+    if (gameEnded) {
+      throw new GameAlreadyFinishedException();
+    }
 
     if (turnIterator == null) {
       turnIterator = players.iterator();
@@ -226,7 +231,9 @@ public class BoardGame {
    * @throws GameNotInitializedException if the board has not been created
    */
   public Board getBoard() {
-    if (board == null) throw new GameNotInitializedException();
+    if (board == null) {
+      throw new GameNotInitializedException();
+    }
     return board;
   }
 
@@ -237,7 +244,9 @@ public class BoardGame {
    * @throws GameNotInitializedException if the dice has not been created
    */
   public Dice getDice() {
-    if (dice == null) throw new GameNotInitializedException();
+    if (dice == null) {
+      throw new GameNotInitializedException();
+    }
     return dice;
   }
 
