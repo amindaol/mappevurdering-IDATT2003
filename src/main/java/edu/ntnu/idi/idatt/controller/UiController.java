@@ -23,6 +23,7 @@ public class UiController {
   private final Stage stage;
   private final Scene homeScene;
   private final Scene loveAndLaddersScene;
+  private Scene gameScene;
 
   public UiController(Stage stage) {
     this.stage = stage;
@@ -70,15 +71,15 @@ public class UiController {
    */
   public void showHomePage() {
     stage.setTitle("Slayboard - Home");
-    stage.setMaximized(true);
     stage.setScene(homeScene);
+    stage.setMaximized(true);
   }
 
 
   public void showLoveAndLaddersPage() {
     stage.setTitle("Slayboard - Love & Ladders");
-    stage.setMaximized(true);
     stage.setScene(loveAndLaddersScene);
+    stage.setMaximized(true);
   }
 
   public void showBestieBattlesPage() {
@@ -98,14 +99,9 @@ public class UiController {
     BoardView boardView = new BoardView(9, 10); // 90 tiles
     GameController controller = new GameController(game, boardView);
 
-    Button rollBtn = new Button("Roll Dice");
-    rollBtn.getStyleClass().add("nav-button");
-    rollBtn.setOnAction(evt -> controller.onRollDice());
+    boardView.setRollOnDice(controller::onRollDice);
 
-    VBox root = new VBox(10, boardView.getRoot(), rollBtn);
-    root.setAlignment(Pos.CENTER);
-
-    Scene gameScene = new Scene(root);
+    gameScene = new Scene(boardView.getRoot());
     gameScene.getStylesheets().add(
         Objects.requireNonNull(
             getClass().getResource("/css/styles.css"),
@@ -116,23 +112,5 @@ public class UiController {
     stage.setTitle("Slayboard - " + gameType);
     stage.setScene(gameScene);
     stage.sizeToScene();
-    stage.centerOnScreen();
-  }
-
-  private void showGameScene(BoardGame game, String variant, String p1, String p2) {
-    BoardView boardView = new BoardView(9, 10);
-
-    GameController ctrl = new GameController(game, boardView);
-
-    Scene gameScene = new Scene(boardView.getRoot());
-    gameScene.getStylesheets().add(
-        Objects.requireNonNull(
-            getClass().getResource("/css/styles.css"),
-            "Kunne ikke finne styles.css"
-        ).toExternalForm()
-    );
-
-    stage.setTitle("Slayboard – " + variant);
-    stage.setScene(gameScene);
   }
 }
