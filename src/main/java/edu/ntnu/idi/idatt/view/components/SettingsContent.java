@@ -7,8 +7,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -46,17 +48,35 @@ public class SettingsContent {
     // TODO: Add image of the board to the radio button??
 
     HBox boardButtons = new HBox(boardButton1, boardButton2, boardButton3);
-    boardButtons.setSpacing(8);
-    boardButtons.setAlignment(Pos.CENTER_LEFT);
+    boardButtons.setSpacing(12);
+    boardButtons.setAlignment(Pos.CENTER);
 
     BorderPane playerSettings = new BorderPane();
     playerSettingsContainer = new PlayerSettingsContainer(2);
-    playerSettings.setBottom(playerSettingsContainer.getAsNode());
+    FlowPane playerSettingsPane = (FlowPane) playerSettingsContainer.getAsNode();
+    playerSettingsPane.setPrefWrapLength(800);
+
+    ScrollPane scrollPane = new ScrollPane(playerSettingsPane);
+    scrollPane.setFitToWidth(true);
+    scrollPane.setPrefHeight(350);
+    scrollPane.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
+
+    playerSettings.setBottom(scrollPane);
 
     HBox playersButtons = new HBox();
+    playersButtons.setSpacing(12);
+    playersButtons.setAlignment(Pos.CENTER);
+    playersButtons.setPadding(new Insets(8, 0, 12, 0));
+
     Label playersLabel = new Label("Number of players:");
     playersLabel.getStyleClass().add("settings-content-label");
-    playersLabel.setAlignment(Pos.CENTER_LEFT);
+
+    HBox playersBtn = new HBox(12);
+    playersLabel.setAlignment(Pos.CENTER);
+
+    VBox playerSelectionBox = new VBox(8, playersLabel, playersButtons);
+    playerSelectionBox.setAlignment(Pos.CENTER);
+
     ToggleGroup playersGroup = new ToggleGroup();
     for (int i = 2; i <= maxPlayers; i++) {
       RadioButton playerButton = new RadioButton(String.valueOf(i));
@@ -78,8 +98,7 @@ public class SettingsContent {
       });
     }
 
-    playerSettings.setCenter(playersButtons);
-    playerSettings.setTop(playersLabel);
+    playerSettings.setTop(playerSelectionBox);
 
     playersButtons.setSpacing(8);
 
@@ -102,4 +121,11 @@ public class SettingsContent {
     return playerSettingsContainer.getSelectedIcons();
   }
 
+  public List<String> getSelectedTokens() {
+    return playerSettingsContainer.getSelectedTokens();
+  }
+
+  public PlayerSettingsContainer getPlayerSettingsContainer() {
+    return playerSettingsContainer;
+  }
 }
