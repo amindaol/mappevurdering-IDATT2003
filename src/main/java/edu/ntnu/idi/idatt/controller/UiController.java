@@ -8,6 +8,7 @@ import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.view.layouts.BoardView;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -113,14 +114,18 @@ public class UiController {
   private void startGame(String gameType, SettingsContent settingsContent) {
     BoardGame game = BoardGameFactory.createStandardBoardGame();
 
-    var names = settingsContent.getPlayerNames();
-    var birthdays = settingsContent.getPlayerBirthdays();
+    List<String> names = settingsContent.getPlayerNames();
+    List<LocalDate> birthdays = settingsContent.getPlayerBirthdays();
+    List<String> tokens = settingsContent.getSelectedIcons();
+
 
     for (int i=0; i<names.size(); i++) {
-      game.addPlayer(new Player(names.get(i),game, birthdays.get(i)));
+      Player player = new Player(names.get(i), game, birthdays.get(i));
+      player.setToken(tokens.get(i));
+      game.addPlayer(player);
     }
 
-    BoardView boardView = new BoardView(9, 10);
+    BoardView boardView = new BoardView(9, 10, 2);
     GameController controller = new GameController(game, boardView);
     boardView.setRollOnDice(controller::onRollDice);
 

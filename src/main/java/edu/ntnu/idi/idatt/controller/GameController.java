@@ -48,9 +48,12 @@ public class GameController implements BoardGameObserver {
     for (Player p : players) {
       System.out.println("Player: " + p.getName());
 
+      String tokenName = p.getToken(); // e.g., "cat", "star", etc.
+      String path = "/icons/players/" + tokenName + ".png";
       Image image = new Image(
-          Objects.requireNonNull(getClass().getResourceAsStream("/icons/players/pawn.png")));
-      PlayerIcon icon = new PlayerIcon(p.getName(), image); // Bruk faktisk navn
+          Objects.requireNonNull(getClass().getResourceAsStream(path))
+      );
+      PlayerIcon icon = new PlayerIcon(p.getName(), image);
       playerIconMap.put(p, icon);
     }
 
