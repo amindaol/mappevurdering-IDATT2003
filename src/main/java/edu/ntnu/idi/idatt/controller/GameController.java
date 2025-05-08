@@ -6,6 +6,7 @@ import edu.ntnu.idi.idatt.model.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.model.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BoardView;
+import java.util.Comparator;
 import java.util.Objects;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
@@ -35,8 +36,8 @@ public class GameController implements BoardGameObserver {
     this.game = game;
     this.view = view;
 
-    List<Player> players = game.getPlayers();
-    for (Player p : players) {
+    game.getPlayers().sort(Comparator.comparing(Player::getBirthday));
+    for (Player p : game.getPlayers()) {
       Image image = new Image(
           Objects.requireNonNull(getClass().getResourceAsStream("/icons/players/pawn.png")));
       PlayerIcon icon = new PlayerIcon(p.getName(), image);
