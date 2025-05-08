@@ -1,0 +1,14 @@
+{
+  "rows": 9,
+  "cols": 10,
+  "specialTiles": [
+    { "id": 3,  "action": { "type": "Ladder", "destinationTileId": 15 } },
+    { "id": 10, "action": { "type": "Ladder", "destinationTileId": 28 } },
+    { "id": 22, "action": { "type": "Ladder", "destinationTileId": 39 } },
+    { "id": 19, "action": { "type": "Snake",  "destinationTileId": 5 } },
+    { "id": 35, "action": { "type": "Snake",  "destinationTileId": 18 } },
+    { "id": 60, "action": { "type": "Snake",  "destinationTileId": 40 } },
+    { "id": 70, "action": { "type": "GoToStart" } },
+    { "id": 52, "action": { "type": "SkipNextTurn" } }
+  ]
+}

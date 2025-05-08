@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.model.game.action;
 
 import edu.ntnu.idi.idatt.model.game.Player;
-import edu.ntnu.idi.idatt.model.game.Tile;
+
 
 public class SnakeAction implements TileAction {
   private final int destination;

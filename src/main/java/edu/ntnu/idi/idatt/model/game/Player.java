@@ -3,6 +3,7 @@ package edu.ntnu.idi.idatt.model.game;
 
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
+import java.time.LocalDate;
 
 /**
  * Represents a player in a board game.
@@ -14,15 +15,17 @@ public class Player {
   private String token;
   private Tile currentTile;
   private BoardGame boardGame;
+  private LocalDate birthday;
 
   /**
    * Primary constructor used by the game logic.
    *
    * @param name      the name of the player.
    * @param boardGame the board game the player belongs to.
+   * @param birthday the birthday of a player.
    * @throws NullPointerException if {@code name} or {@code boardGame} is {@code null}.
    */
-  public Player(String name, BoardGame boardGame) {
+  public Player(String name, BoardGame boardGame, LocalDate birthday) {
     if (name == null) {
       throw new NullPointerException("Player name cannot be null.");
     }
@@ -33,6 +36,7 @@ public class Player {
     this.name = name;
     this.boardGame = boardGame;
     this.currentTile = null;
+    this.birthday = birthday;
   }
 
   /**
@@ -158,15 +162,15 @@ public class Player {
   }
 
   /**
-   * @return true hvis spilleren skal stå over neste kast.
+   * @return
    */
   public boolean isSkipNextTurn() {
     return skipNextTurn;
   }
 
   /**
-   * Setter om spilleren skal stå over sitt neste kast.
-   * @param skipNextTurn true for å hoppe over
+   *
+   * @param
    */
   public void setSkipNextTurn(boolean skipNextTurn) {
     this.skipNextTurn = skipNextTurn;
