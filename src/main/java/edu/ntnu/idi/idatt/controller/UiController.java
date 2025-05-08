@@ -26,6 +26,7 @@ public class UiController {
   private final Scene loveAndLaddersScene;
   private final Scene bestiePointBattlesScene;
   private Scene gameScene;
+  private GameController gameController;
 
   public UiController(Stage stage) {
     this.stage = stage;
@@ -120,10 +121,10 @@ public class UiController {
     game.addPlayer(new Player(name1, game, date1));
     game.addPlayer(new Player(name2, game, date2));
 
-    BoardView boardView = new BoardView(9, 10); // 90 tiles
-    GameController controller = new GameController(game, boardView);
+    BoardView boardView = new BoardView(9, 10, 2); // 90 tiles
+    gameController = new GameController(game, boardView);
 
-    boardView.setRollOnDice(controller::onRollDice);
+    boardView.setRollOnDice(gameController::onRollDice);
 
     gameScene = new Scene(boardView.getRoot());
     gameScene.getStylesheets().add(
