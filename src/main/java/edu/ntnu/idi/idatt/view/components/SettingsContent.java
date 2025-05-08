@@ -97,4 +97,9 @@ public class SettingsContent {
   public List<LocalDate> getPlayerBirthdays() {
     return playerSettingsContainer.getPlayerBirthdays();
   }
+
+  public List<String> getSelectedIcons() {
+    return playerSettingsContainer.getSelectedIcons();
+  }
+
 }

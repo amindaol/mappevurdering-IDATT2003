@@ -206,4 +206,18 @@ public class Player {
   public LocalDate getBirthday() {
     return birthday;
   }
+
+  /**
+   * Sets the player's token identifier (e.g., "cat", "unicorn").
+   *
+   * @param token the name of the token image (without path)
+   * @throws NullPointerException if token is null
+   */
+  public void setToken(String token) {
+    if (token == null) {
+      throw new NullPointerException("Token cannot be null.");
+    }
+    this.token = token;
+  }
+
 }
