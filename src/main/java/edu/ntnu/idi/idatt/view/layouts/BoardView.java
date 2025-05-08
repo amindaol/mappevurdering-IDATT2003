@@ -1,31 +1,35 @@
 package edu.ntnu.idi.idatt.view.layouts;
 
-import edu.ntnu.idi.idatt.view.components.DieComponent;
+import edu.ntnu.idi.idatt.view.components.DieContainer;
 import edu.ntnu.idi.idatt.view.components.LaddersBoard;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.layout.VBox;
 
-public class BoardView extends StackPane {
+public class BoardView extends BorderPane {
 
   private final LaddersBoard board;
   private final Map<String, PlayerIcon> playerIcons = new HashMap<>();
   private final Button rollDiceButton = new Button("Roll Dice");
 
-  public BoardView(int rows, int cols) {
+  public BoardView(int rows, int cols, int diceAmount) {
     this.board = new LaddersBoard(rows, cols);
-    DieComponent die1 = new DieComponent();
-    die1.setPrefSize(60, 60);
 
-    this.getChildren().addAll(board.getGrid(), rollDiceButton, die1);
-
-    this.setAlignment(Pos.CENTER);
-
+    DieContainer dieContainer = new DieContainer(diceAmount);
+    VBox diceBox = new VBox(dieContainer, rollDiceButton);
+    diceBox.setAlignment(Pos.CENTER);
+    diceBox.setSpacing(10);
+    HBox gameContent = new HBox(board.getGrid(), diceBox);
+    gameContent.setSpacing(20);
+    gameContent.setAlignment(Pos.CENTER);
+    setCenter(gameContent);
   }
 
   public Parent getRoot() {

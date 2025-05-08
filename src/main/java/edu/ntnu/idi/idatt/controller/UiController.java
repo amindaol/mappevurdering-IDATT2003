@@ -96,7 +96,7 @@ public class UiController {
     game.addPlayer(new Player(name1, game));
     game.addPlayer(new Player(name2, game));
 
-    BoardView boardView = new BoardView(9, 10); // 90 tiles
+    BoardView boardView = new BoardView(9, 10, 2); // 90 tiles
     GameController controller = new GameController(game, boardView);
 
     boardView.setRollOnDice(controller::onRollDice);
