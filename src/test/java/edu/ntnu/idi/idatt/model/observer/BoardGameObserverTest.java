@@ -6,6 +6,7 @@ import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +31,7 @@ class BoardGameObserverTest {
     game.setBoard(tiny);
 
     game.createDice();
-    game.addPlayer(new Player("Alice", game));
+    game.addPlayer(new Player("Alice", game, LocalDate.of(2000, 1, 1)));
 
     game.play();
 
@@ -45,7 +46,7 @@ class BoardGameObserverTest {
     game.setBoard(tiny);
 
     game.createDice();
-    game.addPlayer(new Player("Bob", game));
+    game.addPlayer(new Player("Bob", game, LocalDate.of(2000, 1, 1)));
 
     game.play();
 

@@ -24,6 +24,7 @@ public class UiController {
   private final Stage stage;
   private final Scene homeScene;
   private final Scene loveAndLaddersScene;
+  private final Scene bestiePointBattlesScene;
   private Scene gameScene;
 
   public UiController(Stage stage) {
@@ -41,9 +42,7 @@ public class UiController {
     homeView.getLoveAndLaddersButton()
         .setOnAction(e -> showLoveAndLaddersPage());
     homeView.getBestieBattlesButton()
-        .setOnAction(event -> {
-          System.out.println("Bestie Battles button clicked");
-        });
+        .setOnAction(event -> showBestiePointBattlesPage());
 
     SettingsView loveAndLaddersView = new SettingsView(
         "Slayboard - Love & Ladders",
@@ -65,6 +64,26 @@ public class UiController {
         ).toExternalForm()
     );
 
+    SettingsView BestiePointBattles = new SettingsView(
+        "Slayboard - Bestie PointBattles",
+        this::showHomePage,
+        () -> System.out.println("Help button clicked. "),
+        new SettingsContent(5).getRoot(),
+        () -> {
+          String name1 = "Player 1";
+          String name2 = "Player 2";
+          startGame("Bestie PointBattles", name1, name2);
+        }
+    );
+
+    bestiePointBattlesScene = new Scene(BestiePointBattles.getRoot());
+    bestiePointBattlesScene.getStylesheets().add(
+        Objects.requireNonNull(
+            getClass().getResource("/css/styles.css"),
+            "could not find /css/styles.css"
+        ).toExternalForm()
+    );
+
   }
 
   /**
@@ -83,8 +102,10 @@ public class UiController {
     stage.setMaximized(true);
   }
 
-  public void showBestieBattlesPage() {
-    // TODO: Implement this method
+  public void showBestiePointBattlesPage() {
+    stage.setTitle("Slayboard - Bestie PointBattles");
+    stage.setScene(bestiePointBattlesScene);
+    stage.setMaximized(true);
   }
 
 
