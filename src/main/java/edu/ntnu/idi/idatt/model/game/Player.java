@@ -16,6 +16,7 @@ public class Player {
   private Tile currentTile;
   private BoardGame boardGame;
   private LocalDate birthday;
+  private int points = 0;
 
   /**
    * Primary constructor used by the game logic.
@@ -162,17 +163,38 @@ public class Player {
   }
 
   /**
-   * @return
+   * Checks whether the player should skip their next turn.
+   *
+   * @return true if the player must skip next turn, false otherwise
    */
   public boolean isSkipNextTurn() {
     return skipNextTurn;
   }
 
   /**
+   * Sets whether the player should skip their next turn.
    *
-   * @param
+   * @param skipNextTurn true to skip the next turn, false otherwise
    */
   public void setSkipNextTurn(boolean skipNextTurn) {
     this.skipNextTurn = skipNextTurn;
+  }
+
+  /**
+   * Adds points to the player's current score. Can be negative to subtract.
+   *
+   * @param amount the number of points to add or subtract
+   */
+  public void addPoints(int amount) {
+    this.points += amount;
+  }
+
+  /**
+   * Gets the player's current point total.
+   *
+   * @return the number of points the player has
+   */
+  public int getPoints() {
+    return points;
   }
 }

@@ -7,7 +7,9 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Tile;
+import edu.ntnu.idi.idatt.model.game.action.AddPointsAction;
 import edu.ntnu.idi.idatt.model.game.action.LadderAction;
+import edu.ntnu.idi.idatt.model.game.action.RemovePointsAction;
 import edu.ntnu.idi.idatt.model.game.action.SnakeAction;
 import edu.ntnu.idi.idatt.model.game.action.GoToStartAction;
 import edu.ntnu.idi.idatt.model.game.action.SkipNextTurnAction;
@@ -75,6 +77,16 @@ public class BoardFileReaderGson implements BoardFileReader {
             }
             case "SkipNextTurn": {
               board.getTile(tileId).setLandAction(new SkipNextTurnAction());
+              break;
+            }
+            case "AddPoints": {
+              int points = actionObj.get("points").getAsInt();
+              board.getTile(tileId).setLandAction(new AddPointsAction(points));
+              break;
+            }
+            case "RemovePoints": {
+              int points = actionObj.get("points").getAsInt();
+              board.getTile(tileId).setLandAction(new RemovePointsAction(points));
               break;
             }
             default:
