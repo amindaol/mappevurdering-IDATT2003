@@ -57,5 +57,4 @@ public class Dice {
     }
     return dice[dieNumber];
   }
-
 }

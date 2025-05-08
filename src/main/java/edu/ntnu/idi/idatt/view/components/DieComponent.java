@@ -19,7 +19,7 @@ public class DieComponent extends GridPane {
     this.setVgap(5);
     this.setAlignment(Pos.CENTER);
     this.setupGrid();
-    this.drawDots(1);
+    this.drawDots(4);
   }
 
   public void setDots(int count) {
@@ -46,7 +46,8 @@ public class DieComponent extends GridPane {
     List<Point2D> dotPositions = getDotPositions(count);
 
     for (Point2D pos : dotPositions) {
-      Circle dot = new Circle(6, Color.BLACK);
+      Circle dot = new Circle(6);
+      dot.getStyleClass().add("die-dot");
       StackPane stackPane = new StackPane(dot);
       add(stackPane, (int) pos.getX(), (int) pos.getY());
     }
@@ -60,8 +61,8 @@ public class DieComponent extends GridPane {
       case 3 -> List.of(topLeft(), center(), bottomRight());
       case 4 -> List.of(topLeft(), topRight(), bottomLeft(), bottomRight());
       case 5 -> List.of(topLeft(), topRight(), center(), bottomLeft(), bottomRight());
-      case 6 ->
-          List.of(topLeft(), topRight(), middleLeft(), middleRight(), bottomLeft(), bottomRight());
+      case 6 -> List.of(
+          topLeft(), topRight(), middleLeft(), middleRight(), bottomLeft(), bottomRight());
       default -> throw new IllegalArgumentException("Invalid die count: " + count);
     };
   }

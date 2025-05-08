@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.view.layouts;
 
+import edu.ntnu.idi.idatt.view.components.DieComponent;
 import edu.ntnu.idi.idatt.view.components.LaddersBoard;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import javafx.geometry.Pos;
@@ -18,7 +19,10 @@ public class BoardView extends StackPane {
 
   public BoardView(int rows, int cols) {
     this.board = new LaddersBoard(rows, cols);
-    this.getChildren().addAll(board.getGrid(), rollDiceButton);
+    DieComponent die1 = new DieComponent();
+    die1.setPrefSize(60, 60);
+
+    this.getChildren().addAll(board.getGrid(), rollDiceButton, die1);
 
     this.setAlignment(Pos.CENTER);
 
