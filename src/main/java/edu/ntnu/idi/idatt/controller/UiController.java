@@ -7,6 +7,7 @@ import edu.ntnu.idi.idatt.factory.BoardGameFactory;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.view.layouts.BoardView;
+import java.time.LocalDate;
 import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -93,8 +94,10 @@ public class UiController {
   private void startGame(String gameType, String name1, String name2) {
     // TODO: 2-5 players
     BoardGame game = BoardGameFactory.createStandardBoardGame();
-    game.addPlayer(new Player(name1, game));
-    game.addPlayer(new Player(name2, game));
+    LocalDate date1 = LocalDate.of(2001, 1, 1);
+    LocalDate date2 = LocalDate.of(2001, 1, 2);
+    game.addPlayer(new Player(name1, game, date1));
+    game.addPlayer(new Player(name2, game, date2));
 
     BoardView boardView = new BoardView(9, 10); // 90 tiles
     GameController controller = new GameController(game, boardView);
