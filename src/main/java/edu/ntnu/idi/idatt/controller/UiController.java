@@ -120,7 +120,7 @@ public class UiController {
       game.addPlayer(new Player(names.get(i),game, birthdays.get(i)));
     }
 
-    BoardView boardView = new BoardView(9, 10);
+    BoardView boardView = new BoardView(9, 10, 2);
     GameController controller = new GameController(game, boardView);
     boardView.setRollOnDice(controller::onRollDice);
 
