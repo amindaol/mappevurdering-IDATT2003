@@ -56,7 +56,6 @@ public class UiController {
     SettingsView loveAndLaddersView = new SettingsView(
         "Slayboard - Love & Ladders",
         this::showHomePage,
-        () -> System.out.println("Help button clicked"),
         loveAndLaddersSettings.getRoot(),
         () -> {
           List<String> names = loveAndLaddersSettings.getPlayerNames();
@@ -94,7 +93,6 @@ public class UiController {
     SettingsView BestieView = new SettingsView(
         "Slayboard - Bestie PointBattles",
         this::showHomePage,
-        () -> System.out.println("Help button clicked. "),
         bestiePointBattlesSettings.getRoot(),
         () -> {
           List<String> names = bestiePointBattlesSettings.getPlayerNames();
