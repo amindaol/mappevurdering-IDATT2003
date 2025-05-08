@@ -5,6 +5,7 @@ import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ class PlayerTest {
   void setUp() {
     boardGame = new BoardGame();
     boardGame.createBoard();
-    player = new Player("Test Player", boardGame);
+    player = new Player("Test Player", boardGame, LocalDate.of(2000, 1, 1));
     startTile = boardGame.getBoard().getTile(1);
   }
 

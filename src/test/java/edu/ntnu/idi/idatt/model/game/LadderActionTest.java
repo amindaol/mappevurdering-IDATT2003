@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt.model.game;
 
 import edu.ntnu.idi.idatt.model.game.action.LadderAction;
+import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +24,7 @@ class LadderActionTest {
   void perform_movesPlayer() {
     BoardGame game = new BoardGame();
     game.createBoard();
-    Player player = new Player("Test Player", game);
+    Player player = new Player("Test Player", game, LocalDate.of(2000, 1, 1));
 
     LadderAction action = new LadderAction(5, "Climb to tile 5");
     action.perform(player);
