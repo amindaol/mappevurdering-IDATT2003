@@ -19,7 +19,7 @@ class BoardGameObserverTest {
 
   @BeforeEach
   void setUp() {
-    game = new BoardGame();
+    game = new BoardGame(board, dice);
     events = new ArrayList<>();
     game.addObserver((g, evt) -> events.add(evt));
   }

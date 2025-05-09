@@ -1,8 +1,5 @@
 package edu.ntnu.idi.idatt.model.game;
 
-import edu.ntnu.idi.idatt.model.game.BoardGame;
-import edu.ntnu.idi.idatt.model.game.Player;
-import edu.ntnu.idi.idatt.model.game.Tile;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +14,7 @@ class TileTest {
 
   @BeforeEach
   void setUp() {
-    game = new BoardGame();
+    game = new BoardGame(board, dice);
     tile = new Tile(1);
     player = new Player("Test player", game, LocalDate.of(2000, 1, 1));
   }

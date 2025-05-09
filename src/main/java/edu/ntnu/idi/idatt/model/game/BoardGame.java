@@ -30,7 +30,7 @@ public class BoardGame {
   /**
    * Constructs a new BoardGame instance with an empty player list.
    */
-  public BoardGame() {
+  public BoardGame(Board board, Dice dice) {
     this.players = new ArrayList<>();
   }
 
