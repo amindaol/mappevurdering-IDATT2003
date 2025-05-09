@@ -8,6 +8,7 @@ import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.GameMode;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.PointBoardGame;
+import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 
 import java.nio.file.Path;
@@ -17,9 +18,6 @@ import java.util.List;
  * Factory for creating {@link BoardGame} instances, either standard or configured from files.
  */
 public final class BoardGameFactory {
-
-  private static Dice dice;
-  private static Board board;
 
   private BoardGameFactory() {
     // prevent instantiation
@@ -32,10 +30,13 @@ public final class BoardGameFactory {
    * @return new BoardGame instance with default board and dice
    */
   public static BoardGame createStandardBoardGame() {
-    BoardGame game = new BoardGame(board, dice);
-    game.createBoard();
-    game.createDice();
-    return game;
+    Board board = new Board();
+    for (int i = 1; i <= 30; i++) {
+      board.addTile(new Tile(i));
+    }
+
+    Dice dice = new Dice(1);
+    return new BoardGame(board, dice);
   }
 
   /**
@@ -53,6 +54,8 @@ public final class BoardGameFactory {
     PlayerFileReaderCsv playerReader = new PlayerFileReaderCsv();
     List<Player> players = playerReader.readPlayers(playersCsv);
 
+    Dice dice = new Dice(1);
+
     BoardGame game = new BoardGame(board, dice);
     game.setBoard(board);
     game.createDice();
@@ -66,7 +69,7 @@ public final class BoardGameFactory {
 
   public static BoardGame createGame(GameMode mode) {
     Board board = loadBoardFromJson(mode);
-    Dice dice = new Dice(2, 6);
+    Dice dice = new Dice(2);
 
     return switch (mode) {
       case LOVE_AND_LADDERS -> new BoardGame(board, dice);
