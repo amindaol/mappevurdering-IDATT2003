@@ -1,6 +1,8 @@
 package edu.ntnu.idi.idatt.controller;
 
+import edu.ntnu.idi.idatt.model.game.GameMode;
 import edu.ntnu.idi.idatt.view.components.SettingsContent;
+import edu.ntnu.idi.idatt.view.layouts.BestieBattlesView;
 import edu.ntnu.idi.idatt.view.layouts.HomeView;
 import edu.ntnu.idi.idatt.view.layouts.SettingsView;
 import edu.ntnu.idi.idatt.factory.BoardGameFactory;
@@ -52,7 +54,7 @@ public class UiController {
     homeView.getBestieBattlesButton()
         .setOnAction(event -> showBestiePointBattlesPage());
 
-    loveAndLaddersSettings = new SettingsContent(5);
+    loveAndLaddersSettings = new SettingsContent(GameMode.LOVE_AND_LADDERS);
     SettingsView loveAndLaddersView = new SettingsView(
         "Slayboard - Love & Ladders",
         this::showHomePage,
@@ -89,7 +91,7 @@ public class UiController {
         ).toExternalForm()
     );
 
-    bestiePointBattlesSettings = new SettingsContent(5);
+    bestiePointBattlesSettings = new SettingsContent(GameMode.BESTIE_POINT_BATTLES);
     SettingsView BestieView = new SettingsView(
         "Slayboard - Bestie PointBattles",
         this::showHomePage,
@@ -158,18 +160,11 @@ public class UiController {
     List<String> names = settingsContent.getPlayerNames();
     List<LocalDate> birthdays = settingsContent.getPlayerBirthdays();
     List<String> tokens = settingsContent.getSelectedIcons();
+    GameMode gameMode = settingsContent.getSelectedGameMode();
 
     for (int i = 0; i < names.size(); i++) {
-      if (names.get(i).isBlank()) {
-        showAlert("Missing player name", "Please enter a name for each player.");
-        return;
-      }
-      if (birthdays.get(i) == null) {
-        showAlert("Missing birthday", "Please select a birthday for each player.");
-        return;
-      }
-      if (tokens.get(i) == null) {
-        showAlert("Missing token", "Please select a token for each player.");
+      if (names.get(i).isBlank() || birthdays.get(i) == null || tokens.get(i) == null) {
+        showAlert("Missing input", "Please fill out all fields correctly.");
         return;
       }
     }
@@ -185,16 +180,15 @@ public class UiController {
     successAlert.setContentText("All players are ready. Let's slay! 🎉");
     successAlert.showAndWait();
 
-    BoardGame game = BoardGameFactory.createStandardBoardGame();
+    BoardGame game = BoardGameFactory.createGame(settingsContent.getSelectedGameMode());
 
-    for (int i=0; i<names.size(); i++) {
+    for (int i = 0; i < names.size(); i++) {
       Player player = new Player(names.get(i), game, birthdays.get(i));
       player.setToken(tokens.get(i));
       game.addPlayer(player);
     }
 
     game.getPlayers().sort(Comparator.comparing(Player::getBirthday));
-
     Player first = game.getPlayers().get(0);
 
     Alert startAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -203,23 +197,27 @@ public class UiController {
     startAlert.setContentText(first.getName() + " starts first – they have the earliest birthday 🎂");
     startAlert.showAndWait();
 
+    switch (gameMode) {
+      case LOVE_AND_LADDERS -> {
+        BoardView boardView = new BoardView(9, 10, 2);
+        GameController controller = new GameController(game, boardView);
+        boardView.setRollOnDice(controller::onRollDice);
+        gameScene = new Scene(boardView.getRoot());
+      }
+      case BESTIE_POINT_BATTLES -> {
+        BestieBattlesView bestieView = new BestieBattlesView(game);
+        gameScene = new Scene(bestieView);
+      }
+    }
 
-    BoardView boardView = new BoardView(9, 10, 2);
-    GameController controller = new GameController(game, boardView);
-    boardView.setRollOnDice(controller::onRollDice);
-
-    gameScene = new Scene(boardView.getRoot());
     gameScene.getStylesheets().add(
-        Objects.requireNonNull(
-            getClass().getResource("/css/styles.css"),
-            "Could not find /css/styles.css"
-        ).toExternalForm()
+        Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm()
     );
-
     stage.setTitle("Slayboard - " + gameType);
     stage.setScene(gameScene);
     stage.sizeToScene();
   }
+
 
   private void showAlert(String title, String message) {
     javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);

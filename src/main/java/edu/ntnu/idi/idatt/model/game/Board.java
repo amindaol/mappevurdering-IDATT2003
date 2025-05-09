@@ -1,7 +1,9 @@
 package edu.ntnu.idi.idatt.model.game;
 
 import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,6 +68,10 @@ public class Board {
       throw new InvalidMoveException("Board is empty");
     }
     return getTile(size());
+  }
+
+  public List<Tile> getTiles() {
+    return new ArrayList<>(tiles.values());
   }
 
 }
