@@ -20,7 +20,7 @@ public class BestieBattlesView extends BorderPane {
   private final VBox playerInfoBox = new VBox(5);
 
   public BestieBattlesView(BoardGame game) {
-    this.game = BoardGameFactory.createGame(GameMode.BESTIE_POINT_BATTLES);
+    this.game = game;
     this.boardGrid = new GridPane();
     this.infoText = new Text("Welcome to Bestie Point Battles!");
 
@@ -28,6 +28,8 @@ public class BestieBattlesView extends BorderPane {
 
     Button nextTurnButton = new Button("Next Turn");
     nextTurnButton.setOnAction(e -> handleNextTurn());
+
+    Text playersTitle = new Text("Point Overview:");
 
     VBox rightPanel = new VBox(10, infoText, nextTurnButton);
     rightPanel.setMinWidth(200);

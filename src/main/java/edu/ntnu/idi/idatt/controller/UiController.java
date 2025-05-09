@@ -155,6 +155,8 @@ public class UiController {
    * Initializes the model and switches to the BoardView.
    */
   private void startGame(String gameType, SettingsContent settingsContent) {
+    try {
+    System.out.println("startGame() called for: " + gameType);
     settingsContent.getPlayerSettingsContainer().validateAllInputs();
 
     List<String> names = settingsContent.getPlayerNames();
@@ -180,9 +182,18 @@ public class UiController {
     successAlert.setContentText("All players are ready. Let's slay! 🎉");
     successAlert.showAndWait();
 
+    System.out.println("Navn: " + names);
+    System.out.println("Bursdager: " + birthdays);
+    System.out.println("Tokens: " + tokens);
+    System.out.println("GameMode: " + gameMode);
+
     BoardGame game = BoardGameFactory.createGame(settingsContent.getSelectedGameMode());
 
-    for (int i = 0; i < names.size(); i++) {
+    System.out.println("Game created: " + game);
+    System.out.println("Board: " + game.getBoard());
+    System.out.println("Tiles: " + game.getBoard().getTiles().size());
+
+      for (int i = 0; i < names.size(); i++) {
       Player player = new Player(names.get(i), game, birthdays.get(i));
       player.setToken(tokens.get(i));
       game.addPlayer(player);
@@ -197,6 +208,8 @@ public class UiController {
     startAlert.setContentText(first.getName() + " starts first – they have the earliest birthday 🎂");
     startAlert.showAndWait();
 
+    System.out.println("Scene set with gameMode: " + gameMode);
+
     switch (gameMode) {
       case LOVE_AND_LADDERS -> {
         BoardView boardView = new BoardView(9, 10, 2);
@@ -208,6 +221,8 @@ public class UiController {
         BestieBattlesView bestieView = new BestieBattlesView(game);
         gameScene = new Scene(bestieView);
       }
+
+
     }
 
     gameScene.getStylesheets().add(
@@ -216,6 +231,10 @@ public class UiController {
     stage.setTitle("Slayboard - " + gameType);
     stage.setScene(gameScene);
     stage.sizeToScene();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
 

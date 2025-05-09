@@ -11,6 +11,7 @@ import edu.ntnu.idi.idatt.model.game.PointBoardGame;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -34,7 +35,9 @@ public final class BoardGameFactory {
     for (int i = 1; i <= 30; i++) {
       board.addTile(new Tile(i));
     }
-
+    for (int i = 1; i < 90; i++) {
+      board.getTile(i).setNextTile(board.getTile(i + 1));
+    }
     Dice dice = new Dice(1);
     return new BoardGame(board, dice);
   }
@@ -47,7 +50,7 @@ public final class BoardGameFactory {
    * @return configured BoardGame with board, dice, and players
    * @throws DaoException if reading board or players fails
    */
-  public static BoardGame createGameFromConfig(Path boardJson, Path playersCsv) throws DaoException {
+  public static BoardGame createGameFromConfig(InputStream boardJson, Path playersCsv) throws DaoException {
     BoardFileReaderGson boardReader = new BoardFileReaderGson();
     var board = boardReader.readBoard(boardJson);
 
@@ -55,11 +58,7 @@ public final class BoardGameFactory {
     List<Player> players = playerReader.readPlayers(playersCsv);
 
     Dice dice = new Dice(1);
-
     BoardGame game = new BoardGame(board, dice);
-    game.setBoard(board);
-    game.createDice();
-
     for (Player p : players) {
       p.setBoardGame(game);
       game.addPlayer(p);
@@ -82,9 +81,14 @@ public final class BoardGameFactory {
       case LOVE_AND_LADDERS -> "ladderBoard1.json";
       case BESTIE_POINT_BATTLES -> "pointBoard1.json";
     };
-    Path path = Path.of("src/main/resources/boards/" + fileName);
-    return new BoardFileReaderGson().readBoard(path);
+
+    try (InputStream stream = BoardGameFactory.class.getClassLoader().getResourceAsStream("boards/" + fileName)) {
+      if (stream == null) {
+        throw new RuntimeException("Could not find board file: " + fileName);
+      }
+      return new BoardFileReaderGson().readBoard(stream);
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to load board file: " + fileName, e);
+    }
   }
-
-
 }
