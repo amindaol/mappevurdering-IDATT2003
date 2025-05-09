@@ -156,84 +156,98 @@ public class UiController {
    */
   private void startGame(String gameType, SettingsContent settingsContent) {
     try {
-    System.out.println("startGame() called for: " + gameType);
-    settingsContent.getPlayerSettingsContainer().validateAllInputs();
+      System.out.println("startGame() called for: " + gameType);
 
-    List<String> names = settingsContent.getPlayerNames();
-    List<LocalDate> birthdays = settingsContent.getPlayerBirthdays();
-    List<String> tokens = settingsContent.getSelectedIcons();
-    GameMode gameMode = settingsContent.getSelectedGameMode();
+      // Validate inputs
+      settingsContent.getPlayerSettingsContainer().validateAllInputs();
 
-    for (int i = 0; i < names.size(); i++) {
-      if (names.get(i).isBlank() || birthdays.get(i) == null || tokens.get(i) == null) {
-        showAlert("Missing input", "Please fill out all fields correctly.");
+      List<String> names = settingsContent.getPlayerNames();
+      List<LocalDate> birthdays = settingsContent.getPlayerBirthdays();
+      List<String> tokens = settingsContent.getSelectedIcons();
+      GameMode gameMode = settingsContent.getSelectedGameMode();
+
+      // Validate player data
+      for (int i = 0; i < names.size(); i++) {
+        if (names.get(i).isBlank() || birthdays.get(i) == null || tokens.get(i) == null) {
+          showAlert("Missing input", "Please fill out all fields correctly.");
+          return;
+        }
+      }
+
+      // Check for duplicate tokens
+      Set<String> uniqueTokens = new HashSet<>(tokens);
+      if (uniqueTokens.size() < tokens.size()) {
+        showAlert("Duplicate tokens", "Each player must choose a unique token.");
         return;
       }
-    }
-    Set<String> uniqueTokens = new HashSet<>(tokens);
-    if (uniqueTokens.size() < tokens.size()) {
-      showAlert("Duplicate tokens", "Each player must choose a unique token.");
-      return;
-    }
 
-    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-    successAlert.setTitle("Game ready!");
-    successAlert.setHeaderText(null);
-    successAlert.setContentText("All players are ready. Let's slay! 🎉");
-    successAlert.showAndWait();
+      // Success alert before starting the game
+      Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+      successAlert.setTitle("Game ready!");
+      successAlert.setContentText("All players are ready. Let's slay! 🎉");
+      successAlert.showAndWait();
 
-    System.out.println("Navn: " + names);
-    System.out.println("Bursdager: " + birthdays);
-    System.out.println("Tokens: " + tokens);
-    System.out.println("GameMode: " + gameMode);
+      // Debug print
+      System.out.println("Names: " + names);
+      System.out.println("Birthdays: " + birthdays);
+      System.out.println("Tokens: " + tokens);
+      System.out.println("GameMode: " + gameMode);
 
-    BoardGame game = BoardGameFactory.createGame(settingsContent.getSelectedGameMode());
+      // Create game
+      BoardGame game = BoardGameFactory.createGame(gameMode);
+      System.out.println("Game created: " + game);
+      System.out.println("Board: " + game.getBoard());
+      System.out.println("Tiles: " + game.getBoard().getTiles().size());
 
-    System.out.println("Game created: " + game);
-    System.out.println("Board: " + game.getBoard());
-    System.out.println("Tiles: " + game.getBoard().getTiles().size());
-
+      // Add players
       for (int i = 0; i < names.size(); i++) {
-      Player player = new Player(names.get(i), game, birthdays.get(i));
-      player.setToken(tokens.get(i));
-      game.addPlayer(player);
-    }
-
-    game.getPlayers().sort(Comparator.comparing(Player::getBirthday));
-    Player first = game.getPlayers().get(0);
-
-    Alert startAlert = new Alert(Alert.AlertType.INFORMATION);
-    startAlert.setTitle("Game Start");
-    startAlert.setHeaderText("Let the games begin!");
-    startAlert.setContentText(first.getName() + " starts first – they have the earliest birthday 🎂");
-    startAlert.showAndWait();
-
-    System.out.println("Scene set with gameMode: " + gameMode);
-
-    switch (gameMode) {
-      case LOVE_AND_LADDERS -> {
-        BoardView boardView = new BoardView(9, 10, 2);
-        GameController controller = new GameController(game, boardView);
-        boardView.setRollOnDice(controller::onRollDice);
-        gameScene = new Scene(boardView.getRoot());
-      }
-      case BESTIE_POINT_BATTLES -> {
-        BestieBattlesView bestieView = new BestieBattlesView(game);
-        gameScene = new Scene(bestieView);
+        Player player = new Player(names.get(i), game, birthdays.get(i));
+        player.setToken(tokens.get(i));
+        game.addPlayer(player);
       }
 
+      // Sort players by birthday and set first player
+      game.getPlayers().sort(Comparator.comparing(Player::getBirthday));
+      Player first = game.getPlayers().get(0);
 
-    }
+      // Start alert
+      Alert startAlert = new Alert(Alert.AlertType.INFORMATION);
+      startAlert.setTitle("Game Start");
+      startAlert.setContentText(first.getName() + " starts first – they have the earliest birthday 🎂");
+      startAlert.showAndWait();
 
-    gameScene.getStylesheets().add(
-        Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm()
-    );
-    stage.setTitle("Slayboard - " + gameType);
-    stage.setScene(gameScene);
-    stage.sizeToScene();
+      // Debug scene setup
+      System.out.println("Scene set with gameMode: " + gameMode);
+
+      // Switch scenes based on the game mode
+      switch (gameMode) {
+        case LOVE_AND_LADDERS -> {
+          BoardView boardView = new BoardView(9, 10, 2);
+          GameController controller = new GameController(game, boardView);
+          boardView.setRollOnDice(controller::onRollDice);
+
+          gameScene = new Scene(boardView.getRoot());
+        }
+        case BESTIE_POINT_BATTLES -> {
+          BestieBattlesView bestieView = new BestieBattlesView(game);
+          gameScene = new Scene(bestieView);
+        }
+      }
+
+      // Final setup of the scene
+      gameScene.getStylesheets().add(
+          Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm()
+      );
+      stage.setTitle("Slayboard - " + gameType);
+      stage.setScene(gameScene);
+      stage.sizeToScene();  // Adjust the window size
+
+      // Show the stage
+      stage.show();
 
     } catch (Exception e) {
       e.printStackTrace();
+      showAlert("Error", "An error occurred while starting the game: " + e.getMessage());
     }
   }
 

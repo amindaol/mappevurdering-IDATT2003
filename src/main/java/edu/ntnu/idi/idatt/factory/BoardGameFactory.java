@@ -82,7 +82,7 @@ public final class BoardGameFactory {
       case BESTIE_POINT_BATTLES -> "pointBoard1.json";
     };
 
-    try (InputStream stream = BoardGameFactory.class.getClassLoader().getResourceAsStream("boards/" + fileName)) {
+    try (InputStream stream = BoardGameFactory.class.getResourceAsStream("boards/" + fileName)) {
       if (stream == null) {
         throw new RuntimeException("Could not find board file: " + fileName);
       }
