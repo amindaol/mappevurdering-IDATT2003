@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.view.layouts;
+package edu.ntnu.idi.idatt.view.layouts.home;
 
 
 import javafx.geometry.Pos;
@@ -8,14 +8,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class HomeView {
+public class HomeView extends StackPane {
 
-  private final StackPane root;
   private final Button loveAndLaddersButton;
   private final Button bestieBattlesButton;
 
   public HomeView() {
-    root = new StackPane();
+    StackPane root = new StackPane();
     root.getStyleClass().add("home-root");
 
     Label titleLabel = new Label("Slayboard");
@@ -32,19 +31,19 @@ public class HomeView {
     VBox content = new VBox(20, titleLabel, buttons);
     content.setAlignment(Pos.CENTER);
 
-    root.getChildren().add(content);
+    getChildren().add(content);
 
   }
 
-  public StackPane getRoot() {
-    return root;
+  public void setOnClickLoveAndLaddersButton(Runnable runnable) {
+    setOnMouseClicked(e -> {
+      runnable.run();
+    });
   }
 
-  public Button getLoveAndLaddersButton() {
-    return loveAndLaddersButton;
-  }
-
-  public Button getBestieBattlesButton() {
-    return bestieBattlesButton;
+  public void setOnClickBestieBattlesButton(Runnable runnable) {
+    setOnMouseClicked(e -> {
+      runnable.run();
+    });
   }
 }

@@ -3,7 +3,7 @@ package edu.ntnu.idi.idatt.controller;
 import edu.ntnu.idi.idatt.model.game.GameMode;
 import edu.ntnu.idi.idatt.view.components.SettingsContent;
 import edu.ntnu.idi.idatt.view.layouts.BestieBattlesView;
-import edu.ntnu.idi.idatt.view.layouts.HomeView;
+import edu.ntnu.idi.idatt.view.layouts.home.HomeView;
 import edu.ntnu.idi.idatt.view.layouts.SettingsView;
 import edu.ntnu.idi.idatt.factory.BoardGameFactory;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
@@ -15,11 +15,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -40,14 +37,7 @@ public class UiController {
   public UiController(Stage stage) {
     this.stage = stage;
 
-    HomeView homeView = new HomeView();
-    homeScene = new Scene(homeView.getRoot());
-    homeScene.getStylesheets().add(
-        Objects.requireNonNull(
-            getClass().getResource("/css/styles.css"),
-            "Could not find /css/styles.css"
-        ).toExternalForm()
-    );
+    homeView.setOnClikLoveAndLaddersButton(e -> showLoveAndLaddersPage());
 
     homeView.getLoveAndLaddersButton()
         .setOnAction(e -> showLoveAndLaddersPage());
@@ -86,7 +76,7 @@ public class UiController {
     loveAndLaddersScene = new Scene(loveAndLaddersView.getRoot());
     loveAndLaddersScene.getStylesheets().add(
         Objects.requireNonNull(
-            getClass().getResource("/css/styles.css"),
+            getClass().getResource("/styles/styles.css"),
             "Could not find /css/styles.css"
         ).toExternalForm()
     );
@@ -121,7 +111,7 @@ public class UiController {
     bestiePointBattlesScene = new Scene(BestieView.getRoot());
     bestiePointBattlesScene.getStylesheets().add(
         Objects.requireNonNull(
-            getClass().getResource("/css/styles.css"),
+            getClass().getResource("/styles/styles.css"),
             "could not find /css/styles.css"
         ).toExternalForm()
     );
@@ -236,7 +226,7 @@ public class UiController {
 
       // Final setup of the scene
       gameScene.getStylesheets().add(
-          Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm()
+          Objects.requireNonNull(getClass().getResource("/styles/styles.css")).toExternalForm()
       );
       stage.setTitle("Slayboard - " + gameType);
       stage.setScene(gameScene);
