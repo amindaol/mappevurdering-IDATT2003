@@ -1,11 +1,6 @@
 package edu.ntnu.idi.idatt.model.game;
 
-import edu.ntnu.idi.idatt.model.game.Board;
-import edu.ntnu.idi.idatt.model.game.BoardGame;
-import edu.ntnu.idi.idatt.model.game.Dice;
-import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.observer.BoardGameEvent;
-import edu.ntnu.idi.idatt.util.exceptionHandling.GameAlreadyFinishedException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.TooManyPlayersException;
@@ -23,7 +18,7 @@ class BoardGameTest {
 
   @BeforeEach
   void setUp() {
-    game = new BoardGame();
+    game = new BoardGame(board, dice);
   }
 
   @Test
@@ -93,13 +88,13 @@ class BoardGameTest {
 
   @Test
   void playOneTurnWithoutInitThrows() {
-    BoardGame g = new BoardGame();
+    BoardGame g = new BoardGame(board, dice);
     assertThrows(GameNotInitializedException.class, () -> g.playOneTurn());
   }
 
   @Test
   void playOneTurnWithoutPlayersThrows() {
-    BoardGame g = new BoardGame();
+    BoardGame g = new BoardGame(board, dice);
     g.createBoard();
     g.createDice();
     assertThrows(NoPlayersException.class, () -> g.playOneTurn());
@@ -107,7 +102,7 @@ class BoardGameTest {
 
   @Test
   void playOneTurnAdvancesCurrentPlayer() {
-    BoardGame g = new BoardGame();
+    BoardGame g = new BoardGame(board, dice);
     g.createBoard();
     g.createDice();
     Player p1 = new Player("A", g, LocalDate.of(2000, 1, 1));
@@ -124,7 +119,7 @@ class BoardGameTest {
 
   @Test
   void playOneTurnFiresEvents() {
-    BoardGame g = new BoardGame();
+    BoardGame g = new BoardGame(board, dice);
     g.createBoard();
     g.createDice();
     Player p = new Player("A", g, LocalDate.of(2000, 1, 1));

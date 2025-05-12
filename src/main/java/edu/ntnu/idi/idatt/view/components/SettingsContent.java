@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.view.components;
 
+import edu.ntnu.idi.idatt.model.game.GameMode;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.geometry.Insets;
@@ -18,8 +19,12 @@ public class SettingsContent {
 
   private final VBox root;
   private PlayerSettingsContainer playerSettingsContainer;
+  private final GameMode gameMode;
 
-  public SettingsContent(int maxPlayers) {
+  public SettingsContent(GameMode gameMode) {
+    this.gameMode = gameMode;
+    int maxPlayers = 5;
+
     root = new VBox();
     root.getStyleClass().add("settings-content");
 
@@ -99,7 +104,6 @@ public class SettingsContent {
     }
 
     playerSettings.setTop(playerSelectionBox);
-
     playersButtons.setSpacing(8);
 
     root.getChildren().addAll(boardLabel, boardButtons, playerSettings);
@@ -127,5 +131,9 @@ public class SettingsContent {
 
   public PlayerSettingsContainer getPlayerSettingsContainer() {
     return playerSettingsContainer;
+  }
+
+  public GameMode getSelectedGameMode() {
+    return gameMode;
   }
 }

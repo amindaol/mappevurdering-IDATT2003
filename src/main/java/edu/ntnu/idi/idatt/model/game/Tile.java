@@ -13,6 +13,7 @@ public class Tile {
   private Tile nextTile;
   private final int tileId;
   private TileAction landAction;
+  private TileAction action;
 
   /**
    * Constructs a new tile with a unique ID.
@@ -102,5 +103,13 @@ public class Tile {
    */
   public void leave(String playerName) {
     System.out.println(playerName + " leaves tile " + tileId);
+  }
+
+  public TileAction getAction() {
+    return action;
+  }
+
+  public void setAction(TileAction action) {
+    this.action = action;
   }
 }

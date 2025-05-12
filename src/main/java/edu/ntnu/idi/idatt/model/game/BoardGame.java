@@ -30,7 +30,7 @@ public class BoardGame {
   /**
    * Constructs a new BoardGame instance with an empty player list.
    */
-  public BoardGame() {
+  public BoardGame(Board board, Dice dice) {
     this.players = new ArrayList<>();
   }
 
@@ -64,7 +64,7 @@ public class BoardGame {
   /**
    * Notifies all observers of a game state change.
    */
-  private void notifyObservers(BoardGameEvent event) {
+  protected void notifyObservers(BoardGameEvent event) {
     for (BoardGameObserver observer : observers) {
       observer.onGameStateChange(this, event);
     }
@@ -282,4 +282,9 @@ public class BoardGame {
   public Player getCurrentPlayer() {
     return currentPlayer;
   }
+
+  public boolean isFinished() {
+    return false;
+  }
+
 }

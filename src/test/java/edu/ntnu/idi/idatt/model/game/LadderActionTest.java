@@ -22,7 +22,7 @@ class LadderActionTest {
 
   @Test
   void perform_movesPlayer() {
-    BoardGame game = new BoardGame();
+    BoardGame game = new BoardGame(board, dice);
     game.createBoard();
     Player player = new Player("Test Player", game, LocalDate.of(2000, 1, 1));
 

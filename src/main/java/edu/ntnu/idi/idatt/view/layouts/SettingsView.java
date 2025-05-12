@@ -40,7 +40,10 @@ public class SettingsView {
     root.setCenter(scrollPane);
 
     startGameButton = new Button("Start game");
-    startGameButton.setOnAction(event -> onStartGame.run());
+    startGameButton.setOnAction(event -> {
+      System.out.println("Start Game button clicked");
+      onStartGame.run();
+    });
     startGameButton.getStyleClass().add("nav-button");
 
     HBox bottomBar = new HBox(startGameButton);
