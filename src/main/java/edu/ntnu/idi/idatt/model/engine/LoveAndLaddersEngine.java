@@ -1,5 +1,7 @@
 package edu.ntnu.idi.idatt.model.engine;
 
+import edu.ntnu.idi.idatt.core.LinearMovement;
+import edu.ntnu.idi.idatt.core.Movement;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Player;
@@ -15,6 +17,8 @@ public class LoveAndLaddersEngine extends GameEngine {
 
   private final Dice dice;
   private final List<BoardGameObserver> observers;
+  private final Movement movement = new LinearMovement();
+
 
   public LoveAndLaddersEngine(Board board, List<Player> players, Dice dice, List<BoardGameObserver> observers) {
     super(board, players);
@@ -53,7 +57,7 @@ public class LoveAndLaddersEngine extends GameEngine {
     int roll = dice.roll();
     notify(BoardGameEvent.DICE_ROLLED);
 
-    player.move(roll);
+    movement.move(player, roll);
     notify(BoardGameEvent.PLAYER_MOVED);
 
     if (checkWinCondition() != null) {
