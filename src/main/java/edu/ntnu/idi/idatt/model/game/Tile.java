@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt.model.game;
 
-import edu.ntnu.idi.idatt.model.game.action.TileAction;
+import edu.ntnu.idi.idatt.model.action.TileAction;
+import java.util.Optional;
 
 /**
  * Represents a single tile on the game board.
@@ -12,7 +13,6 @@ public class Tile {
 
   private Tile nextTile;
   private final int tileId;
-  private TileAction landAction;
   private TileAction action;
 
   /**
@@ -31,33 +31,6 @@ public class Tile {
    */
   public void setNextTile(Tile nextTile) {
     this.nextTile = nextTile;
-  }
-
-  /**
-   * Handles logic when a player lands on this tile.
-   *
-   * <p>The player is placed on this tile, and any associated {@link TileAction} is performed (such
-   * as climbing a ladder).
-   *
-   * @param player the player landing on this tile.
-   */
-  public void landPlayer(Player player) {
-    player.placeOnTile(this);
-
-    if (landAction != null) {
-      landAction.perform(player);
-    }
-  }
-
-  /**
-   * Called when a player leaves this tile.
-   *
-   * <p>Currently used for logging purposes.
-   *
-   * @param player the player leaving the tile.
-   */
-  public void leavePlayer(Player player) {
-    System.out.println(player.getName() + " leaves tile " + tileId);
   }
 
   /**
@@ -81,10 +54,10 @@ public class Tile {
   /**
    * Sets the action to be performed when a player lands on this tile.
    *
-   * @param landAction the action to associate with this tile.
+   * @param action the action to associate with this tile.
    */
-  public void setLandAction(TileAction landAction) {
-    this.landAction = landAction;
+  public void setAction(TileAction action) {
+    this.action = action;
   }
 
   /**
@@ -92,24 +65,15 @@ public class Tile {
    *
    * @return the TileAction, or null if none is set
    */
-  public TileAction getLandAction() {
-    return landAction;
-  }
-
-  /**
-   * Notifies that a player is leaving this tile. (For debug/logging)
-   *
-   * @param playerName name of the player leaving the tile
-   */
-  public void leave(String playerName) {
-    System.out.println(playerName + " leaves tile " + tileId);
-  }
-
-  public TileAction getTileAction() {
+  public TileAction getAction() {
     return action;
   }
 
-  public void setAction(TileAction action) {
-    this.action = action;
+  public void onLand(Player player) {
+    player.placeOnTile(this);
+    if (action != null) {
+      action.perform(player);
+    }
   }
+
 }

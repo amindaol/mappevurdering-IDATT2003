@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.factory;
 
-import edu.ntnu.idi.idatt.model.dao.BoardFileReaderGson;
-import edu.ntnu.idi.idatt.model.dao.PlayerFileReaderCsv;
+import edu.ntnu.idi.idatt.io.BoardFileReaderGson;
+import edu.ntnu.idi.idatt.io.PlayerFileReaderCsv;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Dice;

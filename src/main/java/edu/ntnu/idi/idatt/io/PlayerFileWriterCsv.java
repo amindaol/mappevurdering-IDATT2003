@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.model.dao;
+package edu.ntnu.idi.idatt.io;
 
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;

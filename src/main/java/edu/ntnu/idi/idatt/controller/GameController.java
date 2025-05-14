@@ -2,15 +2,14 @@ package edu.ntnu.idi.idatt.controller;
 
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
-import edu.ntnu.idi.idatt.model.observer.BoardGameEvent;
-import edu.ntnu.idi.idatt.model.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.observer.BoardGameEvent;
+import edu.ntnu.idi.idatt.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BoardView;
 import java.util.Comparator;
 import java.util.Objects;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
-import javafx.scene.shape.Circle;
 
 import java.util.HashMap;
 import java.util.List;

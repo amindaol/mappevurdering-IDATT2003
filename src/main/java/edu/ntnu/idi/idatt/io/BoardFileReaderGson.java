@@ -1,18 +1,20 @@
-package edu.ntnu.idi.idatt.model.dao;
+package edu.ntnu.idi.idatt.io;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import edu.ntnu.idi.idatt.model.action.AddPointsAction;
+import edu.ntnu.idi.idatt.model.action.GoToStartAction;
+import edu.ntnu.idi.idatt.model.action.LadderAction;
+import edu.ntnu.idi.idatt.model.action.RemovePointsAction;
+import edu.ntnu.idi.idatt.model.action.SkipNextTurnAction;
+import edu.ntnu.idi.idatt.model.action.SnakeAction;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Tile;
-import edu.ntnu.idi.idatt.model.game.action.*;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidJsonFormatException;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 /**
  * Gson-based implementation of {@link BoardFileReader} that reads a board

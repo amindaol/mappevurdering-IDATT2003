@@ -1,8 +1,8 @@
-package edu.ntnu.idi.idatt.model.dao;
+package edu.ntnu.idi.idatt.model.io;
 
+import edu.ntnu.idi.idatt.io.PlayerFileReader;
+import edu.ntnu.idi.idatt.io.PlayerFileReaderCsv;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
-import edu.ntnu.idi.idatt.model.dao.PlayerFileReader;
-import edu.ntnu.idi.idatt.model.dao.PlayerFileReaderCsv;
 import edu.ntnu.idi.idatt.model.game.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

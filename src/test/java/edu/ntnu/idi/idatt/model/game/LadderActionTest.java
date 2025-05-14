@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.model.game;
 
-import edu.ntnu.idi.idatt.model.game.action.LadderAction;
+import edu.ntnu.idi.idatt.model.action.LadderAction;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 

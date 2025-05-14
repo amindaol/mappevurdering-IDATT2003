@@ -1,10 +1,10 @@
 package edu.ntnu.idi.idatt.model.game;
-import edu.ntnu.idi.idatt.model.game.action.AddPointsAction;
-import edu.ntnu.idi.idatt.model.game.action.RemovePointsAction;
+import edu.ntnu.idi.idatt.model.action.AddPointsAction;
+import edu.ntnu.idi.idatt.model.action.RemovePointsAction;
 
 
 
-import edu.ntnu.idi.idatt.model.observer.BoardGameEvent;
+import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 
 public class PointBoardGame extends BoardGame {
 

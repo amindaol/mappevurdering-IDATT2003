@@ -1,9 +1,10 @@
 package edu.ntnu.idi.idatt.view.components;
 
 import edu.ntnu.idi.idatt.model.game.Tile;
-import edu.ntnu.idi.idatt.model.game.action.AddPointsAction;
-import edu.ntnu.idi.idatt.model.game.action.RemovePointsAction;
-import edu.ntnu.idi.idatt.model.game.action.TileAction;
+import edu.ntnu.idi.idatt.model.action.AddPointsAction;
+import edu.ntnu.idi.idatt.model.action.RemovePointsAction;
+import edu.ntnu.idi.idatt.model.action.TileAction;
+import java.util.Optional;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

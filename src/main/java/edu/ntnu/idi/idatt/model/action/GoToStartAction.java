@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.model.game.action;
+package edu.ntnu.idi.idatt.model.action;
 
 import edu.ntnu.idi.idatt.model.game.Player;
 

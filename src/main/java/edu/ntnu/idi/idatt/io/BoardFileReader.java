@@ -1,9 +1,8 @@
-package edu.ntnu.idi.idatt.model.dao;
+package edu.ntnu.idi.idatt.io;
 
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 import java.io.InputStream;
-import java.nio.file.Path;
 
 /**
  * Reads a Board from a file.
