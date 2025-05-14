@@ -2,6 +2,10 @@ package edu.ntnu.idi.idatt.model.game;
 
 import java.util.List;
 
+
+/**
+ * Abstract base class for running game logic in different game modes.
+ */
 public abstract class GameEngine {
 
   protected Board board;
@@ -10,18 +14,35 @@ public abstract class GameEngine {
   protected boolean gameOver;
 
   public GameEngine(Board board, List<Player> players) {
+    if (board == null || players == null || players.isEmpty()) {
+      throw new IllegalArgumentException("Board and player list must not be null or empty.");
+    }
     this.board = board;
     this.players = players;
-    this.currentPlayerIndex = currentPlayerIndex;
+    this.currentPlayerIndex = 0;
     this.gameOver = false;
   }
 
+  /**
+   * Starts and runs the game loop until someone wins.
+   */
   public abstract void playGame();
 
+  /**
+   * Executes a single turn for the current player.
+   */
   public abstract void handleTurn();
 
+  /**
+   * Checks if a win condition has been met.
+   *
+   * @return the winning player, or null if none yet
+   */
   public abstract Player checkWinCondition();
 
+  /**
+   * Ends the game.
+   */
   public void endGame() {
     this.gameOver = true;
   }
@@ -31,9 +52,14 @@ public abstract class GameEngine {
   }
 
   public Player getLastPlayer() {
-    return (currentPlayerIndex == 0) ? players.getLast() : players.get(currentPlayerIndex - 1);
+    return (currentPlayerIndex == 0) ? players.get(players.size() - 1)
+        : players.get(currentPlayerIndex - 1);
+
   }
 
+  /**
+   * Advances to the next player in the turn cycle.
+   */
   public void nextPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
   }
