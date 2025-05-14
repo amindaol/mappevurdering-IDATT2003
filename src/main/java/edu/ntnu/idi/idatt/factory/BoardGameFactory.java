@@ -11,7 +11,6 @@ import edu.ntnu.idi.idatt.model.game.PointBoardGame;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -25,52 +24,27 @@ public final class BoardGameFactory {
     // prevent instantiation
   }
 
-  public static BoardGame createStandardBoardGame() {
-    Board board = BoardFactory.createDefaultBoard();
-    Dice dice = new Dice(1);
-    return new BoardGame(board, dice);
-  }
+  public static BoardGame createFromFiles(Path boardJson, Path playersCsv) throws DaoException {
+    BoardFileReaderGson boardReader = new BoardFileReaderGson();
+    PlayerFileReaderCsv playerReader = new PlayerFileReaderCsv();
 
-  public static BoardGame createGameFromFiles(Path boardJsonPath, Path playersCsvPath) throws DaoException {
-    Board board = new BoardFileReaderGson().readBoard(boardJsonPath);
-    List<Player> players = new PlayerFileReaderCsv().readPlayers(playersCsvPath);
-
+    Board board = boardReader.readBoard(boardJson);
+    List<Player> players = playerReader.readPlayers(playersCsv);
     Dice dice = new Dice(1);
+
     BoardGame game = new BoardGame(board, dice);
-
-    for (Player player : players) {
-      game.addPlayer(player);
-    }
-
+    players.forEach(player -> game.addPlayer(player));
     return game;
   }
 
-  public static BoardGame createGame(GameMode mode) {
-    Board board = switch (mode) {
-      case LOVE_AND_LADDERS -> BoardFactory.createLoveAndLaddersBoard();
-      case BESTIE_POINT_BATTLES -> BoardFactory.createBestiePointBattlesBoard();
-    };
-
-    Dice dice = new Dice(2);
-
-    return switch (mode) {
-      case LOVE_AND_LADDERS -> new BoardGame(board, dice);
-      case BESTIE_POINT_BATTLES -> new PointBoardGame(board, dice);
-    };
-  }
-
-  private static Board loadBoardFromJson(GameMode mode) {
-    String fileName = switch (mode) {
-      case LOVE_AND_LADDERS -> "ladderBoard1.json";
-      case BESTIE_POINT_BATTLES -> "pointBoard1.json";
-    };
-
-    Path path = Path.of("src/main/resources/boards", fileName);
-
-    if (!Files.exists(path)) {
-      throw new RuntimeException("Could not find board file: " + fileName);
+  public static BoardGame createSimpleLadderGame(GameMode mode) {
+    Board board = new Board();
+    for (int i = 1; i <= 30; i++) {
+      board.addTile(new Tile(i));
     }
-
-    return new BoardFileReaderGson().readBoard(path);
+    for (int i = 1; i <= 30; i++) {
+      board.getTile(i).setNextTile(board.getTile(i - 1));
+    }
+    return new BoardGame(board, new Dice(1));
   }
 }
