@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.model.game;
 
-import edu.ntnu.idi.idatt.model.game.action.LadderAction;
+import edu.ntnu.idi.idatt.model.action.JumpToTileAction;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
@@ -10,13 +10,13 @@ class LadderActionTest {
 
   @Test
   void constructor_setsDestinationTileId() {
-    LadderAction action = new LadderAction(5, "Climb to tile 5");
+    JumpToTileAction action = new JumpToTileAction(5, "Climb to tile 5");
     assertEquals(5, action.getDestinationTileId());
   }
 
   @Test
   void constructor_setsDescription() {
-    LadderAction action = new LadderAction(5, "Climb to tile 5");
+    JumpToTileAction action = new JumpToTileAction(5, "Climb to tile 5");
     assertEquals("Climb to tile 5", action.getDescription());
   }
 
@@ -24,9 +24,9 @@ class LadderActionTest {
   void perform_movesPlayer() {
     BoardGame game = new BoardGame(board, dice);
     game.createBoard();
-    Player player = new Player("Test Player", game, LocalDate.of(2000, 1, 1));
+    Player player = new Player("Test Player", token, LocalDate.of(2000, 1, 1));
 
-    LadderAction action = new LadderAction(5, "Climb to tile 5");
+    JumpToTileAction action = new JumpToTileAction(5);
     action.perform(player);
 
     assertEquals(5, player.getCurrentTile().getTileId());
@@ -34,14 +34,12 @@ class LadderActionTest {
 
   @Test
   void invalidDestinationTileId_throwsException() {
-    assertThrows(IllegalArgumentException.class, () -> new LadderAction(0,
-        "Invalid"));
+    assertThrows(IllegalArgumentException.class, () -> new JumpToTileAction(0));
   }
 
   @Test
   void nullDescription_throwsException() {
-    assertThrows(NullPointerException.class, () -> new LadderAction(5,
-        null));
+    assertThrows(NullPointerException.class, () -> new JumpToTileAction(5));
   }
 
 

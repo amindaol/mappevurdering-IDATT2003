@@ -10,82 +10,41 @@ import java.time.LocalDate;
  */
 public class Player {
 
-  private boolean skipNextTurn = false;
   private final String name;
-  private String token;
+  private Token token;
   private Tile currentTile;
-  private BoardGame boardGame;
-  private LocalDate birthday;
+  private final LocalDate birthday;
   private int points = 0;
-
+  private boolean skipNextTurn = false;
 
   /**
    * Primary constructor used by the game logic.
    *
    * @param name      the name of the player.
-   * @param boardGame the board game the player belongs to.
+   * @param token the token belonging to the player.
    * @param birthday the birthday of a player.
-   * @throws NullPointerException if {@code name} or {@code boardGame} is {@code null}.
+   * @throws NullPointerException if {@code name} is {@code null}.
    */
-  public Player(String name, BoardGame boardGame, LocalDate birthday) {
+  public Player(String name, Token token, LocalDate birthday) {
     if (name == null) {
       throw new NullPointerException("Player name cannot be null.");
     }
-    if (boardGame == null) {
-      throw new NullPointerException("BoardGame reference cannot be null.");
-    }
 
     this.name = name;
-    this.boardGame = boardGame;
-    this.currentTile = null;
+    this.token = token;
     this.birthday = birthday;
   }
 
-  /**
-   * Secondary constructor used by DAO (CSV) when loading players. BoardGame reference can be
-   * injected later via setter.
-   *
-   * @param name  the player's name
-   * @param token the identifier for the player's token (e.g. "TopHat")
-   * @throws NullPointerException if {@code name} is {@code null}
-   */
-  public Player(String name, String token) {
-    if (name == null) {
-      throw new NullPointerException("Player name cannot be null.");
-    }
-    this.name = name;
-    this.token = token;
-    this.currentTile = null;
-    this.boardGame = null;
-  }
-
-  /**
-   * Associates this player with a specific BoardGame instance.
-   *
-   * @param boardGame the BoardGame to set
-   * @throws NullPointerException if {@code boardGame} is {@code null}
-   */
-  public void setBoardGame(BoardGame boardGame) {
-    if (boardGame == null) {
-      throw new NullPointerException("BoardGame reference cannot be null.");
-    }
-    this.boardGame = boardGame;
-  }
 
   /**
    * Places the player on a specific tile.
    *
    * @param tile the tile to place the player on.
    * @throws NullPointerException if {@code tile} is {@code null}.
-   * @throws GameNotInitializedException if the BoardGame is not set.
    */
   public void placeOnTile(Tile tile) {
     if (tile == null) {
       throw new NullPointerException("Tile cannot be null when placing player.");
-    }
-
-    if (boardGame == null) {
-      throw new GameNotInitializedException();
     }
 
     this.currentTile = tile;
@@ -108,14 +67,10 @@ public class Player {
     }
 
     Tile destination = currentTile;
-    for (int i = 0; i < steps; i++) {
-      if (destination.getNextTile() != null) {
-        destination = destination.getNextTile();
-      } else {
-        break;
-      }
+    for (int i = 0; i < steps && destination.getNextTile() != null; i++) {
+      destination = destination.getNextTile();
     }
-    placeOnTile(destination);
+    destination.onLand(this);
   }
 
   /**
@@ -137,30 +92,18 @@ public class Player {
   }
 
   /**
-   * Returns the associated BoardGame instance.
-   *
-   * @return the BoardGame
-   * @throws GameNotInitializedException if no BoardGame has been set
-   */
-  public BoardGame getBoardGame() {
-    if (boardGame == null) {
-      throw new GameNotInitializedException();
-    }
-    return boardGame;
-  }
-
-  /**
    * Returns the player's token identifier.
    *
-   * @return the token string
+   * @return the token.
    */
-  public String getToken() {
+  public Token getToken() {
     return token;
   }
 
   @Override
   public String toString() {
-    return "Player{name='" + name + "', token='" + token + "'}";
+    return "Player{name='" + name + "', token=" + token + ", tile=" +
+        (currentTile != null ? currentTile.getTileId() : "none") + '}';
   }
 
   /**
@@ -202,7 +145,7 @@ public class Player {
   /**
    * Returns the player's birthday.
    *
-   * @return the player's birth date
+   * @return the player's birthdate
    */
   public LocalDate getBirthday() {
     return birthday;
@@ -214,7 +157,7 @@ public class Player {
    * @param token the name of the token image (without path)
    * @throws NullPointerException if token is null
    */
-  public void setToken(String token) {
+  public void setToken(Token token) {
     if (token == null) {
       throw new NullPointerException("Token cannot be null.");
     }

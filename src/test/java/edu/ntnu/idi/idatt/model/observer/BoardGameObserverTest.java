@@ -6,6 +6,7 @@ import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
+import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
