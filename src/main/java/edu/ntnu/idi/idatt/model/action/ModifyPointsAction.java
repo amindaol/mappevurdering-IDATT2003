@@ -4,14 +4,18 @@ import edu.ntnu.idi.idatt.model.game.Player;
 
 public class ModifyPointsAction implements TileAction {
 
-  private final int delta;
+  private final int points;
 
-  public ModifyPointsAction(int delta) {
-    this.delta = delta;
+  public ModifyPointsAction(int points) {
+    this.points = points;
   }
 
   @Override
   public void perform(Player player) {
-    player.addPoints(delta);
+    player.addPoints(points);
+  }
+
+  public int getPoints() {
+    return points;
   }
 }

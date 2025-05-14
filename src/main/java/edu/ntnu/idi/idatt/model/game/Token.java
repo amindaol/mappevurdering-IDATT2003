@@ -16,7 +16,7 @@ public class Token {
     return name;
   }
 
-  public String getImageFileName() {
+  public String getIconFileName() {
     return iconFileName;
   }
 

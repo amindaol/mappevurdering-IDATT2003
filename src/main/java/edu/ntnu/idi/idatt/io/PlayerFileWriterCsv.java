@@ -2,7 +2,7 @@ package edu.ntnu.idi.idatt.io;
 
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
-import java.io.BufferedWriter;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,22 +14,20 @@ import java.util.List;
  */
 public class PlayerFileWriterCsv implements PlayerFileWriter {
 
-  /**
-   * Writes the list of players to the CSV file, one player per line in format: name,token.
-   *
-   * @param csvFile path to the CSV file where players will be written
-   * @param players the List of Player objects to write
-   * @throws DaoException if file I/O fails during writing
-   */
   @Override
-  public void writePlayers(Path csvFile, List<Player> players) throws DaoException {
-    try (BufferedWriter writer = Files.newBufferedWriter(csvFile)) {
-      for (Player p : players) {
-        writer.write(p.getName() + "," + p.getToken());
-        writer.newLine();
-      }
+  public void writePlayers(Path path, List<Player> players) throws DaoException {
+    try {
+      List<String> lines = players.stream()
+          .map(this::formatPlayerLine)
+          .toList();
+
+      Files.write(path, lines);
     } catch (IOException e) {
-      throw new DaoException("Error writing players", e);
+      throw new DaoException("Failed to write players to file: " + path, e);
     }
+  }
+
+  private String formatPlayerLine(Player player) {
+    return player.getName() + "," + player.getToken().getIconFileName();
   }
 }

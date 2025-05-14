@@ -17,6 +17,6 @@ public interface PlayerFileWriter {
    * @param players the List of Player objects to persist
    * @throws DaoException if an error occurs during the write operation
    */
-  void writePlayers(Path csvFile, List<Player> players) throws DaoException;
+  void writePlayers(Path path, List<Player> players) throws DaoException;
 }
 

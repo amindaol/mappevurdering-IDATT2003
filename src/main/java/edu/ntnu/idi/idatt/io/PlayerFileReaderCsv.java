@@ -1,11 +1,13 @@
 package edu.ntnu.idi.idatt.io;
 
 import edu.ntnu.idi.idatt.model.game.Player;
+import edu.ntnu.idi.idatt.model.game.Token;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,31 +16,48 @@ import java.util.List;
  */
 public class PlayerFileReaderCsv implements PlayerFileReader {
 
-  /**
-   * Reads all players from the CSV file. Each line is expected in format: name,token.
-   *
-   * @param csvFile path to the CSV file where players will be read
-   * @return a List of Player objects
-   * @throws DaoException if file I/O fails or CSV line format is invalid
-   */
   @Override
-  public List<Player> readPlayers(Path csvFile) throws DaoException {
+  public List<Player> readPlayers(Path path) throws DaoException {
     List<Player> players = new ArrayList<>();
-    try (BufferedReader reader = Files.newBufferedReader(csvFile)) {
-      String line;
-      while ((line = reader.readLine()) != null) {
-        String[] parts = line.split(",", 2);
-        if (parts.length != 2) {
-          throw new DaoException("Invalid CSV line: '" + line + "'", null);
-        }
-        String name = parts[0].trim();
-        String token = parts[1].trim();
-        players.add(new Player(name, token));
+
+    try {
+      List<String> lines = Files.readAllLines(path);
+      for (String line : lines) {
+        if (line.isBlank())
+          continue;
+        players.add(parsePlayer(line));
       }
-    } catch (IOException e) {
-      throw new DaoException("Error reading players", e);
+      return players;
+    } catch (IOException | IllegalArgumentException e) {
+      throw new DaoException("Failed to read players from file: " + path, e);
     }
-    return players;
   }
 
+  /**
+   * Parses a single line of CSV into a Player.
+   *
+   * @param line CSV line in format "name,iconFile"
+   * @return Player instance
+   */
+  private Player parsePlayer(String line) {
+    if (line == null || line.isBlank()) {
+      throw new IllegalArgumentException("Empty or null CSV line.");
+    }
+
+    String[] parts = line.split(",");
+
+    if (parts.length < 2) {
+      throw new IllegalArgumentException("Malformed player line: " + line);
+    }
+
+    String name = parts[0].trim();
+    String icon = parts[1].trim();
+
+    if (name.isEmpty() || icon.isEmpty()) {
+      throw new IllegalArgumentException("Empty player name or icon: " + line);
+    }
+
+    Token token = new Token(name, icon);
+    return new Player(name, token, LocalDate.now());
+  }
 }

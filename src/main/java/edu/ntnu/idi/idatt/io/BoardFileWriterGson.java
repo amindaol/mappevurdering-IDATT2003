@@ -2,11 +2,12 @@ package edu.ntnu.idi.idatt.io;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import edu.ntnu.idi.idatt.model.action.*;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
+
 import java.io.IOException;
-import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -16,47 +17,51 @@ import java.nio.file.Path;
  */
 public class BoardFileWriterGson implements BoardFileWriter {
 
-  /**
-   * Writes the given {@link Board} to the specified JSON file.
-   *
-   * @param path  the Path to write the JSON to
-   * @param board the Board instance to serialize
-   * @throws DaoException if an I/O error occurs during writing
-   */
   @Override
   public void writeBoard(Path path, Board board) throws DaoException {
+    try {
+      JsonObject root = new JsonObject();
+      JsonArray tilesJson = new JsonArray();
 
-    JsonObject root = new JsonObject();
-    JsonArray tilesArray = new JsonArray();
-    int total = board.size();
+      for (Tile tile : board.getTilesOrdered()) {
+        JsonObject tileJson = new JsonObject();
+        tileJson.addProperty("id", tile.getTileId());
 
-    for (int id = 1; id <= total; id++) {
-      Tile tile = board.getTile(id);
-      JsonObject tileObj = getJsonObject(tile);
-      tilesArray.add(tileObj);
-    }
-    root.add("tiles", tilesArray);
+        if (tile.getNextTile() != null) {
+          tileJson.addProperty("nextTile", tile.getNextTile().getTileId());
+        }
 
-    try (Writer writer = Files.newBufferedWriter(path)) {
-      writer.write(root.toString());
+        if (tile.getAction() != null) {
+          tileJson.add("action", serializeAction(tile.getAction()));
+        }
+
+        tilesJson.add(tileJson);
+      }
+
+      root.add("tiles", tilesJson);
+      Files.writeString(path, root.toString());
+
     } catch (IOException e) {
-      throw new DaoException("Failed to write board JSON file", e);
+      throw new DaoException("Failed to write board to JSON: " + path, e);
     }
   }
 
-  private static JsonObject getJsonObject(Tile tile) {
-    JsonObject tileObj = new JsonObject();
-    tileObj.addProperty("id", tile.getTileId());
-    if (tile.getNextTile() != null) {
-      tileObj.addProperty("nextTile", tile.getNextTile().getTileId());
+  private JsonObject serializeAction(TileAction action) {
+    JsonObject obj = new JsonObject();
+
+    if (action instanceof JumpToTileAction jump) {
+      obj.addProperty("type", "LadderAction");
+      obj.addProperty("destinationTileId", jump.getDestination().getTileId());
+    } else if (action instanceof ModifyPointsAction modify) {
+      obj.addProperty("type", "ModifyPointsAction");
+      obj.addProperty("points", modify.getPoints());
+    } else if (action instanceof SkipNextTurnAction) {
+      obj.addProperty("type", "SkipNextTurnAction");
+    } else {
+      obj.addProperty("type", "UnknownAction");
     }
-    if (tile.getAction() instanceof JumpToTileAction ladderAction) {
-      JsonObject actionObj = new JsonObject();
-      actionObj.addProperty("type", "LadderAction");
-      actionObj.addProperty("destinationTileId", ladderAction.getDestinationTileId());
-      actionObj.addProperty("description", ladderAction.getDescription());
-      tileObj.add("action", actionObj);
-    }
-    return tileObj;
+
+    return obj;
   }
+
 }

@@ -12,12 +12,12 @@ import java.util.List;
 public interface PlayerFileReader {
 
   /**
-   * Reads all players from persistent storage.
+   * Reads a list of Player instances from a file.
    *
-   * @return a List of Player objects
-   * @throws DaoException if an error occurs during the read operation
+   * @param path Path to a CSV or other supported format
+   * @return list of Player objects
+   * @throws DaoException if file reading or parsing fails
    */
-  List<Player> readPlayers(Path csvFile) throws DaoException;
-
+  List<Player> readPlayers(Path path) throws DaoException;
 
 }

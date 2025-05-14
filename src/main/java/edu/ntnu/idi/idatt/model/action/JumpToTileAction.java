@@ -16,5 +16,9 @@ public class JumpToTileAction implements TileAction {
     destination.onLand(player);
   }
 
+  public Tile getDestination() {
+    return destination;
+  }
+
 
 }

@@ -12,6 +12,10 @@ import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidJsonFormatException;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Gson-based implementation of {@link BoardFileReader} that reads a board
@@ -20,63 +24,59 @@ import java.io.*;
 public class BoardFileReaderGson implements BoardFileReader {
 
   @Override
-  public Board readBoard(InputStream stream) throws DaoException {
-    try (Reader reader = new InputStreamReader(stream)) {
-      JsonObject root = JsonParser.parseReader(reader).getAsJsonObject();
+  public Board readBoard(Path path) throws DaoException {
+    try {
+      String json = Files.readString(path);
+      JsonObject root = JsonParser.parseString(json).getAsJsonObject();
       return parseBoard(root);
-    } catch (Exception e) {
-      throw new DaoException("Failed to load board from resource stream", e);
+    } catch (IOException | IllegalArgumentException | NullPointerException e) {
+      throw new DaoException("Failed to load board from file: " + path, e);
     }
   }
 
-  private Board parseBoard(JsonObject root) {
-    int rows = root.get("rows").getAsInt();
-    int cols = root.get("cols").getAsInt();
-    int total = rows * cols;
-
+  public Board parseBoard(JsonObject root) {
+    JsonArray tileArray = root.getAsJsonArray("tiles");
+    Map<Integer, Tile> tileMap = new HashMap<>();
     Board board = new Board();
-    for (int id = 1; id <= total; id++) {
-      board.addTile(new Tile(id));
+
+    for (JsonElement tileElem : tileArray) {
+      JsonObject tileObj = tileElem.getAsJsonObject();
+      int id = tileObj.get("id").getAsInt();
+      Tile tile = new Tile(id);
+      board.addTile(tile);
+      tileMap.put(id, tile);
     }
 
-    for (int id = 1; id < total; id++) {
-      Tile current = board.getTile(id);
-      Tile next = board.getTile(id + 1);
-      current.setNextTile(next);
-    }
+    for (JsonElement tileElem : tileArray) {
+      JsonObject tileObj = tileElem.getAsJsonObject();
+      int id = tileObj.get("id").getAsInt();
+      Tile tile = tileMap.get(id);
 
-    JsonArray specials = root.getAsJsonArray("specialTiles");
-    if (specials != null) {
-      for (JsonElement el : specials) {
-        JsonObject spec = el.getAsJsonObject();
-        int tileId = spec.get("id").getAsInt();
-        JsonObject actionObj = spec.getAsJsonObject("action");
+      if (tileObj.has("nextTile")) {
+        int nextId = tileObj.get("nextTile").getAsInt();
+        tile.setNextTile(tileMap.get(nextId));
+      }
+
+      if (tileObj.has("action")) {
+        JsonObject actionObj = tileObj.getAsJsonObject("action");
         String type = actionObj.get("type").getAsString();
 
         switch (type) {
-          case "Ladder" -> {
-            int dest = actionObj.get("destinationTileId").getAsInt();
-            board.getTile(tileId).setLandAction(new JumpToTileAction(dest, "Ladder to " + dest));
+          case "LadderAction", "SnakeAction" -> {
+            int destId = actionObj.get("destinationTileId").getAsInt();
+            tile.setAction(new JumpToTileAction(tileMap.get(destId)));
           }
-          case "Snake" -> {
-            int dest = actionObj.get("destinationTileId").getAsInt();
-            board.getTile(tileId).setLandAction(new JumpToTileAction(dest));
-          }
-          case "GoToStart" -> board.getTile(tileId).setLandAction(new JumpToTileAction());
-          case "SkipNextTurn" -> board.getTile(tileId).setLandAction(new SkipNextTurnAction());
-          case "AddPoints" -> {
+          case "ModifyPointsAction" -> {
             int points = actionObj.get("points").getAsInt();
-            board.getTile(tileId).setLandAction(new ModifyPointsAction(points));
+            tile.setAction(new ModifyPointsAction(points));
           }
-          case "RemovePoints" -> {
-            int points = actionObj.get("points").getAsInt();
-            board.getTile(tileId).setLandAction(new ModifyPointsAction(points));
-          }
-          default -> throw new InvalidJsonFormatException("Unknown action type: " + type, null);
+          case "SkipNextTurnAction" -> tile.setAction(new SkipNextTurnAction());
+          default -> throw new IllegalArgumentException("Unknown action type: " + type);
         }
       }
     }
 
+    board.setStartTile(tileMap.get(1));
     return board;
   }
 }
