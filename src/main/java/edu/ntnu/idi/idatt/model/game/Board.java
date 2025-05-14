@@ -13,7 +13,9 @@ import java.util.Map;
  */
 public class Board {
 
-  private final Map<Integer, Tile> tiles;
+  private final Map<Integer, Tile> tiles ;
+  private Tile startTile;
+  private Tile endTile;
 
   /**
    * Constructs an empty game board.
@@ -47,7 +49,7 @@ public class Board {
     if (tile == null) {
       throw new InvalidMoveException("Tile not found: " + tileId);
     }
-    return tiles.get(tileId);
+    return tile;
   }
 
   /**
@@ -64,14 +66,33 @@ public class Board {
    * @throws InvalidMoveException if the board is empty
    */
   public Tile getLastTile() {
-    if (tiles.isEmpty()) {
-      throw new InvalidMoveException("Board is empty");
+    return tiles.entrySet().stream()
+        .max(Map.Entry.comparingByKey())
+        .map(Map.Entry::getValue)
+        .orElseThrow(() -> new InvalidMoveException("Board is empty"));
     }
-    return getTile(size());
-  }
 
-  public List<Tile> getTiles() {
+
+    public List<Tile> getTiles() {
     return new ArrayList<>(tiles.values());
   }
 
+  public Tile getStartTile() {
+    if (startTile == null) {
+      throw new InvalidMoveException("Start tile not set.");
+    }
+    return startTile;
+  }
+
+  public void setStartTile(Tile tile) {
+    if (tile == null) throw new NullPointerException("Start tile cannot be null.");
+    this.startTile = tile;
+  }
+
+  public List<Tile> getTilesOrdered() {
+    return tiles.entrySet().stream()
+        .sorted(Map.Entry.comparingByKey())
+        .map(Map.Entry::getValue)
+        .toList();
+  }
 }
