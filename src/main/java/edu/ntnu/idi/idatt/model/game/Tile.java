@@ -105,7 +105,7 @@ public class Tile {
     System.out.println(playerName + " leaves tile " + tileId);
   }
 
-  public TileAction getAction() {
+  public TileAction getTileAction() {
     return action;
   }
 

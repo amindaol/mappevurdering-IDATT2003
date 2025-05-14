@@ -56,11 +56,6 @@ public class BestieBattlesView extends BorderPane {
     }
   }
 
-  private void handleNextTurn() {
-    game.playOneTurn();
-    infoText.setText("Turn played. Check scores!");
-    updatePlayerInfo();
-  }
 
   private void updatePlayerInfo() {
     playerInfoBox.getChildren().clear();

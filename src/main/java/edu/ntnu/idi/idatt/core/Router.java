@@ -31,6 +31,9 @@ public class Router {
       history.pop();
       Route previous = history.peek();
       primaryScene.setView(previous.getView());
+      primaryScene.setNavBar(previous.getNavBar());
+    } else {
+      navigateTo("home");
     }
   }
 
@@ -46,6 +49,7 @@ public class Router {
     }
 
     primaryScene.setView(route.getView());
+    primaryScene.setNavBar(route.getNavBar());
     history.push(route);
   }
 }

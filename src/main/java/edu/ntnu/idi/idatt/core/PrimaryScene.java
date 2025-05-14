@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.core;
 
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -22,4 +23,6 @@ public class PrimaryScene extends Scene {
   public void setView(Parent view) {
     root.setCenter(view);
   }
+
+  public void setNavBar(Node navBar) {root.setTop(navBar);}
 }

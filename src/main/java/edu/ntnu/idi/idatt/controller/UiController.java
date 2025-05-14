@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 public class UiController {
 
   private final Stage stage;
-  private final Scene homeScene;
   private final Scene loveAndLaddersScene;
   private final Scene bestiePointBattlesScene;
   private Scene gameScene;
@@ -36,13 +35,6 @@ public class UiController {
 
   public UiController(Stage stage) {
     this.stage = stage;
-
-    homeView.setOnClikLoveAndLaddersButton(e -> showLoveAndLaddersPage());
-
-    homeView.getLoveAndLaddersButton()
-        .setOnAction(e -> showLoveAndLaddersPage());
-    homeView.getBestieBattlesButton()
-        .setOnAction(event -> showBestiePointBattlesPage());
 
     loveAndLaddersSettings = new SettingsContent(GameMode.LOVE_AND_LADDERS);
     SettingsView loveAndLaddersView = new SettingsView(
