@@ -1,11 +1,10 @@
 package edu.ntnu.idi.idatt;
 
-import edu.ntnu.idi.idatt.core.PrimaryScene;
-import edu.ntnu.idi.idatt.core.Route;
-import edu.ntnu.idi.idatt.core.Router;
+import edu.ntnu.idi.idatt.ui.route.PrimaryScene;
+import edu.ntnu.idi.idatt.ui.route.Route;
+import edu.ntnu.idi.idatt.ui.route.Router;
 import edu.ntnu.idi.idatt.util.StyleUtil;
-import edu.ntnu.idi.idatt.view.layouts.home.HomeController;
-import edu.ntnu.idi.idatt.view.layouts.home.HomeView;
+import edu.ntnu.idi.idatt.ui.view.layouts.home.HomeController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

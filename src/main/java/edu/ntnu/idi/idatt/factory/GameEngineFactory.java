@@ -1,5 +1,9 @@
 package edu.ntnu.idi.idatt.factory;
 
+import edu.ntnu.idi.idatt.config.GameMode;
+import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;
+import edu.ntnu.idi.idatt.model.engine.GameEngine;
+import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
 import edu.ntnu.idi.idatt.model.game.*;
 
 public final class GameEngineFactory {

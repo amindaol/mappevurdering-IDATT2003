@@ -1,17 +1,15 @@
 package edu.ntnu.idi.idatt.factory;
 
-import edu.ntnu.idi.idatt.io.BoardFileReaderGson;
-import edu.ntnu.idi.idatt.io.PlayerFileReaderCsv;
+import edu.ntnu.idi.idatt.io.reader.BoardFileReaderGson;
+import edu.ntnu.idi.idatt.io.reader.PlayerFileReaderCsv;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Dice;
-import edu.ntnu.idi.idatt.model.game.GameMode;
+import edu.ntnu.idi.idatt.config.GameMode;
 import edu.ntnu.idi.idatt.model.game.Player;
-import edu.ntnu.idi.idatt.model.game.PointBoardGame;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 

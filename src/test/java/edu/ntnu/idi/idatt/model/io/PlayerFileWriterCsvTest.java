@@ -1,9 +1,9 @@
 package edu.ntnu.idi.idatt.model.io;
 
-import edu.ntnu.idi.idatt.io.PlayerFileReader;
-import edu.ntnu.idi.idatt.io.PlayerFileReaderCsv;
-import edu.ntnu.idi.idatt.io.PlayerFileWriter;
-import edu.ntnu.idi.idatt.io.PlayerFileWriterCsv;
+import edu.ntnu.idi.idatt.io.reader.PlayerFileReader;
+import edu.ntnu.idi.idatt.io.reader.PlayerFileReaderCsv;
+import edu.ntnu.idi.idatt.io.writer.PlayerFileWriter;
+import edu.ntnu.idi.idatt.io.writer.PlayerFileWriterCsv;
 import edu.ntnu.idi.idatt.model.game.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
