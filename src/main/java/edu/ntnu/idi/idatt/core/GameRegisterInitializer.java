@@ -1,5 +1,7 @@
-package edu.ntnu.idi.idatt.config;
+package edu.ntnu.idi.idatt.core;
 
+import edu.ntnu.idi.idatt.config.GameInformation;
+import edu.ntnu.idi.idatt.config.GameMode;
 import edu.ntnu.idi.idatt.factory.BoardFactory;
 import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
 import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;

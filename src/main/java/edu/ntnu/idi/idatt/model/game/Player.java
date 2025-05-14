@@ -50,28 +50,6 @@ public class Player {
     this.currentTile = tile;
   }
 
-  /**
-   * Moves the player a given number of steps along the board. Movement follows the next tiles. If
-   * there are no more tiles, the player stops.
-   *
-   * @param steps the number of steps to move.
-   * @throws GameNotInitializedException if the player has not been placed on a tile
-   * @throws InvalidMoveException       if steps is negative
-   */
-  public void move(int steps) {
-    if (currentTile == null) {
-      throw new GameNotInitializedException();
-    }
-    if (steps < 0) {
-      throw new InvalidMoveException("Steps cannot be negative: " + steps);
-    }
-
-    Tile destination = currentTile;
-    for (int i = 0; i < steps && destination.getNextTile() != null; i++) {
-      destination = destination.getNextTile();
-    }
-    destination.onLand(this);
-  }
 
   /**
    * Returns the tile the player is currently on.
@@ -164,4 +142,8 @@ public class Player {
     this.token = token;
   }
 
+  public void setCurrentTile(Tile tile) {
+    this.currentTile = tile;
+
+  }
 }

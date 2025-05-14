@@ -18,7 +18,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class BoardGame {
 
-  public static final int MAX_PLAYERS = 6;
+  public static final int MAX_PLAYERS = 5;
 
   private final List<Player> players = new ArrayList<>();
   private final List<BoardGameObserver> observers = new CopyOnWriteArrayList<>();

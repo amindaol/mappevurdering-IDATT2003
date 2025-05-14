@@ -6,7 +6,7 @@ public class BestieBattlesSetupController {
 
   private final BestieBattlesSetupView view;
 
-  public BestieBattlesSetupView() {
+  public BestieBattlesSetupController() {
     this.view = new BestieBattlesSetupView();
     setupEventHandlers();
   }

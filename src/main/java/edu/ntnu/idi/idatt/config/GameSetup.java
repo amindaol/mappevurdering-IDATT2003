@@ -25,7 +25,7 @@ public class GameSetup {
     this.players = players;
   }
 
-  private GameConfiguration build() {
+  public GameConfiguration build() {
     Dice dice = new Dice(2);
     BoardGame boardGame = new BoardGame(selectedBoard, dice);
 
