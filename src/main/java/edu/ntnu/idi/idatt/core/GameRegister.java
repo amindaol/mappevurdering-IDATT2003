@@ -1,5 +1,7 @@
-package edu.ntnu.idi.idatt.config;
+package edu.ntnu.idi.idatt.core;
 
+import edu.ntnu.idi.idatt.config.GameInformation;
+import edu.ntnu.idi.idatt.config.GameMode;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
