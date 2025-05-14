@@ -74,6 +74,7 @@ public class BoardGame {
     return observers;
   }
 
+
   /**
    * Adds a player to the game.
    *
@@ -124,6 +125,10 @@ public class BoardGame {
    */
   public List<Player> getPlayers() {
     return players;
+  }
+
+  public void clearObservers() {
+    observers.clear();
   }
 
 }
