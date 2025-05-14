@@ -1,7 +1,5 @@
 package edu.ntnu.idi.idatt.model.game;
-import edu.ntnu.idi.idatt.model.action.AddPointsAction;
-import edu.ntnu.idi.idatt.model.action.RemovePointsAction;
-
+import edu.ntnu.idi.idatt.model.action.ModifyPointsAction;
 
 
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
@@ -45,9 +43,9 @@ public class PointBoardGame extends BoardGame {
         tile.getAction().perform(player);
       }
 
-      if (tile.getAction() instanceof AddPointsAction action) {
+      if (tile.getAction() instanceof ModifyPointsAction action) {
         player.addPoints(action.getPoints());
-      } else if (tile.getAction() instanceof RemovePointsAction action) {
+      } else if (tile.getAction() instanceof ModifyPointsAction action) {
         player.addPoints(-action.getPoints());
       }
 

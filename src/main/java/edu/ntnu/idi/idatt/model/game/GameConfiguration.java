@@ -7,7 +7,6 @@ import edu.ntnu.idi.idatt.io.BoardFileWriter;
 import edu.ntnu.idi.idatt.io.BoardFileWriterGson;
 import edu.ntnu.idi.idatt.io.PlayerFileWriter;
 import edu.ntnu.idi.idatt.io.PlayerFileWriterCsv;
-import edu.ntnu.idi.idatt.model.action.LadderAction;
 import edu.ntnu.idi.idatt.model.action.TileAction;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 import java.io.IOException;
@@ -60,7 +59,7 @@ public class GameConfiguration {
       if (action != null) {
         JsonObject actionObject = new JsonObject();
 
-        if (action instanceof LadderAction) {
+        if (action instanceof JumpToTileAction) {
           int destinationTileId = getActionDestinationTileId(action);
           actionObject.addProperty("destinationTileId", destinationTileId);
           actionObject.addProperty("type", "ladder");

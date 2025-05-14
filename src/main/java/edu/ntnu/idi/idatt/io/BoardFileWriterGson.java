@@ -3,7 +3,6 @@ package edu.ntnu.idi.idatt.io;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import edu.ntnu.idi.idatt.model.game.Board;
-import edu.ntnu.idi.idatt.model.action.LadderAction;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 import java.io.IOException;
@@ -51,7 +50,7 @@ public class BoardFileWriterGson implements BoardFileWriter {
     if (tile.getNextTile() != null) {
       tileObj.addProperty("nextTile", tile.getNextTile().getTileId());
     }
-    if (tile.getAction() instanceof LadderAction ladderAction) {
+    if (tile.getAction() instanceof JumpToTileAction ladderAction) {
       JsonObject actionObj = new JsonObject();
       actionObj.addProperty("type", "LadderAction");
       actionObj.addProperty("destinationTileId", ladderAction.getDestinationTileId());

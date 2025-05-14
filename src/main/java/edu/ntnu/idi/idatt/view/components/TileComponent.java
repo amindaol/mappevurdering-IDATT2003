@@ -1,10 +1,8 @@
 package edu.ntnu.idi.idatt.view.components;
 
+import edu.ntnu.idi.idatt.model.action.ModifyPointsAction;
 import edu.ntnu.idi.idatt.model.game.Tile;
-import edu.ntnu.idi.idatt.model.action.AddPointsAction;
-import edu.ntnu.idi.idatt.model.action.RemovePointsAction;
 import edu.ntnu.idi.idatt.model.action.TileAction;
-import java.util.Optional;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -21,10 +19,10 @@ public class TileComponent extends StackPane {
     this.label = new Text(String.valueOf(tile.getTileId()));
 
     TileAction action = tile.getAction();
-    if (action instanceof AddPointsAction add) {
+    if (action instanceof ModifyPointsAction add) {
       background.setFill(Color.LIGHTGREEN);
       label.setText("+" + add.getPoints());
-    } else if (action instanceof RemovePointsAction remove) {
+    } else if (action instanceof ModifyPointsAction remove) {
       background.setFill(Color.SALMON);
       label.setText("-" + remove.getPoints());
     } else {

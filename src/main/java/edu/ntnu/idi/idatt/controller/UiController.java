@@ -183,7 +183,7 @@ public class UiController {
 
       // Add players
       for (int i = 0; i < names.size(); i++) {
-        Player player = new Player(names.get(i), game, birthdays.get(i));
+        Player player = new Player(names.get(i), token, birthdays.get(i));
         player.setToken(tokens.get(i));
         game.addPlayer(player);
       }
