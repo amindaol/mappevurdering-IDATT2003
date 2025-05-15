@@ -4,7 +4,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class PrimaryScene extends Scene {
 
@@ -22,7 +24,14 @@ public class PrimaryScene extends Scene {
 
   public void setView(Parent view) {
     root.setCenter(view);
+
+    if (view instanceof VBox) {
+      VBox.setVgrow(view, Priority.ALWAYS);
+    }
   }
 
-  public void setNavBar(Node navBar) {root.setTop(navBar);}
+  public void setNavBar(Node navBar) {
+    root.setTop(navBar);
+  }
+
 }

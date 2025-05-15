@@ -63,7 +63,7 @@ public class PlayerSettingsContainer {
       ps.setOnTokenSelected(() -> {
         usedTokens.clear();
         for (PlayerSettings p : playerSettingsList) {
-          String token = p.getSelectedToken();
+          String token = p.getSelectedIconName();
           if (token != null) usedTokens.add(token);
         }
 

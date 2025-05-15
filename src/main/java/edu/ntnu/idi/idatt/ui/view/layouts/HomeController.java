@@ -16,8 +16,8 @@ public class HomeController {
   }
 
   private void setupEventHandlers() {
-    view.setOnClickLoveAndLaddersButton(() -> Router.navigateTo("lalPage"));
-    view.setOnClickBestieBattlesButton(() -> Router.navigateTo("bbPage"));
+    view.setOnClickLoveAndLaddersButton(() -> Router.navigateTo("lalSettings"));
+    view.setOnClickBestieBattlesButton(() -> Router.navigateTo("bbSettings"));
   }
 
 }

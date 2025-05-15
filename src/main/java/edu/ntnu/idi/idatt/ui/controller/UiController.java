@@ -30,6 +30,6 @@ public class UiController {
         () -> launcher.launchGame(content, mode)
     );
 
-    navigator.switchTo(view.getRoot(), "Slayboard – " + mode.name());
+    navigator.switchTo(view, "Slayboard – " + mode.name());
   }
 }

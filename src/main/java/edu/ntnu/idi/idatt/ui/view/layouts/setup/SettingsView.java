@@ -9,8 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
-public class SettingsView {
+public class SettingsView extends VBox {
 
   private final BorderPane root;
   private final NavBar navBar;
@@ -21,48 +23,40 @@ public class SettingsView {
       Node content,
       Runnable onStartGame) {
 
-    root = new BorderPane();
-    root.getStyleClass().add("settings-root");
+    getStyleClass().add("settings-root");
 
     navBar = new NavBar(gameTitle, onHome, this::showHelpDialog);
-    root.setTop(navBar.getRoot());
-
-    BorderPane.setMargin(content, new Insets(10));
-    root.setCenter(content);
-
-    ScrollPane scrollPane = new ScrollPane(content);
-    scrollPane.setFitToWidth(true);
-    scrollPane.setFitToHeight(true);
-    scrollPane.setStyle("-fx-background-color: transparent;");
-    BorderPane.setMargin(scrollPane, new Insets(10));
-    root.setCenter(scrollPane);
-
     startGameButton = new Button("Start game");
-    startGameButton.setOnAction(event -> {
-      System.out.println("Start Game button clicked");
-      onStartGame.run();
-    });
+    startGameButton.setOnAction(event -> onStartGame.run());
     startGameButton.getStyleClass().add("nav-button");
 
     HBox bottomBar = new HBox(startGameButton);
     bottomBar.setAlignment(Pos.CENTER_LEFT);
     bottomBar.setPadding(new Insets(20));
-    startGameButton.getStyleClass().add("nav-button");
 
-    root.setBottom(bottomBar);
+    VBox scrollContent = new VBox(30, navBar, content, bottomBar);
+    scrollContent.setPadding(new Insets(20));
+    scrollContent.setAlignment(Pos.TOP_CENTER);
+    scrollContent.setFillWidth(true);
+
+    ScrollPane scrollPane = new ScrollPane(scrollContent);
+    scrollPane.setFitToWidth(true);
+    scrollPane.setFitToHeight(true);
+    scrollPane.setPannable(true);
+    scrollPane.setStyle("-fx-background-color: transparent;");
+
+    root = new BorderPane();
+    root.setTop(navBar);
+    root.setCenter(scrollPane);
+
+    getChildren().add(root);
+    VBox.setVgrow(root, Priority.ALWAYS);
   }
 
   public BorderPane getRoot() {
     return root;
   }
 
-  public Button getHomeButton() {
-    return navBar.getHomeButton();
-  }
-
-  public Button getHelpButton() {
-    return navBar.getHelpButton();
-  }
 
   private void showHelpDialog() {
     Alert helpAlert = new Alert(Alert.AlertType.INFORMATION);

@@ -31,19 +31,17 @@ public class HomeView extends StackPane {
     VBox content = new VBox(20, titleLabel, buttons);
     content.setAlignment(Pos.CENTER);
 
+    StackPane.setAlignment(content, Pos.CENTER);
+    this.setPrefHeight(600);
     getChildren().add(content);
 
   }
 
   public void setOnClickLoveAndLaddersButton(Runnable runnable) {
-    setOnMouseClicked(e -> {
-      runnable.run();
-    });
+    loveAndLaddersButton.setOnAction(e -> runnable.run());
   }
 
   public void setOnClickBestieBattlesButton(Runnable runnable) {
-    setOnMouseClicked(e -> {
-      runnable.run();
-    });
+    bestieBattlesButton.setOnAction(e -> runnable.run());
   }
 }

@@ -26,8 +26,8 @@ public class BoardFileWriterGson implements BoardFileWriter {
       for (Tile tile : board.getTilesOrdered()) {
         JsonObject tileJson = new JsonObject();
         tileJson.addProperty("id", tile.getTileId());
-        tileJson.addProperty("X", tile.getX());
-        tileJson.addProperty("Y", tile.getY());
+        tileJson.addProperty("row", tile.getRow());
+        tileJson.addProperty("col", tile.getCol());
 
         if (tile.getNextTile() != null) {
           tileJson.addProperty("nextTile", tile.getNextTile().getTileId());

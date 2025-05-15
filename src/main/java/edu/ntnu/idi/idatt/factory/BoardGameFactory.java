@@ -34,16 +34,7 @@ public final class BoardGameFactory {
     Dice dice = new Dice(1);
 
     BoardGame game = new BoardGame(board, dice);
-    players.forEach(player -> game.addPlayer(player));
-    return game;
-  }
-
-  public static BoardGame createDefaultGame() {
-    Board board = BoardFactory.createDefaultBoard();
-    Dice dice = new Dice(2);
-    BoardGame game = new BoardGame(board, dice);
-
-    createDefaultPlayers().forEach(game::addPlayer);
+    players.forEach(game::addPlayer);
     return game;
   }
 
@@ -55,25 +46,6 @@ public final class BoardGameFactory {
     };
   }
 
-
-  public static BoardGame createLoveAndLaddersGame() {
-    Board board = BoardFactory.createLoveAndLaddersBoard();
-    Dice dice = new Dice(2);
-    BoardGame game = new BoardGame(board, dice);
-
-    createDefaultPlayers().forEach(game::addPlayer);
-    return game;
-  }
-
-  public static BoardGame createBestiePointBattlesGame() {
-    Board board = BoardFactory.createBestiePointBattlesBoard();
-    Dice dice = new Dice(2);
-    BoardGame game = new BoardGame(board, dice);
-
-    createDefaultPlayers().forEach(game::addPlayer);
-    return game;
-  }
-
   private static List<Player> createDefaultPlayers() {
     return List.of(
         new Player("Aminda", new Token("Heart", "heart.png"),
@@ -83,4 +55,38 @@ public final class BoardGameFactory {
     );
 
   }
+
+
+  public static BoardGame createLoveAndLaddersGame() {
+    return createLoveAndLaddersGame(createDefaultPlayers());
+  }
+
+  public static BoardGame createLoveAndLaddersGame(List<Player> players) {
+    Board board = BoardFactory.createLoveAndLaddersBoard();
+    Dice dice = new Dice(2);
+    return assembleGame(board, dice, players);
+  }
+
+  public static BoardGame createBestiePointBattlesGame() {
+    return createBestiePointBattlesGame(createDefaultPlayers());
+  }
+
+  public static BoardGame createBestiePointBattlesGame(List<Player> players) {
+    Board board = BoardFactory.createBestiePointBattlesBoard();
+    Dice dice = new Dice(2);
+    return assembleGame(board, dice, players);
+  }
+
+  private static BoardGame assembleGame(Board board, Dice dice, List<Player> players) {
+    BoardGame game = new BoardGame(board, dice);
+    Tile startTile = board.getStartTile();
+
+    for (Player player : players) {
+      player.setCurrentTile(startTile);
+      game.addPlayer(player);
+    }
+
+    return game;
+  }
+
 }
