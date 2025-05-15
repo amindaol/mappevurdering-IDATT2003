@@ -8,9 +8,12 @@ import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.config.GameMode;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
+import edu.ntnu.idi.idatt.model.game.Token;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,14 +38,40 @@ public final class BoardGameFactory {
     return game;
   }
 
-  public static BoardGame createSimpleLadderGame(GameMode mode) {
-    Board board = new Board();
-    for (int i = 1; i <= 30; i++) {
-      board.addTile(new Tile(i));
-    }
-    for (int i = 1; i <= 30; i++) {
-      board.getTile(i).setNextTile(board.getTile(i - 1));
-    }
-    return new BoardGame(board, new Dice(1));
+  public static BoardGame createDefaultGame() {
+    Board board = BoardFactory.createDefaultBoard();
+    Dice dice = new Dice(2);
+    BoardGame game = new BoardGame(board, dice);
+
+    createDefaultPlayers().forEach(game::addPlayer);
+    return game;
+  }
+
+  public static BoardGame createLoveAndLaddersGame() {
+    Board board = BoardFactory.createLoveAndLaddersBoard();
+    Dice dice = new Dice(2);
+    BoardGame game = new BoardGame(board, dice);
+
+    createDefaultPlayers().forEach(game::addPlayer);
+    return game;
+  }
+
+  public static BoardGame createBestiePointBattlesGame() {
+    Board board = BoardFactory.createBestiePointBattlesBoard();
+    Dice dice = new Dice(2);
+    BoardGame game = new BoardGame(board, dice);
+
+    createDefaultPlayers().forEach(game::addPlayer);
+    return game;
+  }
+
+  private static List<Player> createDefaultPlayers() {
+    return List.of(
+        new Player("Aminda", new Token("Heart", "heart.png"),
+            LocalDate.of(2005, 11, 5)),
+        new Player("Ingrid", new Token("Star", "star.png"),
+            LocalDate.of(2002, 8,28))
+    );
+
   }
 }

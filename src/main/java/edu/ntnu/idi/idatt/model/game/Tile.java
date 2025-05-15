@@ -13,6 +13,8 @@ public class Tile {
 
   private Tile nextTile;
   private final int tileId;
+  private int x;
+  private int y;
   private TileAction action;
 
   /**
@@ -20,8 +22,10 @@ public class Tile {
    *
    * @param tileId the unique identifier of the tile.
    */
-  public Tile(int tileId) {
+  public Tile(int tileId, int x, int y) {
     this.tileId = tileId;
+    this.x = x;
+    this.y = y;
   }
 
   /**
@@ -74,6 +78,22 @@ public class Tile {
     if (action != null) {
       action.perform(player);
     }
+  }
+
+  public int getX() {
+    return x;
+  }
+
+  public void setX(int x) {
+    this.x = x;
+  }
+
+  public int getY() {
+    return y;
+  }
+
+  public void setY(int y) {
+    this.y = y;
   }
 
 }
