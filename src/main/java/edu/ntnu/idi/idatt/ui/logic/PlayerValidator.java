@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.ui;
+package edu.ntnu.idi.idatt.ui.logic;
 
 import java.time.LocalDate;
 import java.util.HashSet;

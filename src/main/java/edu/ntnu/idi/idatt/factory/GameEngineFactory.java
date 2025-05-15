@@ -22,17 +22,13 @@ public final class GameEngineFactory {
   public static GameEngine create(BoardGame game, GameMode mode) {
     return switch (mode) {
       case LOVE_AND_LADDERS -> new LoveAndLaddersEngine(
-          game.getBoard(),
-          game.getPlayers(),
-          game.getDice(),
-          game.getObservers()
+          game,
+          game.getDice()
       );
 
       case BESTIE_POINT_BATTLES -> new BestiePointBattlesEngine(
-          game.getBoard(),
-          game.getPlayers(),
-          game.getDice(),
-          game.getObservers()
+          game,
+          game.getDice()
       );
     };
   }

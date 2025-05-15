@@ -1,7 +1,11 @@
 package edu.ntnu.idi.idatt.model.engine;
 
 import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
+import edu.ntnu.idi.idatt.observer.BoardGameEvent;
+import edu.ntnu.idi.idatt.observer.BoardGameObserver;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -11,18 +15,33 @@ import java.util.List;
 public abstract class GameEngine {
 
   protected Board board;
+  protected final BoardGame game;
   protected List<Player> players;
   protected int currentPlayerIndex;
   protected boolean gameOver;
 
-  public GameEngine(Board board, List<Player> players) {
-    if (board == null || players == null || players.isEmpty()) {
-      throw new IllegalArgumentException("Board and player list must not be null or empty.");
+  private final List<BoardGameObserver> observers = new ArrayList<>();
+
+
+  public GameEngine(BoardGame game) {
+    if (game == null || game.getPlayers() == null || game.getBoard() == null) {
+      throw new IllegalArgumentException("Game, players and board must not be null.");
     }
-    this.board = board;
-    this.players = players;
+    this.game = game;
+    this.board = game.getBoard();
+    this.players = game.getPlayers();
     this.currentPlayerIndex = 0;
     this.gameOver = false;
+  }
+
+  public void addObserver(BoardGameObserver observer) {
+    observers.add(observer);
+  }
+
+  public void notifyObservers(BoardGameEvent event) {
+    for (BoardGameObserver observer : observers) {
+      observer.onGameStateChange(getGame(), event);
+    }
   }
 
   /**
@@ -47,6 +66,7 @@ public abstract class GameEngine {
    */
   public void endGame() {
     this.gameOver = true;
+    notifyObservers(BoardGameEvent.GAME_WON);
   }
 
   public Player getCurrentPlayer() {
@@ -76,5 +96,10 @@ public abstract class GameEngine {
 
   public boolean isGameOver() {
     return gameOver;
+  }
+
+
+  public BoardGame getGame() {
+    return game;
   }
 }

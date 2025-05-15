@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.ui.view.layouts.home;
+package edu.ntnu.idi.idatt.ui.view.layouts;
 
 
 import javafx.geometry.Pos;

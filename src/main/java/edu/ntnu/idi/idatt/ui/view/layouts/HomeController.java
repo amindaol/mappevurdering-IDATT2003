@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.ui.view.layouts.home;
+package edu.ntnu.idi.idatt.ui.view.layouts;
 
 import edu.ntnu.idi.idatt.ui.route.Router;
 

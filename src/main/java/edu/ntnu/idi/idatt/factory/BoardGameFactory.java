@@ -47,6 +47,15 @@ public final class BoardGameFactory {
     return game;
   }
 
+  public static BoardGame createGame(GameMode mode) {
+    return switch (mode) {
+      case LOVE_AND_LADDERS -> createLoveAndLaddersGame();
+      case BESTIE_POINT_BATTLES -> createBestiePointBattlesGame();
+      default -> throw new IllegalArgumentException("Unsupported game mode: " + mode);
+    };
+  }
+
+
   public static BoardGame createLoveAndLaddersGame() {
     Board board = BoardFactory.createLoveAndLaddersBoard();
     Dice dice = new Dice(2);

@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.ui.view.layouts;
+package edu.ntnu.idi.idatt.ui.view.layouts.setup;
 
 import edu.ntnu.idi.idatt.ui.view.components.NavBar;
 import javafx.geometry.Insets;

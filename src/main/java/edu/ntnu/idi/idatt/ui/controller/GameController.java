@@ -1,20 +1,8 @@
 package edu.ntnu.idi.idatt.ui.controller;
 
 import edu.ntnu.idi.idatt.model.engine.GameEngine;
-import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
-import edu.ntnu.idi.idatt.observer.BoardGameEvent;
-import edu.ntnu.idi.idatt.observer.BoardGameObserver;
-import edu.ntnu.idi.idatt.ui.view.components.PlayerIcon;
-import edu.ntnu.idi.idatt.ui.view.layouts.BoardView;
-import java.util.Comparator;
-import java.util.Objects;
-import javafx.application.Platform;
-import javafx.scene.image.Image;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * GameController handles the game flow logic: whose turn it is, dice roll, and movement.
@@ -46,5 +34,9 @@ public class GameController  {
 
   public GameEngine getEngine() {
     return engine;
+  }
+
+  public List<Player> getPlayers() {
+    return engine.getPlayers();
   }
 }

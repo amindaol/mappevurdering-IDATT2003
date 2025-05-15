@@ -38,6 +38,10 @@ public class BestieBattlesView extends BorderPane {
     updatePlayerInfo();
   }
 
+  private void handleNextTurn() {
+
+  }
+
   private void setupBoard() {
     boardGrid.setHgap(5);
     boardGrid.setVgap(5);
