@@ -16,12 +16,19 @@ public class BoardFactory {
 
   public static Board createDefaultBoard() {
     Board board = new Board();
-    for (int i = 1; i <= 30; i++) {
-      board.addTile(new Tile(i));
+    int tileCount = 90;
+    int width = 10;
+
+    for (int i = 1; i <= tileCount; i++) {
+      int x = (i - 1) % width;
+      int y = (i - 1) / width;
+      board.addTile(new Tile(i, x, y));
     }
-    for (int i = 1; i < 90; i++) {
+
+    for (int i = 1; i < tileCount; i++) {
       board.getTile(i).setNextTile(board.getTile(i + 1));
     }
+
     board.setStartTile(board.getTile(1));
     return board;
   }
@@ -29,10 +36,10 @@ public class BoardFactory {
   public static Board createLoveAndLaddersBoard() {
     Board board = createDefaultBoard();
 
-    board.getTile(3).setAction(new JumpToTileAction(board.getTile(14)));  // ladder
-    board.getTile(8).setAction(new JumpToTileAction(board.getTile(4)));   // snake
-    board.getTile(19).setAction(new JumpToTileAction(board.getTile(27))); // ladder
-    board.getTile(25).setAction(new JumpToTileAction(board.getTile(17))); // snake
+    board.getTile(3).setAction(new JumpToTileAction(board.getTile(14)));
+    board.getTile(8).setAction(new JumpToTileAction(board.getTile(4)));
+    board.getTile(19).setAction(new JumpToTileAction(board.getTile(27)));
+    board.getTile(25).setAction(new JumpToTileAction(board.getTile(17)));
 
     return board;
   }
