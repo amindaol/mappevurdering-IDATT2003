@@ -1,5 +1,7 @@
 package edu.ntnu.idi.idatt.ui.view.layouts;
 
+import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.ui.view.components.DieContainer;
 import edu.ntnu.idi.idatt.ui.view.components.LaddersBoard;
 import edu.ntnu.idi.idatt.ui.view.components.PlayerIcon;
@@ -67,4 +69,11 @@ public class BoardView extends BorderPane {
       }
     });
   }
+
+  public void drawBoard(Board boardModel) {
+    for (Tile tile : boardModel.getTiles()) {
+      Pane tilePane = board.getTile(tile.getTileId());
+    }
+  }
+
 }

@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.ui.controller;
 
-
+import edu.ntnu.idi.idatt.ui.controller.GameController;
 import edu.ntnu.idi.idatt.model.engine.GameEngine;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
@@ -17,8 +17,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * GameViewController knytter modellen til GUI ved å lytte på game state og oppdatere BoardView.
+ */
 public class GameViewController implements BoardGameObserver {
-
 
   private final GameEngine engine;
   private final BoardView boardView;
@@ -28,19 +30,14 @@ public class GameViewController implements BoardGameObserver {
     this.engine = controller.getEngine();
     this.boardView = boardView;
 
-    engine.getBoard().addObserver(this); // If your board/game has observer – or do it elsewhere
-    initializeBoard();
-    initializePlayers();
-  }
-
-  private void initializeBoard() {
     boardView.drawBoard(engine.getBoard());
+    initializePlayers();
   }
 
   private void initializePlayers() {
     for (Player player : engine.getPlayers()) {
-      String path = "/icons/players/" + player.getToken().getIconFileName();
-      Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(path)));
+      String iconPath = "/icons/players/" + player.getToken().getIconFileName();
+      Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(iconPath)));
       PlayerIcon icon = new PlayerIcon(player.getName(), image);
       playerIcons.put(player, icon);
 
@@ -52,7 +49,7 @@ public class GameViewController implements BoardGameObserver {
   }
 
   @Override
-  public void onGameStateChange(Object source, BoardGameEvent event) {
+  public void onGameStateChange(BoardGame game, BoardGameEvent event) {
     Platform.runLater(() -> {
       switch (event) {
         case GAME_START -> initializePlayers();
@@ -75,9 +72,8 @@ public class GameViewController implements BoardGameObserver {
 
   private void highlightWinner() {
     Player winner = engine.checkWinCondition();
-    if (winner != null) {
-      System.out.println("🏆 " + winner.getName() + " has won!");
-      // Optional: trigger GUI effect
+    if (winner == null) return;
+
+    System.out.println("🏆 The winner is: " + winner.getName());
     }
-  }
 }
