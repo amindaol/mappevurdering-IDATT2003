@@ -9,8 +9,14 @@
   -fx-background-color: #FFF0F5;
 }
 
-.board-root, .settings-root, .home-root {
-  -fx-background-color: #FFE6F0;
+.settings-root, .board-root , .home-root{
+  -fx-background-color: #FFF5FA;
+  -fx-pref-height: 100%;
+}
+
+
+.scroll-pane {
+  -fx-background-color: transparent;
 }
 
 .title-label {

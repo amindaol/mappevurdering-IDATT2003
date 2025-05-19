@@ -19,9 +19,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class PlayerSettings {
+public class PlayerSettings extends VBox {
 
-  private final VBox playerContainer = new VBox();
   private final TextField nameField = new TextField();
   private final BirthdaySelector birthdaySelector = new BirthdaySelector();
   private final ToggleGroup iconGroup = new ToggleGroup();
@@ -31,14 +30,14 @@ public class PlayerSettings {
   private final String[] availableTokens = {"cloud", "flower", "heart", "moon", "star"};
 
   public PlayerSettings(int playerNumber) {
-    playerContainer.getStyleClass().addAll("player-settings-card", "player-settings", "player-card");
-    playerContainer.setPrefWidth(220);
-    playerContainer.setSpacing(10);
-    playerContainer.setPadding(new Insets(12));
-    playerContainer.setAlignment(Pos.CENTER);
+    this.setSpacing(10);
+    this.setPadding(new Insets(12));
+    this.setAlignment(Pos.CENTER);
+    this.getStyleClass().addAll("player-settings-card", "player-settings", "player-card");
 
-    nameField.getStyleClass().add("player-settings-name-field");
+
     nameField.setPromptText("Player " + playerNumber);
+    nameField.getStyleClass().add("player-settings-name-field");
     nameField.textProperty().addListener((obs, oldText, newText) -> {
       if (newText == null || newText.isBlank()) {
         nameField.setStyle("-fx-border-color: red;");
@@ -47,13 +46,14 @@ public class PlayerSettings {
       }
     });
 
-    birthdaySelector.getDatePicker().valueProperty().addListener((obs, oldVal, newVal) -> {
-      if (newVal == null) {
+    birthdaySelector.getDatePicker().valueProperty().addListener((obs, oldDate, newDate) -> {
+      if (newDate == null) {
         birthdaySelector.getDatePicker().setStyle("-fx-border-color: red;");
       } else {
         birthdaySelector.getDatePicker().setStyle("");
       }
     });
+
 
     HBox iconChoices = new HBox(6);
     iconChoices.setAlignment(Pos.CENTER);
@@ -65,11 +65,12 @@ public class PlayerSettings {
       btn.getStyleClass().add("player-settings-icon");
 
       Tooltip.install(btn, new Tooltip("Token: " + token));
+
       Image image = new Image(Objects.requireNonNull(
           getClass().getResourceAsStream("/icons/players/" + token + ".png")),
           32, 32, true, true);
-      btn.setGraphic(new ImageView(image));
 
+      btn.setGraphic(new ImageView(image));
       tokenButtons.put(token, btn);
       iconChoices.getChildren().add(btn);
     }
@@ -85,11 +86,11 @@ public class PlayerSettings {
       }
     });
 
-    playerContainer.getChildren().addAll(nameField, birthdaySelector, iconChoices);
+    this.getChildren().addAll(nameField, birthdaySelector, iconChoices);
   }
 
   public Node getAsNode() {
-    return playerContainer;
+    return this;
   }
 
   public String getPlayerName() {
@@ -100,9 +101,12 @@ public class PlayerSettings {
     return birthdaySelector.getBirthday();
   }
 
-  public String getSelectedIconName() {
-    return selectedToken;
+
+  public String getSelectedToken() {
+    Toggle selected = iconGroup.getSelectedToggle();
+    return selected != null ? (String) selected.getUserData() : null;
   }
+
 
   public void validateNameField() {
     if (getPlayerName().isBlank()) {
@@ -113,7 +117,7 @@ public class PlayerSettings {
   }
 
   public void validateTokenSelection() {
-    if (getSelectedIconName() == null) {
+    if (getSelectedToken() == null) {
       for (Toggle toggle : iconGroup.getToggles()) {
         ((RadioButton) toggle).setStyle("-fx-border-color: red;");
       }

@@ -23,9 +23,12 @@ public class SettingsView extends VBox {
       Node content,
       Runnable onStartGame) {
 
-    getStyleClass().add("settings-root");
+    root = new BorderPane();
+    root.getStyleClass().add("settings-root");
 
     navBar = new NavBar(gameTitle, onHome, this::showHelpDialog);
+    root.setTop(navBar);
+
     startGameButton = new Button("Start game");
     startGameButton.setOnAction(event -> onStartGame.run());
     startGameButton.getStyleClass().add("nav-button");
@@ -34,22 +37,21 @@ public class SettingsView extends VBox {
     bottomBar.setAlignment(Pos.CENTER_LEFT);
     bottomBar.setPadding(new Insets(20));
 
-    VBox scrollContent = new VBox(30, navBar, content, bottomBar);
+    VBox scrollContent = new VBox(30, content, bottomBar);
     scrollContent.setPadding(new Insets(20));
-    scrollContent.setAlignment(Pos.TOP_CENTER);
     scrollContent.setFillWidth(true);
+    VBox.setVgrow(scrollContent, Priority.ALWAYS);
 
     ScrollPane scrollPane = new ScrollPane(scrollContent);
     scrollPane.setFitToWidth(true);
     scrollPane.setFitToHeight(true);
     scrollPane.setPannable(true);
     scrollPane.setStyle("-fx-background-color: transparent;");
+    VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
-    root = new BorderPane();
-    root.setTop(navBar);
     root.setCenter(scrollPane);
 
-    getChildren().add(root);
+    this.getChildren().add(root);
     VBox.setVgrow(root, Priority.ALWAYS);
   }
 

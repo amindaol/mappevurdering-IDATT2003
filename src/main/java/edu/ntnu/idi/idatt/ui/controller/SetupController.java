@@ -13,7 +13,7 @@ public class SetupController {
   public boolean hasValidInput(SettingsContent settingsContent) {
     List<String> names = settingsContent.getPlayerNames();
     List<LocalDate> birthdays = settingsContent.getPlayerBirthdays();
-    List<String> tokens = settingsContent.getSelectedIcons();
+    List<String> tokens = settingsContent.getSelectedTokens();
 
     boolean missing = names.stream().anyMatch(String::isBlank)
         || birthdays.contains(null)
@@ -28,7 +28,7 @@ public class SetupController {
     System.out.println("Game setup complete for: " + gameMode);
     System.out.println("Names: " + settingsContent.getPlayerNames());
     System.out.println("Birthdays: " + settingsContent.getPlayerBirthdays());
-    System.out.println("Tokens: " + settingsContent.getSelectedIcons());
+    System.out.println("Tokens: " + settingsContent.getSelectedTokens());
   }
 
 }

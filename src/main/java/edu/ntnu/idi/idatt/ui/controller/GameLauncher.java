@@ -30,7 +30,7 @@ public class GameLauncher {
     try {
       List<String> names = settingsContent.getPlayerNames();
       List<LocalDate> birthdays = settingsContent.getPlayerBirthdays();
-      List<String> tokens = settingsContent.getSelectedIcons();
+      List<String> tokens = settingsContent.getSelectedTokens();
 
       if (hasInvalidInput(names, birthdays, tokens)) {
         showAlert("Missing Input", "Please ensure all names, birthdays, and tokens are filled out.");

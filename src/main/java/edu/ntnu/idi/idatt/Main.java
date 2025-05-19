@@ -63,7 +63,7 @@ public class Main extends Application {
                 for (int i = 0; i < content.getPlayerNames().size(); i++) {
                   String name = content.getPlayerNames().get(i);
                   LocalDate birthday = content.getPlayerBirthdays().get(i);
-                  String iconName = content.getSelectedIcons().get(i);
+                  String iconName = content.getSelectedTokens().get(i);
 
                   if (name.isBlank() || birthday == null || iconName == null) {
                     hasError = true;
@@ -108,7 +108,7 @@ public class Main extends Application {
                 for (int i = 0; i < content.getPlayerNames().size(); i++) {
                   String name = content.getPlayerNames().get(i);
                   LocalDate birthday = content.getPlayerBirthdays().get(i);
-                  String iconName = content.getSelectedIcons().get(i);
+                  String iconName = content.getSelectedTokens().get(i);
 
                   if (name.isBlank() || birthday == null || iconName == null) {
                     hasError = true;

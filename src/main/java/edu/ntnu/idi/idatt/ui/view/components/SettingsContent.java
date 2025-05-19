@@ -27,7 +27,6 @@ public class SettingsContent {
 
     root = new VBox();
     root.getStyleClass().add("settings-content");
-
     root.setSpacing(10);
     root.setAlignment(Pos.CENTER);
     root.setPadding(new Insets(10));
@@ -47,8 +46,6 @@ public class SettingsContent {
     boardButton1.getStyleClass().add("settings-content-radio-button");
     boardButton2.getStyleClass().add("settings-content-radio-button");
     boardButton3.getStyleClass().add("settings-content-radio-button");
-
-    boardButton1.setSelected(true);
 
     // TODO: Add image of the board to the radio button??
 
@@ -89,7 +86,6 @@ public class SettingsContent {
       if (i == 2) {
         playerButton.setSelected(true);
       }
-      playersLabel.setLabelFor(playerButton);
       playersButtons.getChildren().add(playerButton);
       playerButton.setToggleGroup(playersGroup);
       playerButton.getStyleClass().add("settings-content-radio-button");
@@ -119,10 +115,6 @@ public class SettingsContent {
 
   public List<LocalDate> getPlayerBirthdays() {
     return playerSettingsContainer.getPlayerBirthdays();
-  }
-
-  public List<String> getSelectedIcons() {
-    return playerSettingsContainer.getSelectedIcons();
   }
 
   public List<String> getSelectedTokens() {

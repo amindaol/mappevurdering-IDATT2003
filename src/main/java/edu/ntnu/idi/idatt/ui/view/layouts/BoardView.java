@@ -29,29 +29,32 @@ public class BoardView extends VBox {
   private final Button rollDiceButton = new Button("Roll Dice");
 
   public BoardView(int rows, int cols, int diceAmount) {
-    getStyleClass().add("board-root");
+    root = new BorderPane();
+    root.getStyleClass().add("board-root");
 
     NavBar navBar = new NavBar("Game",
         () -> Router.navigateTo("home"),
         this::showGameHelp);
+    root.setTop(navBar);
 
-    board = new LaddersBoard(rows, cols);
+    this.board = new LaddersBoard(rows, cols);
     DieContainer dieContainer = new DieContainer(diceAmount);
 
     VBox diceBox = new VBox(dieContainer, rollDiceButton);
     diceBox.setAlignment(Pos.CENTER);
     diceBox.setSpacing(10);
 
-    HBox gameContent = new HBox(board.getGrid(), diceBox);
-    gameContent.setSpacing(20);
-    gameContent.setAlignment(Pos.CENTER);
+    HBox contentBox = new HBox(board.getGrid(), diceBox);
+    contentBox.setSpacing(20);
+    contentBox.setAlignment(Pos.CENTER);
 
-    root = new BorderPane();
-    root.setTop(navBar);
-    root.setCenter(gameContent);
+    ScrollPane scrollPane = new ScrollPane(contentBox);
+    scrollPane.setFitToWidth(true);
+    scrollPane.setFitToHeight(true);
+    scrollPane.setPannable(true);
+    scrollPane.setStyle("-fx-background-color: transparent;");
 
-    getChildren().add(root);
-    VBox.setVgrow(root, Priority.ALWAYS);
+    root.setCenter(scrollPane);
   }
 
   private void showGameHelp() {
