@@ -5,10 +5,39 @@
   -fx-background-color: #FFF5FA;
 }
 
+.root {
+  -fx-background-color: #FFF0F5;
+}
+
+.settings-root, .board-root , .home-root{
+  -fx-background-color: #FFF5FA;
+  -fx-pref-height: 100%;
+}
+
+
+.scroll-pane {
+  -fx-background-color: transparent;
+}
+
 .title-label {
-  -fx-font-size: 36px;
+  -fx-font-size: 28px;
   -fx-font-weight: bold;
-  -fx-text-fill: #b0206b;
+  -fx-text-fill: #cc007a;
+}
+
+.icon-button {
+  -fx-background-color: transparent;
+  -fx-padding: 4;
+  -fx-cursor: hand;
+}
+
+.board-root {
+  -fx-background-color: #fde8f0;
+}
+
+.icon-button {
+  -fx-background-color: transparent;
+  -fx-border-color: transparent;
 }
 
 .nav-button {

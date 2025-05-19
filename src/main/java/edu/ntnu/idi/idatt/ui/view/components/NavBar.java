@@ -13,19 +13,15 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-public class NavBar extends Node {
+public class NavBar extends HBox {
 
-  private final HBox root;
   private final Button homeButton;
   private final Button helpButton;
 
   public NavBar(String titleText, Runnable onHome, Runnable onHelp) {
-    root = new HBox(8);
-
-    root.setAlignment(Pos.CENTER_LEFT);
-    root.setPadding(new Insets(10));
-
-    HBox titleAndSpacer = new HBox();
+    super(8);
+    this.setAlignment(Pos.CENTER);
+    this.setPadding(new Insets(10));
 
     Label titleLabel = new Label(titleText);
     titleLabel.getStyleClass().add("title-label");
@@ -33,45 +29,33 @@ public class NavBar extends Node {
     Region spacer = new Region();
     HBox.setHgrow(spacer, Priority.ALWAYS);
 
-    titleAndSpacer.getChildren().addAll(titleLabel, spacer);
-    titleAndSpacer.setAlignment(Pos.CENTER_LEFT);
-
     Separator titleUnderline = new Separator();
     titleUnderline.setMaxWidth(Double.MAX_VALUE);
     HBox.setHgrow(titleUnderline, Priority.ALWAYS);
 
-    VBox leftNavBar = new VBox(titleAndSpacer, titleUnderline);
+    VBox leftNavBar = new VBox(
+        new HBox(titleLabel, spacer),
+        titleUnderline
+    );
     leftNavBar.setAlignment(Pos.BOTTOM_LEFT);
+    HBox.setHgrow(leftNavBar, Priority.ALWAYS);
 
     Image homeIcon = new Image("/icons/home.png");
-    ImageView homeImageView = new ImageView(homeIcon);
     homeButton = new Button();
-    homeButton.setPrefSize(homeIcon.getWidth() + 8, homeIcon.getHeight() + 8);
-    homeButton.setGraphic(homeImageView);
+    homeButton.setGraphic(new ImageView(homeIcon));
     homeButton.setOnAction(event -> onHome.run());
     homeButton.getStyleClass().add("icon-button");
 
     Image helpIcon = new Image("/icons/help.png");
-    ImageView helpImageView = new ImageView(helpIcon);
     helpButton = new Button();
-    helpButton.setPrefSize(helpIcon.getWidth() + 8, helpIcon.getHeight() + 8);
-    helpButton.setGraphic(helpImageView);
+    helpButton.setGraphic(new ImageView(helpIcon));
     helpButton.setOnAction(event -> onHelp.run());
     helpButton.getStyleClass().add("icon-button");
 
-    HBox rightNavBar = new HBox(homeButton, helpButton);
-    rightNavBar.setSpacing(10);
+    HBox rightNavBar = new HBox(10, homeButton, helpButton);
     rightNavBar.setAlignment(Pos.CENTER_RIGHT);
 
-    root.getChildren().addAll(leftNavBar, rightNavBar);
-    root.setSpacing(8);
-    HBox.setHgrow(leftNavBar, Priority.ALWAYS);
-    root.setAlignment(Pos.CENTER);
-    root.setPadding(new Insets(10));
-  }
-
-  public Node getRoot() {
-    return root;
+    this.getChildren().addAll(leftNavBar, rightNavBar);
   }
 
   public Button getHomeButton() {

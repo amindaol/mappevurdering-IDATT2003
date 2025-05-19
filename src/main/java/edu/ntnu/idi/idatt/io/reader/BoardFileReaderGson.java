@@ -34,42 +34,53 @@ public class BoardFileReaderGson implements BoardFileReader {
   }
 
   public Board parseBoard(JsonObject root) {
+    int rows = root.get("rows").getAsInt();
+    int cols = root.get("cols").getAsInt();
+
     JsonArray tileArray = root.getAsJsonArray("tiles");
     Map<Integer, Tile> tileMap = new HashMap<>();
-    Board board = new Board();
+    Board board = new Board(rows, cols);
 
     for (JsonElement tileElem : tileArray) {
       JsonObject tileObj = tileElem.getAsJsonObject();
       int id = tileObj.get("id").getAsInt();
-      Tile tile = new Tile(id);
+      int row = tileObj.get("row").getAsInt();
+      int col = tileObj.get("col").getAsInt();
+      Tile tile = new Tile(id, row, col);
       board.addTile(tile);
       tileMap.put(id, tile);
     }
 
-    for (JsonElement tileElem : tileArray) {
-      JsonObject tileObj = tileElem.getAsJsonObject();
-      int id = tileObj.get("id").getAsInt();
-      Tile tile = tileMap.get(id);
+    if (root.has("specialTiles")) {
+      JsonArray specials = root.getAsJsonArray("specialTiles");
 
-      if (tileObj.has("nextTile")) {
-        int nextId = tileObj.get("nextTile").getAsInt();
-        tile.setNextTile(tileMap.get(nextId));
-      }
+      for (JsonElement specialElem : specials) {
+        JsonObject obj = specialElem.getAsJsonObject();
+        int id = obj.get("id").getAsInt();
+        Tile tile = tileMap.get(id);
 
-      if (tileObj.has("action")) {
-        JsonObject actionObj = tileObj.getAsJsonObject("action");
-        String type = actionObj.get("type").getAsString();
+        JsonObject action = obj.getAsJsonObject("action");
+        String type = action.get("type").getAsString();
 
         switch (type) {
-          case "LadderAction", "SnakeAction" -> {
-            int destId = actionObj.get("destinationTileId").getAsInt();
+          case "Ladder", "Snake" -> {
+            int destId = action.get("destinationTileId").getAsInt();
             tile.setAction(new JumpToTileAction(tileMap.get(destId)));
           }
-          case "ModifyPointsAction" -> {
-            int points = actionObj.get("points").getAsInt();
+          case "AddPoints" -> {
+            int points = action.get("points").getAsInt();
             tile.setAction(new ModifyPointsAction(points));
           }
-          case "SkipNextTurnAction" -> tile.setAction(new SkipNextTurnAction());
+          case "RemovePoints" -> {
+            int points = action.get("points").getAsInt();
+            tile.setAction(new ModifyPointsAction(-points));
+          }
+          case "GoToStart" -> {
+            int destId = action.get("destinationTileId").getAsInt();
+            Tile destination = tileMap.get(destId);
+            tile.setAction(new JumpToTileAction(destination));
+          }
+          case "SkipNextTurn" -> tile.setAction(new SkipNextTurnAction());
           default -> throw new IllegalArgumentException("Unknown action type: " + type);
         }
       }

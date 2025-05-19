@@ -105,20 +105,10 @@ public class PlayerSettingsContainer {
         .toList();
   }
 
-  /**
-   * Retrieves the selected icon names from each configuration component.
-   *
-   * @return a list of strings representing the selected icon names for each player.
-   */
-  public List<String> getSelectedIcons() {
-    return playerSettingsList.stream()
-        .map(PlayerSettings::getSelectedIconName)
-        .toList();
-  }
 
   public List<String> getSelectedTokens() {
     return playerSettingsList.stream()
-        .map(PlayerSettings::getSelectedIconName)
+        .map(PlayerSettings::getSelectedToken)
         .toList();
   }
 

@@ -14,13 +14,17 @@ import java.util.Map;
 public class Board {
 
   private final Map<Integer, Tile> tiles ;
+  private final int rows;
+  private final int cols;
   private Tile startTile;
   private Tile endTile;
 
   /**
    * Constructs an empty game board.
    */
-  public Board() {
+  public Board(int rows, int cols) {
+    this.rows = rows;
+    this.cols = cols;
     this.tiles = new HashMap<>();
   }
 

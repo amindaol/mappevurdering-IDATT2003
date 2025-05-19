@@ -15,9 +15,11 @@ public class BoardFactory {
   }
 
   public static Board createDefaultBoard() {
-    Board board = new Board();
     int tileCount = 90;
     int width = 10;
+    int height = tileCount / width;
+
+    Board board = new Board(height, width);
 
     for (int i = 1; i <= tileCount; i++) {
       int x = (i - 1) % width;

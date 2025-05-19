@@ -19,10 +19,8 @@ public class GameRegisterInitializer {
         6,
         2,
         gameConfiguration -> new LoveAndLaddersEngine(
-            gameConfiguration.getBoardGame().getBoard(),
-            gameConfiguration.getBoardGame().getPlayers(),
-            gameConfiguration.getBoardGame().getDice(),
-            gameConfiguration.getBoardGame().getObservers()
+            gameConfiguration.getBoardGame(),
+            gameConfiguration.getBoardGame().getDice()
         ),
         () -> List.of(BoardFactory.createLoveAndLaddersBoard()),
         GameMode.LOVE_AND_LADDERS
@@ -34,10 +32,8 @@ public class GameRegisterInitializer {
         6,
         2,
         gameConfiguration -> new BestiePointBattlesEngine(
-            gameConfiguration.getBoardGame().getBoard(),
-            gameConfiguration.getBoardGame().getPlayers(),
-            gameConfiguration.getBoardGame().getDice(),
-            gameConfiguration.getBoardGame().getObservers()
+            gameConfiguration.getBoardGame(),
+            gameConfiguration.getBoardGame().getDice()
         ),
         () -> List.of(BoardFactory.createBestiePointBattlesBoard()),
         GameMode.BESTIE_POINT_BATTLES

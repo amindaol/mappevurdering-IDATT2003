@@ -29,4 +29,5 @@ public class TurnManager {
   public void reset() {
     this.iterator = players.iterator();
   }
+
 }

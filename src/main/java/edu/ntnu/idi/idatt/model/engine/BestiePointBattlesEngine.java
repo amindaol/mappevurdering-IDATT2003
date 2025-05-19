@@ -3,6 +3,7 @@ package edu.ntnu.idi.idatt.model.engine;
 import edu.ntnu.idi.idatt.core.LinearMovement;
 import edu.ntnu.idi.idatt.core.Movement;
 import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
@@ -22,15 +23,13 @@ import java.util.List;
 public class BestiePointBattlesEngine extends GameEngine {
 
   private final Dice dice;
-  private final List<BoardGameObserver> observers;
   private final Movement movement = new LinearMovement();
 
-  public BestiePointBattlesEngine(Board board, List<Player> players, Dice dice, List<BoardGameObserver> observers) {
-    super(board, players);
+  public BestiePointBattlesEngine(BoardGame game, Dice dice) {
+    super(game);
     if (dice == null)
       throw new NullPointerException("Dice cannot be null.");
     this.dice = dice;
-    this.observers = observers;
   }
 
   @Override
@@ -44,7 +43,7 @@ public class BestiePointBattlesEngine extends GameEngine {
       player.placeOnTile(start);
     }
 
-    notify(BoardGameEvent.GAME_START);
+    notifyObservers(BoardGameEvent.GAME_START);
 
     while(!gameOver) {
       handleTurn();
@@ -61,14 +60,14 @@ public class BestiePointBattlesEngine extends GameEngine {
     }
 
     int roll = dice.roll();
-    notify(BoardGameEvent.DICE_ROLLED);
+    notifyObservers(BoardGameEvent.DICE_ROLLED);
 
     movement.move(player, roll);
-    notify(BoardGameEvent.PLAYER_MOVED);
+    notifyObservers(BoardGameEvent.PLAYER_MOVED);
 
     if (player.getCurrentTile().equals(board.getLastTile())) {
-      notify(BoardGameEvent.GAME_ENDED);
-      notify(BoardGameEvent.GAME_WON);
+      notifyObservers(BoardGameEvent.GAME_ENDED);
+      notifyObservers(BoardGameEvent.GAME_WON);
       endGame();
     } else {
       nextPlayer();
@@ -81,11 +80,5 @@ public class BestiePointBattlesEngine extends GameEngine {
     return players.stream()
         .max(Comparator.comparingInt(Player::getPoints))
         .orElse(null);
-  }
-
-  private void notify(BoardGameEvent event) {
-    for (BoardGameObserver observer : observers) {
-      observer.onGameStateChange(null, event);
-    }
   }
 }
