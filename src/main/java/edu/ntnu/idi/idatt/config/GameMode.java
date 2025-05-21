@@ -1,7 +1,8 @@
 package edu.ntnu.idi.idatt.config;
 
 /**
- * Represents the different types of board games supported in the application.
+ * Represents the different types of board games supported in the application. This enum is used to
+ * configure the game mode and determine the rules
  */
 public enum GameMode {
   LOVE_AND_LADDERS,

@@ -14,7 +14,7 @@ public interface BoardGameObserver extends EventListener {
    * Called when the game state changes.
    *
    * @param game  the BoardGame instance that changed
-   * @param event
+   * @param event the event that occurred
    */
   void onGameStateChange(BoardGame game, BoardGameEvent event);
 

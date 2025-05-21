@@ -16,22 +16,37 @@ import java.util.List;
 
 
 /**
- * Game engine for "Bestie Point Battles":
- * - Game ends when a player reaches last tile
- * - Winner is the one with the highest score at that moment
+ * Game engine for "Bestie Point Battles": - Game ends when a player reaches last tile - Winner is
+ * the one with the highest score at that moment
  */
 public class BestiePointBattlesEngine extends GameEngine {
 
   private final Dice dice;
   private final Movement movement = new LinearMovement();
 
+  /**
+   * Constructs a new BestiePointBattlesEngine with the specified game and dice.
+   *
+   * @param game the game to be played
+   * @param dice the dice to be used in the game
+   * @throws NullPointerException if {@code game} or {@code dice} is {@code null}.
+   */
   public BestiePointBattlesEngine(BoardGame game, Dice dice) {
     super(game);
-    if (dice == null)
+    if (dice == null) {
       throw new NullPointerException("Dice cannot be null.");
+    }
     this.dice = dice;
   }
 
+  /**
+   * Plays the game. This method initializes the game state, places players on the start tile,
+   * notifies observers of the game start, and enters the main game loop. The game loop continues
+   * until a player reaches the last tile, at which point the game ends and the winner is declared.
+   *
+   * @throws GameNotInitializedException if the game is not properly initialized with players or
+   *                                     board.
+   */
   @Override
   public void playGame() {
     if (board == null || players == null || players.isEmpty()) {
@@ -45,11 +60,15 @@ public class BestiePointBattlesEngine extends GameEngine {
 
     notifyObservers(BoardGameEvent.GAME_START);
 
-    while(!gameOver) {
+    while (!gameOver) {
       handleTurn();
     }
   }
 
+  /**
+   * Handles the turn for the current player. This method rolls the dice, moves the player, checks
+   * for win conditions, and notifies observers of the game state changes.
+   */
   public void handleTurn() {
     Player player = getCurrentPlayer();
 
@@ -74,9 +93,17 @@ public class BestiePointBattlesEngine extends GameEngine {
     }
   }
 
+  /**
+   * Checks the win condition for the game. In this case, it checks if the game is over and returns
+   * the player with the highest score. If the game is not over, it returns null.
+   *
+   * @return the winning player, or null if the game is not over.
+   */
   @Override
   public Player checkWinCondition() {
-    if (!gameOver) return null;
+    if (!gameOver) {
+      return null;
+    }
     return players.stream()
         .max(Comparator.comparingInt(Player::getPoints))
         .orElse(null);

@@ -9,8 +9,21 @@ import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;
 import java.util.List;
 
 
+/**
+ * The GameRegisterInitializer class is responsible for initializing the game register with
+ * predefined game information. It registers different games with their respective rules, player
+ * limits, engine factories, board options, and game modes.
+ */
 public class GameRegisterInitializer {
 
+  /**
+   * Initializes the game register with predefined game information. This method registers two
+   * games: 1. Love & Ladders: A classic snakes and ladders game where the first player to tile 90
+   * wins. 2. Bestie Point Battles: A game where players collect points on tiles, and the first
+   * player to reach the last tile ends the game.
+   *
+   * @param register the GameRegister instance to initialize
+   */
   public static void initialize(GameRegister register) {
 
     register.register(new GameInformation(

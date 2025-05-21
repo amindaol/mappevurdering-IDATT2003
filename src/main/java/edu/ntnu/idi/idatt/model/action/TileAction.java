@@ -3,7 +3,8 @@ package edu.ntnu.idi.idatt.model.action;
 import edu.ntnu.idi.idatt.model.game.Player;
 
 /**
- * Represents an action that occurs when a player lands on a tile.
+ * Represents an action that occurs when a player lands on a tile. This interface is used to define
+ * various actions that can be performed
  */
 public interface TileAction {
 

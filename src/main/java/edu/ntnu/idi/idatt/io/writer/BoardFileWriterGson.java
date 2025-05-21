@@ -17,6 +17,13 @@ import java.nio.file.Path;
  */
 public class BoardFileWriterGson implements BoardFileWriter {
 
+  /**
+   * Serializes the given Board and writes it to the given file path.
+   *
+   * @param path  the Path to write the JSON (or other) file to
+   * @param board the Board instance to serialize
+   * @throws DaoException on I/O error
+   */
   @Override
   public void writeBoard(Path path, Board board) throws DaoException {
     try {

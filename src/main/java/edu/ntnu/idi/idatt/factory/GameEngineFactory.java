@@ -6,8 +6,17 @@ import edu.ntnu.idi.idatt.model.engine.GameEngine;
 import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
 import edu.ntnu.idi.idatt.model.game.*;
 
+/**
+ * Factory class for creating GameEngine instances based on the selected game mode.
+ *
+ * <p>This class is responsible for creating the appropriate GameEngine instance based on the
+ * selected game mode. It uses the factory design pattern to encapsulate the instantiation logic.
+ */
 public final class GameEngineFactory {
 
+  /**
+   * Private constructor to prevent instantiation of the factory class.
+   */
   private GameEngineFactory() {
 
   }

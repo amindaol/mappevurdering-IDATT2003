@@ -14,6 +14,13 @@ import java.util.List;
  */
 public class PlayerFileWriterCsv implements PlayerFileWriter {
 
+  /**
+   * Writes a list of players to a CSV file.
+   *
+   * @param path    the Path to write the CSV file to
+   * @param players the List of Player objects to persist
+   * @throws DaoException if an error occurs during the write operation
+   */
   @Override
   public void writePlayers(Path path, List<Player> players) throws DaoException {
     try {

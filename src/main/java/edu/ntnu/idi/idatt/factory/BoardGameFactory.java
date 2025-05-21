@@ -27,6 +27,14 @@ public final class BoardGameFactory {
     // prevent instantiation
   }
 
+  /**
+   * Creates a {@link BoardGame} instance from the specified JSON and CSV files.
+   *
+   * @param boardJson  the path to the board JSON file
+   * @param playersCsv the path to the players CSV file
+   * @return a new {@link BoardGame} instance
+   * @throws DaoException if an error occurs while reading the files
+   */
   public static BoardGame createFromFiles(Path boardJson, Path playersCsv) throws DaoException {
     BoardFileReaderGson boardReader = new BoardFileReaderGson();
     PlayerFileReaderCsv playerReader = new PlayerFileReaderCsv();
@@ -40,6 +48,13 @@ public final class BoardGameFactory {
     return game;
   }
 
+  /**
+   * Creates a {@link BoardGame} instance based on the specified game mode.
+   *
+   * @param mode the game mode
+   * @return a new {@link BoardGame} instance
+   * @throws IllegalArgumentException if the game mode is not supported
+   */
   public static BoardGame createGame(GameMode mode) {
     return switch (mode) {
       case LOVE_AND_LADDERS -> createLoveAndLaddersGame(LadderBoardVariant.BOARD1);
@@ -48,10 +63,16 @@ public final class BoardGameFactory {
     };
   }
 
+  /**
+   * Creates a default list of players for the game.
+   *
+   * @return a list of default players
+   */
   private static List<Player> createDefaultPlayers() {
     return List.of(
         new Player("Aminda", new Token("Heart", "heart.png"), LocalDate.of(2005, 11, 5)),
         new Player("Ingrid", new Token("Star", "star.png"), LocalDate.of(2002, 8, 28))
+
     );
   }
 
@@ -64,10 +85,6 @@ public final class BoardGameFactory {
       throw new RuntimeException("Failed to load board file: " + boardVariant.getFilename(), e);
     }
 
-    Dice dice = new Dice(2);
-    return assembleGame(board, dice, createDefaultPlayers());
-  }
-
   public static BoardGame createBestiePointBattlesGame(PointBoardVariant boardVariant) {
     Board board;
     try {
@@ -77,10 +94,15 @@ public final class BoardGameFactory {
       throw new RuntimeException("Failed to load board file: " + boardVariant.getFilename(), e);
     }
 
-    Dice dice = new Dice(2);
-    return assembleGame(board, dice, createDefaultPlayers());
-  }
 
+  /**
+   * Assembles a {@link BoardGame} instance with the specified board, dice, and players.
+   *
+   * @param board   the game board
+   * @param dice    the dice to be used in the game
+   * @param players the list of players
+   * @return a new {@link BoardGame} instance
+   */
   private static BoardGame assembleGame(Board board, Dice dice, List<Player> players) {
     BoardGame game = new BoardGame(board, dice);
     Tile startTile = board.getStartTile();
