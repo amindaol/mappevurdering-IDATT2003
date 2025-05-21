@@ -3,11 +3,15 @@
 
 ## Project description
 
+This project is developed as part of the course **IDATT2003 - Programming 2** at NTNU (Spring 2025). The aim is to create a modular, testable, and extensible board game (Stigespill / Ladders Game) with a graphical user interface using **JavaFX**.
 
+The project implements object-oriented design, file handling (JSON/CSV), and GUI development without FXML. Core concepts include game logic, serialization, observer pattern, factory pattern, and model-view-controller (MVC) architecture.
+
+The project is delivered as part of a portfolio assessment with a comprehensive report, full Maven setup, and Git-based version control.
 
 ## Project structure
 
-The project is structured in packages. The project is structured with a controller, modell, view and util package. All source files are located in src/main/java. All test classes are located in src/test/java. The test classes are written using the JUnit 5 framework.
+
 
 ## Link to repository
 
