@@ -28,6 +28,8 @@ import edu.ntnu.idi.idatt.util.StyleUtil;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
@@ -35,8 +37,11 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+  private static final Logger logger = Logger.getLogger(Main.class.getName());
+
   @Override
   public void start(Stage primaryStage) {
+    logger.info("start() called - Starting application");
     Router.setStage(primaryStage);
 
     PrimaryScene primaryScene = new PrimaryScene();
@@ -49,60 +54,73 @@ public class Main extends Application {
             () -> new HomeController().getView(),
             () -> null)
     );
+    logger.fine("Registered home route");
 
     Router.registerRoute(
         new Route("lalSettings",
             () -> {
               SettingsContent content = new SettingsContent(GameMode.LOVE_AND_LADDERS);
               return new SettingsView(content.getRoot(), () -> {
-                if (!validateAndStartGame(content)) return;
+                if (!validateAndStartGame(content)) {
+                  return;
+                }
                 Router.navigateTo("lalPage");
               });
             },
-            () -> new NavBar("Love & Ladders", () -> Router.navigateTo("home"), Main::showHelpDialog)
+            () -> new NavBar("Love & Ladders", () -> Router.navigateTo("home"),
+                Main::showHelpDialog)
         ));
+    logger.fine("Registered lalSettings route");
 
     Router.registerRoute(
         new Route("bbSettings",
             () -> {
               SettingsContent content = new SettingsContent(GameMode.BESTIE_POINT_BATTLES);
               return new SettingsView(content.getRoot(), () -> {
-                if (!validateAndStartGame(content)) return;
+                if (!validateAndStartGame(content)) {
+                  return;
+                }
                 Router.navigateTo("bbPage");
               });
             },
-            () -> new NavBar("Bestie Point Battles", () -> Router.navigateTo("home"), Main::showHelpDialog)
+            () -> new NavBar("Bestie Point Battles", () -> Router.navigateTo("home"),
+                Main::showHelpDialog)
         ));
+    logger.fine("Registered bbSettings route");
 
     Router.registerRoute(
         new Route(
             "lalPage",
-          () -> {
-          List<Player> players = AppState.getSelectedPlayers();
-          BoardGame game = BoardGameFactory.createLoveAndLaddersGame(players);
-          GameEngine engine = new LoveAndLaddersEngine(game, game.getDice());
-          BoardView boardView = new BoardView(9,10,game.getDice().getDiceAmount());
-          GameController gameController = new GameController(engine);
-          new BoardController(gameController, boardView);
-          engine.startGame();
-          return boardView.getRoot();
-    }, () -> new NavBar("Love & Ladders", () -> Router.navigateTo("home"), Main::showHelpDialog)
-    ));
+            () -> {
+              List<Player> players = AppState.getSelectedPlayers();
+              BoardGame game = BoardGameFactory.createLoveAndLaddersGame(players);
+              GameEngine engine = new LoveAndLaddersEngine(game, game.getDice());
+              BoardView boardView = new BoardView(9, 10, game.getDice().getDiceAmount());
+              GameController gameController = new GameController(engine);
+              new BoardController(gameController, boardView);
+              engine.startGame();
+              return boardView.getRoot();
+            }, () -> new NavBar("Love & Ladders", () -> Router.navigateTo("home"),
+            Main::showHelpDialog)
+        ));
+    logger.fine("Registered lalPage route");
 
     Router.registerRoute(
         new Route("bbPage",
             () -> {
-          List<Player> players = AppState.getSelectedPlayers();
-          BoardGame game = BoardGameFactory.createBestiePointBattlesGame(players);
-          GameEngine engine = new BestiePointBattlesEngine(game, game.getDice());
-          BoardView boardView = new BoardView(9, 10, game.getDice().getDiceAmount());
-          GameController gameController = new GameController(engine);
-          new BoardController(gameController, boardView);
-          engine.startGame();
-          return boardView.getRoot();
-    },
-            () -> new NavBar("Bestie Point Battles", () -> Router.navigateTo("home"), Main::showHelpDialog)
+              List<Player> players = AppState.getSelectedPlayers();
+              BoardGame game = BoardGameFactory.createBestiePointBattlesGame(players);
+              GameEngine engine = new BestiePointBattlesEngine(game, game.getDice());
+              BoardView boardView = new BoardView(9, 10, game.getDice().getDiceAmount());
+              GameController gameController = new GameController(engine);
+              new BoardController(gameController, boardView);
+              engine.startGame();
+              return boardView.getRoot();
+            },
+            () -> new NavBar("Bestie Point Battles", () -> Router.navigateTo("home"),
+                Main::showHelpDialog)
         ));
+    logger.fine("Registered bbPage route");
 
     Router.navigateTo("home");
     primaryStage.show();
@@ -129,6 +147,7 @@ public class Main extends Application {
     }
 
     if (hasError) {
+      logger.warning("Incomplete player information");
       Alert alert = new Alert(Alert.AlertType.ERROR);
       alert.setTitle("Missing Information");
       alert.setHeaderText("Some player fields are incomplete");
@@ -138,6 +157,9 @@ public class Main extends Application {
     }
 
     AppState.setSelectedPlayers(players);
+    logger.log(Level.INFO,
+        "Player configuration validated: starting game with {0} players",
+        players.size());
     return true;
   }
 
