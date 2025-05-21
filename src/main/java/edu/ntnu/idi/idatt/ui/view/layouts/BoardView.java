@@ -1,7 +1,6 @@
 package edu.ntnu.idi.idatt.ui.view.layouts;
 
 import edu.ntnu.idi.idatt.model.game.Board;
-import edu.ntnu.idi.idatt.model.game.Ladder;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.ui.view.components.DieContainer;
 import edu.ntnu.idi.idatt.ui.view.components.LaddersBoard;
@@ -118,8 +117,16 @@ public class BoardView extends BorderPane {
       board.getTile(tile.getTileId());
     }
 
-    Platform.runLater(() -> {
-      board.drawLadders(boardModel.getLadders());
+    this.sceneProperty().addListener((obs, oldScene, newScene) -> {
+      if (newScene != null) {
+        newScene.windowProperty().addListener((obs2, oldWin, newWin) -> {
+          if (newWin != null) {
+            Platform.runLater(() -> {
+              board.drawLadders(boardModel.getLadders());
+            });
+          }
+        });
+      }
     });
   }
 }
