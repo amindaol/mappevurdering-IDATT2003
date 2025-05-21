@@ -33,6 +33,10 @@ public class PlayerSettings extends VBox {
     this.setSpacing(10);
     this.setPadding(new Insets(12));
     this.setAlignment(Pos.CENTER);
+    this.setPrefWidth(300);
+    this.setMaxWidth(300);
+    this.setMinWidth(300);
+
     this.getStyleClass().addAll("player-settings-card", "player-settings", "player-card");
 
 

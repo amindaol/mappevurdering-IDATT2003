@@ -31,8 +31,8 @@ public class DieContainer extends HBox {
     if (counts.size() != dieComponents.size()) {
       throw new IllegalArgumentException("Counts list size must match the number of dice");
     }
-    for (Integer index : counts) {
-      setDotsByDieIndex(index, counts.get(index));
+    for (int i = 0; i < counts.size(); i++) {
+      setDotsByDieIndex(i, counts.get(i));
     }
   }
 }

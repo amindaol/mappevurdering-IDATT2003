@@ -8,12 +8,15 @@ import edu.ntnu.idi.idatt.model.action.JumpToTileAction;
 import edu.ntnu.idi.idatt.model.action.ModifyPointsAction;
 import edu.ntnu.idi.idatt.model.action.SkipNextTurnAction;
 import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.Ladder;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,6 +57,8 @@ public class BoardFileReaderGson implements BoardFileReader {
     if (root.has("specialTiles")) {
       JsonArray specials = root.getAsJsonArray("specialTiles");
 
+      List<Ladder> ladders = new ArrayList<>();
+
       for (JsonElement specialElem : specials) {
         JsonObject obj = specialElem.getAsJsonObject();
         int id = obj.get("id").getAsInt();
@@ -63,9 +68,16 @@ public class BoardFileReaderGson implements BoardFileReader {
         String type = action.get("type").getAsString();
 
         switch (type) {
-          case "Ladder", "Snake" -> {
+          case "Ladder" -> {
             int destId = action.get("destinationTileId").getAsInt();
-            tile.setAction(new JumpToTileAction(tileMap.get(destId)));
+            Tile destination = tileMap.get(destId);
+            tile.setAction(new JumpToTileAction(destination));
+            ladders.add(new Ladder(id, destId));
+          }
+          case "Snake" -> {
+            int destId = action.get("destinationTileId").getAsInt();
+            Tile destination = tileMap.get(destId);
+            tile.setAction(new JumpToTileAction(destination));
           }
           case "AddPoints" -> {
             int points = action.get("points").getAsInt();
@@ -76,14 +88,14 @@ public class BoardFileReaderGson implements BoardFileReader {
             tile.setAction(new ModifyPointsAction(-points));
           }
           case "GoToStart" -> {
-            int destId = action.get("destinationTileId").getAsInt();
-            Tile destination = tileMap.get(destId);
+            Tile destination = tileMap.get(1);
             tile.setAction(new JumpToTileAction(destination));
           }
           case "SkipNextTurn" -> tile.setAction(new SkipNextTurnAction());
           default -> throw new IllegalArgumentException("Unknown action type: " + type);
         }
       }
+      board.setLadders(ladders);
     }
 
     board.setStartTile(tileMap.get(1));

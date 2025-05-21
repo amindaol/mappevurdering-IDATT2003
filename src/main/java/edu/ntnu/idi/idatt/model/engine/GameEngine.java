@@ -102,4 +102,10 @@ public abstract class GameEngine {
   public BoardGame getGame() {
     return game;
   }
+
+  public void startGame() {
+    notifyObservers(BoardGameEvent.GAME_START);
+  }
+
+
 }

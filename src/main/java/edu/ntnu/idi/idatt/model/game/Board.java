@@ -18,6 +18,8 @@ public class Board {
   private final int cols;
   private Tile startTile;
   private Tile endTile;
+  private List<Ladder> ladders = new ArrayList<>();
+
 
   /**
    * Constructs an empty game board.
@@ -99,4 +101,22 @@ public class Board {
         .map(Map.Entry::getValue)
         .toList();
   }
+
+  public List<Ladder> getLadders() {
+    return ladders;
+  }
+
+  public void setLadders(List<Ladder> ladders) {
+    this.ladders = ladders;
+  }
+
+  public Ladder getLadderFromTile(int tileId) {
+    for (Ladder ladder : ladders) {
+      if (ladder.getFromTileId() == tileId) {
+        return ladder;
+      }
+    }
+    return null;
+  }
+
 }

@@ -1,15 +1,17 @@
 package edu.ntnu.idi.idatt.ui.view.layouts;
 
 import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.Ladder;
 import edu.ntnu.idi.idatt.model.game.Tile;
-import edu.ntnu.idi.idatt.ui.route.Router;
 import edu.ntnu.idi.idatt.ui.view.components.DieContainer;
 import edu.ntnu.idi.idatt.ui.view.components.LaddersBoard;
-import edu.ntnu.idi.idatt.ui.view.components.NavBar;
 import edu.ntnu.idi.idatt.ui.view.components.PlayerIcon;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import javafx.geometry.Insets;
+import java.util.function.Consumer;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
@@ -18,27 +20,23 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class BoardView extends VBox {
+public class BoardView extends BorderPane {
 
-  private final BorderPane root;
   private final LaddersBoard board;
-  private final Map<String, PlayerIcon> playerIcons = new HashMap<>();
+  private final DieContainer dieContainer;
   private final Button rollDiceButton = new Button("Roll Dice");
+  private final Map<String, PlayerIcon> playerIcons = new HashMap<>();
+  ;
+  private Runnable onRoll;
+  private Consumer<int[]> onDiceRolled;
 
   public BoardView(int rows, int cols, int diceAmount) {
-    root = new BorderPane();
-    root.getStyleClass().add("board-root");
-
-    NavBar navBar = new NavBar("Game",
-        () -> Router.navigateTo("home"),
-        this::showGameHelp);
-    root.setTop(navBar);
+    this.getStyleClass().add("board-root");
 
     this.board = new LaddersBoard(rows, cols);
-    DieContainer dieContainer = new DieContainer(diceAmount);
+    this.dieContainer = new DieContainer(diceAmount);
 
     VBox diceBox = new VBox(dieContainer, rollDiceButton);
     diceBox.setAlignment(Pos.CENTER);
@@ -52,9 +50,11 @@ public class BoardView extends VBox {
     scrollPane.setFitToWidth(true);
     scrollPane.setFitToHeight(true);
     scrollPane.setPannable(true);
-    scrollPane.setStyle("-fx-background-color: transparent;");
+    scrollPane.getStyleClass().add("board-root");
 
-    root.setCenter(scrollPane);
+    this.setCenter(scrollPane);
+
+    configureRollButton();
   }
 
   private void showGameHelp() {
@@ -91,20 +91,35 @@ public class BoardView extends VBox {
     }
   }
 
-  public void setRollOnDice(Runnable onRollDice) {
+  public void configureRollButton() {
     rollDiceButton.setOnAction(e -> {
-      try {
-        onRollDice.run();
-      } catch (Exception ex) {
-        ex.printStackTrace();
+      if (onRoll != null) {
+        onRoll.run();
       }
     });
   }
 
-  public void drawBoard(Board boardModel) {
-    for (Tile tile : boardModel.getTiles()) {
-      Pane tilePane = board.getTile(tile.getTileId());
-    }
+  public void setRollCallback(Runnable onRoll) {
+    this.onRoll = onRoll;
   }
 
+  public void setDiceResultCallback(Consumer<int[]> onDiceRolled) {
+    this.onDiceRolled = onDiceRolled;
+  }
+
+  public void showDiceRoll(List<Integer> values) {
+    List<Integer> dots = new ArrayList<>();
+    for (int v : values) dots.add(v);
+    dieContainer.setDotsAllDice(dots);
+  }
+
+  public void drawBoard(Board boardModel) {
+    for (Tile tile : boardModel.getTiles()) {
+      board.getTile(tile.getTileId());
+    }
+
+    Platform.runLater(() -> {
+      board.drawLadders(boardModel.getLadders());
+    });
+  }
 }

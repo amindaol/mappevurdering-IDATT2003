@@ -46,6 +46,7 @@ public class LoveAndLaddersEngine extends GameEngine {
   @Override
   public void handleTurn() {
     Player player = getCurrentPlayer();
+    int roll = dice.roll().stream().mapToInt(Integer::intValue).sum();
 
     if (player.isSkipNextTurn()) {
       player.setSkipNextTurn(false);
@@ -53,7 +54,6 @@ public class LoveAndLaddersEngine extends GameEngine {
       return;
     }
 
-    int roll = dice.roll();
     notifyObservers(BoardGameEvent.DICE_ROLLED);
 
     movement.move(player, roll);

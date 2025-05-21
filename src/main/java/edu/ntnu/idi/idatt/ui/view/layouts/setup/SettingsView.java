@@ -12,22 +12,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class SettingsView extends VBox {
+public class SettingsView extends BorderPane {
 
-  private final BorderPane root;
-  private final NavBar navBar;
   private final Button startGameButton;
 
-  public SettingsView(String gameTitle,
-      Runnable onHome,
+  public SettingsView(
       Node content,
       Runnable onStartGame) {
 
-    root = new BorderPane();
-    root.getStyleClass().add("settings-root");
-
-    navBar = new NavBar(gameTitle, onHome, this::showHelpDialog);
-    root.setTop(navBar);
+    this.getStyleClass().add("settings-root");
 
     startGameButton = new Button("Start game");
     startGameButton.setOnAction(event -> onStartGame.run());
@@ -40,37 +33,13 @@ public class SettingsView extends VBox {
     VBox scrollContent = new VBox(30, content, bottomBar);
     scrollContent.setPadding(new Insets(20));
     scrollContent.setFillWidth(true);
-    VBox.setVgrow(scrollContent, Priority.ALWAYS);
 
     ScrollPane scrollPane = new ScrollPane(scrollContent);
     scrollPane.setFitToWidth(true);
-    scrollPane.setFitToHeight(true);
+    scrollPane.setFitToHeight(false);
     scrollPane.setPannable(true);
-    scrollPane.setStyle("-fx-background-color: transparent;");
-    VBox.setVgrow(scrollPane, Priority.ALWAYS);
+    scrollPane.getStyleClass().add("settings-root");
 
-    root.setCenter(scrollPane);
-
-    this.getChildren().add(root);
-    VBox.setVgrow(root, Priority.ALWAYS);
-  }
-
-  public BorderPane getRoot() {
-    return root;
-  }
-
-
-  private void showHelpDialog() {
-    Alert helpAlert = new Alert(Alert.AlertType.INFORMATION);
-    helpAlert.setTitle("Help");
-    helpAlert.setHeaderText("How to set up the game");
-    helpAlert.setContentText("""
-  1. Choose a board.
-  2. Select number of players.
-  3. Fill in name and birthday for each.
-  4. Choose a unique token per player.
-  5. Click 'Start game'!
-  """);
-    helpAlert.showAndWait();
+    this.setCenter(scrollPane);
   }
 }

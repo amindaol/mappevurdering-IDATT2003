@@ -8,6 +8,7 @@ import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.ui.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.ui.view.layouts.BoardView;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -15,6 +16,7 @@ import javafx.scene.image.Image;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import javafx.scene.layout.Pane;
 
 public class BoardController implements BoardGameObserver {
 
@@ -34,8 +36,10 @@ public class BoardController implements BoardGameObserver {
   }
 
   private void setUpRollButton(GameController controller) {
-    boardView.setRollOnDice(() -> {
+    boardView.setRollCallback(() -> {
       controller.playTurn();
+      List<Integer> rollResults = controller.getLastRoll();
+      boardView.showDiceRoll(rollResults);
 
       if (controller.isGameOver()) {
         Player winner = controller.getWinner();
@@ -48,6 +52,14 @@ public class BoardController implements BoardGameObserver {
       String iconPath = "/icons/players/" + player.getToken().getIconFileName();
       Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(iconPath)));
       PlayerIcon icon = new PlayerIcon(player.getName(), image);
+
+      if (playerIcons.containsKey(player)) {
+        PlayerIcon oldIcon = playerIcons.get(player);
+        if (oldIcon.getParent() instanceof Pane oldTile) {
+          oldTile.getChildren().remove(oldIcon);
+        }
+      }
+
       playerIcons.put(player, icon);
 
       Tile tile = player.getCurrentTile();
