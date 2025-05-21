@@ -28,11 +28,17 @@ public class BoardController implements BoardGameObserver {
     this.engine = controller.getEngine();
     this.boardView = boardView;
 
-    boardView.drawBoard(engine.getBoard());
     engine.addObserver(this);
+    boardView.drawBoard(engine.getBoard());
 
     setUpRollButton(controller);
     initializePlayers();
+
+    engine.getPlayers().forEach(player ->
+        player.placeOnTile(engine.getBoard().getStartTile()));
+
+    updatePlayerPositions();
+
   }
 
   private void setUpRollButton(GameController controller) {
@@ -40,6 +46,8 @@ public class BoardController implements BoardGameObserver {
       controller.playTurn();
       List<Integer> rollResults = controller.getLastRoll();
       boardView.showDiceRoll(rollResults);
+
+      updatePlayerPositions();
 
       if (controller.isGameOver()) {
         Player winner = controller.getWinner();
