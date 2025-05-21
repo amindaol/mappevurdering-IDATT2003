@@ -25,6 +25,14 @@ public final class BoardGameFactory {
     // prevent instantiation
   }
 
+  /**
+   * Creates a {@link BoardGame} instance from the specified JSON and CSV files.
+   *
+   * @param boardJson  the path to the board JSON file
+   * @param playersCsv the path to the players CSV file
+   * @return a new {@link BoardGame} instance
+   * @throws DaoException if an error occurs while reading the files
+   */
   public static BoardGame createFromFiles(Path boardJson, Path playersCsv) throws DaoException {
     BoardFileReaderGson boardReader = new BoardFileReaderGson();
     PlayerFileReaderCsv playerReader = new PlayerFileReaderCsv();
@@ -38,6 +46,13 @@ public final class BoardGameFactory {
     return game;
   }
 
+  /**
+   * Creates a {@link BoardGame} instance based on the specified game mode.
+   *
+   * @param mode the game mode
+   * @return a new {@link BoardGame} instance
+   * @throws IllegalArgumentException if the game mode is not supported
+   */
   public static BoardGame createGame(GameMode mode) {
     return switch (mode) {
       case LOVE_AND_LADDERS -> createLoveAndLaddersGame();
@@ -46,37 +61,73 @@ public final class BoardGameFactory {
     };
   }
 
+  /**
+   * Creates a default list of players for the game.
+   *
+   * @return a list of default players
+   */
   private static List<Player> createDefaultPlayers() {
     return List.of(
         new Player("Aminda", new Token("Heart", "heart.png"),
             LocalDate.of(2005, 11, 5)),
         new Player("Ingrid", new Token("Star", "star.png"),
-            LocalDate.of(2002, 8,28))
+            LocalDate.of(2002, 8, 28))
     );
-
   }
 
 
+  /**
+   * Creates a {@link BoardGame} instance for the "Love and Ladders" game.
+   *
+   * @return a new {@link BoardGame} instance
+   */
   public static BoardGame createLoveAndLaddersGame() {
     return createLoveAndLaddersGame(createDefaultPlayers());
   }
 
+  /**
+   * Creates a {@link BoardGame} instance for the "Love and Ladders" game with the specified
+   * players
+   *
+   * @param players the list of players
+   * @return a new {@link BoardGame} instance
+   */
   public static BoardGame createLoveAndLaddersGame(List<Player> players) {
     Board board = BoardFactory.createLoveAndLaddersBoard();
     Dice dice = new Dice(2);
     return assembleGame(board, dice, players);
   }
 
+  /**
+   * Creates a {@link BoardGame} instance for the "Bestie Point Battles" game.
+   *
+   * @return a new {@link BoardGame} instance
+   */
   public static BoardGame createBestiePointBattlesGame() {
     return createBestiePointBattlesGame(createDefaultPlayers());
   }
 
+  /**
+   * Creates a {@link BoardGame} instance for the "Bestie Point Battles" game with the specified
+   * players.
+   *
+   * @param players the list of players
+   * @return a new {@link BoardGame} instance
+   */
   public static BoardGame createBestiePointBattlesGame(List<Player> players) {
     Board board = BoardFactory.createBestiePointBattlesBoard();
     Dice dice = new Dice(2);
     return assembleGame(board, dice, players);
   }
 
+  /**
+   * Assembles a {@link BoardGame} instance with the specified board, dice, and players.
+   *
+   * @param board   the game board
+   * @param dice    the dice to be used in the game
+   * @param players the list of players
+   * @return a new {@link BoardGame} instance
+   */
   private static BoardGame assembleGame(Board board, Dice dice, List<Player> players) {
     BoardGame game = new BoardGame(board, dice);
     Tile startTile = board.getStartTile();
@@ -85,7 +136,6 @@ public final class BoardGameFactory {
       player.setCurrentTile(startTile);
       game.addPlayer(player);
     }
-
     return game;
   }
 

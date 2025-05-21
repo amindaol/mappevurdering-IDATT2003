@@ -8,12 +8,26 @@ import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Tile;
 
+/**
+ * Factory class for creating different types of game boards. This class provides methods to create
+ * a default board, a board for the game "Love and Ladders", and a board for the game "Bestie Point
+ * Battles".
+ */
 public class BoardFactory {
 
+  /**
+   * Private constructor to prevent instantiation of the factory class.
+   */
   private BoardFactory() {
 
   }
 
+  /**
+   * Creates a default board with 90 tiles arranged in a 10x9 grid. Each tile is assigned a unique
+   * ID and linked to the next tile in sequence.
+   *
+   * @return a Board object representing the default game board
+   */
   public static Board createDefaultBoard() {
     int tileCount = 90;
     int width = 10;
@@ -35,6 +49,12 @@ public class BoardFactory {
     return board;
   }
 
+  /**
+   * Creates a board for the game "Love and Ladders". This board has special actions assigned to
+   * certain tiles, such as jumping to another tile.
+   *
+   * @return a Board object representing the "Love and Ladders" game board
+   */
   public static Board createLoveAndLaddersBoard() {
     Board board = createDefaultBoard();
 
@@ -46,6 +66,12 @@ public class BoardFactory {
     return board;
   }
 
+  /**
+   * Creates a board for the game "Bestie Point Battles". This board has special actions assigned to
+   * certain tiles, such as modifying points or skipping turns.
+   *
+   * @return a Board object representing the "Bestie Point Battles" game board
+   */
   public static Board createBestiePointBattlesBoard() {
     Board board = createDefaultBoard();
 
