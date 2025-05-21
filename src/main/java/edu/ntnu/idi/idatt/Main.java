@@ -1,16 +1,17 @@
 package edu.ntnu.idi.idatt;
 
 import edu.ntnu.idi.idatt.config.GameMode;
-import edu.ntnu.idi.idatt.config.LadderBoardVariant;
-import edu.ntnu.idi.idatt.config.PointBoardVariant;
+import edu.ntnu.idi.idatt.factory.BoardFactory;
 import edu.ntnu.idi.idatt.factory.BoardGameFactory;
 import edu.ntnu.idi.idatt.factory.TokenFactory;
 import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;
 import edu.ntnu.idi.idatt.model.engine.GameEngine;
 import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
+import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Token;
+import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.ui.controller.BoardController;
 import edu.ntnu.idi.idatt.ui.controller.GameController;
 import edu.ntnu.idi.idatt.ui.route.PrimaryScene;
@@ -22,13 +23,14 @@ import edu.ntnu.idi.idatt.ui.view.components.SettingsContent;
 import edu.ntnu.idi.idatt.ui.view.layouts.BoardView;
 import edu.ntnu.idi.idatt.ui.view.layouts.HomeController;
 import edu.ntnu.idi.idatt.ui.view.layouts.setup.SettingsView;
+import edu.ntnu.idi.idatt.util.DialogUtil;
 import edu.ntnu.idi.idatt.util.StyleUtil;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Application;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -54,7 +56,6 @@ public class Main extends Application {
               SettingsContent content = new SettingsContent(GameMode.LOVE_AND_LADDERS);
               return new SettingsView(content.getRoot(), () -> {
                 if (!validateAndStartGame(content)) return;
-                AppState.setSelectedLadderBoard(content.getSelectedLadderBoardVariant());
                 Router.navigateTo("lalPage");
               });
             },
@@ -67,7 +68,6 @@ public class Main extends Application {
               SettingsContent content = new SettingsContent(GameMode.BESTIE_POINT_BATTLES);
               return new SettingsView(content.getRoot(), () -> {
                 if (!validateAndStartGame(content)) return;
-                AppState.setSelectedPointBoard(content.getSelectedPointBoardVariant());
                 Router.navigateTo("bbPage");
               });
             },
@@ -79,9 +79,13 @@ public class Main extends Application {
             "lalPage",
           () -> {
           List<Player> players = AppState.getSelectedPlayers();
-          LadderBoardVariant variant = AppState.getSelectedLadderBoard();
-          BoardGame game = BoardGameFactory.createLoveAndLaddersGame(players, variant);
-            return startGameView(game, new LoveAndLaddersEngine(game, game.getDice()));
+          BoardGame game = BoardGameFactory.createLoveAndLaddersGame(players);
+          GameEngine engine = new LoveAndLaddersEngine(game, game.getDice());
+          BoardView boardView = new BoardView(9,10,game.getDice().getDiceAmount());
+          GameController gameController = new GameController(engine);
+          new BoardController(gameController, boardView);
+          engine.startGame();
+          return boardView.getRoot();
     }, () -> new NavBar("Love & Ladders", () -> Router.navigateTo("home"), Main::showHelpDialog)
     ));
 
@@ -89,9 +93,13 @@ public class Main extends Application {
         new Route("bbPage",
             () -> {
           List<Player> players = AppState.getSelectedPlayers();
-              PointBoardVariant variant = AppState.getSelectedPointBoard();
-          BoardGame game = BoardGameFactory.createBestiePointBattlesGame(players, variant);
-              return startGameView(game, new BestiePointBattlesEngine(game, game.getDice()));
+          BoardGame game = BoardGameFactory.createBestiePointBattlesGame(players);
+          GameEngine engine = new BestiePointBattlesEngine(game, game.getDice());
+          BoardView boardView = new BoardView(9, 10, game.getDice().getDiceAmount());
+          GameController gameController = new GameController(engine);
+          new BoardController(gameController, boardView);
+          engine.startGame();
+          return boardView.getRoot();
     },
             () -> new NavBar("Bestie Point Battles", () -> Router.navigateTo("home"), Main::showHelpDialog)
         ));
@@ -131,13 +139,6 @@ public class Main extends Application {
 
     AppState.setSelectedPlayers(players);
     return true;
-  }
-
-  private static Parent startGameView(BoardGame game, GameEngine engine) {
-    BoardView boardView = new BoardView(9, 10, game.getDice().getDiceAmount());
-    GameController gameController = new GameController(engine);
-    new BoardController(gameController, boardView);
-    return boardView.getRoot();
   }
 
 
