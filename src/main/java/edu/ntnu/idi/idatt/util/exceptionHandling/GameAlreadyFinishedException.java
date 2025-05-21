@@ -5,6 +5,9 @@ package edu.ntnu.idi.idatt.util.exceptionHandling;
  */
 public class GameAlreadyFinishedException extends IllegalStateException {
 
+  /**
+   * Constructs a new GameAlreadyFinishedException with the default message.
+   */
   public GameAlreadyFinishedException() {
     super("Cannot play turn: the game has already finished. ");
   }

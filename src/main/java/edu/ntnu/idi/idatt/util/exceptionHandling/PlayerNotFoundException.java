@@ -5,10 +5,14 @@ package edu.ntnu.idi.idatt.util.exceptionHandling;
  */
 public class PlayerNotFoundException extends RuntimeException {
 
+  /**
+   * Constructs a new PlayerNotFoundException with the default message.
+   *
+   * @param playerName the name of the player that was not found
+   */
   public PlayerNotFoundException(String playerName) {
     super("player not found: " + playerName);
   }
-
 
 
 }

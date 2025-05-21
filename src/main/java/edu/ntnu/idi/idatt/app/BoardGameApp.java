@@ -10,8 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Terminal based application for playing board game Used for checking game logic and testing
+ */
 public class BoardGameApp {
 
+  /**
+   * Main method to run the application.
+   *
+   * @param args command line arguments
+   */
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
 
@@ -31,8 +39,9 @@ public class BoardGameApp {
       System.out.print("Press game number: ");
       try {
         choice = Integer.parseInt(scanner.nextLine()) - 1;
-        if (choice >= 0 && choice < gameInfos.size())
+        if (choice >= 0 && choice < gameInfos.size()) {
           break;
+        }
       } catch (NumberFormatException ignored) {
       }
       System.out.println("Invalid choice. Try again.");
@@ -54,9 +63,9 @@ public class BoardGameApp {
       System.out.print("Write name of player " + (players.size() + 1) + " (or ENTER to quit): ");
       String name = scanner.nextLine();
       if (name.isBlank()) {
-        if (players.size() >= minPlayers)
+        if (players.size() >= minPlayers) {
           break;
-        else {
+        } else {
           System.out.println("You have to have at least " + minPlayers + " players.");
           continue;
         }

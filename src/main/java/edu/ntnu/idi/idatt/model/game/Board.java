@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class Board {
 
-  private final Map<Integer, Tile> tiles ;
+  private final Map<Integer, Tile> tiles;
   private final int rows;
   private final int cols;
   private Tile startTile;
@@ -23,6 +23,9 @@ public class Board {
 
   /**
    * Constructs an empty game board.
+   *
+   * @param rows the number of rows on the board
+   * @param cols the number of columns on the board
    */
   public Board(int rows, int cols) {
     this.rows = rows;
@@ -68,6 +71,8 @@ public class Board {
   }
 
   /**
+   * Returns the last tile on the board, which is the tile with the highest ID.
+   *
    * @return the tile with the highest ID on the board
    * @throws InvalidMoveException if the board is empty
    */
@@ -76,10 +81,14 @@ public class Board {
         .max(Map.Entry.comparingByKey())
         .map(Map.Entry::getValue)
         .orElseThrow(() -> new InvalidMoveException("Board is empty"));
-    }
+  }
 
-
-    public List<Tile> getTiles() {
+  /**
+   * Returns all tiles on the board as a lis.
+   *
+   * @return a list of all tiles on the board.
+   */
+  public List<Tile> getTiles() {
     return new ArrayList<>(tiles.values());
   }
 
@@ -90,11 +99,25 @@ public class Board {
     return startTile;
   }
 
+  /**
+   * Sets the start tile for the game. This tile is where players are placed at the beginning of the
+   * game.
+   *
+   * @param tile the tile to set as the start tile
+   */
   public void setStartTile(Tile tile) {
-    if (tile == null) throw new NullPointerException("Start tile cannot be null.");
+    if (tile == null) {
+      throw new NullPointerException("Start tile cannot be null.");
+    }
     this.startTile = tile;
   }
 
+
+  /**
+   * Returns all tiles on the board in order of their IDs.
+   *
+   * @return a list of tiles ordered by their IDs
+   */
   public List<Tile> getTilesOrdered() {
     return tiles.entrySet().stream()
         .sorted(Map.Entry.comparingByKey())
