@@ -32,8 +32,8 @@ public class PlayerSettingsContainer {
   public PlayerSettingsContainer(int players) {
     root = new FlowPane();
     root.getStyleClass().add("player-settings-container");
-    root.setAlignment(Pos.CENTER);
-    root.setPrefWrapLength(1000);
+    root.setAlignment(Pos.TOP_CENTER);
+    root.setPrefWrapLength(900);
     root.setPadding(new Insets(24));
     root.setHgap(20);
     root.setVgap(20);

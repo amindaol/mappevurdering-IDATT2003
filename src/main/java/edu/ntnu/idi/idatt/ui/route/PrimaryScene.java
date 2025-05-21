@@ -10,14 +10,16 @@ import javafx.scene.layout.VBox;
 
 public class PrimaryScene extends Scene {
 
-  private static final int WIDTH = 1280;
-  private static final int HEIGHT = 720;
+  private static final int WIDTH = 1600;
+  private static final int HEIGHT =  1000;
   private final BorderPane root;
 
   public PrimaryScene() {
     super(new StackPane(), WIDTH, HEIGHT);
 
     this.root = new BorderPane();
+
+    getRoot().setStyle("-fx-background-color: #FFF5FA;");
 
     ((StackPane) getRoot()).getChildren().add(root);
   }
@@ -31,7 +33,6 @@ public class PrimaryScene extends Scene {
   }
 
   public void setNavBar(Node navBar) {
-    root.setTop(navBar);
+    root.setTop(navBar!= null ? navBar : new VBox());
   }
-
 }

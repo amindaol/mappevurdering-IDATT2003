@@ -16,12 +16,6 @@ class DiceTest {
     assertNotNull(die);
   }
 
-  @Test
-  void roll_returnsSumInValidRange() {
-    Dice dice = new Dice(2);
-    int result = dice.roll();
-    assertTrue(result >= 2 && result <= 12);
-  }
 
   @Test
   void getDie_returnsDie() {

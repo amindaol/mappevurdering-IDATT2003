@@ -1,5 +1,8 @@
 package edu.ntnu.idi.idatt.model.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The {@code Dice} class represents a set of dice. It allows rolling all dice at once and accessing
  * individual dice if needed.
@@ -10,6 +13,7 @@ package edu.ntnu.idi.idatt.model.game;
 public class Dice {
 
   private final Die[] dice;
+  private final int diceAmount;
 
   /**
    * Constructs a {@code Dice} object with a specified number of dice. Each die is created and
@@ -23,6 +27,8 @@ public class Dice {
       throw new IllegalArgumentException("Number of dice must be positive.");
     }
 
+    this.diceAmount = diceAmount;
+
     dice = new Die[diceAmount];
     for (int i = 0; i < diceAmount; i++) {
       dice[i] = new Die();
@@ -35,12 +41,12 @@ public class Dice {
    *
    * @return The sum of all dice rolls.
    */
-  public int roll() {
-    int diceValue = 0;
-    for (Die d : dice) {
-      diceValue += d.roll();
+  public List<Integer> roll() {
+    List<Integer> results = new ArrayList<>();
+    for (int i = 0; i < diceAmount; i++) {
+      results.add((int) (Math.random() * 6) + 1);
     }
-    return diceValue;
+    return results;
   }
 
   /**
@@ -66,4 +72,5 @@ public class Dice {
   public int getDiceAmount() {
     return dice.length;
   }
+
 }

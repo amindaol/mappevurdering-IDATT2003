@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt.ui.controller;
 
 import edu.ntnu.idi.idatt.config.GameMode;
+import edu.ntnu.idi.idatt.ui.route.Router;
 import edu.ntnu.idi.idatt.ui.view.components.SettingsContent;
 import edu.ntnu.idi.idatt.ui.view.layouts.setup.SettingsView;
 import javafx.stage.Stage;
@@ -16,16 +17,13 @@ public class UiController {
   }
 
   public void showHomePage() {
-    // TODO: Implementer en HomeView og bytt til den her
-    System.out.println("Viser HomeView (ikke implementert ennå).");
+    Router.navigateTo("home");
   }
 
   public void showSettingsPage(GameMode mode) {
     SettingsContent content = new SettingsContent(mode);
 
     SettingsView view = new SettingsView(
-        "Slayboard – " + mode.name().replace("_", " "),
-        this::showHomePage,
         content.getRoot(),
         () -> launcher.launchGame(content, mode)
     );

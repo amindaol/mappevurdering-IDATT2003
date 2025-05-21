@@ -59,7 +59,7 @@ public class BestiePointBattlesEngine extends GameEngine {
       return;
     }
 
-    int roll = dice.roll();
+    int roll = dice.roll().stream().mapToInt(Integer::intValue).sum();
     notifyObservers(BoardGameEvent.DICE_ROLLED);
 
     movement.move(player, roll);

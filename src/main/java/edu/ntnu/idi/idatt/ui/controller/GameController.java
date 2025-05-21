@@ -11,12 +11,14 @@ import java.util.List;
 public class GameController  {
 
   private final GameEngine engine;
+  private List<Integer> lastRoll;
 
   public GameController(GameEngine engine) {
     this.engine = engine;
   }
 
   public void playTurn() {
+    lastRoll = engine.getGame().getDice().roll();
     engine.handleTurn();
   }
 
@@ -38,5 +40,9 @@ public class GameController  {
 
   public List<Player> getPlayers() {
     return engine.getPlayers();
+  }
+
+  public List<Integer> getLastRoll() {
+    return lastRoll;
   }
 }

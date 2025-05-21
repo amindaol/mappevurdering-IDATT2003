@@ -11,6 +11,7 @@ import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Token;
+import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.ui.controller.BoardController;
 import edu.ntnu.idi.idatt.ui.controller.GameController;
 import edu.ntnu.idi.idatt.ui.route.PrimaryScene;
@@ -43,129 +44,120 @@ public class Main extends Application {
     Router.setScene(primaryScene);
 
     Router.registerRoute(
-        new Route("home", () -> null, () -> new HomeController().getView())
+        new Route(
+            "home",
+            () -> new HomeController().getView(),
+            () -> null)
     );
 
     Router.registerRoute(
-        new Route("lalSettings", () -> null, () -> {
-          SettingsContent content = new SettingsContent(GameMode.LOVE_AND_LADDERS);
-
-          return new SettingsView(
-              "Love & Ladders",
-              () -> Router.navigateTo("home"),
-              content.getRoot(),
-              () -> {
-                content.getPlayerSettingsContainer().validateAllInputs();
-
-                List<Player> players = new ArrayList<>();
-                boolean hasError = false;
-
-                for (int i = 0; i < content.getPlayerNames().size(); i++) {
-                  String name = content.getPlayerNames().get(i);
-                  LocalDate birthday = content.getPlayerBirthdays().get(i);
-                  String iconName = content.getSelectedTokens().get(i);
-
-                  if (name.isBlank() || birthday == null || iconName == null) {
-                    hasError = true;
-                    break;
-                  }
-
-                  Token token = TokenFactory.fromIcon(iconName);
-                  players.add(new Player(name, token, birthday));
-                }
-
-                if (hasError) {
-                  Alert alert = new Alert(Alert.AlertType.ERROR);
-                  alert.setTitle("Missing Information");
-                  alert.setHeaderText("Some player fields are incomplete");
-                  alert.setContentText("Make sure each player has a name, birthday, and selected token.");
-                  alert.showAndWait();
-                  return;
-                }
-
-                AppState.setSelectedPlayers(players);
+        new Route("lalSettings",
+            () -> {
+              SettingsContent content = new SettingsContent(GameMode.LOVE_AND_LADDERS);
+              return new SettingsView(content.getRoot(), () -> {
+                if (!validateAndStartGame(content)) return;
                 Router.navigateTo("lalPage");
-              }
-
-          );
-        })
-    );
+              });
+            },
+            () -> new NavBar("Love & Ladders", () -> Router.navigateTo("home"), Main::showHelpDialog)
+        ));
 
     Router.registerRoute(
-        new Route("bbSettings", () -> null, () -> {
-          SettingsContent content = new SettingsContent(GameMode.BESTIE_POINT_BATTLES);
-
-          return new SettingsView(
-              "Bestie Point Battles",
-              () -> Router.navigateTo("home"),
-              content.getRoot(),
-              () -> {
-                content.getPlayerSettingsContainer().validateAllInputs();
-
-                List<Player> players = new ArrayList<>();
-                boolean hasError = false;
-
-                for (int i = 0; i < content.getPlayerNames().size(); i++) {
-                  String name = content.getPlayerNames().get(i);
-                  LocalDate birthday = content.getPlayerBirthdays().get(i);
-                  String iconName = content.getSelectedTokens().get(i);
-
-                  if (name.isBlank() || birthday == null || iconName == null) {
-                    hasError = true;
-                    break;
-                  }
-
-                  Token token = TokenFactory.fromIcon(iconName);
-
-                  players.add(new Player(name, token, birthday));
-                }
-
-                if (hasError) {
-                  Alert alert = new Alert(Alert.AlertType.ERROR);
-                  alert.setTitle("Missing Information");
-                  alert.setHeaderText("Some player fields are incomplete");
-                  alert.setContentText("Make sure each player has a name, birthday, and selected token.");
-                  alert.showAndWait();
-                  return;
-                }
-
-
-                AppState.setSelectedPlayers(players);
+        new Route("bbSettings",
+            () -> {
+              SettingsContent content = new SettingsContent(GameMode.BESTIE_POINT_BATTLES);
+              return new SettingsView(content.getRoot(), () -> {
+                if (!validateAndStartGame(content)) return;
                 Router.navigateTo("bbPage");
-              }
-          );
-        })
-    );
+              });
+            },
+            () -> new NavBar("Bestie Point Battles", () -> Router.navigateTo("home"), Main::showHelpDialog)
+        ));
 
     Router.registerRoute(
-        new Route("lalPage", () -> null, () -> {
+        new Route(
+            "lalPage",
+          () -> {
           List<Player> players = AppState.getSelectedPlayers();
           BoardGame game = BoardGameFactory.createLoveAndLaddersGame(players);
           GameEngine engine = new LoveAndLaddersEngine(game, game.getDice());
           BoardView boardView = new BoardView(9,10,game.getDice().getDiceAmount());
           GameController gameController = new GameController(engine);
           new BoardController(gameController, boardView);
+          engine.startGame();
           return boardView.getRoot();
-    })
-    );
+    }, () -> new NavBar("Love & Ladders", () -> Router.navigateTo("home"), Main::showHelpDialog)
+    ));
 
     Router.registerRoute(
-        new Route("bbPage", () -> null, () -> {
+        new Route("bbPage",
+            () -> {
           List<Player> players = AppState.getSelectedPlayers();
           BoardGame game = BoardGameFactory.createBestiePointBattlesGame(players);
           GameEngine engine = new BestiePointBattlesEngine(game, game.getDice());
           BoardView boardView = new BoardView(9, 10, game.getDice().getDiceAmount());
           GameController gameController = new GameController(engine);
           new BoardController(gameController, boardView);
+          engine.startGame();
           return boardView.getRoot();
-    })
-    );
+    },
+            () -> new NavBar("Bestie Point Battles", () -> Router.navigateTo("home"), Main::showHelpDialog)
+        ));
 
     Router.navigateTo("home");
     primaryStage.show();
+  }
+
+  private static boolean validateAndStartGame(SettingsContent content) {
+    content.getPlayerSettingsContainer().validateAllInputs();
+
+    List<Player> players = new ArrayList<>();
+    boolean hasError = false;
+
+    for (int i = 0; i < content.getPlayerNames().size(); i++) {
+      String name = content.getPlayerNames().get(i);
+      LocalDate birthday = content.getPlayerBirthdays().get(i);
+      String iconName = content.getSelectedTokens().get(i);
+
+      if (name.isBlank() || birthday == null || iconName == null) {
+        hasError = true;
+        break;
+      }
+
+      Token token = TokenFactory.fromIcon(iconName);
+      players.add(new Player(name, token, birthday));
+    }
+
+    if (hasError) {
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Missing Information");
+      alert.setHeaderText("Some player fields are incomplete");
+      alert.setContentText("Make sure each player has a name, birthday, and selected token.");
+      alert.showAndWait();
+      return false;
+    }
+
+    AppState.setSelectedPlayers(players);
+    return true;
+  }
+
+
+  private static void showHelpDialog() {
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Help");
+    alert.setHeaderText("How to set up the game");
+    alert.setContentText("""
+        1. Choose a board.
+        2. Select number of players.
+        3. Fill in name and birthday for each.
+        4. Choose a unique token per player.
+        5. Click 'Start game'!
+        """);
+    alert.showAndWait();
   }
 
   public static void main(String[] args) {
     launch(args);
   }
 }
+
