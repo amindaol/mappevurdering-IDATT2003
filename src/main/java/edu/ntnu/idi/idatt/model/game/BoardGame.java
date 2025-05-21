@@ -29,6 +29,10 @@ public class BoardGame {
 
   /**
    * Constructs a new BoardGame instance with an empty player list.
+   *
+   * @param board the game board to use
+   * @param dice  the dice to use in the game
+   * @throws NullPointerException if {@code board} or {@code dice} is {@code null}.
    */
   public BoardGame(Board board, Dice dice) {
     if (board == null || dice == null) {
@@ -62,6 +66,8 @@ public class BoardGame {
 
   /**
    * Notifies all observers of a game state change.
+   *
+   * @param event the event representing the game state change.
    */
   protected void notifyObservers(BoardGameEvent event) {
     for (BoardGameObserver observer : observers) {
@@ -70,6 +76,11 @@ public class BoardGame {
   }
 
 
+  /**
+   * Returns the list of observers.
+   *
+   * @return a list of BoardGameObserver instances.
+   */
   public List<BoardGameObserver> getObservers() {
     return observers;
   }
@@ -127,6 +138,10 @@ public class BoardGame {
     return players;
   }
 
+
+  /**
+   * Clears all observers from the game.
+   */
   public void clearObservers() {
     observers.clear();
   }
