@@ -14,22 +14,47 @@ import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 
 import java.util.List;
 
+/**
+ * Game engine for "Love and Ladders": - Game ends when a player reaches last tile - Winner is the
+ * one who reaches the last tile first
+ */
 public class LoveAndLaddersEngine extends GameEngine {
 
   private final Dice dice;
   private final Movement movement = new LinearMovement();
 
 
+  /**
+   * Constructs a new LoveAndLaddersEngine with the specified game and dice.
+   *
+   * @param game the game to be played
+   * @param dice the dice to be used in the game
+   * @throws NullPointerException if {@code game} or {@code dice} is {@code null}.
+   */
   public LoveAndLaddersEngine(BoardGame game, Dice dice) {
     super(game);
-    if (dice == null) throw new NullPointerException("dice cannot be null");
+    if (dice == null) {
+      throw new NullPointerException("dice cannot be null");
+    }
     this.dice = dice;
   }
 
+  /**
+   * Plays the game. This method initializes the game state, places players on the start tile,
+   * notifies observers of the game start, and enters the main game loop. The game loop continues
+   * until a player reaches the last tile, at which point the game ends and the winner is declared.
+   *
+   * @throws GameNotInitializedException if the game is not properly initialized with players or
+   *                                     board.
+   */
   @Override
   public void playGame() {
-    if (board == null || dice == null) throw new GameNotInitializedException();
-    if (players == null || players.isEmpty()) throw new NoPlayersException();
+    if (board == null || dice == null) {
+      throw new GameNotInitializedException();
+    }
+    if (players == null || players.isEmpty()) {
+      throw new NoPlayersException();
+    }
 
     Tile start = board.getStartTile();
     for (Player player : players) {
@@ -43,6 +68,10 @@ public class LoveAndLaddersEngine extends GameEngine {
     }
   }
 
+  /**
+   * Handles the turn for the current player. This method rolls the dice, moves the player, checks
+   * for win conditions, and notifies observers of the game state changes.
+   */
   @Override
   public void handleTurn() {
     Player player = getCurrentPlayer();
@@ -68,6 +97,12 @@ public class LoveAndLaddersEngine extends GameEngine {
     }
   }
 
+  /**
+   * Checks if a win condition has been met. In this game, the win condition is that a player
+   * reaches the last tile on the board.
+   *
+   * @return the winning player, or null if none yet
+   */
   @Override
   public Player checkWinCondition() {
     Tile last = board.getLastTile();
