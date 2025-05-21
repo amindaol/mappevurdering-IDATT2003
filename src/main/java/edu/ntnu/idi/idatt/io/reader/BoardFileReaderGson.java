@@ -17,11 +17,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Gson-based implementation of {@link BoardFileReader} that reads a board
- * configuration with rows, cols, and specialTiles (ladders, snakes, etc.).
+ * Gson-based implementation of {@link BoardFileReader} that reads a board configuration with rows,
+ * cols, and specialTiles (ladders, snakes, etc.).
  */
 public class BoardFileReaderGson implements BoardFileReader {
 
+  /**
+   * Reads the board configuration from the given file path.
+   *
+   * @param path the path to the board configuration file
+   * @return a Board instance built from that file
+   * @throws DaoException on I/O or format error
+   */
   @Override
   public Board readBoard(Path path) throws DaoException {
     try {
@@ -33,6 +40,12 @@ public class BoardFileReaderGson implements BoardFileReader {
     }
   }
 
+  /**
+   * Parses the board configuration from a JSON object.
+   *
+   * @param root the JSON object containing the board configuration
+   * @return a Board instance built from the JSON object
+   */
   public Board parseBoard(JsonObject root) {
     int rows = root.get("rows").getAsInt();
     int cols = root.get("cols").getAsInt();
