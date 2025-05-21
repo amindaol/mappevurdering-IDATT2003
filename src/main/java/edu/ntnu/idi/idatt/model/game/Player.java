@@ -20,8 +20,8 @@ public class Player {
   /**
    * Primary constructor used by the game logic.
    *
-   * @param name      the name of the player.
-   * @param token the token belonging to the player.
+   * @param name     the name of the player.
+   * @param token    the token belonging to the player.
    * @param birthday the birthday of a player.
    * @throws NullPointerException if {@code name} is {@code null}.
    */
@@ -78,6 +78,11 @@ public class Player {
     return token;
   }
 
+  /**
+   * Returns a string representation of the player.
+   *
+   * @return string representation of the player
+   */
   @Override
   public String toString() {
     return "Player{name='" + name + "', token=" + token + ", tile=" +
@@ -130,7 +135,7 @@ public class Player {
   }
 
   /**
-   * Sets the player's token identifier (e.g., "cat", "unicorn").
+   * Sets the player's token identifier (e.g., "flower", "cloud").
    *
    * @param token the name of the token image (without path)
    * @throws NullPointerException if token is null
@@ -142,8 +147,12 @@ public class Player {
     this.token = token;
   }
 
+  /**
+   * Sets the current tile of the player.
+   *
+   * @param tile the tile to set as the current tile
+   */
   public void setCurrentTile(Tile tile) {
     this.currentTile = tile;
-
   }
 }
