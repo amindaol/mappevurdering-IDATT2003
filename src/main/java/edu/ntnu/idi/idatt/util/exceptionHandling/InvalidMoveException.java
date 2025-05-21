@@ -5,6 +5,11 @@ package edu.ntnu.idi.idatt.util.exceptionHandling;
  */
 public class InvalidMoveException extends RuntimeException {
 
+  /**
+   * Constructs a new InvalidMoveException with the default message.
+   *
+   * @param message detail message explaining the invalid move
+   */
   public InvalidMoveException(String message) {
     super(message);
   }

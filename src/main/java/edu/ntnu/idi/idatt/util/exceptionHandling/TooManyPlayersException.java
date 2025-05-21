@@ -5,6 +5,11 @@ package edu.ntnu.idi.idatt.util.exceptionHandling;
  */
 public class TooManyPlayersException extends RuntimeException {
 
+  /**
+   * Constructs a new TooManyPlayersException with the default message.
+   *
+   * @param maxPlayers the maximum number of players allowed in the game
+   */
   public TooManyPlayersException(int maxPlayers) {
     super("Cannot add more than " + maxPlayers + " players to the game. ");
   }
