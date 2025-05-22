@@ -281,3 +281,15 @@
   -fx-text-fill: #D81B60;
   -fx-font-size: 18px;
 }
+
+.roll-dice-button {
+  -fx-background-color: #D81B60;
+  -fx-border-color: #D81B60;
+  -fx-border-radius: 4;
+  -fx-padding: 8 16;
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+  -fx-cursor: hand;
+}
+

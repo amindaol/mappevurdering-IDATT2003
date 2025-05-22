@@ -12,8 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javax.swing.text.Element;
-import javax.swing.text.html.ImageView;
 
 public class PlayerList extends VBox {
 

@@ -41,6 +41,9 @@ public class BoardView extends BorderPane {
 
     this.board = new LaddersBoard(rows, cols);
     this.dieContainer = new DieContainer(diceAmount);
+    rollDiceButton.getStyleClass().add("roll-dice-button");
+    HBox rollButtonWrapper = new HBox(rollDiceButton);
+    rollButtonWrapper.setAlignment(Pos.CENTER_LEFT);
 
     int startTileId = 3;
     int endTileId = 22;
@@ -59,7 +62,7 @@ public class BoardView extends BorderPane {
 
     playerListContainer.setAlignment(Pos.CENTER);
 
-    VBox diceBox = new VBox(playerListContainer, dieContainer, rollDiceButton);
+    VBox diceBox = new VBox(playerListContainer, dieContainer, rollButtonWrapper);
     diceBox.setAlignment(Pos.CENTER);
     diceBox.setSpacing(10);
 
