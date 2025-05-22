@@ -3,7 +3,6 @@ package edu.ntnu.idi.idatt;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import edu.ntnu.idi.idatt.config.GameMode;
-import edu.ntnu.idi.idatt.factory.BoardGameFactory;
 import edu.ntnu.idi.idatt.factory.TokenFactory;
 import edu.ntnu.idi.idatt.io.reader.BoardFileReaderGson;
 import edu.ntnu.idi.idatt.io.reader.PlayerFileReaderCsv;
@@ -15,6 +14,7 @@ import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
 import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Token;
+import edu.ntnu.idi.idatt.ui.controller.BestieBattlesController;
 import edu.ntnu.idi.idatt.ui.controller.BoardController;
 import edu.ntnu.idi.idatt.ui.controller.GameController;
 import edu.ntnu.idi.idatt.ui.route.PrimaryScene;
@@ -23,6 +23,7 @@ import edu.ntnu.idi.idatt.ui.route.Router;
 import edu.ntnu.idi.idatt.ui.view.AppState;
 import edu.ntnu.idi.idatt.ui.view.components.NavBar;
 import edu.ntnu.idi.idatt.ui.view.components.SettingsContent;
+import edu.ntnu.idi.idatt.ui.view.layouts.BestieBattlesView;
 import edu.ntnu.idi.idatt.ui.view.layouts.BoardView;
 import edu.ntnu.idi.idatt.ui.view.layouts.HomeController;
 import edu.ntnu.idi.idatt.ui.view.layouts.setup.SettingsView;
@@ -52,9 +53,7 @@ public class Main extends Application {
 
   public static void main(String[] args) {
     // Set root logger level (console handler is already attached by default)
-    Logger root = Logger.getLogger("");
-    root.setLevel(Level.INFO);
-
+    Logger.getLogger("").setLevel(Level.INFO);
     logger.info("Launching application");
     launch(args);
   }
@@ -171,19 +170,33 @@ public class Main extends Application {
         new Route("bbPage",
             () -> {
               try {
-                Path boardJson = Paths.get(
-                    getClass().getResource("/boards/bestie_point_battles.json").toURI());
-                Path playersCsv = Paths.get(
-                    getClass().getResource("/players/bestie_point_battles.csv").toURI());
-                BoardGame game = BoardGameFactory.createFromFiles(boardJson, playersCsv);
+                String boardFile = AppState.getSelectedBoardFile(); // f.eks. "bestie_point_battles.json"
+                URL boardRes = Main.class.getResource("/boards/" + boardFile);
+                if (boardRes == null) {
+                  throw new IllegalArgumentException("Missing board file: " + boardFile);
+                }
+
+                JsonObject root;
+                try (InputStream in = boardRes.openStream()) {
+                  Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
+                  root = JsonParser.parseReader(reader).getAsJsonObject();
+                }
+
+                Board board = new BoardFileReaderGson().parseBoard(root);
+                List<Player> players = AppState.getSelectedPlayers();
+                if (players == null || players.isEmpty())
+                  throw new IllegalStateException("No players configured");
+
+                Dice dice = new Dice(2);
+                BoardGame game = new BoardGame(board, dice);
+                players.forEach(game::addPlayer);
 
                 GameEngine engine = new BestiePointBattlesEngine(game, game.getDice());
-                BoardView boardView = new BoardView(9, 10, 2);
-                GameController gc = new GameController(engine);
-                new BoardController(gc, boardView);
+                BestieBattlesView view = new BestieBattlesView(game);
+                new BestieBattlesController((BestiePointBattlesEngine) engine, view);
                 engine.startGame();
 
-                return boardView.getRoot();
+                return view;
               } catch (Exception e) {
                 logger.log(Level.SEVERE, "Failed to load Bestie files", e);
                 AlertUtil.showError("Load Error",
