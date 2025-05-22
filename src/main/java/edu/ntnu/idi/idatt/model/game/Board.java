@@ -142,4 +142,12 @@ public class Board {
     return null;
   }
 
+  public int getRows() {
+    return rows;
+  }
+
+  public int getCols() {
+    return cols;
+  }
+
 }

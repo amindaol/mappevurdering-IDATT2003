@@ -16,10 +16,10 @@ public class DialogUtil {
     help.setTitle("Pause / Help");
     help.setHeaderText("Game Info");
     help.setContentText("""
-            🎲 Click Roll Dice to play your turn.
-            🧍‍♀️ Player icons move forward based on your dice.
-            🪜 Some tiles have ladders or effects!
-            ⏪ Use the home button to go back.
+        🎲 Click Roll Dice to play your turn.
+        🧍‍♀️ Player icons move forward based on your dice.
+        🪜 Some tiles have ladders or effects!
+        ⏪ Use the home button to go back.
         """);
     help.showAndWait();
   }

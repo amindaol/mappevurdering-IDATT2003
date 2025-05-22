@@ -56,16 +56,10 @@ public class LoveAndLaddersEngine extends GameEngine {
       throw new NoPlayersException();
     }
 
-    Tile start = board.getStartTile();
-    for (Player player : players) {
-      player.placeOnTile(start);
-    }
-
-    notifyObservers(BoardGameEvent.GAME_START);
-
     while (!gameOver) {
       handleTurn();
     }
+    notifyObservers(BoardGameEvent.GAME_WON);
   }
 
   /**
@@ -110,5 +104,15 @@ public class LoveAndLaddersEngine extends GameEngine {
         .filter(p -> p.getCurrentTile() == last)
         .findFirst()
         .orElse(null);
+  }
+
+
+  @Override
+  public void startGame() {
+    Tile startTile = board.getStartTile();
+    for (Player player : players) {
+      player.placeOnTile(startTile);
+    }
+    notifyObservers(BoardGameEvent.GAME_START);
   }
 }

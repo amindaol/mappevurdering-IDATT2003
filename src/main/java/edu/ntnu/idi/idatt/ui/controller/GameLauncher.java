@@ -33,7 +33,8 @@ public class GameLauncher {
       List<String> tokens = settingsContent.getSelectedTokens();
 
       if (hasInvalidInput(names, birthdays, tokens)) {
-        showAlert("Missing Input", "Please ensure all names, birthdays, and tokens are filled out.");
+        showAlert("Missing Input",
+            "Please ensure all names, birthdays, and tokens are filled out.");
         return;
       }
 
@@ -66,6 +67,7 @@ public class GameLauncher {
         case LOVE_AND_LADDERS -> {
           BoardView boardView = new BoardView(9, 10, 2);
           new BoardController(controller, boardView);
+
           yield new Scene(boardView.getRoot());
         }
         case BESTIE_POINT_BATTLES -> new Scene(new BestieBattlesView(game));
@@ -86,7 +88,8 @@ public class GameLauncher {
     }
   }
 
-  private boolean hasInvalidInput(List<String> names, List<LocalDate> birthdays, List<String> tokens) {
+  private boolean hasInvalidInput(List<String> names, List<LocalDate> birthdays,
+      List<String> tokens) {
     return names.stream().anyMatch(String::isBlank)
         || birthdays.contains(null)
         || tokens.contains(null);

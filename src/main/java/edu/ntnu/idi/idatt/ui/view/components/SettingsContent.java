@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
@@ -14,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import edu.ntnu.idi.idatt.ui.view.AppState;
 
 public class SettingsContent {
 
@@ -47,6 +49,19 @@ public class SettingsContent {
     boardButton2.getStyleClass().add("settings-content-radio-button");
     boardButton3.getStyleClass().add("settings-content-radio-button");
 
+    boardButton1.setUserData("ladderBoard1.json");
+    boardButton2.setUserData("ladderBoard2.json");
+    boardButton3.setUserData("ladderBoard3.json");
+
+    boardGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue != null) {
+        AppState.setSelectedBoardFile(newValue.getUserData().toString());
+      }
+    });
+
+    boardButton1.setSelected(true);
+    AppState.setSelectedBoardFile(boardButton1.getUserData().toString());
+
     // TODO: Add image of the board to the radio button??
 
     HBox boardButtons = new HBox(boardButton1, boardButton2, boardButton3);
@@ -69,6 +84,13 @@ public class SettingsContent {
     playersButtons.setSpacing(12);
     playersButtons.setAlignment(Pos.CENTER);
     playersButtons.setPadding(new Insets(8, 0, 12, 0));
+
+    CheckBox csvCheck = new CheckBox("Load players from file");
+    csvCheck.setOnAction(e -> {
+      boolean useCsv = csvCheck.isSelected();
+      AppState.setLoadPlayersFromFile(useCsv);
+      playerSettingsContainer.getAsNode().setDisable(useCsv);
+    });
 
     Label playersLabel = new Label("Number of players:");
     playersLabel.getStyleClass().add("settings-content-label");
@@ -94,10 +116,15 @@ public class SettingsContent {
         int selectedPlayers = (int) playerButton.getUserData();
         PlayerSettingsContainer newplayerSettingsContainer =
             new PlayerSettingsContainer(selectedPlayers);
+        playerSettingsContainer = newplayerSettingsContainer;
         playerSettings.setBottom(newplayerSettingsContainer.getAsNode());
 
       });
+
     }
+
+    playersButtons.getChildren().add(csvCheck);
+    playersButtons.setAlignment(Pos.CENTER);
 
     playerSettings.setTop(playerSelectionBox);
     playersButtons.setSpacing(8);
@@ -127,5 +154,9 @@ public class SettingsContent {
 
   public GameMode getSelectedGameMode() {
     return gameMode;
+  }
+
+  public int getSelectedPlayers() {
+    return getSelectedTokens().size();
   }
 }
