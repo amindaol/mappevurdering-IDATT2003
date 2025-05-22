@@ -10,6 +10,7 @@ import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 
 import java.util.Comparator;
+import java.util.List;
 
 
 /**
@@ -104,4 +105,18 @@ public class BestiePointBattlesEngine extends GameEngine {
         .max(Comparator.comparingInt(Player::getPoints))
         .orElse(null);
   }
+
+  public void playOneRound() {
+    if (gameOver) return;
+
+    List<Integer> values = dice.roll();
+    int steps = values.stream().mapToInt(Integer::intValue).sum();
+    handleTurn(steps);
+  }
+
+  public boolean isFinished() {
+    return gameOver;
+  }
+
+
 }
