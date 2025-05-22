@@ -67,10 +67,11 @@ public class BoardFileReaderGson implements BoardFileReader {
       tileMap.put(id, tile);
     }
 
+    List<Ladder> ladders = new ArrayList<>();
+    List<Ladder> snakes = new ArrayList<>();
+
     if (root.has("specialTiles")) {
       JsonArray specials = root.getAsJsonArray("specialTiles");
-
-      List<Ladder> ladders = new ArrayList<>();
 
       for (JsonElement specialElem : specials) {
         JsonObject obj = specialElem.getAsJsonObject();
@@ -82,15 +83,18 @@ public class BoardFileReaderGson implements BoardFileReader {
 
         switch (type) {
           case "Ladder" -> {
-            int destId = action.get("destinationTileId").getAsInt();
-            Tile destination = tileMap.get(destId);
-            tile.setAction(new JumpToTileAction(destination));
-            ladders.add(new Ladder(id, destId));
+            if (action.has("destinationTileId")) {
+              int destId = action.get("destinationTileId").getAsInt();
+              tile.setAction(new JumpToTileAction(tileMap.get(destId)));
+              ladders.add(new Ladder(id, destId));
+            }
           }
           case "Snake" -> {
-            int destId = action.get("destinationTileId").getAsInt();
-            Tile destination = tileMap.get(destId);
-            tile.setAction(new JumpToTileAction(destination));
+            if (action.has("destinationTileId")) {
+              int destId = action.get("destinationTileId").getAsInt();
+              tile.setAction(new JumpToTileAction(tileMap.get(destId)));
+              snakes.add(new Ladder(id, destId));
+            }
           }
           case "AddPoints" -> {
             int points = action.get("points").getAsInt();
@@ -101,17 +105,25 @@ public class BoardFileReaderGson implements BoardFileReader {
             tile.setAction(new ModifyPointsAction(-points));
           }
           case "GoToStart" -> {
-            Tile destination = tileMap.get(1);
-            tile.setAction(new JumpToTileAction(destination));
+            if (action.has("destinationTileId")) {
+              int destId = action.get("destinationTileId").getAsInt();
+              Tile destination = tileMap.get(destId);
+              tile.setAction(new JumpToTileAction(destination));
+            } else {
+              tile.setAction(new JumpToTileAction(tileMap.get(1))); // fallback: gå til start
+            }
           }
           case "SkipNextTurn" -> tile.setAction(new SkipNextTurnAction());
+
           default -> throw new IllegalArgumentException("Unknown action type: " + type);
         }
       }
-      board.setLadders(ladders);
     }
 
+    board.setLadders(ladders);
+    board.setSnakes(snakes);
     board.setStartTile(tileMap.get(1));
+
     return board;
   }
 }
