@@ -7,6 +7,10 @@ import java.nio.file.Path;
 
 /**
  * Reads a Board from a file.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public interface BoardFileReader {
 

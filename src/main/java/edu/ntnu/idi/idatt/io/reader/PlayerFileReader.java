@@ -8,6 +8,10 @@ import java.util.List;
 
 /**
  * Reads a list of Players from a CSV file.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public interface PlayerFileReader {
 

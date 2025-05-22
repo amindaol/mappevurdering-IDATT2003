@@ -16,6 +16,10 @@ import java.util.List;
 /**
  * Game engine for "Bestie Point Battles": - Game ends when a player reaches last tile - Winner is
  * the one with the highest score at that moment
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class BestiePointBattlesEngine extends GameEngine {
 
@@ -106,6 +110,11 @@ public class BestiePointBattlesEngine extends GameEngine {
         .orElse(null);
   }
 
+  /**
+   * Plays one round of the game by rolling the dice,
+   * summing the result, and handling the player's turn.
+   * Does nothing if the game is already over.
+   */
   public void playOneRound() {
     if (gameOver) return;
 
@@ -114,6 +123,12 @@ public class BestiePointBattlesEngine extends GameEngine {
     handleTurn(steps);
   }
 
+
+  /**
+   * Checks whether the game is finished.
+   *
+   * @return true if the game is over, false otherwise
+   */
   public boolean isFinished() {
     return gameOver;
   }

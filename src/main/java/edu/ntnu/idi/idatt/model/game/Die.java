@@ -4,6 +4,10 @@ import java.util.Random;
 
 /**
  * Represents a single die with 6 sides.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class Die {
 

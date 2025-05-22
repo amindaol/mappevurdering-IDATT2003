@@ -14,6 +14,10 @@ import java.nio.file.Path;
 
 /**
  * Gson-based implementation of {@link BoardFileWriter}.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class BoardFileWriterGson implements BoardFileWriter {
 
@@ -55,6 +59,12 @@ public class BoardFileWriterGson implements BoardFileWriter {
     }
   }
 
+  /**
+   * Converts a TileAction into a JsonObject based on its type.
+   *
+   * @param action the action to serialize
+   * @return a JsonObject representing the action
+   */
   private JsonObject serializeAction(TileAction action) {
     JsonObject obj = new JsonObject();
 

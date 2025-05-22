@@ -12,11 +12,28 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+/**
+ * A horizontal navigation bar with a title and two icon buttons: Home and Help.
+ * The home and help buttons trigger the provided actions when clicked.
+ *
+ * Used at the top of various views in the application to provide consistent navigation.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
+ */
 public class NavBar extends HBox {
 
   private final Button homeButton;
   private final Button helpButton;
 
+  /**
+   * Constructs a new navigation bar with a title and two buttons.
+   *
+   * @param titleText the title text shown on the left side
+   * @param onHome the action to run when the home button is clicked
+   * @param onHelp the action to run when the help button is clicked
+   */
   public NavBar(String titleText, Runnable onHome, Runnable onHelp) {
     super(8);
     this.setAlignment(Pos.CENTER);
@@ -55,13 +72,5 @@ public class NavBar extends HBox {
     rightNavBar.setAlignment(Pos.CENTER_RIGHT);
 
     this.getChildren().addAll(leftNavBar, rightNavBar);
-  }
-
-  public Button getHomeButton() {
-    return homeButton;
-  }
-
-  public Button getHelpButton() {
-    return helpButton;
   }
 }

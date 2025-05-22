@@ -17,12 +17,31 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import edu.ntnu.idi.idatt.view.AppState;
 
+/**
+ * A GUI component that displays all game setup options, including:
+ * - Board selection
+ * - Number of players
+ * - Player name, birthday, and token inputs
+ * - Option to load players from file
+ *
+ * This component is used during the game setup phase before the game starts.
+ * It dynamically updates player fields based on selected number of players.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
+ */
 public class SettingsContent {
 
   private final VBox root;
   private PlayerSettingsContainer playerSettingsContainer;
   private final GameMode gameMode;
 
+  /**
+   * Creates a new settings content view for the given game mode.
+   *
+   * @param gameMode the selected game mode
+   */
   public SettingsContent(GameMode gameMode) {
     this.gameMode = gameMode;
     int maxPlayers = 5;
@@ -61,8 +80,6 @@ public class SettingsContent {
 
     boardButton1.setSelected(true);
     AppState.setSelectedBoardFile(boardButton1.getUserData().toString());
-
-    // TODO: Add image of the board to the radio button??
 
     HBox boardButtons = new HBox(boardButton1, boardButton2, boardButton3);
     boardButtons.setSpacing(12);
@@ -132,30 +149,56 @@ public class SettingsContent {
     root.getChildren().addAll(boardLabel, boardButtons, playerSettings);
   }
 
+  /**
+   * Returns the root node containing all layout elements.
+   *
+   * @return the root node for this settings view
+   */
   public Node getRoot() {
     return root;
   }
 
+  /**
+   * Returns the list of player names entered in the settings form.
+   *
+   * @return list of player names
+   */
   public List<String> getPlayerNames() {
     return playerSettingsContainer.getPlayerNames();
   }
 
+  /**
+   * Returns the list of player birthdays entered in the settings form.
+   *
+   * @return list of player birthdays
+   */
   public List<LocalDate> getPlayerBirthdays() {
     return playerSettingsContainer.getPlayerBirthdays();
   }
 
+  /**
+   * Returns the list of selected tokens per player.
+   *
+   * @return list of token image file names
+   */
   public List<String> getSelectedTokens() {
     return playerSettingsContainer.getSelectedTokens();
   }
 
+  /**
+   * Returns the container managing player-specific settings.
+   *
+   * @return the PlayerSettingsContainer instance
+   */
   public PlayerSettingsContainer getPlayerSettingsContainer() {
     return playerSettingsContainer;
   }
 
-  public GameMode getSelectedGameMode() {
-    return gameMode;
-  }
-
+  /**
+   * Returns the number of selected players based on the current state.
+   *
+   * @return selected number of players
+   */
   public int getSelectedPlayers() {
     return getSelectedTokens().size();
   }

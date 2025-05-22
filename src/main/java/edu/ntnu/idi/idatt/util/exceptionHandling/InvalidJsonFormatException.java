@@ -2,6 +2,10 @@ package edu.ntnu.idi.idatt.util.exceptionHandling;
 
 /**
  * Thrown when JSON data cannot be parsed into a valid Board structure.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class InvalidJsonFormatException extends DaoException {
 

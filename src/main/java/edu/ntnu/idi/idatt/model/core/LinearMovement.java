@@ -5,6 +5,10 @@ import edu.ntnu.idi.idatt.model.game.*;
 /**
  * Represents a linear movement strategy for a player in the game. This class implements the
  * Movement interface and provides a method to move a player linearly across the game board.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class LinearMovement implements Movement {
 

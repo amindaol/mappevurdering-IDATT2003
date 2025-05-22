@@ -7,6 +7,10 @@ import edu.ntnu.idi.idatt.model.game.Token;
 /**
  * Represents a movement strategy for a player in the game. This interface is used to define how a
  * player moves on the board.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public interface Movement {
 

@@ -8,6 +8,10 @@ import java.util.List;
 
 /**
  * Writes a list of Players to a CSV file.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public interface PlayerFileWriter {
 

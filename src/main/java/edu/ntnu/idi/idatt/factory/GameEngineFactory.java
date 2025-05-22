@@ -11,6 +11,10 @@ import edu.ntnu.idi.idatt.model.game.*;
  *
  * <p>This class is responsible for creating the appropriate GameEngine instance based on the
  * selected game mode. It uses the factory design pattern to encapsulate the instantiation logic.
+ *
+ *  @author Aminda Lunde
+ *  @author Ingrid Opheim
+ *  @version 1.0
  */
 public final class GameEngineFactory {
 

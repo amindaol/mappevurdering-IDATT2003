@@ -12,6 +12,10 @@ import edu.ntnu.idi.idatt.model.game.Tile;
  * Factory class for creating different types of game boards. This class provides methods to create
  * a default board, a board for the game "Love and Ladders", and a board for the game "Bestie Point
  * Battles".
+ *
+ *  @author Aminda Lunde
+ *  @author Ingrid Opheim
+ *  @version 1.0
  */
 public class BoardFactory {
 

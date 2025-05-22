@@ -19,6 +19,18 @@ import java.util.Map;
 import java.util.Objects;
 import javafx.scene.layout.Pane;
 
+/**
+ * Controls the board view during gameplay. Connects the {@link GameEngine} with the {@link BoardView},
+ * listens for game events, updates player positions, and handles dice roll actions.
+ * Also shows the winner when the game ends.
+ *
+ * This controller observes the game and reacts to state changes via the {@link BoardGameObserver} interface.
+ * It does not contain game logic, only GUI updates and event binding.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
+ */
 public class BoardController implements BoardGameObserver {
 
   private final GameEngine engine;
@@ -26,6 +38,13 @@ public class BoardController implements BoardGameObserver {
   private final Map<Player, PlayerIcon> playerIcons = new HashMap<>();
   private final Logger logger = Logger.getLogger(BoardController.class.getName());
 
+  /**
+   * Creates a new BoardController, connects it to the view and game engine,
+   * sets up the roll button and initializes player icons.
+   *
+   * @param controller the game controller handling turns
+   * @param boardView the visual representation of the board
+   */
   public BoardController(GameController controller, BoardView boardView) {
     this.engine = controller.getEngine();
     this.boardView = boardView;
@@ -37,6 +56,11 @@ public class BoardController implements BoardGameObserver {
     initializePlayers();
   }
 
+  /**
+   * Sets up the dice roll button to trigger a game turn and update the view.
+   *
+   * @param controller the game controller to play turns
+   */
   private void setUpRollButton(GameController controller) {
     boardView.setRollCallback(() -> {
       Player mover = controller.getCurrentPlayer();
@@ -60,6 +84,11 @@ public class BoardController implements BoardGameObserver {
     });
   }
 
+
+  /**
+   * Initializes player icons and places them on their starting tiles.
+   * Replaces existing icons if reinitialized.
+   */
   private void initializePlayers() {
     for (Player player : engine.getPlayers()) {
       String iconPath = "/icons/players/" + player.getToken().getIconFileName();
@@ -82,6 +111,12 @@ public class BoardController implements BoardGameObserver {
     }
   }
 
+  /**
+   * Reacts to changes in the game state.
+   *
+   * @param game the game that triggered the event
+   * @param event the event that occurred
+   */
   @Override
   public void onGameStateChange(BoardGame game, BoardGameEvent event) {
     Platform.runLater(() -> {
@@ -95,6 +130,9 @@ public class BoardController implements BoardGameObserver {
     });
   }
 
+  /**
+   * Updates all player icons based on their current tile positions.
+   */
   private void updatePlayerPositions() {
     for (Player player : engine.getPlayers()) {
       Tile tile = player.getCurrentTile();
@@ -105,6 +143,11 @@ public class BoardController implements BoardGameObserver {
     }
   }
 
+  /**
+   * Displays an alert showing the winning player.
+   *
+   * @param winner the player who won the game
+   */
   private void showWinnerAlert(Player winner) {
     if (winner == null) {
       return;

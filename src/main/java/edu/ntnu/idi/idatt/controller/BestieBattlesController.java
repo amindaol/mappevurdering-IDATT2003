@@ -16,12 +16,31 @@ import java.util.Map;
 import java.util.Objects;
 import javafx.scene.layout.Pane;
 
+/**
+ * Controller for the Bestie PointBattles game mode.
+ * Connects the {@link BestiePointBattlesEngine} to the {@link BestieBattlesView},
+ * sets up player icons, handles rolling, and reacts to game events.
+ * <p>
+ * This controller observes the game and updates the GUI accordingly.
+ * It handles visual placement of players and displays the winner when the game ends.
+ * </p>
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
+ */
 public class BestieBattlesController implements BoardGameObserver {
 
   private final BestiePointBattlesEngine engine;
   private final BestieBattlesView view;
   private final Map<Player, PlayerIcon> playerIcons = new HashMap<>();
 
+  /**
+   * Creates a new controller for the Bestie PointBattles game mode.
+   *
+   * @param engine the game engine for Bestie PointBattles
+   * @param view the visual representation of the board
+   */
   public BestieBattlesController(BestiePointBattlesEngine engine, BestieBattlesView view) {
     this.engine = engine;
     this.view = view;
@@ -33,6 +52,9 @@ public class BestieBattlesController implements BoardGameObserver {
     setupRolling();
   }
 
+  /**
+   * Sets up the initial placement of player icons on the board.
+   */
   private void setupPlayers() {
     for (Player player : engine.getPlayers()) {
       String iconPath = "/icons/players/" + player.getToken().getIconFileName();
@@ -53,7 +75,10 @@ public class BestieBattlesController implements BoardGameObserver {
     }
   }
 
-
+  /**
+   * Sets up the dice roll callback to play a round, update the board,
+   * and show the winner if the game is finished.
+   */
   private void setupRolling() {
     view.setRollCallback(() -> {
       engine.playOneRound();
@@ -66,6 +91,9 @@ public class BestieBattlesController implements BoardGameObserver {
     });
   }
 
+  /**
+   * Updates the position of all player icons based on their current tiles.
+   */
   private void updatePlayerPositions() {
     for (Player player : engine.getPlayers()) {
       Tile tile = player.getCurrentTile();
@@ -76,6 +104,11 @@ public class BestieBattlesController implements BoardGameObserver {
     }
   }
 
+  /**
+   * Displays a dialog showing the winner of the game and their score.
+   *
+   * @param winner the winning player
+   */
   private void showWinnerAlert(Player winner) {
     if (winner == null) return;
 
@@ -87,6 +120,12 @@ public class BestieBattlesController implements BoardGameObserver {
     alert.showAndWait();
   }
 
+  /**
+   * Reacts to game events by updating the GUI accordingly.
+   *
+   * @param game the game that triggered the event
+   * @param event the event that occurred
+   */
   @Override
   public void onGameStateChange(BoardGame game, BoardGameEvent event) {
     javafx.application.Platform.runLater(() -> {
@@ -100,6 +139,4 @@ public class BestieBattlesController implements BoardGameObserver {
       }
     });
   }
-
-
 }

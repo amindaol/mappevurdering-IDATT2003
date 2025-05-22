@@ -6,6 +6,10 @@ import edu.ntnu.idi.idatt.model.game.*;
 /**
  * GameConfiguration is a configuration class that holds the game mode, board game, and game engine.
  * It is used to initialize the game with the specified settings.
+ *
+ *  @author Aminda Lunde
+ *  @author Ingrid Opheim
+ *  @version 1.0
  */
 public class GameConfiguration {
 

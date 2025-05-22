@@ -11,6 +11,10 @@ import java.util.List;
 
 /**
  * Abstract base class for running game logic in different game modes.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public abstract class GameEngine {
 

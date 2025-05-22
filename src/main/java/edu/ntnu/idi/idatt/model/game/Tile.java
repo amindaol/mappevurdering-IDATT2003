@@ -6,6 +6,10 @@ import java.util.Optional;
 /**
  * Represents a single tile on the game board. A tile can link to a next tile and optionally have a
  * special action that is triggered when a player lands on it.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class Tile {
 

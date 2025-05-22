@@ -9,8 +9,22 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 
+/**
+ * A visual component representing a single die.
+ * Uses a 3x3 {@link GridPane} layout to position dots based on the value.
+ * Dots are drawn as styled {@link Circle} nodes.
+ *
+ * Used in {@link DieContainer} to show one or more dice in the GUI.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
+ */
 public class DieComponent extends GridPane {
 
+  /**
+   * Constructs a new DieComponent with default layout and initial value 4.
+   */
   public DieComponent() {
     this.setPrefSize(60, 60);
     this.getStyleClass().add("die");
@@ -21,10 +35,18 @@ public class DieComponent extends GridPane {
     this.drawDots(4);
   }
 
+  /**
+   * Sets the number of dots shown on the die.
+   *
+   * @param count the value of the die (1–6)
+   */
   public void setDots(int count) {
     this.drawDots(count);
   }
 
+  /**
+   * Initializes the 3x3 grid layout for placing die dots.
+   */
   private void setupGrid() {
     for (int row = 0; row < 3; row++) {
       RowConstraints rowConstraints = new RowConstraints();
@@ -39,7 +61,11 @@ public class DieComponent extends GridPane {
     }
   }
 
-
+  /**
+   * Draws the appropriate number of dots based on the die value.
+   *
+   * @param count the number of dots to draw
+   */
   private void drawDots(int count) {
     getChildren().clear();
     List<Point2D> dotPositions = getDotPositions(count);
@@ -52,7 +78,13 @@ public class DieComponent extends GridPane {
     }
   }
 
-
+  /**
+   * Returns the list of grid positions for the given die value.
+   *
+   * @param count number of dots (1–6)
+   * @return list of {@link Point2D} positions
+   * @throws IllegalArgumentException if count is not between 1 and 6
+   */
   private List<Point2D> getDotPositions(int count) {
     return switch (count) {
       case 1 -> List.of(center());

@@ -8,11 +8,24 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * The home screen view for the application.
+ * Displays the game title and buttons to start either Love & Ladders or Bestie Battles.
+ *
+ * Used as the entry point of the game UI.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
+ */
 public class HomeView extends StackPane {
 
   private final Button loveAndLaddersButton;
   private final Button bestieBattlesButton;
 
+  /**
+   * Constructs the HomeView with title and two game mode buttons.
+   */
   public HomeView() {
     StackPane root = new StackPane();
     root.getStyleClass().add("home-root");
@@ -37,10 +50,20 @@ public class HomeView extends StackPane {
 
   }
 
+  /**
+   * Sets the callback to run when the Love & Ladders button is clicked.
+   *
+   * @param runnable the action to run
+   */
   public void setOnClickLoveAndLaddersButton(Runnable runnable) {
     loveAndLaddersButton.setOnAction(e -> runnable.run());
   }
 
+  /**
+   * Sets the callback to run when the Bestie Battles button is clicked.
+   *
+   * @param runnable the action to run
+   */
   public void setOnClickBestieBattlesButton(Runnable runnable) {
     bestieBattlesButton.setOnAction(e -> runnable.run());
   }

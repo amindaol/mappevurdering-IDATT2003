@@ -10,6 +10,10 @@ import java.util.Map;
  * Represents the game board consisting of tiles. Each tile is identified by a unique integer ID and
  * stored in a map for easy access. This class provides methods to add tiles and retrieve them by
  * their ID.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class Board {
 
@@ -126,14 +130,30 @@ public class Board {
         .toList();
   }
 
+  /**
+   * Returns the list of ladders on the board.
+   *
+   * @return list of ladders
+   */
   public List<Ladder> getLadders() {
     return ladders;
   }
 
+  /**
+   * Sets the list of ladders on the board.
+   *
+   * @param ladders list of ladders to set
+   */
   public void setLadders(List<Ladder> ladders) {
     this.ladders = ladders;
   }
 
+  /**
+   * Returns the ladder that starts on the given tile, if any.
+   *
+   * @param tileId the ID of the tile to check
+   * @return the ladder starting from the tile, or null if none
+   */
   public Ladder getLadderFromTile(int tileId) {
     for (Ladder ladder : ladders) {
       if (ladder.getFromTileId() == tileId) {
@@ -143,19 +163,38 @@ public class Board {
     return null;
   }
 
+  /**
+   * Returns the list of snakes on the board.
+   *
+   * @return list of snakes
+   */
   public List<Ladder> getSnakes() {
     return snakes;
   }
 
-
+  /**
+   * Returns the number of rows in the board.
+   *
+   * @return row count
+   */
   public int getRows() {
     return rows;
   }
 
+  /**
+   * Returns the number of columns in the board.
+   *
+   * @return column count
+   */
   public int getCols() {
     return cols;
   }
 
+  /**
+   * Sets the list of snakes on the board.
+   *
+   * @param snakes list of snakes to set
+   */
   public void setSnakes(List<Ladder> snakes) {
     this.snakes = snakes;
   }

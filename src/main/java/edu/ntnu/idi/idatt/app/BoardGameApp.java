@@ -12,6 +12,10 @@ import java.util.Scanner;
 
 /**
  * Terminal based application for playing board game Used for checking game logic and testing
+ *
+ *  @author Aminda Lunde
+ *  @author Ingrid Opheim
+ *  @version 1.0
  */
 public class BoardGameApp {
 
