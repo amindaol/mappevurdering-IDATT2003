@@ -2,10 +2,12 @@ package edu.ntnu.idi.idatt.ui.view.layouts;
 
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Ladder;
+import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.ui.view.components.DieContainer;
 import edu.ntnu.idi.idatt.ui.view.components.LaddersBoard;
 import edu.ntnu.idi.idatt.ui.view.components.PlayerIcon;
+import edu.ntnu.idi.idatt.ui.view.components.PlayerList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +31,8 @@ public class BoardView extends BorderPane {
   private final DieContainer dieContainer;
   private final Button rollDiceButton = new Button("Roll Dice");
   private final Map<String, PlayerIcon> playerIcons = new HashMap<>();
-  ;
+  private final VBox playerListContainer = new VBox();
+  private PlayerList playerList;
   private Runnable onRoll;
   private Consumer<int[]> onDiceRolled;
 
@@ -54,8 +57,9 @@ public class BoardView extends BorderPane {
 
     ladderLine.setStyle("-fx-stroke: green; -fx-stroke-width: 4;");
 
+    playerListContainer.setAlignment(Pos.CENTER);
 
-    VBox diceBox = new VBox(dieContainer, rollDiceButton);
+    VBox diceBox = new VBox(playerListContainer, dieContainer, rollDiceButton);
     diceBox.setAlignment(Pos.CENTER);
     diceBox.setSpacing(10);
 
@@ -115,7 +119,9 @@ public class BoardView extends BorderPane {
 
   public void showDiceRoll(List<Integer> values) {
     List<Integer> dots = new ArrayList<>();
-    for (int v : values) dots.add(v);
+    for (int v : values) {
+      dots.add(v);
+    }
     dieContainer.setDotsAllDice(dots);
   }
 
@@ -126,7 +132,18 @@ public class BoardView extends BorderPane {
       board.getTile(tile.getTileId());
     }
 
-      board.drawLadders(boardModel.getLadders());
-      board.drawSnakes(boardModel.getSnakes());
+    board.drawLadders(boardModel.getLadders());
+    board.drawSnakes(boardModel.getSnakes());
+  }
+
+  public void initializePlayerList(List<Player> players) {
+    playerList = new PlayerList(players);
+    playerListContainer.getChildren().setAll(playerList);
+  }
+
+  public void updateCurrentPlayerList(Player player) {
+    if (playerList != null) {
+      playerList.highlightPlayer(player);
+    }
   }
 }

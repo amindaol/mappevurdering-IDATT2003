@@ -110,7 +110,6 @@ public class Main extends Application {
                 () -> AlertUtil.showHelpDialog())
         ));
 
-
     // Play Love & Ladders from JSON+CSV
     Router.registerRoute(
         new Route("lalPage",
@@ -148,6 +147,7 @@ public class Main extends Application {
                 BoardView view = new BoardView(board.getRows(), board.getCols(),
                     dice.getDiceAmount());
                 view.drawBoard(board);
+                view.initializePlayerList(players);
                 GameController gc = new GameController(engine);
                 new BoardController(gc, view);
                 engine.startGame();

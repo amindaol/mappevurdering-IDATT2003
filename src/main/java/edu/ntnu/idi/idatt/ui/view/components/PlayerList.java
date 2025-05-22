@@ -32,11 +32,11 @@ public class PlayerList extends VBox {
       PlayerIcon playerIcon = new PlayerIcon(player.getName(), icon);
 
       Label playerNameLabel = new Label(player.getName());
+      playerNameLabel.getStyleClass().add("playerlist-name-label");
 
       HBox playerBox = new HBox(10, playerIcon, playerNameLabel);
       playerBox.setAlignment(Pos.CENTER_LEFT);
       playerBox.setPadding(new Insets(5));
-      playerBox.getStyleClass().add("playerlist-player-box");
 
       playerBoxMap.put(player, playerBox);
       getChildren().add(playerBox);
