@@ -14,12 +14,6 @@ The main goal was to build a fully playable version of *Snakes and Ladders* (sti
 
 All logic is unit-tested and structured for clarity and maintainability.
 
-
-## Project structure
-
-<pre> ``` src/ └── main/ └── java/ └── edu/ └── ntnu/ └── idi/ └── idatt/ ├── app/ ├── config/ ├── controller/ ├── factory/ ├── io/ │ ├── reader/ │ └── writer/ ├── model/ │ ├── action/ │ ├── core/ │ ├── engine/ │ └── game/ ├── observer/ ├── util/ │ └── exceptionHandling/ ├── view/ │ ├── components/ │ ├── layouts/ │ └── route/ └── Main.java ``` </pre>
-
-
 ## Link to repository
 
 The GitHub repository for this project can be found at the following link: https://github.com/amindaol/mappevurdering-IDATT2003
