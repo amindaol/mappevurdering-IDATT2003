@@ -16,4 +16,32 @@ public class GameAlreadyFinishedException extends IllegalStateException {
     super("Cannot play turn: the game has already finished. ");
   }
 
+
+  /**
+   * Constructs a new GameAlreadyFinishedException with a custom message.
+   *
+   * @param message the custom message
+   */
+  public GameAlreadyFinishedException(String message) {
+    super(message);
+  }
+
+  /**
+   * Constructs a new GameAlreadyFinishedException with a message and cause.
+   *
+   * @param message the custom message
+   * @param cause the underlying cause
+   */
+  public GameAlreadyFinishedException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
+  /**
+   * Constructs a new GameAlreadyFinishedException with a cause.
+   *
+   * @param cause the underlying cause
+   */
+  public GameAlreadyFinishedException(Throwable cause) {
+    super(cause);
+  }
 }

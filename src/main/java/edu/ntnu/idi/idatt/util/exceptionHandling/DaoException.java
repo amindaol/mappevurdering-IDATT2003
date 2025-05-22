@@ -9,6 +9,13 @@ package edu.ntnu.idi.idatt.util.exceptionHandling;
  */
 public class DaoException extends RuntimeException {
 
+  public DaoException() {
+    super();
+  }
+
+  public DaoException(String message) {
+    super(message);
+  }
   /**
    * Constructs a new DaoException with the specified detail message and cause.
    *
@@ -17,5 +24,9 @@ public class DaoException extends RuntimeException {
    */
   public DaoException(String message, Throwable cause) {
     super(message, cause);
+  }
+
+  public DaoException(Throwable cause) {
+    super(cause);
   }
 }

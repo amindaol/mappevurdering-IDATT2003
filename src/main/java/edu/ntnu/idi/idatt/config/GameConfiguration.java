@@ -26,7 +26,7 @@ public class GameConfiguration {
    * @throws IllegalArgumentException if any of the parameters are null
    */
   public GameConfiguration(GameMode gameMode, BoardGame boardGame, GameEngine gameEngine) {
-    if (gameMode == null || boardGame == null || gameEngine == null) {
+    if (gameMode == null || boardGame == null) {
       throw new IllegalArgumentException("GameConfiguration cannot have null fields.");
     }
     this.gameMode = gameMode;
@@ -57,7 +57,7 @@ public class GameConfiguration {
    *
    * @return the game engine
    */
-  public GameEngine getGameEngine() {
+  public GameEngine getEngine() {
     return gameEngine;
   }
 }

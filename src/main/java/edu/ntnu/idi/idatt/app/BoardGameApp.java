@@ -82,7 +82,7 @@ public class BoardGameApp {
     GameSetup setup = new GameSetup(selectedGame, board, players);
     GameConfiguration config = setup.build();
 
-    GameEngine engine = config.getGameEngine();
+    GameEngine engine = config.getEngine();
 
     System.out.println("\n🚀 Starting game...\n");
 
