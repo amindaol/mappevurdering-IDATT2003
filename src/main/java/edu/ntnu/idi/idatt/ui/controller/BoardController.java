@@ -39,7 +39,18 @@ public class BoardController implements BoardGameObserver {
     boardView.setRollCallback(() -> {
       controller.playTurn();
       List<Integer> rollResults = controller.getLastRoll();
+
+      Player current = controller.getCurrentPlayer();
+      Tile landed = current.getCurrentTile();
+      System.out.println("DEBUG: "
+          + current.getName()
+          + " rolled "
+          + rollResults
+          + " landed on "
+          + (landed != null ? landed.getTileId() : "null"));
+
       boardView.showDiceRoll(rollResults);
+      updatePlayerPositions();
 
       if (controller.isGameOver()) {
         Player winner = controller.getWinner();
@@ -47,6 +58,7 @@ public class BoardController implements BoardGameObserver {
       }
     });
   }
+
   private void initializePlayers() {
     for (Player player : engine.getPlayers()) {
       String iconPath = "/icons/players/" + player.getToken().getIconFileName();
@@ -76,7 +88,8 @@ public class BoardController implements BoardGameObserver {
         case GAME_START -> initializePlayers();
         case PLAYER_MOVED -> updatePlayerPositions();
         case GAME_WON -> showWinnerAlert(engine.checkWinCondition());
-        default -> {}
+        default -> {
+        }
       }
     });
   }
@@ -92,10 +105,12 @@ public class BoardController implements BoardGameObserver {
   }
 
   private void showWinnerAlert(Player winner) {
-    if (winner == null) return;
+    if (winner == null) {
+      return;
+    }
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Game Over");
     alert.setContentText(winner.getName() + " wins the game! 🎉");
     alert.showAndWait();
-    }
+  }
 }

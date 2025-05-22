@@ -112,6 +112,14 @@ public class BoardFileReaderGson implements BoardFileReader {
     }
 
     board.setStartTile(tileMap.get(1));
+
+    List<Tile> ordered = board.getTilesOrdered();
+    for (int i = 0; i < ordered.size() - 1; i++) {
+      Tile here = ordered.get(i);
+      Tile next = ordered.get(i + 1);
+      here.setNextTile(next);
+    }
+
     return board;
   }
 }
