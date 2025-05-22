@@ -71,15 +71,15 @@ Or via your IDE’s built-in test runner under src/test/java.
 
 ## References
 
-1.	 GeeksforGeeks. (2023, Oktober 31). Single Responsibility in SOLID Design Principle. Hentet 04.05.25, fra https://www.geeksforgeeks.org/single-responsibility-in-solid-design-principle/
-2.	GeeksforGeeks. (2023, Mars 15). Single Responsibility Principle in Java with Examples. Hentet 04.05.25, fra https://www.geeksforgeeks.org/single-responsibility-principle-in-java-with-examples/
-3.	  GeeksforGeeks. (2025, April 24). Software Engineering - Coupling and Cohesion. Hentet 04.05.25, fra https://www.geeksforgeeks.org/software-engineering-coupling-and-cohesion/
-4.	Baeldung. (2025, Mars 26). Cohesion vs Coupling in Software Design. Hentet 04.05.25, fra https://www.baeldung.com/cs/cohesion-vs-coupling
-5.	Refactoring.Guru. (n.d.). Factory Method Design Pattern. Hentet 04.05.25 fra https://refactoring.guru/design-patterns/factory-method
-6.	Refactoring.Guru. (n.d.). Observer Design Pattern. Hentet 04.05.25, fra https://refactoring.guru/design-patterns/observer
-7.	W3Schools. (n.d.). Java Inheritance. Hentet 04.05.25, fra https://www.w3schools.com/java/java_inheritance.asp
-8.	W3Schools. (n.d.). Java Polymorphism. Hentet 04.05.25, fra https://www.w3schools.com/java/java_polymorphism.asp
-9.	Medium / Backticks & Tildes. (2020, Mai 18). The S.O.L.I.D. Principles in Pictures. Hentet 21.05.25, fra https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898
-10.	Visual Paradigm. (n.d.). What is Model View Controller (MVC)?. Hentet 21.05.25, fra https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-model-view-control-mvc/
-11.	Nalexn. (n.d.). Separation of Concerns. Hentet 21.05.25, fra https://nalexn.github.io/separation-of-concerns/
-12.	Chee, H.C. (n.d.). Inheritance and Polymorphism in Java. Nanyang Technological University. Hentet 21.05.25, fra https://www3.ntu.edu.sg/home/ehchua/programming/java/J3b_OOPInheritancePolymorphism.html#zz-4
+1.	GeeksforGeeks. (2023, 31. oktober). Single Responsibility in SOLID Design Principle. Hentet 04.05.25 fra https://www.geeksforgeeks.org/single-responsibility-in-solid-design-principle/
+2.	GeeksforGeeks. (2023, 15. mars). Single Responsibility Principle in Java with Examples. Hentet 04.05.25 fra https://www.geeksforgeeks.org/single-responsibility-principle-in-java-with-examples/
+3.	GeeksforGeeks. (2025, 24. april). Software Engineering – Coupling and Cohesion. Hentet 04.05.25 fra https://www.geeksforgeeks.org/software-engineering-coupling-and-cohesion/
+4.	Baeldung. (2025, 26. mars). Cohesion vs Coupling in Software Design. Hentet 04.05.25 fra https://www.baeldung.com/cs/cohesion-vs-coupling
+5.	Refactoring.Guru. (n.d.-a). Factory Method Design Pattern. Hentet 04.05.25 fra https://refactoring.guru/design-patterns/factory-method
+6.	Refactoring.Guru. (n.d.-b). Observer Design Pattern. Hentet 04.05.25 fra https://refactoring.guru/design-patterns/observer
+7.	W3Schools. (n.d.-a). Java Inheritance. Hentet 04.05.25 fra https://www.w3schools.com/java/java_inheritance.asp
+8.	W3Schools. (n.d.-b). Java Polymorphism. Hentet 04.05.25 fra https://www.w3schools.com/java/java_polymorphism.asp
+9.	Medium / Backticks & Tildes. (2020, 18. mai). The S.O.L.I.D. Principles in Pictures. Hentet 21.05.25 fra https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898
+10.	Visual Paradigm. (n.d.). What is Model View Controller (MVC)?. Hentet 21.05.25 fra https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-model-view-control-mvc/
+11.	Nalexn. (n.d.). Separation of Concerns. Hentet 21.05.25 fra https://nalexn.github.io/separation-of-concerns/
+12.	Chee, H.C. (n.d.). Inheritance and Polymorphism in Java. Nanyang Technological University. Hentet 21.05.25 fra https://www3.ntu.edu.sg/home/ehchua/programming/java/J3b_OOPInheritancePolymorphism.html
