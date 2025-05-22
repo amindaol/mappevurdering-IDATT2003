@@ -116,6 +116,7 @@ public class SettingsContent {
         int selectedPlayers = (int) playerButton.getUserData();
         PlayerSettingsContainer newplayerSettingsContainer =
             new PlayerSettingsContainer(selectedPlayers);
+        playerSettingsContainer = newplayerSettingsContainer;
         playerSettings.setBottom(newplayerSettingsContainer.getAsNode());
 
       });
