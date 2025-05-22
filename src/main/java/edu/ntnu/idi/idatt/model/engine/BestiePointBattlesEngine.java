@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.model.engine;
 
-import edu.ntnu.idi.idatt.core.LinearMovement;
-import edu.ntnu.idi.idatt.core.Movement;
+import edu.ntnu.idi.idatt.model.core.LinearMovement;
+import edu.ntnu.idi.idatt.model.core.Movement;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Player;
