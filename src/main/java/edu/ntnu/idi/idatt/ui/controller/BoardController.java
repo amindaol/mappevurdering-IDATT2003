@@ -25,6 +25,7 @@ public class BoardController implements BoardGameObserver {
   private final BoardView boardView;
   private final Map<Player, PlayerIcon> playerIcons = new HashMap<>();
   private final Logger logger = Logger.getLogger(BoardController.class.getName());
+  private boolean winnerShown = false;
 
   public BoardController(GameController controller, BoardView boardView) {
     this.engine = controller.getEngine();
@@ -54,11 +55,6 @@ public class BoardController implements BoardGameObserver {
       updatePlayerPositions();
 
       boardView.updateCurrentPlayerList(engine.getCurrentPlayer());
-
-      if (controller.isGameOver()) {
-        Player winner = controller.getWinner();
-        showWinnerAlert(winner);
-      }
     });
   }
 
@@ -89,12 +85,14 @@ public class BoardController implements BoardGameObserver {
     Platform.runLater(() -> {
       switch (event) {
         case GAME_START -> {
+          winnerShown = false;
           initializePlayers();
           boardView.updateCurrentPlayerList(engine.getCurrentPlayer());
         }
         case PLAYER_MOVED -> updatePlayerPositions();
         case GAME_WON -> showWinnerAlert(engine.checkWinCondition());
         default -> {
+          // Handle other events if necessary
         }
       }
     });
@@ -111,9 +109,10 @@ public class BoardController implements BoardGameObserver {
   }
 
   private void showWinnerAlert(Player winner) {
-    if (winner == null) {
+    if (winnerShown || winner == null) {
       return;
     }
+    winnerShown = true;
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Game Over");
     alert.setContentText(winner.getName() + " wins the game! 🎉");
