@@ -30,6 +30,7 @@ public class SettingsView extends BorderPane {
     bottomBar.setAlignment(Pos.CENTER_LEFT);
     bottomBar.setPadding(new Insets(20));
 
+
     VBox scrollContent = new VBox(30, content, bottomBar);
     scrollContent.setPadding(new Insets(20));
     scrollContent.setFillWidth(true);

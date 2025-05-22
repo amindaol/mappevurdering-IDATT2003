@@ -1,22 +1,31 @@
 /* styles.css */
 
 /* background */
-.home-root {
-  -fx-background-color: #FFF5FA;
-}
-
 .root {
-  -fx-background-color: #FFF0F5;
+  -fx-background-color: #f5afd1;
 }
 
-.settings-root, .board-root , .home-root{
-  -fx-background-color: #FFF5FA;
+.settings-root, .board-root, .home-root{
+  -fx-background-color: #fff5fa;
+
 }
 
-
-.scroll-pane {
+.scroll-pane,
+.scroll-pane > .viewport {
   -fx-background-color: transparent;
 }
+
+.board-background {
+  -fx-background-image: url("/heartBackground.png");
+  -fx-background-size: cover;
+  -fx-background-position: center center;
+  -fx-background-repeat: no-repeat;
+}
+
+.settings-bottom {
+  -fx-background-color: #fff5fa;
+}
+
 
 .title-label {
   -fx-font-size: 28px;
@@ -28,10 +37,6 @@
   -fx-background-color: transparent;
   -fx-padding: 4;
   -fx-cursor: hand;
-}
-
-.board-root {
-  -fx-background-color: #fde8f0;
 }
 
 .icon-button {
@@ -65,7 +70,7 @@
 }
 
 .icon-button {
-  -fx-background-color: #C04578; /* darker, more pink */
+  -fx-background-color: #C04578;
   -fx-background-radius: 6;
   -fx-cursor: hand;
   -fx-pref-width: 28;
@@ -75,13 +80,6 @@
 
 .icon-button:hover {
   -fx-background-color: #A33865;
-}
-
-.settings-root {
-  -fx-padding: 12;
-  -fx-background-color: #FFF5FA;
-  -fx-border-width: 8;
-  -fx-border-radius: 8;
 }
 
 .settings-content-label {

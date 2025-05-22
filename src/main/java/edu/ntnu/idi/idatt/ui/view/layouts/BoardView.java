@@ -60,6 +60,7 @@ public class BoardView extends BorderPane {
     diceBox.setSpacing(10);
 
     HBox contentBox = new HBox(board.getBoardWithOverlay(), diceBox);
+    contentBox.getStyleClass().add("board-background");
     contentBox.setSpacing(20);
     contentBox.setAlignment(Pos.CENTER);
 
@@ -67,7 +68,7 @@ public class BoardView extends BorderPane {
     scrollPane.setFitToWidth(true);
     scrollPane.setFitToHeight(true);
     scrollPane.setPannable(true);
-    scrollPane.getStyleClass().add("board-root");
+    scrollPane.getStyleClass().add("board-background");
 
     this.setCenter(scrollPane);
 
