@@ -19,6 +19,7 @@ public class Board {
   private Tile startTile;
   private Tile endTile;
   private List<Ladder> ladders = new ArrayList<>();
+  private List<Ladder> snakes = new ArrayList<>();
 
 
   /**
@@ -142,6 +143,11 @@ public class Board {
     return null;
   }
 
+  public List<Ladder> getSnakes() {
+    return snakes;
+  }
+
+
   public int getRows() {
     return rows;
   }
@@ -150,4 +156,7 @@ public class Board {
     return cols;
   }
 
+  public void setSnakes(List<Ladder> snakes) {
+    this.snakes = snakes;
+  }
 }
