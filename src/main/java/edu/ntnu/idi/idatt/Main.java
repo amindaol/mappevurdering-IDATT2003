@@ -48,15 +48,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Main class for launching the Slayboard JavaFX application.
- * Sets up the UI, registers routes, and handles game initialization.
- *
+ * Main class for launching the Slayboard JavaFX application. Sets up the UI, registers routes, and
+ * handles game initialization.
+ * <p>
  * Supports two game modes:
  * <ul>
  *   <li>Love & Ladders</li>
  *   <li>Bestie Point Battles</li>
  * </ul>
- *
+ * <p>
  * Uses {@link Router} for navigation and {@link AppState} for shared data.
  *
  * @author Aminda Lunde
@@ -190,7 +190,7 @@ public class Main extends Application {
         new Route("bbPage",
             () -> {
               try {
-                String boardFile = AppState.getSelectedBoardFile(); // f.eks. "bestie_point_battles.json"
+                String boardFile = AppState.getSelectedBoardFile();
                 URL boardRes = Main.class.getResource("/boards/" + boardFile);
                 if (boardRes == null) {
                   throw new IllegalArgumentException("Missing board file: " + boardFile);
@@ -201,24 +201,26 @@ public class Main extends Application {
                   Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
                   root = JsonParser.parseReader(reader).getAsJsonObject();
                 }
-
                 Board board = new BoardFileReaderGson().parseBoard(root);
+
                 List<Player> players = AppState.getSelectedPlayers();
-                if (players == null || players.isEmpty())
+                if (players == null || players.isEmpty()) {
                   throw new IllegalStateException("No players configured");
+                }
 
                 Dice dice = new Dice(2);
                 BoardGame game = new BoardGame(board, dice);
                 players.forEach(game::addPlayer);
 
-                GameEngine engine = new BestiePointBattlesEngine(game, game.getDice());
+                GameEngine engine = new BestiePointBattlesEngine(game, dice);
                 BestieBattlesView view = new BestieBattlesView(game);
-                new BestieBattlesController((BestiePointBattlesEngine) engine, view);
+                //new BestieBattlesController((BestiePointBattlesEngine) engine, view);
                 engine.startGame();
 
-                return view;
+                return view.getRoot();
+
               } catch (Exception e) {
-                logger.log(Level.SEVERE, "Failed to load Bestie files", e);
+                logger.log(Level.SEVERE, "Failed to start Bestie Point Battles", e);
                 AlertUtil.showError("Load Error",
                     "Could not start Bestie Point Battles:\n" + e.getMessage());
                 return new HomeController().getView();
@@ -226,7 +228,7 @@ public class Main extends Application {
             },
             () -> new NavBar("Bestie Point Battles",
                 () -> Router.navigateTo("home"),
-                () -> AlertUtil.showGameHelp("BestiePointBattles"))
+                () -> AlertUtil.showGameHelp("PointBattles"))
         ));
 
     // Kick things off
@@ -236,8 +238,8 @@ public class Main extends Application {
   }
 
   /**
-   * Validates player setup and creates {@link Player}-objects.
-   * Can load from CSV or manual input. Fills {@link AppState} with the result.
+   * Validates player setup and creates {@link Player}-objects. Can load from CSV or manual input.
+   * Fills {@link AppState} with the result.
    *
    * @param content SettingsContent containing user input
    * @return true if all input is valid and players created
