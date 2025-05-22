@@ -18,7 +18,7 @@ public class DieComponent extends GridPane {
     this.setVgap(5);
     this.setAlignment(Pos.CENTER);
     this.setupGrid();
-    this.drawDots(4);
+    this.drawDots(1);
   }
 
   public void setDots(int count) {

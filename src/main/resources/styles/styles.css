@@ -263,3 +263,7 @@
 .text-field .prompt-text {
   -fx-fill: #b72b6b;
 }
+
+.playerlist-player-box {
+  -fx-font-fill: #b72b6b;
+}
