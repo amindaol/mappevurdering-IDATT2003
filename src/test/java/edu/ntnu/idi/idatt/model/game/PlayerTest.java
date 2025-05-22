@@ -1,70 +1,84 @@
 package edu.ntnu.idi.idatt.model.game;
 
-import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
-import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
-import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
 
   private Player player;
-  private BoardGame boardGame;
-  private Tile startTile;
+  private final Token token = new Token("heart", "heart.png");
+  private final LocalDate birthday = LocalDate.of(2000, 1, 1);
 
   @BeforeEach
   void setUp() {
-    boardGame = new BoardGame(board, dice);
-    boardGame.createBoard();
-    player = new Player("Test Player", boardGame, LocalDate.of(2000, 1, 1));
-    startTile = boardGame.getBoard().getTile(1);
+    player = new Player("Aminda", token, birthday);
   }
 
   @Test
-  void constructor_setsName() {
-    assertEquals("Test Player", player.getName());
+  void testConstructorStoresValues() {
+    assertEquals("Aminda", player.getName());
+    assertEquals(token, player.getToken());
+    assertEquals(birthday, player.getBirthday());
+    assertEquals(0, player.getPoints());
+    assertFalse(player.isSkipNextTurn());
+    assertNull(player.getCurrentTile());
   }
 
   @Test
-  void testPlaceOnTile() {
-    player.placeOnTile(startTile);
-    assertEquals(startTile, player.getCurrentTile());
+  void testAddPointsAddsCorrectly() {
+    player.addPoints(10);
+    player.addPoints(-4);
+    assertEquals(6, player.getPoints());
   }
 
   @Test
-  void movesCorrectNumberOfSteps() {
-    player.placeOnTile(startTile);
-    startTile.setNextTile(new Tile(2));
-    player.move(1);
-    assertEquals(2, player.getCurrentTile().getTileId());
+  void testSkipNextTurnFlag() {
+    assertFalse(player.isSkipNextTurn());
+    player.setSkipNextTurn(true);
+    assertTrue(player.isSkipNextTurn());
   }
 
   @Test
-  void move_withoutTile_throwsException() {
-    assertThrows(IllegalStateException.class, () -> player.move(1));
+  void testPlaceOnTileSetsTile() {
+    Tile tile = new Tile(5, 0, 0);
+    player.placeOnTile(tile);
+    assertEquals(tile, player.getCurrentTile());
   }
 
   @Test
-  void getBoardGame_returnsCorrectBoardGame() {
-    assertEquals(boardGame, player.getBoardGame());
-  }
-
-
-  @Test
-  void placeOnTileNullThrowsNPE() {
+  void testPlaceOnTileThrowsIfNull() {
     assertThrows(NullPointerException.class, () -> player.placeOnTile(null));
   }
 
   @Test
-  void moveBeforePlacementThrowsGameNotInitialized() {
-    assertThrows(GameNotInitializedException.class, () -> player.move(3));
+  void testSetTokenUpdatesToken() {
+    Token newToken = new Token("moon", "moon.png");
+    player.setToken(newToken);
+    assertEquals("moon.png", player.getToken().getIconFileName());
   }
 
   @Test
-  void moveNegativeStepsThrowsInvalidMove() {
-    player.placeOnTile(new Tile(1));
-    assertThrows(InvalidMoveException.class, () -> player.move(-5));
+  void testSetTokenThrowsIfNull() {
+    assertThrows(NullPointerException.class, () -> player.setToken(null));
+  }
+
+  @Test
+  void testSetCurrentTileDirectly() {
+    Tile tile = new Tile(7, 1, 1);
+    player.setCurrentTile(tile);
+    assertEquals(tile, player.getCurrentTile());
+  }
+
+  @Test
+  void testToStringContainsNameAndTileInfo() {
+    Tile tile = new Tile(3, 0, 1);
+    player.placeOnTile(tile);
+    String output = player.toString();
+    assertTrue(output.contains("Aminda"));
+    assertTrue(output.contains("3"));
   }
 }
