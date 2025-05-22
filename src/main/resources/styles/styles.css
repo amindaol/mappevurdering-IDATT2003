@@ -5,7 +5,7 @@
   -fx-background-color: #f5afd1;
 }
 
-.settings-root, .board-root, .home-root{
+.settings-root, .board-root, .home-root {
   -fx-background-color: #fff5fa;
 
 }
@@ -85,12 +85,13 @@
 .settings-content-label {
   -fx-font-size: 20px;
   -fx-font-weight: bold;
-  -fx-text-fill:  #b0206b;
+  -fx-text-fill: #b0206b;
   -fx-border-style: hidden hidden solid hidden;
   -fx-border-width: 0 0 2 0;
   -fx-border-color: #C83775;
   -fx-padding: 0 0 8 0;
 }
+
 .settings-content-radio-button .radio {
   -fx-background-color: transparent;
   -fx-shape: "";
@@ -98,7 +99,7 @@
 }
 
 .settings-content-radio-button {
-  -fx-background-color:  #F48FB1;
+  -fx-background-color: #F48FB1;
   -fx-border-color: #AD1457;
   -fx-border-radius: 6;
   -fx-background-radius: 6;
@@ -108,6 +109,7 @@
   -fx-text-fill: #5E2743;
   -fx-cursor: hand;
 }
+
 .settings-content-radio-button:hover {
   -fx-background-color: #F06292;
 }
@@ -159,8 +161,8 @@
 }
 
 .player-settings-name-field {
-  -fx-background-color:  #F48FB1;
-  -fx-border-color:#AD1457;
+  -fx-background-color: #F48FB1;
+  -fx-border-color: #AD1457;
   -fx-border-radius: 4;
   -fx-padding: 4;
   -fx-cursor: text;
@@ -169,13 +171,13 @@
 
 .die {
   -fx-background-color: white;
-  -fx-border-color:#6A1B4D;
+  -fx-border-color: #6A1B4D;
   -fx-border-radius: 4;
   -fx-padding: 4;
 }
 
 .die-dot {
-  -fx-background-color:  #6A1B4D;
+  -fx-background-color: #6A1B4D;
 }
 
 .player-settings-card {
@@ -186,7 +188,7 @@
   -fx-background-radius: 10;
   -fx-border-color: #e91e63;
   -fx-border-width: 1;
-  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 6, 0, 0, 1);
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 6, 0, 0, 1);
 }
 
 .player-settings-icon:hover {
@@ -198,11 +200,11 @@
 
 .settings-content {
   -fx-padding: 24;
-  -fx-background-color:#FFE3ED;
+  -fx-background-color: #FFE3ED;
   -fx-border-radius: 16;
   -fx-border-color: #D81B60;
   -fx-border-width: 2;
-  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 2);
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 8, 0, 0, 2);
 }
 
 
@@ -211,7 +213,7 @@
 }
 
 .radio-button:selected {
-  -fx-border-color:#C2185B;
+  -fx-border-color: #C2185B;
   -fx-border-width: 2;
   -fx-background-color: #F8BBD0;
 }
@@ -228,6 +230,31 @@
   -fx-border-width: 2;
   -fx-background-color: #F06292;
 }
+
+.settings-content-checkbox {
+  -fx-cursor: hand;
+  -fx-text-fill: #b72b6b;
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+  -accent-color: #D81B60;
+}
+
+.settings-content-checkbox .box {
+  -fx-background-color: #F48FB1;
+  -fx-border-color: #AD1457;
+  -fx-border-radius: 4;
+  -fx-border-width: 2;
+  -fx-padding: 4;
+}
+
+.settings-content-checkbox:selected .box {
+  -fx-background-color: #C2185B;
+}
+
+.settings-content-checkbox .box:hover {
+  -fx-background-color: #D81B60;
+}
+
 
 .text-field .text {
   -fx-fill: #b72b6b;

@@ -86,6 +86,7 @@ public class SettingsContent {
     playersButtons.setPadding(new Insets(8, 0, 12, 0));
 
     CheckBox csvCheck = new CheckBox("Load players from file");
+    csvCheck.getStyleClass().add("settings-content-checkbox");
     csvCheck.setOnAction(e -> {
       boolean useCsv = csvCheck.isSelected();
       AppState.setLoadPlayersFromFile(useCsv);
@@ -95,7 +96,6 @@ public class SettingsContent {
     Label playersLabel = new Label("Number of players:");
     playersLabel.getStyleClass().add("settings-content-label");
 
-    HBox playersBtn = new HBox(12);
     playersLabel.setAlignment(Pos.CENTER);
 
     VBox playerSelectionBox = new VBox(8, playersLabel, playersButtons);
