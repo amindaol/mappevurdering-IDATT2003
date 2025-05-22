@@ -74,14 +74,6 @@ public class BoardView extends BorderPane {
     configureRollButton();
   }
 
-  private void showGameHelp() {
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("Game Help");
-    alert.setHeaderText("How to play");
-    alert.setContentText("Players take turns rolling dice to move. First to the goal wins!");
-    alert.showAndWait();
-  }
-
   public Parent getRoot() {
     return this;
   }
@@ -118,10 +110,6 @@ public class BoardView extends BorderPane {
 
   public void setRollCallback(Runnable onRoll) {
     this.onRoll = onRoll;
-  }
-
-  public void setDiceResultCallback(Consumer<int[]> onDiceRolled) {
-    this.onDiceRolled = onDiceRolled;
   }
 
   public void showDiceRoll(List<Integer> values) {

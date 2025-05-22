@@ -50,4 +50,50 @@ public class AlertUtil {
     alert.setContentText(msg);
     alert.showAndWait();
   }
+
+  public static void showGameHelp(String gameMode) {
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Help");
+
+    switch (gameMode) {
+      case "LoveAndLadders" -> {
+        alert.setHeaderText("Love & Ladders");
+        alert.setContentText("""
+            🎲 Roll the dice to move forward.
+            🪜 Landing on a ladder moves you up.
+            🐍 Landing on a snake sends you down.
+               First player to reach the final tile wins!
+        """);
+      }
+      case "PointBattles" -> {
+        alert.setHeaderText("Bestie PointBattles");
+        alert.setContentText("""
+            🏆 Collect as many points as you can before reaching the goal!
+            ✨ Some tiles give or take points.
+            🚫 Others skip your turn or send you backwards.
+               Highest score wins!
+        """);
+      }
+      default -> {
+        alert.setHeaderText("Game Help");
+        alert.setContentText("No specific instructions available for this game mode.");
+      }
+    }
+
+    alert.showAndWait();
+  }
+
+  public static void showHelpDialog() {
+    Alert a = new Alert(Alert.AlertType.INFORMATION);
+    a.setTitle("Help");
+    a.setHeaderText("How to set up the game");
+    a.setContentText("""
+        1. Choose a board.
+        2. Select number of players.
+        3. Fill in name and birthday for each.
+        4. Choose a unique token per player.
+        5. Click 'Start game'!
+        """);
+    a.showAndWait();
+  }
 }
