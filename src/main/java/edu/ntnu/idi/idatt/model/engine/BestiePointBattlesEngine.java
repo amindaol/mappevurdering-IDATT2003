@@ -2,17 +2,14 @@ package edu.ntnu.idi.idatt.model.engine;
 
 import edu.ntnu.idi.idatt.core.LinearMovement;
 import edu.ntnu.idi.idatt.core.Movement;
-import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
-import edu.ntnu.idi.idatt.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 
 import java.util.Comparator;
-import java.util.List;
 
 
 /**
@@ -61,7 +58,7 @@ public class BestiePointBattlesEngine extends GameEngine {
     notifyObservers(BoardGameEvent.GAME_START);
 
     while (!gameOver) {
-      handleTurn();
+      handleTurn(0);
     }
   }
 
@@ -69,7 +66,7 @@ public class BestiePointBattlesEngine extends GameEngine {
    * Handles the turn for the current player. This method rolls the dice, moves the player, checks
    * for win conditions, and notifies observers of the game state changes.
    */
-  public void handleTurn() {
+  public void handleTurn(int steps) {
     Player player = getCurrentPlayer();
 
     if (player.isSkipNextTurn()) {
@@ -78,13 +75,12 @@ public class BestiePointBattlesEngine extends GameEngine {
       return;
     }
 
-    int roll = dice.roll().stream().mapToInt(Integer::intValue).sum();
     notifyObservers(BoardGameEvent.DICE_ROLLED);
 
-    movement.move(player, roll);
+    movement.move(player, steps);
     notifyObservers(BoardGameEvent.PLAYER_MOVED);
 
-    if (player.getCurrentTile().equals(board.getLastTile())) {
+    if (checkWinCondition() != null) {
       notifyObservers(BoardGameEvent.GAME_ENDED);
       notifyObservers(BoardGameEvent.GAME_WON);
       endGame();

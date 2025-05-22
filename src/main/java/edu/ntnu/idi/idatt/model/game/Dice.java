@@ -19,18 +19,18 @@ public class Dice {
    * Constructs a {@code Dice} object with a specified number of dice. Each die is created and
    * stored in an internal array.
    *
-   * @param diceAmount The number of dice to create in this set.
-   * @throws IllegalArgumentException if {@code diceAmount} is less than or equal to zero.
+   * @param dieAmount The number of dice to create in this set.
+   * @throws IllegalArgumentException if {@code dieAmount} is less than or equal to zero.
    */
-  public Dice(int diceAmount) {
-    if (diceAmount <= 0) {
+  public Dice(int dieAmount) {
+    if (dieAmount <= 0) {
       throw new IllegalArgumentException("Number of dice must be positive.");
     }
 
-    this.diceAmount = diceAmount;
+    this.diceAmount = dieAmount;
 
-    dice = new Die[diceAmount];
-    for (int i = 0; i < diceAmount; i++) {
+    dice = new Die[dieAmount];
+    for (int i = 0; i < dieAmount; i++) {
       dice[i] = new Die();
     }
   }
@@ -47,6 +47,20 @@ public class Dice {
       results.add((int) (Math.random() * 6) + 1);
     }
     return results;
+  }
+
+  /**
+   * Returns the total value of the last roll of all dice. This method assumes that the dice have
+   * already been rolled.
+   *
+   * @return The total value of all dice rolls. 0 if the dice have not been rolled.
+   */
+  public int getRollValue() {
+    int total = 0;
+    for (int i = 0; i < diceAmount; i++) {
+      total += dice[i].getValue();
+    }
+    return total;
   }
 
   /**

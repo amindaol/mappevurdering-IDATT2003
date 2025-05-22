@@ -2,17 +2,13 @@ package edu.ntnu.idi.idatt.model.engine;
 
 import edu.ntnu.idi.idatt.core.LinearMovement;
 import edu.ntnu.idi.idatt.core.Movement;
-import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
-import edu.ntnu.idi.idatt.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
-
-import java.util.List;
 
 /**
  * Game engine for "Love and Ladders": - Game ends when a player reaches last tile - Winner is the
@@ -57,7 +53,7 @@ public class LoveAndLaddersEngine extends GameEngine {
     }
 
     while (!gameOver) {
-      handleTurn();
+      handleTurn(0);
     }
     notifyObservers(BoardGameEvent.GAME_WON);
   }
@@ -67,19 +63,19 @@ public class LoveAndLaddersEngine extends GameEngine {
    * for win conditions, and notifies observers of the game state changes.
    */
   @Override
-  public void handleTurn() {
+  public void handleTurn(int steps) {
     Player player = getCurrentPlayer();
-    int roll = dice.roll().stream().mapToInt(Integer::intValue).sum();
 
     if (player.isSkipNextTurn()) {
       player.setSkipNextTurn(false);
+      nextPlayer();
       nextPlayer();
       return;
     }
 
     notifyObservers(BoardGameEvent.DICE_ROLLED);
 
-    movement.move(player, roll);
+    movement.move(player, steps);
     notifyObservers(BoardGameEvent.PLAYER_MOVED);
 
     if (checkWinCondition() != null) {

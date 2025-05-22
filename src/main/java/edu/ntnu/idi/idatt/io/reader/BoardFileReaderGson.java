@@ -11,7 +11,7 @@ import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Ladder;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
-import java.io.*;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -19,19 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Gson-based implementation of {@link BoardFileReader} that reads a board configuration with rows,
- * cols, and specialTiles (ladders, snakes, etc.).
- */
 public class BoardFileReaderGson implements BoardFileReader {
 
-  /**
-   * Reads the board configuration from the given file path.
-   *
-   * @param path the path to the board configuration file
-   * @return a Board instance built from that file
-   * @throws DaoException on I/O or format error
-   */
   @Override
   public Board readBoard(Path path) throws DaoException {
     try {
@@ -43,12 +32,6 @@ public class BoardFileReaderGson implements BoardFileReader {
     }
   }
 
-  /**
-   * Parses the board configuration from a JSON object.
-   *
-   * @param root the JSON object containing the board configuration
-   * @return a Board instance built from the JSON object
-   */
   public Board parseBoard(JsonObject root) {
     int rows = root.get("rows").getAsInt();
     int cols = root.get("cols").getAsInt();
@@ -69,7 +52,6 @@ public class BoardFileReaderGson implements BoardFileReader {
 
     if (root.has("specialTiles")) {
       JsonArray specials = root.getAsJsonArray("specialTiles");
-
       List<Ladder> ladders = new ArrayList<>();
 
       for (JsonElement specialElem : specials) {
@@ -82,29 +64,31 @@ public class BoardFileReaderGson implements BoardFileReader {
 
         switch (type) {
           case "Ladder" -> {
-            int destId = action.get("destinationTileId").getAsInt();
-            Tile destination = tileMap.get(destId);
+            int dest = action.get("destinationTileId").getAsInt();
+            Tile destination = tileMap.get(dest);
             tile.setAction(new JumpToTileAction(destination));
-            ladders.add(new Ladder(id, destId));
+            ladders.add(new Ladder(id, dest));
           }
           case "Snake" -> {
-            int destId = action.get("destinationTileId").getAsInt();
-            Tile destination = tileMap.get(destId);
+            int dest = action.get("destinationTileId").getAsInt();
+            Tile destination = tileMap.get(dest);
             tile.setAction(new JumpToTileAction(destination));
           }
           case "AddPoints" -> {
-            int points = action.get("points").getAsInt();
-            tile.setAction(new ModifyPointsAction(points));
+            int pts = action.get("points").getAsInt();
+            tile.setAction(new ModifyPointsAction(pts));
           }
           case "RemovePoints" -> {
-            int points = action.get("points").getAsInt();
-            tile.setAction(new ModifyPointsAction(-points));
+            int pts = action.get("points").getAsInt();
+            tile.setAction(new ModifyPointsAction(-pts));
           }
           case "GoToStart" -> {
-            Tile destination = tileMap.get(1);
-            tile.setAction(new JumpToTileAction(destination));
+            Tile start = tileMap.get(1);
+            tile.setAction(new JumpToTileAction(start));
           }
-          case "SkipNextTurn" -> tile.setAction(new SkipNextTurnAction());
+          case "SkipNextTurn" -> {
+            tile.setAction(new SkipNextTurnAction());
+          }
           default -> throw new IllegalArgumentException("Unknown action type: " + type);
         }
       }
