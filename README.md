@@ -38,6 +38,7 @@ Tests are written with JUnit 5. You can run them with:
 
 
 mvn test
+
 Or via your IDE’s built-in test runner under src/test/java.
 
 ## Features and highlights
