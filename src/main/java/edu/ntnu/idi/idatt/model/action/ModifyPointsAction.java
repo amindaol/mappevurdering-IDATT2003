@@ -5,6 +5,10 @@ import edu.ntnu.idi.idatt.model.game.Player;
 /**
  * Represents an action that modifies the points of a player. This action is used when a player
  * lands on a tile that has a point-modifying action.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class ModifyPointsAction implements TileAction {
 

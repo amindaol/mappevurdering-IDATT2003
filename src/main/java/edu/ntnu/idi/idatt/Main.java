@@ -47,17 +47,37 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Main class for launching the Slayboard JavaFX application.
+ * Sets up the UI, registers routes, and handles game initialization.
+ *
+ * Supports two game modes:
+ * <ul>
+ *   <li>Love & Ladders</li>
+ *   <li>Bestie Point Battles</li>
+ * </ul>
+ *
+ * Uses {@link Router} for navigation and {@link AppState} for shared data.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ */
 public class Main extends Application {
 
   private static final Logger logger = Logger.getLogger(Main.class.getName());
 
+  /**
+   * Application entry point.
+   */
   public static void main(String[] args) {
-    // Set root logger level (console handler is already attached by default)
     Logger.getLogger("").setLevel(Level.INFO);
     logger.info("Launching application");
     launch(args);
   }
 
+  /**
+   * Initializes the stage, styles, routes and opens the home screen.
+   */
   @Override
   public void start(Stage primaryStage) {
     logger.info("start() called – initializing application");
@@ -215,6 +235,13 @@ public class Main extends Application {
     logger.info("UI shown – ready for interaction");
   }
 
+  /**
+   * Validates player setup and creates {@link Player}-objects.
+   * Can load from CSV or manual input. Fills {@link AppState} with the result.
+   *
+   * @param content SettingsContent containing user input
+   * @return true if all input is valid and players created
+   */
   private static boolean validateAndStartGame(SettingsContent content) {
     List<Player> players;
     int count = content.getSelectedPlayers();
@@ -274,7 +301,5 @@ public class Main extends Application {
     }
     AppState.setSelectedPlayers(players);
     return true;
-
   }
-
 }

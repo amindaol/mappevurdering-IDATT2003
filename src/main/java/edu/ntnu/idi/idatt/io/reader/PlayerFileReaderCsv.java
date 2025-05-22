@@ -13,6 +13,10 @@ import java.util.List;
 /**
  * Reads players from a CSV file (format: name,token) into a List of {@link Player}. Skips the first
  * (header) row automatically.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class PlayerFileReaderCsv implements PlayerFileReader {
 

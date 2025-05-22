@@ -13,6 +13,10 @@ import java.util.List;
  * The GameRegisterInitializer class is responsible for initializing the game register with
  * predefined game information. It registers different games with their respective rules, player
  * limits, engine factories, board options, and game modes.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class GameRegisterInitializer {
 

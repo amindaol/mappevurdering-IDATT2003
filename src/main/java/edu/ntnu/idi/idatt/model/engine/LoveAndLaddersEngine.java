@@ -13,6 +13,10 @@ import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 /**
  * Game engine for "Love and Ladders": - Game ends when a player reaches last tile - Winner is the
  * one who reaches the last tile first
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class LoveAndLaddersEngine extends GameEngine {
 
@@ -102,7 +106,10 @@ public class LoveAndLaddersEngine extends GameEngine {
         .orElse(null);
   }
 
-
+  /**
+   * Starts the game by placing all players on the start tile
+   * and notifying observers that the game has begun.
+   */
   @Override
   public void startGame() {
     Tile startTile = board.getStartTile();

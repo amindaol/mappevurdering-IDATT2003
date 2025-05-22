@@ -16,6 +16,17 @@ import javafx.util.Duration;
 
 /**
  * Container holding all player configuration components.
+ * <p>
+ * Dynamically creates one {@link PlayerSettings} component per player,
+ * and animates them into the layout. Handles synchronization of selected tokens
+ * to ensure each player chooses a unique one.
+ * </p>
+ *
+ * Used inside {@link edu.ntnu.idi.idatt.view.components.SettingsContent}.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class PlayerSettingsContainer {
 
@@ -25,7 +36,8 @@ public class PlayerSettingsContainer {
 
 
   /**
-   * Initializes player input components (name, birthday, icon).
+   * Initializes player input components (name, birthday, icon),
+   * adds animations, and synchronizes token selection.
    *
    * @param players number of players
    */
@@ -105,13 +117,21 @@ public class PlayerSettingsContainer {
         .toList();
   }
 
-
+  /**
+   * Returns the token image file names selected by each player.
+   *
+   * @return list of selected token strings
+   */
   public List<String> getSelectedTokens() {
     return playerSettingsList.stream()
         .map(PlayerSettings::getSelectedToken)
         .toList();
   }
 
+  /**
+   * Validates that each player has entered a name and selected a token.
+   * Shows visual feedback if something is missing.
+   */
   public void validateAllInputs() {
     for (PlayerSettings settings : playerSettingsList) {
       settings.validateNameField();

@@ -5,6 +5,10 @@ import javafx.scene.Scene;
 
 /**
  * Utility class for applying stylesheets to JavaFX scenes.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class StyleUtil {
 

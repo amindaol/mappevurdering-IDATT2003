@@ -6,6 +6,10 @@ import java.nio.file.Path;
 
 /**
  * Writes a Board to a file.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public interface BoardFileWriter {
 

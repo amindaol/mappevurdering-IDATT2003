@@ -2,6 +2,10 @@ package edu.ntnu.idi.idatt.util.exceptionHandling;
 
 /**
  * Thrown when a player attempts an invalid move according to game rules.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class InvalidMoveException extends RuntimeException {
 

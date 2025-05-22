@@ -18,6 +18,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * A GUI component for configuring a single player.
+ * Includes fields for name, birthday, and token (icon) selection.
+ *
+ * Used within {@link PlayerSettingsContainer} to configure multiple players.
+ * Provides validation and ensures each player selects a unique token.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
+ */
 public class PlayerSettings extends VBox {
 
   private final TextField nameField = new TextField();
@@ -25,9 +36,14 @@ public class PlayerSettings extends VBox {
   private final ToggleGroup iconGroup = new ToggleGroup();
   private final Map<String, RadioButton> tokenButtons = new HashMap<>();
   private String selectedToken;
-
   private final String[] availableTokens = {"cloud", "flower", "heart", "moon", "star"};
 
+  /**
+   * Creates a new player settings component with fields for name, birthday,
+   * and selectable token icons.
+   *
+   * @param playerNumber the player's number (used as default name hint)
+   */
   public PlayerSettings(int playerNumber) {
     this.setSpacing(10);
     this.setPadding(new Insets(12));
@@ -37,7 +53,6 @@ public class PlayerSettings extends VBox {
     this.setMinWidth(300);
 
     this.getStyleClass().addAll("player-settings-card", "player-settings", "player-card");
-
 
     nameField.setPromptText("Player " + playerNumber);
     nameField.getStyleClass().add("player-settings-name-field");
@@ -56,7 +71,6 @@ public class PlayerSettings extends VBox {
         birthdaySelector.getDatePicker().setStyle("");
       }
     });
-
 
     HBox iconChoices = new HBox(6);
     iconChoices.setAlignment(Pos.CENTER);
@@ -92,25 +106,47 @@ public class PlayerSettings extends VBox {
     this.getChildren().addAll(nameField, birthdaySelector, iconChoices);
   }
 
+  /**
+   * Returns this component as a JavaFX Node.
+   *
+   * @return the visual node
+   */
   public Node getAsNode() {
     return this;
   }
 
+  /**
+   * Returns the name entered by the player.
+   *
+   * @return player name as a string
+   */
   public String getPlayerName() {
     return nameField.getText();
   }
 
+  /**
+   * Returns the selected birthday.
+   *
+   * @return the player's birthday
+   */
   public LocalDate getBirthday() {
     return birthdaySelector.getBirthday();
   }
 
-
+  /**
+   * Returns the selected token name.
+   *
+   * @return the selected token string or null if none selected
+   */
   public String getSelectedToken() {
     Toggle selected = iconGroup.getSelectedToggle();
     return selected != null ? (String) selected.getUserData() : null;
   }
 
-
+  /**
+   * Validates that the player name field is not empty.
+   * Applies a red border if validation fails.
+   */
   public void validateNameField() {
     if (getPlayerName().isBlank()) {
       nameField.setStyle("-fx-border-color: red;");
@@ -119,6 +155,10 @@ public class PlayerSettings extends VBox {
     }
   }
 
+  /**
+   * Validates that a token has been selected.
+   * Applies a red border if none is selected.
+   */
   public void validateTokenSelection() {
     if (getSelectedToken() == null) {
       for (Toggle toggle : iconGroup.getToggles()) {
@@ -131,6 +171,11 @@ public class PlayerSettings extends VBox {
     }
   }
 
+  /**
+   * Disables tokens that are already used by other players.
+   *
+   * @param usedTokens set of tokens already selected by others
+   */
   public void updateDisabledTokens(Set<String> usedTokens) {
     for (Map.Entry<String, RadioButton> entry : tokenButtons.entrySet()) {
       String token = entry.getKey();
@@ -139,6 +184,11 @@ public class PlayerSettings extends VBox {
     }
   }
 
+  /**
+   * Sets a callback to be triggered when the token selection changes.
+   *
+   * @param callback the callback to run on token selection
+   */
   public void setOnTokenSelected(Runnable callback) {
     iconGroup.selectedToggleProperty().addListener((obs, oldVal, newVal) -> {
       if (newVal != null) {

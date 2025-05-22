@@ -11,6 +11,10 @@ import java.util.List;
 /**
  * CSV-based implementation of {@link PlayerFileWriter} that writes a list of players to a CSV
  * file.
+ *
+ *  @author Aminda Lunde
+ *  @author Ingrid Opheim
+ *  @version 1.0
  */
 public class PlayerFileWriterCsv implements PlayerFileWriter {
 
@@ -34,6 +38,13 @@ public class PlayerFileWriterCsv implements PlayerFileWriter {
     }
   }
 
+  /**
+   * Formats a single Player object into a CSV-compatible string line.
+   * The format is: "name,iconFileName"
+   *
+   * @param player the Player to format
+   * @return the formatted line representing the player
+   */
   private String formatPlayerLine(Player player) {
     return player.getName() + "," + player.getToken().getIconFileName();
   }

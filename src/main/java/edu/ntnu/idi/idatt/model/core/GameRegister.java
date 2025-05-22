@@ -11,6 +11,10 @@ import java.util.Map;
  * The GameRegister class is responsible for registering and managing game information. It allows
  * for the registration of different game modes and provides methods to retrieve game information
  * based on the game mode.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class GameRegister {
 

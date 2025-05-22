@@ -18,6 +18,10 @@ import java.util.List;
 
 /**
  * Factory for creating {@link BoardGame} instances, either standard or configured from files.
+ *
+ *  @author Aminda Lunde
+ *  @author Ingrid Opheim
+ *  @version 1.0
  */
 public final class BoardGameFactory {
 

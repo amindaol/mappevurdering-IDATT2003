@@ -5,6 +5,10 @@ import edu.ntnu.idi.idatt.model.game.Player;
 /**
  * Represents an action that skips the player's next turn. This action is used when a player lands
  * on a tile that has a skip next turn action.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class SkipNextTurnAction implements TileAction {
 

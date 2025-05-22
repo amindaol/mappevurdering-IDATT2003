@@ -13,6 +13,10 @@ import java.util.function.Supplier;
  * GameInformation is a configuration class that holds the game name, rules, player limits, engine
  * factory, board options supplier, and game mode. It is used to initialize the game with the
  * specified settings.
+ *
+ *  @author Aminda Lunde
+ *  @author Ingrid Opheim
+ *  @version 1.0
  */
 public class GameInformation {
 

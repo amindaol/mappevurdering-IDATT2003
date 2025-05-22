@@ -5,6 +5,10 @@ import edu.ntnu.idi.idatt.model.game.Player;
 /**
  * Represents an action that occurs when a player lands on a tile. This interface is used to define
  * various actions that can be performed
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public interface TileAction {
 
