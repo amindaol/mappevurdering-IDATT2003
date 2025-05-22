@@ -6,6 +6,10 @@ import edu.ntnu.idi.idatt.model.game.Tile;
 /**
  * Represents an action that jumps the player to a specific tile. This action is used when a player
  * lands on a tile that has a jump action, like a ladder.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class JumpToTileAction implements TileAction {
 

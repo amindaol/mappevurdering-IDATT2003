@@ -5,6 +5,10 @@ import java.util.Objects;
 /**
  * Represents a token in the game. A token is the piece representing the player on the board. Each
  * token has a name and an optional icon file name.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class Token {
 

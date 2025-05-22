@@ -15,6 +15,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Represents the main game controller that manages the board, dice, players, and the turn-based
  * gameplay loop. This class fires observer events and throws domain-specific exceptions on invalid
  * operations.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class BoardGame {
 
@@ -75,7 +79,6 @@ public class BoardGame {
     }
   }
 
-
   /**
    * Returns the list of observers.
    *
@@ -84,7 +87,6 @@ public class BoardGame {
   public List<BoardGameObserver> getObservers() {
     return observers;
   }
-
 
   /**
    * Adds a player to the game.

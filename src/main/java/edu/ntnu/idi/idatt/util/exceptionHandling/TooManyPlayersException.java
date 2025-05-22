@@ -2,6 +2,10 @@ package edu.ntnu.idi.idatt.util.exceptionHandling;
 
 /**
  * Thrown when attempting to add more players than the allowed maximum.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class TooManyPlayersException extends RuntimeException {
 

@@ -19,8 +19,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Reads a board from a JSON file using Gson and constructs a Board object.
+ * Supports loading tiles and special actions like ladders, snakes, points, and skip turn.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
+ */
 public class BoardFileReaderGson implements BoardFileReader {
 
+  /**
+   * Reads a Board from the given file path.
+   *
+   * @param path the path to the board JSON file
+   * @return the loaded Board
+   * @throws DaoException if reading or parsing fails
+   */
   @Override
   public Board readBoard(Path path) throws DaoException {
     try {
@@ -32,6 +47,13 @@ public class BoardFileReaderGson implements BoardFileReader {
     }
   }
 
+  /**
+   * Parses a Board from the root JSON object.
+   * Loads tiles, links them, and adds special tile actions.
+   *
+   * @param root the root JsonObject representing the board
+   * @return the parsed Board
+   */
   public Board parseBoard(JsonObject root) {
     int rows = root.get("rows").getAsInt();
     int cols = root.get("cols").getAsInt();
@@ -117,8 +139,6 @@ public class BoardFileReaderGson implements BoardFileReader {
       Tile next = ordered.get(i + 1);
       here.setNextTile(next);
     }
-
-
 
     return board;
   }

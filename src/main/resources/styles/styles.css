@@ -26,6 +26,17 @@
   -fx-background-color: #fff5fa;
 }
 
+.bestie-panel {
+  -fx-background-color: #ffe5f0;
+  -fx-border-color: hotpink;
+  -fx-border-width: 2;
+  -fx-border-radius: 15;
+  -fx-padding: 20;
+  -fx-spacing: 10;
+  -fx-pref-width: 200;
+}
+
+
 
 .title-label {
   -fx-font-size: 28px;

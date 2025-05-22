@@ -5,6 +5,10 @@ import edu.ntnu.idi.idatt.model.game.Player;
 /**
  * Represents an action that does nothing. This action is used when a player lands on a tile that
  * has no action associated with it.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class NoAction implements TileAction {
 

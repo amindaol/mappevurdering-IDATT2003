@@ -7,8 +7,12 @@ import java.util.List;
  * The {@code Dice} class represents a set of dice. It allows rolling all dice at once and accessing
  * individual dice if needed.
  *
- * <p>This class works with the {@link Die} class, where each die represents a single 6 sided
+ * This class works with the {@link Die} class, where each die represents a single 6 sided
  * die.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class Dice {
 

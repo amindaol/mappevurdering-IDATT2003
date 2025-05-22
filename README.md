@@ -14,12 +14,6 @@ The main goal was to build a fully playable version of *Snakes and Ladders* (sti
 
 All logic is unit-tested and structured for clarity and maintainability.
 
-
-## Project structure
-
-fyll inn!!
-
-
 ## Link to repository
 
 The GitHub repository for this project can be found at the following link: https://github.com/amindaol/mappevurdering-IDATT2003

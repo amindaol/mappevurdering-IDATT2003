@@ -12,6 +12,10 @@ import java.util.List;
 /**
  * GameSetup is a configuration class that holds the game information, selected board, and players.
  * It is used to initialize the game with the specified settings.
+ *
+ *  @author Aminda Lunde
+ *  @author Ingrid Opheim
+ *  @version 1.0
  */
 public class GameSetup {
 

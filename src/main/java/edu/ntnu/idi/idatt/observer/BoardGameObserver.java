@@ -6,7 +6,11 @@ import java.util.EventListener;
 /**
  * Observer interface for the BoardGame class.
  *
- * <p>This interface allows observers to be notified of changes of the BoardGame.
+ * This interface allows observers to be notified of changes of the BoardGame.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public interface BoardGameObserver extends EventListener {
 

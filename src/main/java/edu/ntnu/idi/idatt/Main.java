@@ -3,7 +3,6 @@ package edu.ntnu.idi.idatt;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import edu.ntnu.idi.idatt.config.GameMode;
-import edu.ntnu.idi.idatt.factory.BoardGameFactory;
 import edu.ntnu.idi.idatt.factory.TokenFactory;
 import edu.ntnu.idi.idatt.io.reader.BoardFileReaderGson;
 import edu.ntnu.idi.idatt.io.reader.PlayerFileReaderCsv;
@@ -15,17 +14,19 @@ import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
 import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Token;
-import edu.ntnu.idi.idatt.ui.controller.BoardController;
-import edu.ntnu.idi.idatt.ui.controller.GameController;
-import edu.ntnu.idi.idatt.ui.route.PrimaryScene;
-import edu.ntnu.idi.idatt.ui.route.Route;
-import edu.ntnu.idi.idatt.ui.route.Router;
-import edu.ntnu.idi.idatt.ui.view.AppState;
-import edu.ntnu.idi.idatt.ui.view.components.NavBar;
-import edu.ntnu.idi.idatt.ui.view.components.SettingsContent;
-import edu.ntnu.idi.idatt.ui.view.layouts.BoardView;
-import edu.ntnu.idi.idatt.ui.view.layouts.HomeController;
-import edu.ntnu.idi.idatt.ui.view.layouts.setup.SettingsView;
+import edu.ntnu.idi.idatt.controller.BestieBattlesController;
+import edu.ntnu.idi.idatt.controller.BoardController;
+import edu.ntnu.idi.idatt.controller.GameController;
+import edu.ntnu.idi.idatt.view.route.PrimaryScene;
+import edu.ntnu.idi.idatt.view.route.Route;
+import edu.ntnu.idi.idatt.view.route.Router;
+import edu.ntnu.idi.idatt.view.AppState;
+import edu.ntnu.idi.idatt.view.components.NavBar;
+import edu.ntnu.idi.idatt.view.components.SettingsContent;
+import edu.ntnu.idi.idatt.view.layouts.BestieBattlesView;
+import edu.ntnu.idi.idatt.view.layouts.BoardView;
+import edu.ntnu.idi.idatt.controller.HomeController;
+import edu.ntnu.idi.idatt.view.layouts.SettingsView;
 import edu.ntnu.idi.idatt.util.AlertUtil;
 import edu.ntnu.idi.idatt.util.StyleUtil;
 import java.io.InputStream;
@@ -46,19 +47,37 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Main class for launching the Slayboard JavaFX application.
+ * Sets up the UI, registers routes, and handles game initialization.
+ *
+ * Supports two game modes:
+ * <ul>
+ *   <li>Love & Ladders</li>
+ *   <li>Bestie Point Battles</li>
+ * </ul>
+ *
+ * Uses {@link Router} for navigation and {@link AppState} for shared data.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ */
 public class Main extends Application {
 
   private static final Logger logger = Logger.getLogger(Main.class.getName());
 
+  /**
+   * Application entry point.
+   */
   public static void main(String[] args) {
-    // Set root logger level (console handler is already attached by default)
-    Logger root = Logger.getLogger("");
-    root.setLevel(Level.INFO);
-
+    Logger.getLogger("").setLevel(Level.INFO);
     logger.info("Launching application");
     launch(args);
   }
 
+  /**
+   * Initializes the stage, styles, routes and opens the home screen.
+   */
   @Override
   public void start(Stage primaryStage) {
     logger.info("start() called – initializing application");
@@ -171,19 +190,33 @@ public class Main extends Application {
         new Route("bbPage",
             () -> {
               try {
-                Path boardJson = Paths.get(
-                    getClass().getResource("/boards/bestie_point_battles.json").toURI());
-                Path playersCsv = Paths.get(
-                    getClass().getResource("/players/bestie_point_battles.csv").toURI());
-                BoardGame game = BoardGameFactory.createFromFiles(boardJson, playersCsv);
+                String boardFile = AppState.getSelectedBoardFile(); // f.eks. "bestie_point_battles.json"
+                URL boardRes = Main.class.getResource("/boards/" + boardFile);
+                if (boardRes == null) {
+                  throw new IllegalArgumentException("Missing board file: " + boardFile);
+                }
+
+                JsonObject root;
+                try (InputStream in = boardRes.openStream()) {
+                  Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
+                  root = JsonParser.parseReader(reader).getAsJsonObject();
+                }
+
+                Board board = new BoardFileReaderGson().parseBoard(root);
+                List<Player> players = AppState.getSelectedPlayers();
+                if (players == null || players.isEmpty())
+                  throw new IllegalStateException("No players configured");
+
+                Dice dice = new Dice(2);
+                BoardGame game = new BoardGame(board, dice);
+                players.forEach(game::addPlayer);
 
                 GameEngine engine = new BestiePointBattlesEngine(game, game.getDice());
-                BoardView boardView = new BoardView(9, 10, 2);
-                GameController gc = new GameController(engine);
-                new BoardController(gc, boardView);
+                BestieBattlesView view = new BestieBattlesView(game);
+                new BestieBattlesController((BestiePointBattlesEngine) engine, view);
                 engine.startGame();
 
-                return boardView.getRoot();
+                return view;
               } catch (Exception e) {
                 logger.log(Level.SEVERE, "Failed to load Bestie files", e);
                 AlertUtil.showError("Load Error",
@@ -202,6 +235,13 @@ public class Main extends Application {
     logger.info("UI shown – ready for interaction");
   }
 
+  /**
+   * Validates player setup and creates {@link Player}-objects.
+   * Can load from CSV or manual input. Fills {@link AppState} with the result.
+   *
+   * @param content SettingsContent containing user input
+   * @return true if all input is valid and players created
+   */
   private static boolean validateAndStartGame(SettingsContent content) {
     List<Player> players;
     int count = content.getSelectedPlayers();
@@ -261,7 +301,5 @@ public class Main extends Application {
     }
     AppState.setSelectedPlayers(players);
     return true;
-
   }
-
 }

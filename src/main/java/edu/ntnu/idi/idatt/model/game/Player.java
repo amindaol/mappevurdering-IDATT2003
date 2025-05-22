@@ -7,6 +7,10 @@ import java.time.LocalDate;
 
 /**
  * Represents a player in a board game.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class Player {
 

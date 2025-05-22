@@ -5,6 +5,10 @@ import javafx.scene.control.Alert;
 /**
  * Utility class for displaying alerts in the JavaFX application. This class provides static methods
  * to show different types of alerts.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class AlertUtil {
 
@@ -51,6 +55,11 @@ public class AlertUtil {
     alert.showAndWait();
   }
 
+  /**
+   * Shows a help dialog with game-specific instructions based on the game mode.
+   *
+   * @param gameMode the game mode identifier (e.g. "LoveAndLadders", "PointBattles")
+   */
   public static void showGameHelp(String gameMode) {
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Help");
@@ -83,6 +92,9 @@ public class AlertUtil {
     alert.showAndWait();
   }
 
+  /**
+   * Shows a help dialog explaining how to set up a new game.
+   */
   public static void showHelpDialog() {
     Alert a = new Alert(Alert.AlertType.INFORMATION);
     a.setTitle("Help");
