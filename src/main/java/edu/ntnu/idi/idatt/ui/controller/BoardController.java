@@ -53,6 +53,8 @@ public class BoardController implements BoardGameObserver {
       boardView.showDiceRoll(rollResults);
       updatePlayerPositions();
 
+      boardView.updateCurrentPlayerList(engine.getCurrentPlayer());
+
       if (controller.isGameOver()) {
         Player winner = controller.getWinner();
         showWinnerAlert(winner);
@@ -86,7 +88,10 @@ public class BoardController implements BoardGameObserver {
   public void onGameStateChange(BoardGame game, BoardGameEvent event) {
     Platform.runLater(() -> {
       switch (event) {
-        case GAME_START -> initializePlayers();
+        case GAME_START -> {
+          initializePlayers();
+          boardView.updateCurrentPlayerList(engine.getCurrentPlayer());
+        }
         case PLAYER_MOVED -> updatePlayerPositions();
         case GAME_WON -> showWinnerAlert(engine.checkWinCondition());
         default -> {

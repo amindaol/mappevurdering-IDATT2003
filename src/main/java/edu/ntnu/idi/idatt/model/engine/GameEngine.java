@@ -106,6 +106,15 @@ public abstract class GameEngine {
   }
 
   /**
+   * Returns the next player in the turn cycle.
+   *
+   * @return the next player
+   */
+  public Player getNextPlayer() {
+    return players.get((currentPlayerIndex + 1) % players.size());
+  }
+
+  /**
    * Advances to the next player in the turn cycle.
    */
   public void nextPlayer() {

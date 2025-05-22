@@ -24,6 +24,10 @@ public class PlayerList extends VBox {
     setAlignment(Pos.CENTER);
     setPadding(new Insets(10));
 
+    this.setPrefWidth(300);
+    this.setMinWidth(300);
+    this.setMaxWidth(300);
+
     for (Player player : players) {
       Token token = player.getToken();
       String iconPath = "/icons/players/" + token.getIconFileName();
@@ -47,12 +51,16 @@ public class PlayerList extends VBox {
     for (Map.Entry<Player, HBox> entry : playerBoxMap.entrySet()) {
       HBox playerBox = entry.getValue();
       Label label = (Label) entry.getValue().getChildren().get(1);
+      Player player = entry.getKey();
+
       if (entry.getKey().equals(currentPlayer)) {
         playerBox.getStyleClass().add("highlighted-player-box");
         label.getStyleClass().add("highlighted-player");
+        label.setText(player.getName() + "s turn");
       } else {
         playerBox.getStyleClass().remove("highlighted-player-box");
         label.getStyleClass().remove("highlighted-player");
+        label.setText(player.getName());
       }
     }
   }

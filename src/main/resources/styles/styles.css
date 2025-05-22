@@ -264,12 +264,20 @@
   -fx-fill: #b72b6b;
 }
 
-.playerlist-player-box {
-  -fx-font-fill: #b72b6b;
+.playerlist-name-label {
+  -fx-font-size: 16px;
+  -fx-font-weight: normal;
+  -fx-text-fill: #b72b6b;
 }
 
 .playerlist-name-label {
   -fx-font-size: 16px;
   -fx-font-weight: normal;
   -fx-text-fill: #b72b6b;
+}
+
+.highlighted-player {
+  -fx-font-weight: bold;
+  -fx-text-fill: #D81B60;
+  -fx-font-size: 18px;
 }
