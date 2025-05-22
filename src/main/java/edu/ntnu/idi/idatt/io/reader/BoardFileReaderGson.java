@@ -55,8 +55,6 @@ public class BoardFileReaderGson implements BoardFileReader {
 
     if (root.has("specialTiles")) {
       JsonArray specials = root.getAsJsonArray("specialTiles");
-      List<Ladder> ladders = new ArrayList<>();
-
 
       for (JsonElement specialElem : specials) {
         JsonObject obj = specialElem.getAsJsonObject();
