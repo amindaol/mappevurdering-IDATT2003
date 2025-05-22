@@ -17,7 +17,33 @@ All logic is unit-tested and structured for clarity and maintainability.
 
 ## Project structure
 
-fyll inn!!
+src/
+└── main/
+    └── java/
+        └── edu/
+            └── ntnu/
+                └── idi/
+                    └── idatt/
+                        ├── app/
+                        ├── config/
+                        ├── controller/
+                        ├── factory/
+                        ├── io/
+                        │   ├── reader/
+                        │   └── writer/
+                        ├── model/
+                        │   ├── action/
+                        │   ├── core/
+                        │   ├── engine/
+                        │   └── game/
+                        ├── observer/
+                        ├── util/
+                        │   └── exceptionHandling/
+                        ├── view/
+                        │   ├── components/
+                        │   ├── layouts/
+                        │   └── route/
+                        └── Main.java
 
 
 ## Link to repository
