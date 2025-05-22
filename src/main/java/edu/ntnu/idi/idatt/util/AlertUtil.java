@@ -60,8 +60,8 @@ public class AlertUtil {
         alert.setHeaderText("Love & Ladders");
         alert.setContentText("""
             🎲 Roll the dice to move forward.
-            🪜 Landing on a ladder moves you up.
-            🐍 Landing on a snake sends you down.
+            🪜 Landing on a green ladder moves you up.
+            🪜 Landing on a red ladder sends you down.
                First player to reach the final tile wins!
         """);
       }

@@ -105,9 +105,15 @@
     { "id": 4,  "action": { "type": "Ladder", "destinationTileId": 16 } },
     { "id": 13, "action": { "type": "Ladder", "destinationTileId": 33 } },
     { "id": 27, "action": { "type": "Ladder", "destinationTileId": 45 } },
+    { "id": 40, "action": { "type": "Ladder", "destinationTileId": 70 } },
+    { "id": 56, "action": { "type": "Ladder", "destinationTileId": 85 } },
+
     { "id": 18, "action": { "type": "Snake",  "destinationTileId": 7 } },
     { "id": 39, "action": { "type": "Snake",  "destinationTileId": 20 } },
     { "id": 60, "action": { "type": "Snake",  "destinationTileId": 41 } },
+    { "id": 88, "action": { "type": "Snake",  "destinationTileId": 23 } },
+    { "id": 47, "action": { "type": "Snake",  "destinationTileId": 14 } },
+
     { "id": 50, "action": { "type": "GoToStart" } },
     { "id": 65, "action": { "type": "SkipNextTurn" } }
   ]

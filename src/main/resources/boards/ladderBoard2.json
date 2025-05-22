@@ -102,13 +102,20 @@
     { "id": 90, "row": 8, "col": 9 }
   ],
   "specialTiles": [
-    { "id": 3,  "action": { "type": "Ladder", "destinationTileId": 15 } },
-    { "id": 10, "action": { "type": "Ladder", "destinationTileId": 28 } },
-    { "id": 22, "action": { "type": "Ladder", "destinationTileId": 39 } },
-    { "id": 19, "action": { "type": "Snake",  "destinationTileId": 5 } },
-    { "id": 35, "action": { "type": "Snake",  "destinationTileId": 18 } },
-    { "id": 60, "action": { "type": "Snake",  "destinationTileId": 40 } },
+    { "id": 5,  "action": { "type": "Ladder", "destinationTileId": 18 } },
+    { "id": 19, "action": { "type": "Ladder", "destinationTileId": 34 } },
+    { "id": 38, "action": { "type": "Ladder", "destinationTileId": 53 } },
+    { "id": 52, "action": { "type": "Ladder", "destinationTileId": 68 } },
+    { "id": 66, "action": { "type": "Ladder", "destinationTileId": 82 } },
+
+    { "id": 84, "action": { "type": "Snake", "destinationTileId": 64 } },
+    { "id": 71, "action": { "type": "Snake", "destinationTileId": 55 } },
+    { "id": 57, "action": { "type": "Snake", "destinationTileId": 40 } },
+    { "id": 36, "action": { "type": "Snake", "destinationTileId": 22 } },
+    { "id": 16, "action": { "type": "Snake", "destinationTileId": 7 } },
+
     { "id": 70, "action": { "type": "GoToStart" } },
     { "id": 52, "action": { "type": "SkipNextTurn" } }
   ]
+
 }
