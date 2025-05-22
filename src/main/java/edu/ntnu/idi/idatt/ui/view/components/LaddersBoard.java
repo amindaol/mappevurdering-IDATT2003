@@ -6,6 +6,7 @@ import edu.ntnu.idi.idatt.model.game.Tile;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -25,7 +26,6 @@ public class LaddersBoard {
   private final int cols;
   private final Pane overlay = new Pane();
   private final StackPane container;
-
 
 
   public LaddersBoard(int rows, int cols) {
@@ -54,49 +54,55 @@ public class LaddersBoard {
 
 
   public void drawLadders(List<Ladder> ladders) {
-    javafx.application.Platform.runLater(() -> {
-      for (Ladder ladder : ladders) {
-        Pane fromPane = tileMap.get(ladder.getFromTileId());
-        Pane toPane = tileMap.get(ladder.getToTileId());
-
-        if (fromPane == null || toPane == null) continue;
-
-        double startX = fromPane.getLayoutX() + fromPane.getWidth() / 2;
-        double startY = fromPane.getLayoutY() + fromPane.getHeight() / 2;
-        double endX = toPane.getLayoutX() + toPane.getWidth() / 2;
-        double endY = toPane.getLayoutY() + toPane.getHeight() / 2;
-
-        Line ladderLine = new Line(startX, startY, endX, endY);
-        ladderLine.setStrokeWidth(5);
-        ladderLine.setStroke(Color.DARKSEAGREEN);
-        ladderLine.setOpacity(0.7);
-
-        overlay.getChildren().add(ladderLine);
-      }
+    grid.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+      redrawLaddersAndSnakes(ladders, List.of());  // replace with actual snakes if needed
     });
   }
 
   public void drawSnakes(List<Ladder> snakes) {
-    javafx.application.Platform.runLater(() -> {
+    grid.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+      redrawLaddersAndSnakes(List.of(), snakes);  // replace with actual ladders if needed
+    });
+  }
+
+  // Method to handle actual redrawing with proper coordinates
+  private void redrawLaddersAndSnakes(List<Ladder> ladders, List<Ladder> snakes) {
+    overlay.getChildren().clear();
+
+    Platform.runLater(() -> {
+      for (Ladder ladder : ladders) {
+        drawConnection(ladder, Color.DARKSEAGREEN);
+      }
       for (Ladder snake : snakes) {
-        Pane fromPane = tileMap.get(snake.getFromTileId());
-        Pane toPane = tileMap.get(snake.getToTileId());
-
-        if (fromPane == null || toPane == null) continue;
-
-        double startX = fromPane.getLayoutX() + fromPane.getWidth() / 2;
-        double startY = fromPane.getLayoutY() + fromPane.getHeight() / 2;
-        double endX = toPane.getLayoutX() + toPane.getWidth() / 2;
-        double endY = toPane.getLayoutY() + toPane.getHeight() / 2;
-
-        Line snakeLine = new Line(startX, startY, endX, endY);
-        snakeLine.setStrokeWidth(5);
-        snakeLine.setStroke(Color.CRIMSON); // rød farge
-        snakeLine.setOpacity(0.7);
-
-        overlay.getChildren().add(snakeLine);
+        drawConnection(snake, Color.CRIMSON);
       }
     });
+  }
+
+  // Helper method to draw individual ladder or snake lines
+  private void drawConnection(Ladder connection, Color color) {
+    Pane fromPane = tileMap.get(connection.getFromTileId());
+    Pane toPane = tileMap.get(connection.getToTileId());
+
+    if (fromPane == null || toPane == null) {
+      return;
+    }
+
+    Bounds fromBounds = fromPane.localToScene(fromPane.getBoundsInLocal());
+    Bounds toBounds = toPane.localToScene(toPane.getBoundsInLocal());
+    Bounds containerBounds = container.localToScene(container.getBoundsInLocal());
+
+    double startX = fromBounds.getCenterX() - containerBounds.getMinX();
+    double startY = fromBounds.getCenterY() - containerBounds.getMinY();
+    double endX = toBounds.getCenterX() - containerBounds.getMinX();
+    double endY = toBounds.getCenterY() - containerBounds.getMinY();
+
+    Line connectionLine = new Line(startX, startY, endX, endY);
+    connectionLine.setStrokeWidth(5);
+    connectionLine.setStroke(color);
+    connectionLine.setOpacity(0.7);
+
+    overlay.getChildren().add(connectionLine);
   }
 
 
