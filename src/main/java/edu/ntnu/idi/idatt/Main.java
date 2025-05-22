@@ -27,7 +27,6 @@ import edu.ntnu.idi.idatt.ui.view.layouts.BoardView;
 import edu.ntnu.idi.idatt.ui.view.layouts.HomeController;
 import edu.ntnu.idi.idatt.ui.view.layouts.setup.SettingsView;
 import edu.ntnu.idi.idatt.util.AlertUtil;
-import edu.ntnu.idi.idatt.util.DialogUtil;
 import edu.ntnu.idi.idatt.util.StyleUtil;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -91,9 +90,26 @@ public class Main extends Application {
             },
             () -> new NavBar("Love & Ladders",
                 () -> Router.navigateTo("home"),
-                Main::showHelpDialog)
-        )
-    );
+                () -> AlertUtil.showHelpDialog())
+        ));
+
+    // Settings for Bestie Point Battles
+    Router.registerRoute(
+        new Route("bbSettings",
+            () -> {
+              SettingsContent content = new SettingsContent(GameMode.BESTIE_POINT_BATTLES);
+              return new SettingsView(content.getRoot(), () -> {
+                if (!validateAndStartGame(content)) {
+                  return;
+                }
+                Router.navigateTo("bbPage");
+              });
+            },
+            () -> new NavBar("Bestie Point Battles",
+                () -> Router.navigateTo("home"),
+                () -> AlertUtil.showHelpDialog())
+        ));
+
 
     // Play Love & Ladders from JSON+CSV
     Router.registerRoute(
@@ -147,9 +163,8 @@ public class Main extends Application {
             },
             () -> new NavBar("Love & Ladders",
                 () -> Router.navigateTo("home"),
-                Main::showHelpDialog)
-        )
-    );
+                () -> AlertUtil.showGameHelp("LoveAndLadders"))
+        ));
 
     // Play Bestie Point Battles from JSON+CSV
     Router.registerRoute(
@@ -178,9 +193,8 @@ public class Main extends Application {
             },
             () -> new NavBar("Bestie Point Battles",
                 () -> Router.navigateTo("home"),
-                Main::showHelpDialog)
-        )
-    );
+                () -> AlertUtil.showGameHelp("BestiePointBattles"))
+        ));
 
     // Kick things off
     Router.navigateTo("home");
@@ -250,17 +264,4 @@ public class Main extends Application {
 
   }
 
-  private static void showHelpDialog() {
-    Alert a = new Alert(Alert.AlertType.INFORMATION);
-    a.setTitle("Help");
-    a.setHeaderText("How to set up the game");
-    a.setContentText("""
-        1. Choose a board.
-        2. Select number of players.
-        3. Fill in name and birthday for each.
-        4. Choose a unique token per player.
-        5. Click 'Start game'!
-        """);
-    a.showAndWait();
-  }
 }

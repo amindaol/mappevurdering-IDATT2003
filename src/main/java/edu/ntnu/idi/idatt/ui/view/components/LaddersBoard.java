@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
@@ -22,13 +23,18 @@ public class LaddersBoard {
   private static final double TILE_SIZE = 80;
   private final int rows;
   private final int cols;
+  private final Pane overlay = new Pane();
+  private final StackPane container;
+
 
 
   public LaddersBoard(int rows, int cols) {
     this.rows = rows;
     this.cols = cols;
     this.grid = new GridPane();
-    grid.setAlignment(Pos.CENTER);
+    this.grid.setAlignment(Pos.CENTER);
+    this.overlay.setPickOnBounds(false);
+    this.container = new StackPane(grid, overlay);
 
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
@@ -48,37 +54,51 @@ public class LaddersBoard {
 
 
   public void drawLadders(List<Ladder> ladders) {
-    Image ladderImage = new Image(getClass().getResourceAsStream("/icons/ladder.png"));
+    javafx.application.Platform.runLater(() -> {
+      for (Ladder ladder : ladders) {
+        Pane fromPane = tileMap.get(ladder.getFromTileId());
+        Pane toPane = tileMap.get(ladder.getToTileId());
 
-    for (Ladder ladder : ladders) {
-      Pane fromPane = tileMap.get(ladder.getFromTileId());
-      Pane toPane = tileMap.get(ladder.getToTileId());
+        if (fromPane == null || toPane == null) continue;
 
-      if (fromPane == null || toPane == null) continue;
+        double startX = fromPane.getLayoutX() + fromPane.getWidth() / 2;
+        double startY = fromPane.getLayoutY() + fromPane.getHeight() / 2;
+        double endX = toPane.getLayoutX() + toPane.getWidth() / 2;
+        double endY = toPane.getLayoutY() + toPane.getHeight() / 2;
 
-      ImageView ladderView = new ImageView(ladderImage);
-      ladderView.setPreserveRatio(true);
-      ladderView.setFitWidth(TILE_SIZE * 0.6);
+        Line ladderLine = new Line(startX, startY, endX, endY);
+        ladderLine.setStrokeWidth(5);
+        ladderLine.setStroke(Color.DARKSEAGREEN);
+        ladderLine.setOpacity(0.7);
 
-      Bounds fromBounds = fromPane.getBoundsInParent();
-      Bounds toBounds = toPane.getBoundsInParent();
-
-      double startX = fromBounds.getMinX() + fromBounds.getWidth() / 2;
-      double startY = fromBounds.getMinY() + fromBounds.getHeight() / 2;
-      double endX = toBounds.getMinX() + toBounds.getWidth() / 2;
-      double endY = toBounds.getMinY() + toBounds.getHeight() / 2;
-
-      double angle = Math.toDegrees(Math.atan2(endY - startY, endX - startX));
-      double distance = Math.hypot(endX - startX, endY - startY);
-
-      ladderView.setFitHeight(distance);
-      ladderView.setRotate(angle);
-      ladderView.setLayoutX(startX);
-      ladderView.setLayoutY(startY);
-
-      grid.getChildren().add(ladderView);
-    }
+        overlay.getChildren().add(ladderLine);
+      }
+    });
   }
+
+  public void drawSnakes(List<Ladder> snakes) {
+    javafx.application.Platform.runLater(() -> {
+      for (Ladder snake : snakes) {
+        Pane fromPane = tileMap.get(snake.getFromTileId());
+        Pane toPane = tileMap.get(snake.getToTileId());
+
+        if (fromPane == null || toPane == null) continue;
+
+        double startX = fromPane.getLayoutX() + fromPane.getWidth() / 2;
+        double startY = fromPane.getLayoutY() + fromPane.getHeight() / 2;
+        double endX = toPane.getLayoutX() + toPane.getWidth() / 2;
+        double endY = toPane.getLayoutY() + toPane.getHeight() / 2;
+
+        Line snakeLine = new Line(startX, startY, endX, endY);
+        snakeLine.setStrokeWidth(5);
+        snakeLine.setStroke(Color.CRIMSON); // rød farge
+        snakeLine.setOpacity(0.7);
+
+        overlay.getChildren().add(snakeLine);
+      }
+    });
+  }
+
 
   public Pane getTile(int tileId) {
     return tileMap.get(tileId);
@@ -87,4 +107,9 @@ public class LaddersBoard {
   public GridPane getGrid() {
     return grid;
   }
+
+  public StackPane getBoardWithOverlay() {
+    return container;
+  }
+
 }

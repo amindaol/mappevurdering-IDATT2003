@@ -21,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 
 public class BoardView extends BorderPane {
 
@@ -38,11 +39,27 @@ public class BoardView extends BorderPane {
     this.board = new LaddersBoard(rows, cols);
     this.dieContainer = new DieContainer(diceAmount);
 
+    int startTileId = 3;
+    int endTileId = 22;
+
+    Pane start = board.getTile(startTileId);
+    Pane end = board.getTile(endTileId);
+
+    Line ladderLine = new Line();
+
+    ladderLine.startXProperty().bind(start.layoutXProperty().add(start.widthProperty().divide(2)));
+    ladderLine.startYProperty().bind(start.layoutYProperty().add(start.heightProperty().divide(2)));
+    ladderLine.endXProperty().bind(end.layoutXProperty().add(end.widthProperty().divide(2)));
+    ladderLine.endYProperty().bind(end.layoutYProperty().add(end.heightProperty().divide(2)));
+
+    ladderLine.setStyle("-fx-stroke: green; -fx-stroke-width: 4;");
+
+
     VBox diceBox = new VBox(dieContainer, rollDiceButton);
     diceBox.setAlignment(Pos.CENTER);
     diceBox.setSpacing(10);
 
-    HBox contentBox = new HBox(board.getGrid(), diceBox);
+    HBox contentBox = new HBox(board.getBoardWithOverlay(), diceBox);
     contentBox.setSpacing(20);
     contentBox.setAlignment(Pos.CENTER);
 
@@ -55,14 +72,6 @@ public class BoardView extends BorderPane {
     this.setCenter(scrollPane);
 
     configureRollButton();
-  }
-
-  private void showGameHelp() {
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("Game Help");
-    alert.setHeaderText("How to play");
-    alert.setContentText("Players take turns rolling dice to move. First to the goal wins!");
-    alert.showAndWait();
   }
 
   public Parent getRoot() {
@@ -103,10 +112,6 @@ public class BoardView extends BorderPane {
     this.onRoll = onRoll;
   }
 
-  public void setDiceResultCallback(Consumer<int[]> onDiceRolled) {
-    this.onDiceRolled = onDiceRolled;
-  }
-
   public void showDiceRoll(List<Integer> values) {
     List<Integer> dots = new ArrayList<>();
     for (int v : values) dots.add(v);
@@ -114,12 +119,13 @@ public class BoardView extends BorderPane {
   }
 
   public void drawBoard(Board boardModel) {
+    System.out.println("Ladders from board model: " + boardModel.getLadders());
+
     for (Tile tile : boardModel.getTiles()) {
       board.getTile(tile.getTileId());
     }
 
-    Platform.runLater(() -> {
       board.drawLadders(boardModel.getLadders());
-    });
+      board.drawSnakes(boardModel.getSnakes());
   }
 }
