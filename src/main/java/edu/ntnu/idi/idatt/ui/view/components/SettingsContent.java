@@ -49,14 +49,18 @@ public class SettingsContent {
     boardButton2.getStyleClass().add("settings-content-radio-button");
     boardButton3.getStyleClass().add("settings-content-radio-button");
 
-    boardButton1.setOnAction(e ->
-        AppState.setSelectedBoardFile("ladderboard1.json"));
-    boardButton2.setOnAction(e ->
-        AppState.setSelectedBoardFile("ladderboard2.json"));
-    boardButton3.setOnAction(e ->
-        AppState.setSelectedBoardFile("ladderboard3.json"));
+    boardButton1.setUserData("ladderBoard1.json");
+    boardButton2.setUserData("ladderBoard2.json");
+    boardButton3.setUserData("ladderBoard3.json");
+
+    boardGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue != null) {
+        AppState.setSelectedBoardFile(newValue.getUserData().toString());
+      }
+    });
 
     boardButton1.setSelected(true);
+    AppState.setSelectedBoardFile(boardButton1.getUserData().toString());
 
     // TODO: Add image of the board to the radio button??
 
@@ -149,5 +153,9 @@ public class SettingsContent {
 
   public GameMode getSelectedGameMode() {
     return gameMode;
+  }
+
+  public int getSelectedPlayers() {
+    return getSelectedTokens().size();
   }
 }
