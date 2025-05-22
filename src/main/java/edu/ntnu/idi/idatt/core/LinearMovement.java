@@ -19,16 +19,21 @@ public class LinearMovement implements Movement {
   @Override
   public void move(Player player, int steps) {
     Tile current = player.getCurrentTile();
-
-    for (int i = 0; i < steps && current.getNextTile() != null; i++) {
-      current = current.getNextTile();
+    if (current == null) {
+      throw new IllegalStateException("Player's current tile is null.");
     }
 
-    player.setCurrentTile(current);
+    Tile destination = current;
+    for (int i = 0; i < steps && destination.getNextTile() != null; i++) {
+      Tile next = destination.getNextTile();
+      destination = next;
+    }
 
-    if (current.getAction() != null) {
-      current.getAction().perform(player);
+    player.setCurrentTile(destination);
+
+    if (destination.getAction() != null) {
+      destination.getAction().perform(player);
+    } else {
     }
   }
-
 }

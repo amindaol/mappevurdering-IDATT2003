@@ -69,7 +69,7 @@ public abstract class GameEngine {
   /**
    * Executes a single turn for the current player.
    */
-  public abstract void handleTurn();
+  public abstract void handleTurn(int total);
 
   /**
    * Checks if a win condition has been met.

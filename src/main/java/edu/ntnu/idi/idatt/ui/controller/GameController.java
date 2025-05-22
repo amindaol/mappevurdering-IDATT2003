@@ -5,10 +5,10 @@ import edu.ntnu.idi.idatt.model.game.Player;
 import java.util.List;
 
 /**
- * GameController handles the game flow logic: whose turn it is, dice roll, and movement.
- * It does not handle GUI logic.
+ * GameController handles the game flow logic: whose turn it is, dice roll, and movement. It does
+ * not handle GUI logic.
  */
-public class GameController  {
+public class GameController {
 
   private final GameEngine engine;
   private List<Integer> lastRoll;
@@ -19,7 +19,8 @@ public class GameController  {
 
   public void playTurn() {
     lastRoll = engine.getGame().getDice().roll();
-    engine.handleTurn();
+    int total = lastRoll.stream().mapToInt(Integer::intValue).sum();
+    engine.handleTurn(total);
   }
 
   public boolean isGameOver() {

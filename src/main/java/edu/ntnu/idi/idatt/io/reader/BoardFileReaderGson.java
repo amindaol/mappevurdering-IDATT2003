@@ -11,7 +11,7 @@ import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Ladder;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
-import java.io.*;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -19,19 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Gson-based implementation of {@link BoardFileReader} that reads a board configuration with rows,
- * cols, and specialTiles (ladders, snakes, etc.).
- */
 public class BoardFileReaderGson implements BoardFileReader {
 
-  /**
-   * Reads the board configuration from the given file path.
-   *
-   * @param path the path to the board configuration file
-   * @return a Board instance built from that file
-   * @throws DaoException on I/O or format error
-   */
   @Override
   public Board readBoard(Path path) throws DaoException {
     try {
@@ -43,12 +32,6 @@ public class BoardFileReaderGson implements BoardFileReader {
     }
   }
 
-  /**
-   * Parses the board configuration from a JSON object.
-   *
-   * @param root the JSON object containing the board configuration
-   * @return a Board instance built from the JSON object
-   */
   public Board parseBoard(JsonObject root) {
     int rows = root.get("rows").getAsInt();
     int cols = root.get("cols").getAsInt();
@@ -72,6 +55,8 @@ public class BoardFileReaderGson implements BoardFileReader {
 
     if (root.has("specialTiles")) {
       JsonArray specials = root.getAsJsonArray("specialTiles");
+      List<Ladder> ladders = new ArrayList<>();
+
 
       for (JsonElement specialElem : specials) {
         JsonObject obj = specialElem.getAsJsonObject();
@@ -83,6 +68,7 @@ public class BoardFileReaderGson implements BoardFileReader {
 
         switch (type) {
           case "Ladder" -> {
+
             if (action.has("destinationTileId")) {
               int destId = action.get("destinationTileId").getAsInt();
               tile.setAction(new JumpToTileAction(tileMap.get(destId)));
@@ -95,16 +81,18 @@ public class BoardFileReaderGson implements BoardFileReader {
               tile.setAction(new JumpToTileAction(tileMap.get(destId)));
               snakes.add(new Ladder(id, destId));
             }
+
           }
           case "AddPoints" -> {
-            int points = action.get("points").getAsInt();
-            tile.setAction(new ModifyPointsAction(points));
+            int pts = action.get("points").getAsInt();
+            tile.setAction(new ModifyPointsAction(pts));
           }
           case "RemovePoints" -> {
-            int points = action.get("points").getAsInt();
-            tile.setAction(new ModifyPointsAction(-points));
+            int pts = action.get("points").getAsInt();
+            tile.setAction(new ModifyPointsAction(-pts));
           }
           case "GoToStart" -> {
+
             if (action.has("destinationTileId")) {
               int destId = action.get("destinationTileId").getAsInt();
               Tile destination = tileMap.get(destId);
@@ -123,6 +111,16 @@ public class BoardFileReaderGson implements BoardFileReader {
     board.setLadders(ladders);
     board.setSnakes(snakes);
     board.setStartTile(tileMap.get(1));
+
+
+    List<Tile> ordered = board.getTilesOrdered();
+    for (int i = 0; i < ordered.size() - 1; i++) {
+      Tile here = ordered.get(i);
+      Tile next = ordered.get(i + 1);
+      here.setNextTile(next);
+    }
+
+
 
     return board;
   }

@@ -9,6 +9,7 @@ import edu.ntnu.idi.idatt.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.ui.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.ui.view.layouts.BoardView;
 import java.util.List;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -23,6 +24,7 @@ public class BoardController implements BoardGameObserver {
   private final GameEngine engine;
   private final BoardView boardView;
   private final Map<Player, PlayerIcon> playerIcons = new HashMap<>();
+  private final Logger logger = Logger.getLogger(BoardController.class.getName());
 
   public BoardController(GameController controller, BoardView boardView) {
     this.engine = controller.getEngine();
@@ -37,9 +39,19 @@ public class BoardController implements BoardGameObserver {
 
   private void setUpRollButton(GameController controller) {
     boardView.setRollCallback(() -> {
+      Player mover = controller.getCurrentPlayer();
       controller.playTurn();
+      Player moved = mover;
+
       List<Integer> rollResults = controller.getLastRoll();
+      logger.info(moved.getName()
+          + " rolled "
+          + rollResults
+          + " landed on "
+          + moved.getCurrentTile().getTileId());
+
       boardView.showDiceRoll(rollResults);
+      updatePlayerPositions();
 
       if (controller.isGameOver()) {
         Player winner = controller.getWinner();
@@ -47,6 +59,7 @@ public class BoardController implements BoardGameObserver {
       }
     });
   }
+
   private void initializePlayers() {
     for (Player player : engine.getPlayers()) {
       String iconPath = "/icons/players/" + player.getToken().getIconFileName();
@@ -76,7 +89,8 @@ public class BoardController implements BoardGameObserver {
         case GAME_START -> initializePlayers();
         case PLAYER_MOVED -> updatePlayerPositions();
         case GAME_WON -> showWinnerAlert(engine.checkWinCondition());
-        default -> {}
+        default -> {
+        }
       }
     });
   }
@@ -92,10 +106,12 @@ public class BoardController implements BoardGameObserver {
   }
 
   private void showWinnerAlert(Player winner) {
-    if (winner == null) return;
+    if (winner == null) {
+      return;
+    }
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Game Over");
     alert.setContentText(winner.getName() + " wins the game! 🎉");
     alert.showAndWait();
-    }
+  }
 }

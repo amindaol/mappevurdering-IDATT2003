@@ -147,6 +147,7 @@ public class Main extends Application {
                 GameEngine engine = new LoveAndLaddersEngine(game, dice);
                 BoardView view = new BoardView(board.getRows(), board.getCols(),
                     dice.getDiceAmount());
+                view.drawBoard(board);
                 GameController gc = new GameController(engine);
                 new BoardController(gc, view);
                 engine.startGame();
