@@ -1,0 +1,87 @@
+package edu.ntnu.idi.idatt.factory;
+
+import edu.ntnu.idi.idatt.model.action.JumpToTileAction;
+import edu.ntnu.idi.idatt.model.action.ModifyPointsAction;
+import edu.ntnu.idi.idatt.model.action.SkipNextTurnAction;
+import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.Tile;
+
+/**
+ * Factory class for creating different types of game boards. This class provides methods to create
+ * a default board, a board for the game "Love and Ladders", and a board for the game "Bestie Point
+ * Battles".
+ *
+ *  @author Aminda Lunde
+ *  @author Ingrid Opheim
+ *  @version 1.0
+ */
+public class BoardFactory {
+
+  /**
+   * Private constructor to prevent instantiation of the factory class.
+   */
+  private BoardFactory() {
+
+  }
+
+  /**
+   * Creates a default board with 90 tiles arranged in a 10x9 grid. Each tile is assigned a unique
+   * ID and linked to the next tile in sequence.
+   *
+   * @return a Board object representing the default game board
+   */
+  public static Board createDefaultBoard() {
+    int tileCount = 90;
+    int width = 10;
+    int height = tileCount / width;
+
+    Board board = new Board(height, width);
+
+    for (int i = 1; i <= tileCount; i++) {
+      int x = (i - 1) % width;
+      int y = (i - 1) / width;
+      board.addTile(new Tile(i, x, y));
+    }
+
+    for (int i = 1; i < tileCount; i++) {
+      board.getTile(i).setNextTile(board.getTile(i + 1));
+    }
+
+    board.setStartTile(board.getTile(1));
+    return board;
+  }
+
+  /**
+   * Creates a board for the game "Love and Ladders". This board has special actions assigned to
+   * certain tiles, such as jumping to another tile.
+   *
+   * @return a Board object representing the "Love and Ladders" game board
+   */
+  public static Board createLoveAndLaddersBoard() {
+    Board board = createDefaultBoard();
+
+    board.getTile(3).setAction(new JumpToTileAction(board.getTile(14)));
+    board.getTile(8).setAction(new JumpToTileAction(board.getTile(4)));
+    board.getTile(19).setAction(new JumpToTileAction(board.getTile(27)));
+    board.getTile(25).setAction(new JumpToTileAction(board.getTile(17)));
+
+    return board;
+  }
+
+  /**
+   * Creates a board for the game "Bestie Point Battles". This board has special actions assigned to
+   * certain tiles, such as modifying points or skipping turns.
+   *
+   * @return a Board object representing the "Bestie Point Battles" game board
+   */
+  public static Board createBestiePointBattlesBoard() {
+    Board board = createDefaultBoard();
+
+    board.getTile(5).setAction(new ModifyPointsAction(+3));
+    board.getTile(10).setAction(new ModifyPointsAction(-2));
+    board.getTile(15).setAction(new ModifyPointsAction(+5));
+    board.getTile(20).setAction(new SkipNextTurnAction());
+
+    return board;
+  }
+}

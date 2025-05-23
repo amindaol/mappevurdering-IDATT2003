@@ -1,0 +1,26 @@
+package edu.ntnu.idi.idatt.io.writer;
+
+import edu.ntnu.idi.idatt.model.game.Player;
+import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
+import java.nio.file.Path;
+import java.util.List;
+
+
+/**
+ * Writes a list of Players to a CSV file.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
+ */
+public interface PlayerFileWriter {
+
+  /**
+   * Writes a list of players to persistent storage.
+   *
+   * @param players the List of Player objects to persist
+   * @throws DaoException if an error occurs during the write operation
+   */
+  void writePlayers(Path path, List<Player> players) throws DaoException;
+}
+
