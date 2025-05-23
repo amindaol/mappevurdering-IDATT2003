@@ -88,4 +88,10 @@ class TileTest {
       // do nothing
     }
   }
+
+  @Test
+  void testOnLandWithNullPlayerThrows() {
+    assertThrows(NullPointerException.class, () -> tile.onLand(null));
+  }
+
 }

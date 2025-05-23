@@ -113,4 +113,10 @@ class GameEngineTest {
       lastEvent = event;
     }
   }
+
+  @Test
+  void testGetGameAndBoard() {
+    assertEquals(game, engine.getGame());
+    assertEquals(game.getBoard(), engine.getBoard());
+  }
 }

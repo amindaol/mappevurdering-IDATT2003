@@ -30,4 +30,11 @@ class GameEngineFactoryTest {
     assertNotNull(engine);
     assertTrue(engine instanceof BestiePointBattlesEngine);
   }
+
+  @Test
+  void testCreateWithNullGameModeThrows() {
+    BoardGame game = new BoardGame(new Board(1, 1), new Dice(1));
+    assertThrows(NullPointerException.class, () -> GameEngineFactory.create(game, null));
+  }
+
 }

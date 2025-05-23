@@ -129,4 +129,12 @@ class BoardTest {
     assertEquals(3, board.getRows());
     assertEquals(3, board.getCols());
   }
+
+  @Test
+  void testAddTileOverridesExisting() {
+    board.addTile(tile1);
+    Tile duplicate = new Tile(1, 1, 1);
+    board.addTile(duplicate);
+    assertEquals(duplicate, board.getTile(1));
+  }
 }

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -87,5 +86,14 @@ class BoardGameTest {
     public void onGameStateChange(BoardGame game, BoardGameEvent event) {
       wasNotified = true;
     }
+  }
+
+  @Test
+  void testNotifyObserversFiresEvent() {
+    DummyObserver observer = new DummyObserver();
+    game.addObserver(observer);
+    game.notifyObservers(BoardGameEvent.GAME_START);
+
+    assertTrue(observer.wasNotified);
   }
 }

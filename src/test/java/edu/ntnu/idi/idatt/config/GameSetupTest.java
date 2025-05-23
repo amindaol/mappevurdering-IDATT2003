@@ -96,4 +96,23 @@ class GameSetupTest {
     @Override
     public void startGame() {}
   }
+
+  @Test
+  void testBuildCreatesNewConfigEachTime() {
+    Board board = new Board(1, 1);
+    Player player = new Player("Test", new Token("icon", "i.png"), LocalDate.now());
+
+    GameInformation info = new GameInformation(
+        "Test Game", "Rules", 4, 2,
+        config -> new DummyEngine(), () -> List.of(board), GameMode.LOVE_AND_LADDERS
+    );
+
+    GameSetup setup = new GameSetup(info, board, List.of(player));
+
+    GameConfiguration first = setup.build();
+    GameConfiguration second = setup.build();
+
+    assertNotSame(first, second);
+  }
+
 }

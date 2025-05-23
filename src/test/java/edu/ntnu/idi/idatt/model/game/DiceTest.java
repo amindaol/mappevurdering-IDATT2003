@@ -60,4 +60,20 @@ class DiceTest {
     assertThrows(IllegalArgumentException.class, () -> dice.getDie(-1));
     assertThrows(IllegalArgumentException.class, () -> dice.getDie(2));
   }
+
+  @Test
+  void testRollIsRandomized() {
+    Dice dice = new Dice(1);
+    boolean different = false;
+    int first = dice.roll().get(0);
+
+    for (int i = 0; i < 10; i++) {
+      if (dice.roll().get(0) != first) {
+        different = true;
+        break;
+      }
+    }
+    assertTrue(different, "Dice should produce different values over multiple rolls");
+  }
+
 }

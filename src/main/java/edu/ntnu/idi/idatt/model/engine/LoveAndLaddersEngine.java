@@ -50,7 +50,7 @@ public class LoveAndLaddersEngine extends GameEngine {
   @Override
   public void playGame() {
     if (board == null || dice == null) {
-      throw new GameNotInitializedException();
+      throw new GameNotInitializedException("GameConfiguration cannot have null fields.");
     }
     if (players == null || players.isEmpty()) {
       throw new NoPlayersException();

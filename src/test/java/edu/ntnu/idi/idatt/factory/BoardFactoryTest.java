@@ -54,4 +54,11 @@ class BoardFactoryTest {
 
     assertTrue(board.getTile(20).getAction() instanceof SkipNextTurnAction);
   }
+
+  @Test
+  void testTilesWithoutActionsRemainNull() {
+    Board board = BoardFactory.createBestiePointBattlesBoard();
+    assertNull(board.getTile(6).getAction());
+  }
+
 }

@@ -50,4 +50,5 @@ class BoardGameFactoryTest {
     assertTrue(game.getPlayers().contains(p1));
     assertTrue(game.getPlayers().contains(p2));
   }
+
 }

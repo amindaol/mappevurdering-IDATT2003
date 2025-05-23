@@ -52,4 +52,19 @@ class GameConfigurationTest {
     @Override public void handleTurn(int total) {}
     @Override public Player checkWinCondition() { return null; }
   }
+
+  @Test
+  void testConstructorThrowsOnNullGameModeAndBoardGame() {
+    GameEngine engine = new DummyEngine();
+
+    assertThrows(IllegalArgumentException.class, () ->
+        new GameConfiguration(null, null, engine));
+  }
+
+  @Test
+  void testConstructorThrowsOnAllNullValues() {
+    assertThrows(IllegalArgumentException.class, () ->
+        new GameConfiguration(null, null, null));
+  }
+
 }

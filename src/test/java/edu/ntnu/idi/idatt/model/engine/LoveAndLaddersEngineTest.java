@@ -3,7 +3,6 @@ package edu.ntnu.idi.idatt.model.engine;
 import edu.ntnu.idi.idatt.model.game.*;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
-import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -97,5 +96,19 @@ class LoveAndLaddersEngineTest {
     public void onGameStateChange(BoardGame game, BoardGameEvent event) {
       wasNotified = true;
     }
+  }
+
+  @Test
+  void testHandleTurnSkipsIfPlayerHasSkipFlag() {
+    p1.setSkipNextTurn(true);
+    Tile t1 = board.getTile(1);
+    Tile t2 = new Tile(2, 1, 1);
+    board.addTile(t2);
+    t1.setNextTile(t2);
+
+    engine.startGame();
+    engine.handleTurn(1);
+
+    assertEquals(t1, p1.getCurrentTile());
   }
 }
