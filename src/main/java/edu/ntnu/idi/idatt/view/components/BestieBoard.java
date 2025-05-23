@@ -1,125 +1,112 @@
 package edu.ntnu.idi.idatt.view.components;
 
+import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Tile;
-import java.util.List;
-import javafx.scene.Node;
+import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-/**
- * A simplified board layout used for the Bestie PointBattles game.
- * Unlike {@link LaddersBoard}, this board only handles tile layout and player movement,
- * and does not draw ladders or snakes.
- * Tiles are added to a {@link GridPane} and stored in a map for easy access by tile ID.
- * </p>
- *
- * Used in the BestieBattlesView to display the game board and player icons.
- *
- * @author Aminda Lunde
- * @author Ingrid Opheim
- * @version 1.0
- */
-public class BestieBoard extends GridPane {
+public class BestieBoard {
 
-  private final GridPane grid = new GridPane();
-  private final Map<Integer, TileComponent> tileMap = new HashMap<>();
-  private final int rows;
-  private final int cols;
-  private final List<Tile> tiles;
+  private static final double TILE_SIZE = 80;
 
-  /**
-   * Creates a new BestieBoard with the given tile layout and dimensions.
-   *
-   * @param tiles the list of tiles to display
-   * @param rows number of rows in the board
-   * @param cols number of columns in the board
-   */
-  public BestieBoard(List<Tile> tiles, int rows, int cols) {
-    this.tiles = tiles;
+  private final GridPane grid;
+  private final Pane overlay = new Pane();
+  private final StackPane container;
+
+  private final Map<Integer, Pane> tileMap = new HashMap<>();
+  private final Map<String, Integer> positionToTileId = new HashMap<>();
+  private int rows;
+  private int cols;
+
+  public BestieBoard(int rows, int cols) {
     this.rows = rows;
     this.cols = cols;
-    drawTiles();
+    this.grid = new GridPane();
+    this.grid.setAlignment(Pos.CENTER);
+    this.overlay.setPickOnBounds(false);
+    this.container = new StackPane(grid, overlay);
   }
 
   /**
-   * Draws all tiles onto the internal grid.
-   * Tiles are placed row by row, top to bottom.
+   * Draws the tiles from the board model and hides unused positions.
    */
-  public void drawTiles() {
-    grid.setHgap(5);
-    grid.setVgap(5);
+  public void drawBoard(Board boardModel) {
+    this.rows = boardModel.getRows();
+    this.cols = boardModel.getCols();
+
+    // Clear previous content
     grid.getChildren().clear();
     tileMap.clear();
+    positionToTileId.clear();
 
-    for (int i = 0; i < tiles.size(); i++) {
-      Tile tile = tiles.get(i);
-      int tileId = tile.getTileId();
-      int row = rows - 1 - (i / cols);
-      int col = i % cols;
+    // Map used tiles and layout
+    for (Tile tile : boardModel.getTiles()) {
+      int id = tile.getTileId();
+      int row = tile.getRow();
+      int col = tile.getCol();
 
-      TileComponent component = new TileComponent(tile);
-      tileMap.put(tileId, component);
-      grid.add(component, col, row);
+      Pane tilePane = new Pane();
+      tilePane.setPrefSize(TILE_SIZE, TILE_SIZE);
+      tilePane.getStyleClass().add("tile");
+
+      grid.add(tilePane, col, row);
+      tileMap.put(id, tilePane);
+      positionToTileId.put(row + "," + col, id);
+    }
+
+    // Fill in invisible tiles for empty spots
+    for (int r = 0; r < rows; r++) {
+      for (int c = 0; c < cols; c++) {
+        String key = r + "," + c;
+        if (!positionToTileId.containsKey(key)) {
+          Pane hiddenTile = new Pane();
+          hiddenTile.setPrefSize(TILE_SIZE, TILE_SIZE);
+          hiddenTile.setVisible(false);
+          hiddenTile.setManaged(false);
+          grid.add(hiddenTile, c, r);
+        }
+      }
     }
   }
 
-  /**
-   * Returns the grid containing all tile components.
-   *
-   * @return the board node
-   */
-  public Node getBoardWithOverlay() {
-    return grid;
+  public void drawCoinsTile(int tileId) {
+    Platform.runLater(() -> {
+      Pane tilePane = tileMap.get(tileId);
+      if (tilePane != null) {
+        tilePane.getStyleClass().add("coin-tile");
+      }
+    });
   }
 
-  /**
-   * Returns the {@link TileComponent} for a given tile ID.
-   *
-   * @param tileId the ID of the tile
-   * @return the TileComponent or null if not found
-   * @throws IllegalArgumentException if the tileId is not found
-   */
-  public TileComponent getTile(int tileId) {
-    if (!tileMap.containsKey(tileId)) {
-      throw new IllegalArgumentException("Tile not found: " + tileId);
-    }
+  public void drawShopTile(int tileId) {
+    Platform.runLater(() -> {
+      Pane tilePane = tileMap.get(tileId);
+      if (tilePane != null) {
+        tilePane.getStyleClass().add("shop-tile");
+      }
+    });
+  }
+
+  public StackPane getBoardWithOverlay() {
+    return container;
+  }
+
+  public Pane getTile(int tileId) {
     return tileMap.get(tileId);
   }
 
-  /**
-   * Places a player icon on the specified tile.
-   *
-   * @param playerName the name of the player (not currently used)
-   * @param icon the player's icon component
-   * @param tileId the ID of the tile to place the icon on
-   */
-  public void placePlayerIcon(String playerName, PlayerIcon icon, int tileId) {
-    TileComponent tile = getTile(tileId);
-    if (tile != null) {
-      tile.getChildren().add(icon);
-    }
+  public GridPane getGrid() {
+    return grid;
   }
 
-  /**
-   * Moves a player icon from its current tile to a new one.
-   * Removes the icon from all tiles before placing it on the target tile.
-   *
-   * @param playerName the name of the player (not currently used)
-   * @param icon the player's icon component
-   * @param tileId the ID of the target tile
-   */
-  public void movePlayerIcon(String playerName, PlayerIcon icon, int tileId) {
-    for (Node node : grid.getChildren()) {
-      if (node instanceof TileComponent tc) {
-        tc.getChildren().remove(icon);
-      }
-    }
-
-    TileComponent tile = getTile(tileId);
-    if (tile != null) {
-      tile.getChildren().add(icon);
-    }
+  public Integer getTileIdForPosition(int row, int col) {
+    return positionToTileId.get(row + "," + col);
   }
 }

@@ -75,20 +75,22 @@ public class AlertUtil {
       case "LoveAndLadders" -> {
         alert.setHeaderText("Love & Ladders");
         alert.setContentText("""
-            🎲 Roll the dice to move forward.
-            🪜 Landing on a green ladder moves you up.
-            🪜 Landing on a red ladder sends you down.
-               First player to reach the final tile wins!
-        """);
+                🎲 Roll the dice to move forward.
+                🪜 Landing on a green ladder moves you up.
+                🪜 Landing on a red ladder sends you down.
+                   First player to reach the final tile wins!
+            """);
       }
       case "PointBattles" -> {
         alert.setHeaderText("Bestie PointBattles");
         alert.setContentText("""
-            🏆 Collect as many points as you can before reaching the goal!
-            ✨ Some tiles give or take points.
-            🚫 Others skip your turn or send you backwards.
-               Highest score wins!
-        """);
+                🎲 Roll the dice to move forward.
+                🪜 Landing on a yellow space gives you coins
+                🪜 Passing a dark red space lets you buy a star.
+                🪜 Stars cost 20 coins.
+                💖 Collect coins to buy stars.
+                First player to reach 3 stars wins!
+            """);
       }
       default -> {
         alert.setHeaderText("Game Help");

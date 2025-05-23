@@ -18,14 +18,11 @@ import javafx.scene.layout.VBox;
 import edu.ntnu.idi.idatt.view.AppState;
 
 /**
- * A GUI component that displays all game setup options, including:
- * - Board selection
- * - Number of players
- * - Player name, birthday, and token inputs
- * - Option to load players from file
- *
- * This component is used during the game setup phase before the game starts.
- * It dynamically updates player fields based on selected number of players.
+ * A GUI component that displays all game setup options, including: - Board selection - Number of
+ * players - Player name, birthday, and token inputs - Option to load players from file
+ * <p>
+ * This component is used during the game setup phase before the game starts. It dynamically updates
+ * player fields based on selected number of players.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -68,9 +65,17 @@ public class SettingsContent {
     boardButton2.getStyleClass().add("settings-content-radio-button");
     boardButton3.getStyleClass().add("settings-content-radio-button");
 
-    boardButton1.setUserData("ladderBoard1.json");
-    boardButton2.setUserData("ladderBoard2.json");
-    boardButton3.setUserData("ladderBoard3.json");
+    if (gameMode == GameMode.LOVE_AND_LADDERS) {
+      boardButton1.setUserData("ladderBoard1.json");
+      boardButton2.setUserData("ladderBoard2.json");
+      boardButton3.setUserData("ladderBoard3.json");
+    } else if (gameMode == GameMode.BESTIE_POINT_BATTLES) {
+      boardButton1.setUserData("bestieBoard1.json");
+      boardButton2.setUserData("bestieBoard2.json");
+      boardButton3.setUserData("bestieBoard3.json");
+    } else {
+      throw new IllegalArgumentException("Unsupported game mode: " + gameMode);
+    }
 
     boardGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
       if (newValue != null) {
