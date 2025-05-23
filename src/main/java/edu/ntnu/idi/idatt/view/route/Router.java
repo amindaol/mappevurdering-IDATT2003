@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 /**
  * A simple routing system for switching between views in the application.
  * Maintains navigation history, handles route registration, and updates the {@link PrimaryScene}.
- *
  * Used to navigate between screens such as Home, Settings, and Board views.
  *
  * @author Aminda Lunde
@@ -26,8 +25,12 @@ public class Router {
    * Registers a new route with a name, view, and nav bar supplier.
    *
    * @param route the route to register
+   * @throws IllegalArgumentException if a route with the same name already exists
    */
   public static void registerRoute(Route route) {
+    if (routes.containsKey(route.getName())) {
+      throw new IllegalArgumentException("Route with name " + route.getName() + " already exists.");
+    }
     routes.put(route.getName(), route);
   }
 

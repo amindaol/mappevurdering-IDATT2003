@@ -1,21 +1,18 @@
 package edu.ntnu.idi.idatt.view.layouts;
 
 import edu.ntnu.idi.idatt.model.game.Board;
-import edu.ntnu.idi.idatt.model.game.Ladder;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidBoardConfigurationException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.TileNotFoundException;
 import edu.ntnu.idi.idatt.view.components.DieContainer;
 import edu.ntnu.idi.idatt.view.components.LaddersBoard;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.components.PlayerList;
-import edu.ntnu.idi.idatt.view.components.DieContainer;
-import edu.ntnu.idi.idatt.view.components.LaddersBoard;
-import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -30,7 +27,6 @@ import javafx.scene.shape.Line;
  * A visual layout for the Love & Ladders game board. Combines the {@link LaddersBoard}, dice
  * display, and a roll button into a scrollable layout. Responsible for placing and moving player
  * icons and updating the dice.
- * <p>
  * Used as the main game view in the Love & Ladders game mode.
  *
  * @author Aminda Lunde
@@ -115,13 +111,15 @@ public class BoardView extends BorderPane {
    * @param playerName the name of the player
    * @param icon       the visual icon component for the player
    * @param tileId     the ID of the tile to place the icon on
+   * @throws TileNotFoundException if the specified tile ID does not exist on the board
    */
   public void placePlayerIcon(String playerName, PlayerIcon icon, int tileId) {
     playerIcons.put(playerName, icon);
     Pane tile = board.getTile(tileId);
-    if (tile != null) {
-      tile.getChildren().add(icon);
+    if (tile == null) {
+      throw new TileNotFoundException("Tile ID " + tileId + " not found on the board.");
     }
+    tile.getChildren().add(icon);
   }
 
   /**
@@ -129,6 +127,7 @@ public class BoardView extends BorderPane {
    *
    * @param playerName the name of the player
    * @param tileId     the target tile ID
+   * @throws TileNotFoundException if the specified tile ID does not exist on the board
    */
   public void movePlayerIcon(String playerName, int tileId) {
     PlayerIcon icon = playerIcons.get(playerName);
@@ -139,9 +138,10 @@ public class BoardView extends BorderPane {
       oldTile.getChildren().remove(icon);
     }
     Pane newTile = board.getTile(tileId);
-    if (newTile != null) {
-      newTile.getChildren().add(icon);
+    if (newTile == null) {
+      throw new TileNotFoundException("Tile ID " + tileId + " not found on the board.");
     }
+    newTile.getChildren().add(icon);
   }
 
   /**
@@ -183,6 +183,10 @@ public class BoardView extends BorderPane {
    * @param boardModel the board to visualize
    */
   public void drawBoard(Board boardModel) {
+    if (boardModel == null) {
+      throw new InvalidBoardConfigurationException("Board configuration is invalid.");
+    }
+
     System.out.println("Ladders from board model: " + boardModel.getLadders());
 
     for (Tile tile : boardModel.getTiles()) {
@@ -193,11 +197,23 @@ public class BoardView extends BorderPane {
     board.drawSnakes(boardModel.getSnakes());
   }
 
+  /**
+   * Initializes the player list by creating a new {@link PlayerList} and populating it with the given players.
+   * The list is then set as the content in the {@link VBox} playerListContainer, displaying the players in the UI.
+   *
+   * @param players the list of players to initialize the player list with
+   */
   public void initializePlayerList(List<Player> players) {
     playerList = new PlayerList(players);
     playerListContainer.getChildren().setAll(playerList);
   }
 
+  /**
+   * Updates the current player list by highlighting the given player in the UI.
+   * If the player list is initialized, the specified player is visually highlighted in the list.
+   *
+   * @param player the player to highlight in the current player list
+   */
   public void updateCurrentPlayerList(Player player) {
     if (playerList != null) {
       playerList.highlightPlayer(player);

@@ -17,11 +17,8 @@ import javafx.scene.shape.Line;
  * A visual board component for games like Love & Ladders or PointBattles.
  * Internally uses a {@link GridPane} to lay out tiles and an overlay {@link Pane}
  * to draw ladders and snakes as lines between tiles.
- * <p>
  * Tiles are arranged in a zig-zag pattern (left-to-right, then right-to-left per row),
  * and each tile is mapped to a unique tile ID.
- * </p>
- *
  * Used in the board view to render the game layout and visual effects.
  *
  * @author Aminda Lunde
@@ -73,8 +70,13 @@ public class LaddersBoard {
    * Draws green ladder lines between tile connections.
    *
    * @param ladders list of ladder connections to draw
+   * @throws IllegalArgumentException if ladders contain invalid tile IDs
    */
   public void drawLadders(List<Ladder> ladders) {
+    if (ladders == null) {
+      throw new IllegalArgumentException("Ladders list cannot be null");
+    }
+
     grid.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
       redrawLaddersAndSnakes(ladders, List.of());  // replace with actual snakes if needed
     });
@@ -84,9 +86,14 @@ public class LaddersBoard {
    * Draws red snake lines between tile connections.
    *
    * @param snakes list of snake connections to draw
+   * @throws IllegalArgumentException if snakes contain invalid tile IDs
    */
 
   public void drawSnakes(List<Ladder> snakes) {
+    if (snakes == null) {
+      throw new IllegalArgumentException("Snakes list cannot be null");
+    }
+
     grid.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
       redrawLaddersAndSnakes(List.of(), snakes);  // replace with actual ladders if needed
     });
@@ -116,13 +123,14 @@ public class LaddersBoard {
    *
    * @param connection the ladder or snake to render
    * @param color the color of the line (green for ladder, red for snake)
+   * @throws IllegalArgumentException if the connection's fromTileId or toTileId are invalid
    */
   private void drawConnection(Ladder connection, Color color) {
     Pane fromPane = tileMap.get(connection.getFromTileId());
     Pane toPane = tileMap.get(connection.getToTileId());
 
     if (fromPane == null || toPane == null) {
-      return;
+      throw new IllegalArgumentException("Invalid tile ID for ladder or snake connection");
     }
 
     Bounds fromBounds = fromPane.localToScene(fromPane.getBoundsInLocal());

@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 /**
  * A layout for the game setup screen.
  * Displays scrollable content with a start button at the bottom.
- *
  * Used to wrap {@link edu.ntnu.idi.idatt.view.components.SettingsContent} and display it
  * with padding, scrolling, and a start game action.
  *
@@ -29,10 +28,18 @@ public class SettingsView extends BorderPane {
    *
    * @param content the main content node (usually a SettingsContent component)
    * @param onStartGame the action to run when "Start game" is clicked
+   * @throws IllegalArgumentException if content or onStartGame is null
    */
   public SettingsView(
       Node content,
       Runnable onStartGame) {
+
+    if (content == null) {
+      throw new IllegalArgumentException("Content cannot be null.");
+    }
+    if (onStartGame == null) {
+      throw new IllegalArgumentException("Start game action cannot be null.");
+    }
 
     this.getStyleClass().add("settings-root");
 

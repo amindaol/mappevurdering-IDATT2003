@@ -21,7 +21,6 @@ import javafx.scene.layout.VBox;
 /**
  * A GUI component for configuring a single player.
  * Includes fields for name, birthday, and token (icon) selection.
- *
  * Used within {@link PlayerSettingsContainer} to configure multiple players.
  * Provides validation and ensures each player selects a unique token.
  *
@@ -146,10 +145,12 @@ public class PlayerSettings extends VBox {
   /**
    * Validates that the player name field is not empty.
    * Applies a red border if validation fails.
+   * @throws IllegalArgumentException if player name is empty
    */
   public void validateNameField() {
     if (getPlayerName().isBlank()) {
       nameField.setStyle("-fx-border-color: red;");
+      throw new IllegalArgumentException("Player name cannot be empty.");
     } else {
       nameField.setStyle("");
     }
@@ -158,12 +159,14 @@ public class PlayerSettings extends VBox {
   /**
    * Validates that a token has been selected.
    * Applies a red border if none is selected.
+   * @throws IllegalStateException if token is not selected
    */
   public void validateTokenSelection() {
     if (getSelectedToken() == null) {
       for (Toggle toggle : iconGroup.getToggles()) {
         ((RadioButton) toggle).setStyle("-fx-border-color: red;");
       }
+      throw new IllegalStateException("A token must be selected.");
     } else {
       for (Toggle toggle : iconGroup.getToggles()) {
         ((RadioButton) toggle).setStyle("");

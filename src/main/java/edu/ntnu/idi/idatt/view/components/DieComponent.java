@@ -13,7 +13,6 @@ import javafx.scene.shape.Circle;
  * A visual component representing a single die.
  * Uses a 3x3 {@link GridPane} layout to position dots based on the value.
  * Dots are drawn as styled {@link Circle} nodes.
- *
  * Used in {@link DieContainer} to show one or more dice in the GUI.
  *
  * @author Aminda Lunde
@@ -39,8 +38,12 @@ public class DieComponent extends GridPane {
    * Sets the number of dots shown on the die.
    *
    * @param count the value of the die (1–6)
+   * @throws IllegalArgumentException if count is not between 1 and 6
    */
   public void setDots(int count) {
+    if (count < 1 || count > 6) {
+      throw new IllegalArgumentException("Die count must be between 1 and 6. Provided: " + count);
+    }
     this.drawDots(count);
   }
 
