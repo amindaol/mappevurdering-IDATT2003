@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt.view.components;
 
 import edu.ntnu.idi.idatt.view.AppState;
+import edu.ntnu.idi.idatt.config.GameMode;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.geometry.Insets;
@@ -32,19 +33,21 @@ public class SettingsContent {
 
   private final VBox root;
   private PlayerSettingsContainer playerSettingsContainer;
+  private final GameMode gameMode;
 
   /**
    * Creates a new settings content view for the given game mode.
    *
    */
-  public SettingsContent() {
+  public SettingsContent(GameMode gameMode) {
     int maxPlayers = 5;
-
     root = new VBox();
     root.getStyleClass().add("settings-content");
     root.setSpacing(10);
     root.setAlignment(Pos.CENTER);
     root.setPadding(new Insets(10));
+
+    this.gameMode = gameMode;
 
     Label boardLabel = new Label("Choose a board:");
     boardLabel.getStyleClass().add("settings-content-label");

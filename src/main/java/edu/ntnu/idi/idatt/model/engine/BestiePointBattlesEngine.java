@@ -89,20 +89,9 @@ public class BestiePointBattlesEngine extends GameEngine {
 
   public Dice getDice() {
     return dice;
-  /**
-   * Plays one round of the game by rolling the dice,
-   * summing the result, and handling the player's turn.
-   * Does nothing if the game is already over.
-   */
-  public void playOneRound() {
-    if (gameOver) {
-      return;
-    }
-
-    List<Integer> values = dice.roll();
-    int steps = values.stream().mapToInt(Integer::intValue).sum();
-    handleTurn(steps);
   }
+
+
 
   @Override
   public void startGame() {

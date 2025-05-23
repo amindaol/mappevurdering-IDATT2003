@@ -15,6 +15,7 @@ import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidPlayerException;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BestieBattlesView;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;

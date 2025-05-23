@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.toList;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import edu.ntnu.idi.idatt.config.GameMode;
 import edu.ntnu.idi.idatt.controller.BestieBattlesController;
 import edu.ntnu.idi.idatt.controller.BoardController;
 import edu.ntnu.idi.idatt.controller.GameController;
@@ -106,7 +107,7 @@ public class Main extends Application {
     Router.registerRoute(
         new Route("lalSettings",
             () -> {
-              SettingsContent content = new SettingsContent();
+              SettingsContent content = new SettingsContent(GameMode.LOVE_AND_LADDERS);
               return new SettingsView(content.getRoot(), () -> {
                 if (!validateAndStartGame(content)) {
                   return;
@@ -122,7 +123,7 @@ public class Main extends Application {
     Router.registerRoute(
         new Route("bbSettings",
             () -> {
-              SettingsContent content = new SettingsContent();
+              SettingsContent content = new SettingsContent(GameMode.BESTIE_POINT_BATTLES);
               return new SettingsView(content.getRoot(), () -> {
                 if (!validateAndStartGame(content)) {
                   return;
