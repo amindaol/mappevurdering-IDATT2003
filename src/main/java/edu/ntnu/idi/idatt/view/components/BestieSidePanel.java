@@ -87,4 +87,17 @@ public class BestieSidePanel extends VBox {
   public void highlightPlayer(BestiePlayer currentPlayer) {
     playerList.highlightPlayer(currentPlayer);
   }
+
+  /**
+   * Returns the roll button.
+   *
+   * @return the roll button
+   */
+  public Button getRollButton() {
+    return rollButton;
+  }
+
+  public void showDiceRoll(List<Integer> roll) {
+    
+  }
 }

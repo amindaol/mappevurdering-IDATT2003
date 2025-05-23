@@ -75,4 +75,8 @@ public class BestiePointBattlesEngine extends GameEngine {
         .findFirst()
         .orElse(null);
   }
+
+  public Dice getDice() {
+    return dice;
+  }
 }

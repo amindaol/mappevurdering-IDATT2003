@@ -7,7 +7,9 @@ import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.view.components.BestieBoard;
 import edu.ntnu.idi.idatt.view.components.BestieSidePanel;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
+import edu.ntnu.idi.idatt.view.components.PlayerList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -22,6 +24,7 @@ public class BestieBattlesView extends BorderPane {
   private final Map<String, PlayerIcon> playerIcons = new HashMap<>();
   private final BestieSidePanel sidePanel;
   private Runnable onRoll;
+  private PlayerList playerList;
 
   public BestieBattlesView(BoardGame game) {
     this.getStyleClass().add("board-root");
@@ -86,5 +89,27 @@ public class BestieBattlesView extends BorderPane {
 
   public BestieBoard getBoard() {
     return board;
+  }
+
+  public void updateCurrentPlayerList(Player currentPlayer) {
+    if (playerList != null) {
+      playerList.highlightPlayer(currentPlayer);
+    }
+  }
+
+  public void updateSidePanel(List<Player> players) {
+    if (sidePanel != null) {
+      sidePanel.updatePlayerInfo(players);
+    }
+  }
+
+  public void setRollCallBack(Runnable onRoll) {
+    this.onRoll = onRoll;
+    sidePanel.getRollButton().setOnAction(e -> onRoll.run());
+
+  }
+
+  public void showDiceRoll(List<Integer> roll) {
+    sidePanel.showDiceRoll(roll);
   }
 }

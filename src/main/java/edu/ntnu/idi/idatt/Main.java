@@ -39,6 +39,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -205,8 +206,11 @@ public class Main extends Application {
                 }
                 Board board = new BoardFileReaderGson().parseBoard(root);
 
-                List<BestiePlayer> players = AppState.getSelectedPlayers();
-                if (players == null || players.isEmpty()) {
+                List<Player> rawPlayers = AppState.getSelectedPlayers();
+                List<BestiePlayer> players = rawPlayers.stream()
+                    .map(p -> new BestiePlayer(p.getName(), p.getToken(), p.getBirthday()))
+                    .toList();
+                if (players.isEmpty()) {
                   throw new IllegalStateException("No players configured");
                 }
 
@@ -219,7 +223,7 @@ public class Main extends Application {
                   entry.getValue().setPlayers(game.getPlayers());
                 }
 
-                GameEngine engine = new BestiePointBattlesEngine(game, dice);
+                BestiePointBattlesEngine engine = new BestiePointBattlesEngine(game, dice);
                 BestieBattlesView view = new BestieBattlesView(game);
                 new BestieBattlesController(engine, view);
                 engine.startGame();
