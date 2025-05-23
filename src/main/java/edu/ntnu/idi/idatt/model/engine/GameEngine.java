@@ -5,6 +5,8 @@ import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +33,18 @@ public abstract class GameEngine {
    * Constructs a new GameEngine with the specified game.
    *
    * @param game the game to be played
-   * @throws IllegalArgumentException if {@code game} is {@code null}, or if it has no players or
-   *                                  board.
+   * @throws GameNotInitializedException if {@code game} is {@code null} or if the game has no board
+   * @throws NoPlayersException if the game's player list is {@code null} or empty
    */
   public GameEngine(BoardGame game) {
-    if (game == null || game.getPlayers() == null || game.getBoard() == null) {
-      throw new IllegalArgumentException("Game, players and board must not be null.");
+    if (game == null) {
+      throw new GameNotInitializedException("Game cannot be null.");
+    }
+    if (game.getPlayers() == null || game.getPlayers().isEmpty()) {
+      throw new NoPlayersException("Game must have players.");
+    }
+    if (game.getBoard() == null) {
+      throw new GameNotInitializedException("Game must have a board.");
     }
     this.game = game;
     this.board = game.getBoard();

@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt.model.core;
 
 import edu.ntnu.idi.idatt.model.game.*;
+import edu.ntnu.idi.idatt.util.exceptionHandling.PlayerNotOnBoardException;
 
 /**
  * Represents a linear movement strategy for a player in the game. This class implements the
@@ -19,12 +20,22 @@ public class LinearMovement implements Movement {
    *
    * @param player the player to move
    * @param steps  the number of steps to move the player
+   * @throws NullPointerException if {@code player} is null
+   * @throws IllegalArgumentException if {@code steps} is negative
+   * @throws PlayerNotOnBoardException if {@code player} is not currently on any tile
    */
   @Override
   public void move(Player player, int steps) {
+    if (player == null) {
+      throw new NullPointerException("Player cannot be null.");
+    }
+    if (steps < 0) {
+      throw new IllegalArgumentException("Steps cannot be negative.");
+    }
+
     Tile current = player.getCurrentTile();
     if (current == null) {
-      throw new IllegalStateException("Player's current tile is null.");
+      throw new PlayerNotOnBoardException("Player's current tile is null.");
     }
 
     Tile destination = current;

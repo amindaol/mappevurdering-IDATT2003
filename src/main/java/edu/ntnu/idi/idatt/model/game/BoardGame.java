@@ -2,6 +2,7 @@ package edu.ntnu.idi.idatt.model.game;
 
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidPlayerException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.TooManyPlayersException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import java.util.ArrayList;
@@ -90,7 +91,8 @@ public class BoardGame {
    *
    * @param player the player to add to the game.
    * @throws NullPointerException    if {@code player} is {@code null}.
-   * @throws TooManyPlayersException if adding would exceed the maximum of {@value #MAX_PLAYERS}
+   *  @throws TooManyPlayersException if adding would exceed the maximum of {@value #MAX_PLAYERS}
+   * @throws InvalidPlayerException  if the player has invalid data (e.g., missing name or token)
    */
   public void addPlayer(Player player) {
     if (player == null) {
@@ -98,6 +100,9 @@ public class BoardGame {
     }
     if (players.size() >= MAX_PLAYERS) {
       throw new TooManyPlayersException(MAX_PLAYERS);
+    }
+    if (player.getName() == null || player.getToken() == null) {
+      throw new InvalidPlayerException("Player must have a valid name and token.");
     }
     players.add(player);
   }

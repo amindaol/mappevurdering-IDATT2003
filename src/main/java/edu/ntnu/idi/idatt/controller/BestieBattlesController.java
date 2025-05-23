@@ -6,6 +6,7 @@ import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BestieBattlesView;
 import javafx.scene.control.Alert;
@@ -78,9 +79,12 @@ public class BestieBattlesController implements BoardGameObserver {
   /**
    * Sets up the dice roll callback to play a round, update the board,
    * and show the winner if the game is finished.
+   *
+   * @throws InvalidMoveException if the player makes an invalid move during the round
    */
   private void setupRolling() {
     view.setRollCallback(() -> {
+      try {
       engine.playOneRound();
       updatePlayerPositions();
       view.updatePlayerInfo();
@@ -88,6 +92,13 @@ public class BestieBattlesController implements BoardGameObserver {
       if (engine.isFinished()) {
         showWinnerAlert(engine.checkWinCondition());
       }
+      } catch (InvalidMoveException e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid Move");
+        alert.setHeaderText(null);
+        alert.setContentText(e.getMessage());
+        alert.showAndWait();
+        }
     });
   }
 
