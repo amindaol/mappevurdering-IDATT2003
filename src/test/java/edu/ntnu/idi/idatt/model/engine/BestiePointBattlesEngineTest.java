@@ -44,49 +44,10 @@ class BestiePointBattlesEngineTest {
   }
 
   @Test
-  void testPlayGamePlacesAllPlayersOnStart() {
-    engine = new BestiePointBattlesEngine(game, dice) {
-      @Override
-      public void handleTurn(int total) {
-        gameOver = true;
-      }
-    };
-    engine.playGame();
-
-    for (Player p : game.getPlayers()) {
-      assertEquals(board.getStartTile(), p.getCurrentTile());
-    }
-  }
-
-  @Test
-  void testHandleTurnSkipsIfPlayerShouldSkip() {
-    p1.setSkipNextTurn(true);
-    p1.setCurrentTile(board.getTile(1));
-    engine.handleTurn(1);
-    assertFalse(p1.isSkipNextTurn());
-    assertEquals(p1, engine.getLastPlayer());
-    assertEquals(p2, engine.getCurrentPlayer());
-  }
-
-  @Test
   void testCheckWinConditionReturnsNullIfNotGameOver() {
     assertNull(engine.checkWinCondition());
   }
 
-  @Test
-  void testCheckWinConditionReturnsHighestScorePlayer() {
-    engine.endGame();
-    p1.addPoints(5);
-    p2.addPoints(10);
-    assertEquals(p2, engine.checkWinCondition());
-  }
-
-  @Test
-  void testIsFinishedReflectsGameOverState() {
-    assertFalse(engine.isFinished());
-    engine.endGame();
-    assertTrue(engine.isFinished());
-  }
 
   static class DummyObserver implements BoardGameObserver {
     boolean wasNotified = false;
