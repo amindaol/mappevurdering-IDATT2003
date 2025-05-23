@@ -33,8 +33,9 @@ public abstract class GameEngine {
    * Constructs a new GameEngine with the specified game.
    *
    * @param game the game to be played
-   * @throws GameNotInitializedException if {@code game} is {@code null} or if the game has no board
-   * @throws NoPlayersException if the game's player list is {@code null} or empty
+   * @throws GameNotInitializedException if {@code game} is {@code null} or if the game has no
+   *                                     board
+   * @throws NoPlayersException          if the game's player list is {@code null} or empty
    */
   protected GameEngine(BoardGame game) {
     if (game == null) {
@@ -113,7 +114,7 @@ public abstract class GameEngine {
    * @return the last player who took a turn
    */
   public Player getLastPlayer() {
-    return (currentPlayerIndex == 0) ? players.get(players.size() - 1)
+    return (currentPlayerIndex == 0) ? players.getLast()
         : players.get(currentPlayerIndex - 1);
   }
 
@@ -161,7 +162,7 @@ public abstract class GameEngine {
   }
 
   /**
-   *  Notifies the observers about starting the game.
+   * Notifies the observers about starting the game.
    */
   public void startGame() {
     notifyObservers(BoardGameEvent.GAME_START);

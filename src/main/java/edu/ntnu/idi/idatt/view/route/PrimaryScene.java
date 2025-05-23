@@ -9,9 +9,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- * The main JavaFX scene used throughout the application.
- * Wraps a {@link BorderPane} inside a {@link StackPane}, providing consistent layout
- * for view content and an optional navigation bar.
+ * The main JavaFX scene used throughout the application. Wraps a {@link BorderPane} inside a
+ * {@link StackPane}, providing consistent layout for view content and an optional navigation bar.
  * Used to switch between views while keeping a consistent window size and background.
  *
  * @author Aminda Lunde
@@ -21,7 +20,7 @@ import javafx.scene.layout.VBox;
 public class PrimaryScene extends Scene {
 
   private static final int WIDTH = 1600;
-  private static final int HEIGHT =  1000;
+  private static final int HEIGHT = 1000;
   private final BorderPane root;
 
   /**
@@ -64,6 +63,6 @@ public class PrimaryScene extends Scene {
     if (navBar == null) {
       throw new IllegalArgumentException("Navigation bar cannot be null.");
     }
-    root.setTop(navBar!= null ? navBar : new VBox());
+    root.setTop(navBar);
   }
 }

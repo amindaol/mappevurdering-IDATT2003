@@ -15,12 +15,15 @@ import java.util.List;
 /**
  * Factory for creating {@link BoardGame} instances, either standard or configured from files.
  *
- *  @author Aminda Lunde
- *  @author Ingrid Opheim
- *  @version 1.0
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public final class BoardGameFactory {
 
+  /**
+   * Private constructor to prevent instantiation.
+   */
   private BoardGameFactory() {
     // prevent instantiation
   }
@@ -30,7 +33,7 @@ public final class BoardGameFactory {
    *
    * @param mode the game mode
    * @return a new {@link BoardGame} instance
-   * @throws GameNotInitializedException if game mode is null
+   * @throws GameNotInitializedException  if game mode is null
    * @throws UnsupportedGameModeException if the game mode is not supported
    */
   public static BoardGame createGame(GameMode mode) {

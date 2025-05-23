@@ -20,8 +20,8 @@ public class LinearMovement implements Movement {
    *
    * @param player the player to move
    * @param steps  the number of steps to move the player
-   * @throws NullPointerException if {@code player} is null
-   * @throws IllegalArgumentException if {@code steps} is negative
+   * @throws NullPointerException      if {@code player} is null
+   * @throws IllegalArgumentException  if {@code steps} is negative
    * @throws PlayerNotOnBoardException if {@code player} is not currently on any tile
    */
   @Override
@@ -40,15 +40,13 @@ public class LinearMovement implements Movement {
 
     Tile destination = current;
     for (int i = 0; i < steps && destination.getNextTile() != null; i++) {
-      Tile next = destination.getNextTile();
-      destination = next;
+      destination = destination.getNextTile();
     }
 
     player.setCurrentTile(destination);
 
     if (destination.getAction() != null) {
       destination.getAction().perform(player);
-    } else {
     }
   }
 }

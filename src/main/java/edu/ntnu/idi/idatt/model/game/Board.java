@@ -23,7 +23,6 @@ public class Board {
   private final int rows;
   private final int cols;
   private Tile startTile;
-  private Tile endTile;
   private List<Ladder> ladders = new ArrayList<>();
   private List<Ladder> snakes = new ArrayList<>();
 

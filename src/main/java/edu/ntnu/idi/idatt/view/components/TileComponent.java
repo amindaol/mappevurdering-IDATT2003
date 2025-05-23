@@ -10,10 +10,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 /**
- * A JavaFX component that visually represents a {@link Tile} on the game board.
- * Displays the tile's ID or point effect depending on the {@link TileAction}.
- * Positive points show as green, negative as red, and normal tiles as gray.
- * Used in the board layout to show tile state and value at a glance.
+ * A JavaFX component that visually represents a {@link Tile} on the game board. Displays the tile's
+ * ID or point effect depending on the {@link TileAction}. Positive points show as green, negative
+ * as red, and normal tiles as gray. Used in the board layout to show tile state and value at a
+ * glance.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -24,8 +24,8 @@ public class TileComponent extends StackPane {
   private final Tile tile;
 
   /**
-   * Creates a visual component for the given tile.
-   * The tile's color and label are based on its action.
+   * Creates a visual component for the given tile. The tile's color and label are based on its
+   * action.
    *
    * @param tile the tile to visualize
    */
@@ -39,9 +39,6 @@ public class TileComponent extends StackPane {
     if (action instanceof ModifyPointsAction add) {
       background.setFill(Color.LIGHTGREEN);
       label.setText("+" + add.getPoints());
-    } else if (action instanceof ModifyPointsAction remove) {
-      background.setFill(Color.SALMON);
-      label.setText("-" + remove.getPoints());
     } else {
       background.setFill(Color.LIGHTGRAY);
     }

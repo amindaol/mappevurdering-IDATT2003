@@ -26,8 +26,7 @@ import javafx.scene.shape.Line;
 /**
  * A visual layout for the Love & Ladders game board. Combines the {@link LaddersBoard}, dice
  * display, and a roll button into a scrollable layout. Responsible for placing and moving player
- * icons and updating the dice.
- * Used as the main game view in the Love & Ladders game mode.
+ * icons and updating the dice. Used as the main game view in the Love & Ladders game mode.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -170,10 +169,7 @@ public class BoardView extends BorderPane {
    * @param values the list of integers representing dice values
    */
   public void showDiceRoll(List<Integer> values) {
-    List<Integer> dots = new ArrayList<>();
-    for (int v : values) {
-      dots.add(v);
-    }
+    List<Integer> dots = new ArrayList<>(values);
     dieContainer.setDotsAllDice(dots);
   }
 
@@ -198,10 +194,9 @@ public class BoardView extends BorderPane {
   }
 
   /**
-   * Initializes the player list by creating a new {@link PlayerList} and populating it with
-   * the given players.
-   * The list is then set as the content in the {@link VBox} playerListContainer, displaying the
-   * players in the UI.
+   * Initializes the player list by creating a new {@link PlayerList} and populating it with the
+   * given players. The list is then set as the content in the {@link VBox} playerListContainer,
+   * displaying the players in the UI.
    *
    * @param players the list of players to initialize the player list with
    */
@@ -211,8 +206,8 @@ public class BoardView extends BorderPane {
   }
 
   /**
-   * Updates the current player list by highlighting the given player in the UI.
-   * If the player list is initialized, the specified player is visually highlighted in the list.
+   * Updates the current player list by highlighting the given player in the UI. If the player list
+   * is initialized, the specified player is visually highlighted in the list.
    *
    * @param player the player to highlight in the current player list
    */
