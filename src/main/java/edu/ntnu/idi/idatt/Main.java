@@ -1,5 +1,7 @@
 package edu.ntnu.idi.idatt;
 
+import static java.util.stream.Collectors.toList;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import edu.ntnu.idi.idatt.config.GameMode;
@@ -10,10 +12,13 @@ import edu.ntnu.idi.idatt.controller.HomeController;
 import edu.ntnu.idi.idatt.factory.TokenFactory;
 import edu.ntnu.idi.idatt.io.reader.BoardFileReaderGson;
 import edu.ntnu.idi.idatt.io.reader.PlayerFileReaderCsv;
+import edu.ntnu.idi.idatt.model.action.StealStarAction;
+import edu.ntnu.idi.idatt.model.game.BestiePlayer;
+import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;
 import edu.ntnu.idi.idatt.model.engine.GameEngine;
 import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
-import edu.ntnu.idi.idatt.model.game.BestiePlayer;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Dice;
@@ -45,6 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -58,8 +64,8 @@ import javafx.stage.Stage;
  *   <li>Love & Ladders</li>
  *   <li>Bestie Point Battles</li>
  * </ul>
- *
- * <p>Uses {@link Router} for navigation and {@link AppState} for shared data.
+ * <p>
+ * Uses {@link Router} for navigation and {@link AppState} for shared data.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -274,8 +280,12 @@ public class Main extends Application {
           return false;
         }
         players = new ArrayList<>(all.subList(0, count));
-      } catch (Exception e) {
+      } catch (PlayerFileNotFoundException e) {
         new Alert(AlertType.ERROR,
+            "Failed to load players from CSV: " + e.getMessage()).showAndWait();
+        return false;
+      } catch (Exception e) {
+        new Alert(Alert.AlertType.ERROR,
             "Failed to load players from CSV: " + e.getMessage()).showAndWait();
         return false;
       }

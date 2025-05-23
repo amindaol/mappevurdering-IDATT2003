@@ -19,8 +19,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * A GUI component for configuring a single player. Includes fields for name, birthday, and token
- * (icon) selection. Used within {@link PlayerSettingsContainer} to configure multiple players.
+ * A GUI component for configuring a single player.
+ * Includes fields for name, birthday, and token (icon) selection.
+ * Used within {@link PlayerSettingsContainer} to configure multiple players.
  * Provides validation and ensures each player selects a unique token.
  *
  * @author Aminda Lunde
@@ -36,8 +37,8 @@ public class PlayerSettings extends VBox {
   private String selectedToken;
 
   /**
-   * Creates a new player settings component with fields for name, birthday, and selectable token
-   * icons.
+   * Creates a new player settings component with fields for name, birthday,
+   * and selectable token icons.
    *
    * @param playerNumber the player's number (used as default name hint)
    */
@@ -91,7 +92,7 @@ public class PlayerSettings extends VBox {
     }
 
     if (!iconGroup.getToggles().isEmpty()) {
-      iconGroup.selectToggle(iconGroup.getToggles().getFirst());
+      iconGroup.selectToggle(iconGroup.getToggles().get(0));
       selectedToken = (String) iconGroup.getSelectedToggle().getUserData();
     }
 
@@ -142,8 +143,8 @@ public class PlayerSettings extends VBox {
   }
 
   /**
-   * Validates that the player name field is not empty. Applies a red border if validation fails.
-   *
+   * Validates that the player name field is not empty.
+   * Applies a red border if validation fails.
    * @throws IllegalArgumentException if player name is empty
    */
   public void validateNameField() {
@@ -156,8 +157,8 @@ public class PlayerSettings extends VBox {
   }
 
   /**
-   * Validates that a token has been selected. Applies a red border if none is selected.
-   *
+   * Validates that a token has been selected.
+   * Applies a red border if none is selected.
    * @throws IllegalStateException if token is not selected
    */
   public void validateTokenSelection() {

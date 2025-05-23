@@ -33,9 +33,11 @@ public class SettingsContent {
 
   private final VBox root;
   private PlayerSettingsContainer playerSettingsContainer;
+  private final GameMode gameMode;
 
   /**
    * Creates a new settings content view for the given game mode.
+   *
    */
   public SettingsContent(GameMode gameMode) {
     int maxPlayers = 5;
@@ -44,6 +46,8 @@ public class SettingsContent {
     root.setSpacing(10);
     root.setAlignment(Pos.CENTER);
     root.setPadding(new Insets(10));
+
+    this.gameMode = gameMode;
 
     Label boardLabel = new Label("Choose a board:");
     boardLabel.getStyleClass().add("settings-content-label");

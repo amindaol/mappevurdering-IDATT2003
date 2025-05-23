@@ -7,8 +7,9 @@ import javafx.scene.layout.VBox;
 
 
 /**
- * A reusable JavaFX component for selecting a player's birthday. Wraps a {@link DatePicker} with a
- * label in a vertical layout. Used in player setup views to collect birthdate information.
+ * A reusable JavaFX component for selecting a player's birthday.
+ * Wraps a {@link DatePicker} with a label in a vertical layout.
+ * Used in player setup views to collect birthdate information.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -16,6 +17,7 @@ import javafx.scene.layout.VBox;
  */
 public class BirthdaySelector extends VBox {
 
+  private final Label label;
   private final DatePicker datePicker;
 
   /**
@@ -23,11 +25,14 @@ public class BirthdaySelector extends VBox {
    */
   public BirthdaySelector() {
     Label label = new Label("Birthday:");
-    datePicker = new DatePicker();
+    DatePicker datePicker = new DatePicker();
     datePicker.setPromptText("Select birthday");
 
     this.getChildren().addAll(label, datePicker);
     this.setSpacing(5);
+
+    this.label = label;
+    this.datePicker = datePicker;
   }
 
   /**
@@ -65,4 +70,6 @@ public class BirthdaySelector extends VBox {
   public DatePicker getDatePicker() {
     return datePicker;
   }
+
+
 }
