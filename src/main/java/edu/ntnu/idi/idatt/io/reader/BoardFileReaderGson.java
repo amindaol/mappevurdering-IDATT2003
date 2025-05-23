@@ -4,9 +4,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
 import edu.ntnu.idi.idatt.model.action.AddCoinsAction;
 import edu.ntnu.idi.idatt.model.action.BuyStarAction;
+import com.google.gson.JsonSyntaxException;
 import edu.ntnu.idi.idatt.model.action.JumpToTileAction;
 import edu.ntnu.idi.idatt.model.action.ModifyPointsAction;
 import edu.ntnu.idi.idatt.model.action.SkipNextTurnAction;
@@ -38,7 +38,7 @@ public class BoardFileReaderGson implements BoardFileReader {
    *
    * @param path the path to the board JSON file
    * @return the loaded Board
-   * @throws DaoException               if reading or parsing fails
+   * @throws DaoException if reading or parsing fails
    * @throws InvalidJsonFormatException if JSON format is invalid
    */
   @Override
@@ -93,8 +93,6 @@ public class BoardFileReaderGson implements BoardFileReader {
         JsonObject action = obj.getAsJsonObject("action");
         String type = action.get("type").getAsString();
 
-        String p = "points";
-
         switch (type) {
           case "Ladder" -> {
 
@@ -113,14 +111,15 @@ public class BoardFileReaderGson implements BoardFileReader {
 
           }
           case "AddPoints" -> {
-            int pts = action.get(p).getAsInt();
+            int pts = action.get("points").getAsInt();
             tile.setAction(new ModifyPointsAction(pts));
           }
           case "RemovePoints" -> {
-            int pts = action.get(p).getAsInt();
+            int pts = action.get("points").getAsInt();
             tile.setAction(new ModifyPointsAction(-pts));
           }
           case "GoToStart" -> {
+
             if (action.has("destinationTileId")) {
               int destId = action.get("destinationTileId").getAsInt();
               Tile destination = tileMap.get(destId);
@@ -130,7 +129,7 @@ public class BoardFileReaderGson implements BoardFileReader {
             }
           }
           case "AddCoins" -> {
-            int pts = action.get(p).getAsInt();
+            int pts = action.get("points").getAsInt();
             tile.setAction(new AddCoinsAction(pts));
           }
           case "BuyStar" -> {

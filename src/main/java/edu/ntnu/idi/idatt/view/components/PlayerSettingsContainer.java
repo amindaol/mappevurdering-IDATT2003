@@ -15,10 +15,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.util.Duration;
 
 /**
- * Container holding all player configuration components. Dynamically creates one
- * {@link PlayerSettings} component per player, and animates them into the layout. Handles
- * synchronization of selected tokens to ensure each player chooses a unique one. Used inside
- * {@link edu.ntnu.idi.idatt.view.components.SettingsContent}.
+ * Container holding all player configuration components.
+ * Dynamically creates one {@link PlayerSettings} component per player,
+ * and animates them into the layout. Handles synchronization of selected tokens
+ * to ensure each player chooses a unique one.
+ * Used inside {@link edu.ntnu.idi.idatt.view.components.SettingsContent}.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -32,8 +33,8 @@ public class PlayerSettingsContainer {
 
 
   /**
-   * Initializes player input components (name, birthday, icon), adds animations, and synchronizes
-   * token selection.
+   * Initializes player input components (name, birthday, icon),
+   * adds animations, and synchronizes token selection.
    *
    * @param players number of players
    */
@@ -72,9 +73,7 @@ public class PlayerSettingsContainer {
         usedTokens.clear();
         for (PlayerSettings p : playerSettingsList) {
           String token = p.getSelectedToken();
-          if (token != null) {
-            usedTokens.add(token);
-          }
+          if (token != null) usedTokens.add(token);
         }
 
         for (PlayerSettings p : playerSettingsList) {
@@ -127,8 +126,8 @@ public class PlayerSettingsContainer {
   }
 
   /**
-   * Validates that each player has entered a name and selected a token. Shows visual feedback if
-   * something is missing.
+   * Validates that each player has entered a name and selected a token.
+   * Shows visual feedback if something is missing.
    */
   public void validateAllInputs() {
     for (PlayerSettings settings : playerSettingsList) {

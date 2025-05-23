@@ -67,10 +67,12 @@ public class BoardGame {
 
   /**
    * Notifies all observers of a game state change.
+   *
+   * @param event the event representing the game state change.
    */
-  protected void notifyObservers() {
+  protected void notifyObservers(BoardGameEvent event) {
     for (BoardGameObserver observer : observers) {
-      observer.onGameStateChange(this, BoardGameEvent.GAME_START);
+      observer.onGameStateChange(this, event);
     }
   }
 
@@ -88,7 +90,7 @@ public class BoardGame {
    *
    * @param player the player to add to the game.
    * @throws NullPointerException    if {@code player} is {@code null}.
-   * @throws TooManyPlayersException if adding would exceed the maximum of {@value #MAX_PLAYERS}
+   *  @throws TooManyPlayersException if adding would exceed the maximum of {@value #MAX_PLAYERS}
    * @throws InvalidPlayerException  if the player has invalid data (e.g., missing name or token)
    */
   public void addPlayer(Player player) {

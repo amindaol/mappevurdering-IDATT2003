@@ -21,10 +21,12 @@ import javafx.scene.layout.Pane;
 
 /**
  * Controls the board view during gameplay. Connects the {@link GameEngine} with the
- * {@link BoardView}, listens for game events, updates player positions, and handles dice roll
- * actions. Also shows the winner when the game ends. This controller observes the game and reacts
- * to state changes via the {@link BoardGameObserver} interface. It does not contain game logic,
- * only GUI updates and event binding.
+ * {@link BoardView},
+ * listens for game events, updates player positions, and handles dice roll actions.
+ * Also shows the winner when the game ends.
+ * This controller observes the game and reacts to state changes via the {@link BoardGameObserver}
+ * interface.
+ * It does not contain game logic, only GUI updates and event binding.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -39,11 +41,11 @@ public class BoardController implements BoardGameObserver {
   private boolean winnerShown = false;
 
   /**
-   * Creates a new BoardController, connects it to the view and game engine, sets up the roll button
-   * and initializes player icons.
+   * Creates a new BoardController, connects it to the view and game engine,
+   * sets up the roll button and initializes player icons.
    *
    * @param controller the game controller handling turns
-   * @param boardView  the visual representation of the board
+   * @param boardView the visual representation of the board
    * @throws GameNotInitializedException if the game engine is not properly initialized
    */
   public BoardController(GameController controller, BoardView boardView) {
@@ -69,13 +71,14 @@ public class BoardController implements BoardGameObserver {
     boardView.setRollCallback(() -> {
       Player mover = controller.getCurrentPlayer();
       controller.playTurn();
+      Player moved = mover;
 
       List<Integer> rollResults = controller.getLastRoll();
-      logger.info(mover.getName()
+      logger.info(moved.getName()
           + " rolled "
           + rollResults
           + " landed on "
-          + mover.getCurrentTile().getTileId());
+          + moved.getCurrentTile().getTileId());
 
       boardView.showDiceRoll(rollResults);
       updatePlayerPositions();
@@ -86,8 +89,8 @@ public class BoardController implements BoardGameObserver {
 
 
   /**
-   * Initializes player icons and places them on their starting tiles. Replaces existing icons if
-   * reinitialized.
+   * Initializes player icons and places them on their starting tiles.
+   * Replaces existing icons if reinitialized.
    */
   private void initializePlayers() {
     for (Player player : engine.getPlayers()) {
@@ -114,7 +117,7 @@ public class BoardController implements BoardGameObserver {
   /**
    * Reacts to changes in the game state.
    *
-   * @param game  the game that triggered the event
+   * @param game the game that triggered the event
    * @param event the event that occurred
    */
   @Override
