@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.model.game;
 
+import edu.ntnu.idi.idatt.model.action.StealStarAction;
 import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class Board {
   private Tile endTile;
   private List<Ladder> ladders = new ArrayList<>();
   private List<Ladder> snakes = new ArrayList<>();
+  private final Map<Tile, StealStarAction> stealStarActions = new HashMap<>();
 
 
   /**
@@ -197,5 +199,13 @@ public class Board {
    */
   public void setSnakes(List<Ladder> snakes) {
     this.snakes = snakes;
+  }
+
+  public void addStealAction(Tile tile, StealStarAction stealStarAction) {
+    stealStarActions.put(tile, stealStarAction);
+  }
+
+  public Map<Tile, StealStarAction> getStealActions() {
+    return stealStarActions;
   }
 }

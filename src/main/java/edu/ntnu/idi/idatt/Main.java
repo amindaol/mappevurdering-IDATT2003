@@ -6,6 +6,7 @@ import edu.ntnu.idi.idatt.config.GameMode;
 import edu.ntnu.idi.idatt.factory.TokenFactory;
 import edu.ntnu.idi.idatt.io.reader.BoardFileReaderGson;
 import edu.ntnu.idi.idatt.io.reader.PlayerFileReaderCsv;
+import edu.ntnu.idi.idatt.model.action.StealStarAction;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;
@@ -211,6 +212,11 @@ public class Main extends Application {
                 Dice dice = new Dice(2);
                 BoardGame game = new BoardGame(board, dice);
                 players.forEach(game::addPlayer);
+
+                // after creating the BoardGame and adding players
+                for (var entry : board.getStealActions().entrySet()) {
+                  entry.getValue().setPlayers(game.getPlayers());
+                }
 
                 GameEngine engine = new BestiePointBattlesEngine(game, dice);
                 BestieBattlesView view = new BestieBattlesView(game);
