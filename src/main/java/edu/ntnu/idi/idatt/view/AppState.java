@@ -18,6 +18,9 @@ public class AppState {
   private static String selectedBoardFile;
   private static boolean loadPlayersFromFile = false;
 
+  private AppState() {
+  }
+
   /**
    * Sets the list of selected players for the game.
    *

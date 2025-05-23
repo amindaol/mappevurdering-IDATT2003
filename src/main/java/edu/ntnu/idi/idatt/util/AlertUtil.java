@@ -14,23 +14,7 @@ public class AlertUtil {
 
   static boolean disableAlertsForTesting = false;
 
-  /**
-   * Displays a warning alert with the specified message.
-   *
-   * @param msg the message to display in the alert
-   */
-  public static void showWarning(String msg) {
-    show(Alert.AlertType.WARNING, "Warning", msg);
-  }
-
-  /**
-   * Displays an information alert with the specified title and message.
-   *
-   * @param title the title of the alert
-   * @param msg   the message to display in the alert
-   */
-  public static void showInfo(String title, String msg) {
-    show(Alert.AlertType.INFORMATION, title, msg);
+  private AlertUtil() {
   }
 
   /**
@@ -50,14 +34,16 @@ public class AlertUtil {
    * @param msg   the message to display in the alert
    */
   private static void show(Alert.AlertType type, String title, String msg) {
-    if (disableAlertsForTesting)
+    if (disableAlertsForTesting) {
       return;
+    }
 
-      Alert alert = new Alert(type);
-      alert.setTitle(title);
-      alert.setHeaderText(null);
-      alert.setContentText(msg);
-      alert.showAndWait();
+
+    Alert alert = new Alert(type);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(msg);
+    alert.showAndWait();
   }
 
   /**
@@ -66,7 +52,9 @@ public class AlertUtil {
    * @param gameMode the game mode identifier (e.g. "LoveAndLadders", "PointBattles")
    */
   public static void showGameHelp(String gameMode) {
-    if (disableAlertsForTesting) return;
+    if (disableAlertsForTesting)  {
+      return;
+    }
 
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Help");
@@ -105,7 +93,9 @@ public class AlertUtil {
    * Shows a help dialog explaining how to set up a new game.
    */
   public static void showHelpDialog() {
-    if (disableAlertsForTesting) return;
+    if (disableAlertsForTesting) {
+      return;
+    }
 
     Alert a = new Alert(Alert.AlertType.INFORMATION);
     a.setTitle("Help");

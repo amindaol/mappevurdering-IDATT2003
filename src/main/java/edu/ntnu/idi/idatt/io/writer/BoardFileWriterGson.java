@@ -6,7 +6,6 @@ import edu.ntnu.idi.idatt.model.action.*;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

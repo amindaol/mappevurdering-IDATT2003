@@ -17,7 +17,7 @@ import javafx.scene.shape.Line;
  * A visual board component for games like Love & Ladders or PointBattles.
  * Internally uses a {@link GridPane} to lay out tiles and an overlay {@link Pane}
  * to draw ladders and snakes as lines between tiles.
- * Tiles are arranged in a zig-zag pattern (left-to-right, then right-to-left per row),
+ * Tiles are arranged in a zigzag pattern (left-to-right, then right-to-left per row),
  * and each tile is mapped to a unique tile ID.
  * Used in the board view to render the game layout and visual effects.
  *
@@ -30,21 +30,17 @@ public class LaddersBoard {
   private final GridPane grid;
   private final Map<Integer, Pane> tileMap = new HashMap<>();
   private static final double TILE_SIZE = 80;
-  private final int rows;
-  private final int cols;
   private final Pane overlay = new Pane();
   private final StackPane container;
 
   /**
    * Constructs a new board with the given number of rows and columns.
-   * Tiles are created and added in zig-zag layout order.
+   * Tiles are created and added in zigzag layout order.
    *
    * @param rows number of board rows
    * @param cols number of board columns
    */
   public LaddersBoard(int rows, int cols) {
-    this.rows = rows;
-    this.cols = cols;
     this.grid = new GridPane();
     this.grid.setAlignment(Pos.CENTER);
     this.overlay.setPickOnBounds(false);
@@ -77,9 +73,8 @@ public class LaddersBoard {
       throw new IllegalArgumentException("Ladders list cannot be null");
     }
 
-    grid.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
-      redrawLaddersAndSnakes(ladders, List.of());  // replace with actual snakes if needed
-    });
+    grid.layoutBoundsProperty().addListener((observable, oldValue, newValue) ->
+        redrawLaddersAndSnakes(ladders, List.of()));
   }
 
   /**
@@ -94,9 +89,8 @@ public class LaddersBoard {
       throw new IllegalArgumentException("Snakes list cannot be null");
     }
 
-    grid.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
-      redrawLaddersAndSnakes(List.of(), snakes);  // replace with actual ladders if needed
-    });
+    grid.layoutBoundsProperty().addListener((observable, oldValue, newValue) ->
+        redrawLaddersAndSnakes(List.of(), snakes));
   }
 
   /**

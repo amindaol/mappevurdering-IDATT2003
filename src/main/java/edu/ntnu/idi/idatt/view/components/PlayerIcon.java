@@ -14,8 +14,6 @@ import javafx.scene.image.ImageView;
  */
 public class PlayerIcon extends ImageView {
 
-  private final String playerName;
-
   /**
    * Creates a new player icon with the given image and name.
    *
@@ -34,8 +32,6 @@ public class PlayerIcon extends ImageView {
     if (icon == null) {
       throw new NullPointerException("Icon image cannot be null.");
     }
-
-    this.playerName = playerName;
 
     setFitWidth(30);
     setFitHeight(30);

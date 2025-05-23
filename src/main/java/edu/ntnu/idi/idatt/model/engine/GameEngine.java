@@ -36,7 +36,7 @@ public abstract class GameEngine {
    * @throws GameNotInitializedException if {@code game} is {@code null} or if the game has no board
    * @throws NoPlayersException if the game's player list is {@code null} or empty
    */
-  public GameEngine(BoardGame game) {
+  protected GameEngine(BoardGame game) {
     if (game == null) {
       throw new GameNotInitializedException("Game cannot be null.");
     }
@@ -118,15 +118,6 @@ public abstract class GameEngine {
   }
 
   /**
-   * Returns the next player in the turn cycle.
-   *
-   * @return the next player
-   */
-  public Player getNextPlayer() {
-    return players.get((currentPlayerIndex + 1) % players.size());
-  }
-
-  /**
    * Advances to the next player in the turn cycle.
    */
   public void nextPlayer() {
@@ -169,6 +160,9 @@ public abstract class GameEngine {
     return game;
   }
 
+  /**
+   *  Notifies the observers about starting the game.
+   */
   public void startGame() {
     notifyObservers(BoardGameEvent.GAME_START);
   }

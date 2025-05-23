@@ -14,12 +14,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * A visual component that displays a list of players in the game, including their names and player tokens.
+ * A visual component that displays a list of players in the game, including their names and player
+ * tokens.
  * Each player's name and token icon are displayed in a horizontal box layout.
  * The component allows highlighting of the current player to indicate whose turn it is.
- * The class also provides functionality to update the displayed player list dynamically, as well as to highlight
- * the player currently taking their turn.
- * This component is used in the game setup view and board view to display and manage the player information.
+ * The class also provides functionality to update the displayed player list dynamically, as well
+ * as to highlight the player currently taking their turn.
+ * This component is used in the game setup view and board view to display and manage the player
+ * information.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim

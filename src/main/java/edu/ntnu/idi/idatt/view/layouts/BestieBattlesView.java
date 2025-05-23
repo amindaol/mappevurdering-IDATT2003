@@ -21,6 +21,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+/**
+ * The main game view layout for Bestie PointBattles.
+ * Combines the {@link BestieBoard} with a {@link BestieSidePanel} in a scrollable layout.
+ * Provides methods to update player info and move icons on the board.
+ * Used during gameplay in the Bestie PointBattles mode.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
+ */
 public class BestieBattlesView extends BorderPane {
 
   private final BestieBoard board;

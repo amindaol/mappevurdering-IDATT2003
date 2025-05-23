@@ -7,12 +7,12 @@ import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
-import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
 
 /**
  * Game engine for "Love and Ladders": - Game ends when a player reaches last tile - Winner is the
- * one who reaches the last tile first
+ * one who reaches the last tile first.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -29,13 +29,10 @@ public class LoveAndLaddersEngine extends GameEngine {
    *
    * @param game the game to be played
    * @param dice the dice to be used in the game
-   * @throws NullPointerException if {@code game} or {@code dice} is {@code null}.
+   * @throws NullPointerException if {@code dice} is {@code null}.
    */
   public LoveAndLaddersEngine(BoardGame game, Dice dice) {
     super(game);
-    if (game == null) {
-      throw new NullPointerException("Game cannot be null");
-    }
     if (dice == null) {
       throw new NullPointerException("dice cannot be null");
     }

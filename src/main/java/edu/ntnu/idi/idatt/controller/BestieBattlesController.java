@@ -17,14 +17,30 @@ import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BestieBattlesView;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import java.util.HashMap;
+import java.util.Objects;
+import javafx.scene.layout.Pane;
 
+/**
+ * Controller for the Bestie PointBattles game mode.
+ * Connects the {@link BestiePointBattlesEngine} to the {@link BestieBattlesView},
+ * sets up player icons, handles rolling, and reacts to game events.
+ * This controller observes the game and updates the GUI accordingly.
+ * It handles visual placement of players and displays the winner when the game ends.
+ *
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
+ */
 public class BestieBattlesController implements BoardGameObserver {
 
   private final BestiePointBattlesEngine engine;
   private final BestieBattlesView view;
+  private final Map<Player, PlayerIcon> playerIcons = new HashMap<>();
+  private final Logger logger = Logger.getLogger(BestieBattlesController.class.getName());
 
   public BestieBattlesController(BestiePointBattlesEngine engine, BestieBattlesView view) {
     this.engine = engine;

@@ -3,7 +3,6 @@ package edu.ntnu.idi.idatt.model.game;
 /**
  * Represents a ladder or a snake on the game board.
  * A ladder connects one tile to another, either moving the player up or down.
- *
  * Used for both ladders and snakes by interpreting direction.
  *
  * @author Aminda Lunde

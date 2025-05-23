@@ -1,21 +1,15 @@
 package edu.ntnu.idi.idatt.factory;
 
-import edu.ntnu.idi.idatt.io.reader.BoardFileReaderGson;
-import edu.ntnu.idi.idatt.io.reader.PlayerFileReaderCsv;
+import edu.ntnu.idi.idatt.config.GameMode;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Dice;
-import edu.ntnu.idi.idatt.config.GameMode;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.model.game.Token;
-import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
-
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.UnsupportedGameModeException;
-import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,27 +23,6 @@ public final class BoardGameFactory {
 
   private BoardGameFactory() {
     // prevent instantiation
-  }
-
-  /**
-   * Creates a {@link BoardGame} instance from the specified JSON and CSV files.
-   *
-   * @param boardJson  the path to the board JSON file
-   * @param playersCsv the path to the players CSV file
-   * @return a new {@link BoardGame} instance
-   * @throws DaoException if an error occurs while reading the files
-   */
-  public static BoardGame createFromFiles(Path boardJson, Path playersCsv) throws DaoException {
-    BoardFileReaderGson boardReader = new BoardFileReaderGson();
-    PlayerFileReaderCsv playerReader = new PlayerFileReaderCsv();
-
-    Board board = boardReader.readBoard(boardJson);
-    List<Player> players = playerReader.readPlayers(playersCsv);
-    Dice dice = new Dice(1);
-
-    BoardGame game = new BoardGame(board, dice);
-    players.forEach(game::addPlayer);
-    return game;
   }
 
   /**
@@ -67,7 +40,6 @@ public final class BoardGameFactory {
     return switch (mode) {
       case LOVE_AND_LADDERS -> createLoveAndLaddersGame();
       case BESTIE_POINT_BATTLES -> createBestiePointBattlesGame();
-      default -> throw new UnsupportedGameModeException("Unsupported game mode: " + mode);
     };
   }
 
@@ -97,7 +69,7 @@ public final class BoardGameFactory {
 
   /**
    * Creates a {@link BoardGame} instance for the "Love and Ladders" game with the specified
-   * players
+   * players.
    *
    * @param players the list of players
    * @return a new {@link BoardGame} instance

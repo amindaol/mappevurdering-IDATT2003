@@ -3,9 +3,8 @@ package edu.ntnu.idi.idatt.model.core;
 import edu.ntnu.idi.idatt.config.GameInformation;
 import edu.ntnu.idi.idatt.config.GameMode;
 import edu.ntnu.idi.idatt.factory.BoardFactory;
-import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
 import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;
-
+import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
 import java.util.List;
 
 
@@ -20,6 +19,10 @@ import java.util.List;
  */
 public class GameRegisterInitializer {
 
+  private GameRegisterInitializer() {
+
+  }
+
   /**
    * Initializes the game register with predefined game information. This method registers two
    * games: 1. Love & Ladders: A classic snakes and ladders game where the first player to tile 90
@@ -32,7 +35,8 @@ public class GameRegisterInitializer {
 
     register.register(new GameInformation(
         "Love & Ladders",
-        "Classic snakes and ladders. First player to tile 90 wins. Some tiles have special actions.",
+        "Classic snakes and ladders. First player to tile 90 wins. Some tiles have special "
+            + "actions.",
         6,
         2,
         gameConfiguration -> new LoveAndLaddersEngine(
@@ -45,7 +49,8 @@ public class GameRegisterInitializer {
 
     register.register(new GameInformation(
         "Bestie Point Battles",
-        "Collect the most points! Every tile has points. First player to the last tile ends the game.",
+        "Collect the most points! Every tile has points. First player to the last tile ends "
+            + "the game.",
         6,
         2,
         gameConfiguration -> new BestiePointBattlesEngine(

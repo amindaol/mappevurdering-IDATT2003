@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Game engine for "Bestie Point Battles": - Game ends when a player reaches last tile - Winner is
- * the one with the highest score at that moment
+ * the one with the highest score at that moment.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -90,6 +90,8 @@ public class BestiePointBattlesEngine extends GameEngine {
   public Dice getDice() {
     return dice;
   }
+
+
 
   @Override
   public void startGame() {

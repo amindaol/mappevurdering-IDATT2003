@@ -4,7 +4,6 @@ import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidPlayerException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.TooManyPlayersException;
-import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -25,8 +24,8 @@ public class BoardGame {
   private final List<Player> players = new ArrayList<>();
   private final List<BoardGameObserver> observers = new CopyOnWriteArrayList<>();
 
-  private Board board;
-  private Dice dice;
+  private final Board board;
+  private final Dice dice;
 
 
   /**
@@ -111,12 +110,8 @@ public class BoardGame {
    * Returns the game board.
    *
    * @return the Board used in the game.
-   * @throws GameNotInitializedException if the board has not been created
    */
   public Board getBoard() {
-    if (board == null) {
-      throw new GameNotInitializedException("GameConfiguration cannot have null fields.");
-    }
     return board;
   }
 
@@ -124,12 +119,8 @@ public class BoardGame {
    * Returns the dice used in the game.
    *
    * @return the Dice instance.
-   * @throws GameNotInitializedException if the dice has not been created
    */
   public Dice getDice() {
-    if (dice == null) {
-      throw new GameNotInitializedException("GameConfiguration cannot have null fields.");
-    }
     return dice;
   }
 

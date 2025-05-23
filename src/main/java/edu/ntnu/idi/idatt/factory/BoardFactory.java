@@ -4,8 +4,6 @@ import edu.ntnu.idi.idatt.model.action.JumpToTileAction;
 import edu.ntnu.idi.idatt.model.action.ModifyPointsAction;
 import edu.ntnu.idi.idatt.model.action.SkipNextTurnAction;
 import edu.ntnu.idi.idatt.model.game.Board;
-import edu.ntnu.idi.idatt.model.game.BoardGame;
-import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Tile;
 
 /**

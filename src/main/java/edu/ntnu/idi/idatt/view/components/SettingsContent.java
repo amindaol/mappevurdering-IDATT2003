@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.view.components;
 
+import edu.ntnu.idi.idatt.view.AppState;
 import edu.ntnu.idi.idatt.config.GameMode;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import edu.ntnu.idi.idatt.view.AppState;
+
 
 /**
  * A GUI component that displays all game setup options, including: - Board selection - Number of
@@ -37,17 +38,16 @@ public class SettingsContent {
   /**
    * Creates a new settings content view for the given game mode.
    *
-   * @param gameMode the selected game mode
    */
   public SettingsContent(GameMode gameMode) {
-    this.gameMode = gameMode;
     int maxPlayers = 5;
-
     root = new VBox();
     root.getStyleClass().add("settings-content");
     root.setSpacing(10);
     root.setAlignment(Pos.CENTER);
     root.setPadding(new Insets(10));
+
+    this.gameMode = gameMode;
 
     Label boardLabel = new Label("Choose a board:");
     boardLabel.getStyleClass().add("settings-content-label");

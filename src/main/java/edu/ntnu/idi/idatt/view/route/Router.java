@@ -21,6 +21,9 @@ public class Router {
   private static final Map<String, Route> routes = new HashMap<>();
   private static final Stack<Route> history = new Stack<>();
 
+  private Router() {
+  }
+
   /**
    * Registers a new route with a name, view, and nav bar supplier.
    *
@@ -53,21 +56,6 @@ public class Router {
   public static void setScene(PrimaryScene scene) {
     primaryScene = scene;
     primaryStage.setScene(scene);
-  }
-
-  /**
-   * Navigates back to the previous route if available.
-   * If no history exists, falls back to the "home" route.
-   */
-  public static void goBack() {
-    if (history.size() > 1) {
-      history.pop();
-      Route previous = history.peek();
-      primaryScene.setView(previous.getView());
-      primaryScene.setNavBar(previous.getNavBar());
-    } else {
-      navigateTo("home");
-    }
   }
 
   /**

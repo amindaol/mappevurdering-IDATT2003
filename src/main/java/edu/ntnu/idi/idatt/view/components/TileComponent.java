@@ -1,8 +1,8 @@
 package edu.ntnu.idi.idatt.view.components;
 
 import edu.ntnu.idi.idatt.model.action.ModifyPointsAction;
-import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.model.action.TileAction;
+import edu.ntnu.idi.idatt.model.game.Tile;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -13,7 +13,6 @@ import javafx.scene.text.Text;
  * A JavaFX component that visually represents a {@link Tile} on the game board.
  * Displays the tile's ID or point effect depending on the {@link TileAction}.
  * Positive points show as green, negative as red, and normal tiles as gray.
- *
  * Used in the board layout to show tile state and value at a glance.
  *
  * @author Aminda Lunde
@@ -22,9 +21,6 @@ import javafx.scene.text.Text;
  */
 public class TileComponent extends StackPane {
 
-  private final Rectangle background;
-  private final Text label;
-  private final int tileSize = 60 ;
   private final Tile tile;
 
   /**
@@ -34,8 +30,9 @@ public class TileComponent extends StackPane {
    * @param tile the tile to visualize
    */
   public TileComponent(Tile tile) {
-    this.background = new Rectangle(tileSize, tileSize);
-    this.label = new Text(String.valueOf(tile.getTileId()));
+    int tileSize = 60;
+    Rectangle background = new Rectangle(tileSize, tileSize);
+    Text label = new Text(String.valueOf(tile.getTileId()));
     this.tile = tile;
 
     TileAction action = tile.getAction();

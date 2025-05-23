@@ -2,9 +2,6 @@ package edu.ntnu.idi.idatt.config;
 
 import edu.ntnu.idi.idatt.model.engine.GameEngine;
 import edu.ntnu.idi.idatt.model.game.Board;
-import edu.ntnu.idi.idatt.config.GameMode;
-import edu.ntnu.idi.idatt.config.GameConfiguration;
-
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import java.util.List;
 import java.util.function.Function;
@@ -110,25 +107,6 @@ public class GameInformation {
    */
   public Function<GameConfiguration, GameEngine> getEngineFactory() {
     return engineFactory;
-  }
-
-  /**
-   * Returns the supplier that provides a list of Board options.
-   *
-   * @return the board options supplier
-   */
-  public Supplier<List<Board>> getBoardOptionsSupplier() {
-    return boardOptionsSupplier;
-  }
-
-  /**
-   * Creates a GameEngine based on the provided GameConfiguration.
-   *
-   * @param gameConfiguration the game configuration
-   * @return the created GameEngine
-   */
-  public GameEngine createEngine(GameConfiguration gameConfiguration) {
-    return engineFactory.apply(gameConfiguration);
   }
 
   /**

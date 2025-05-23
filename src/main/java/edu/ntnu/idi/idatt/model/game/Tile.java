@@ -1,7 +1,6 @@
 package edu.ntnu.idi.idatt.model.game;
 
 import edu.ntnu.idi.idatt.model.action.TileAction;
-import java.util.Optional;
 
 /**
  * Represents a single tile on the game board. A tile can link to a next tile and optionally have a
