@@ -1,5 +1,7 @@
 package edu.ntnu.idi.idatt;
 
+import static java.util.stream.Collectors.toList;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import edu.ntnu.idi.idatt.config.GameMode;
@@ -54,9 +56,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Main class for launching the Slayboard JavaFX application.
- * Sets up the UI, registers routes, and handles game initialization.
- * Supports two game modes:
+ * Main class for launching the Slayboard JavaFX application. Sets up the UI, registers routes, and
+ * handles game initialization. Supports two game modes:
  * <ul>
  *   <li>Love & Ladders</li>
  *   <li>Bestie Point Battles</li>
@@ -95,7 +96,9 @@ public class Main extends Application {
     Router.registerRoute(
         new Route("home",
             () -> new HomeController().getView(),
-            () -> null
+            () -> new NavBar("Slayboard",
+                () -> Router.navigateTo("home"),
+                AlertUtil::showHelpDialog)
         )
     );
 
@@ -112,7 +115,7 @@ public class Main extends Application {
             },
             () -> new NavBar("Love & Ladders",
                 () -> Router.navigateTo("home"),
-                () -> AlertUtil.showHelpDialog())
+                AlertUtil::showHelpDialog)
         ));
 
     Router.registerRoute(
@@ -128,7 +131,7 @@ public class Main extends Application {
             },
             () -> new NavBar("Bestie Point Battles",
                 () -> Router.navigateTo("home"),
-                () -> AlertUtil.showHelpDialog())
+                AlertUtil::showHelpDialog)
         ));
 
     Router.registerRoute(
@@ -175,7 +178,8 @@ public class Main extends Application {
                 return new HomeController().getView();
               } catch (Exception e) {
                 logger.log(Level.SEVERE, "Failed to start Love & Ladders", e);
-                AlertUtil.showError("Load Error", "Could not start Love & Ladders: " + e.getMessage());
+                AlertUtil.showError("Load Error",
+                    "Could not start Love & Ladders: " + e.getMessage());
                 return new HomeController().getView();
               }
             },
@@ -211,18 +215,10 @@ public class Main extends Application {
                 if (players.isEmpty()) {
                   throw new IllegalStateException("No players configured");
                 }
-                List<Player> players = AppState.getSelectedPlayers();
-                if (players == null || players.isEmpty())
-                  throw new PlayerNotConfiguredException("No players configured");
 
                 Dice dice = new Dice(2);
                 BoardGame game = new BoardGame(board, dice);
                 players.forEach(game::addPlayer);
-
-                // after creating the BoardGame and adding players
-                for (var entry : board.getStealActions().entrySet()) {
-                  entry.getValue().setPlayers(game.getPlayers());
-                }
 
                 BestiePointBattlesEngine engine = new BestiePointBattlesEngine(game, dice);
                 BestieBattlesView view = new BestieBattlesView(game);
@@ -231,7 +227,7 @@ public class Main extends Application {
 
                 return view.getRoot();
 
-                return view;
+
               } catch (BoardFileNotFoundException | PlayerNotConfiguredException e) {
                 logger.log(Level.SEVERE, "Game setup error", e);
                 AlertUtil.showError("Game Setup Error", "Error: " + e.getMessage());
@@ -287,7 +283,8 @@ public class Main extends Application {
             "Failed to load players from CSV: " + e.getMessage()).showAndWait();
         return false;
       } catch (Exception e) {
-        new Alert(Alert.AlertType.ERROR, "Failed to load players from CSV: " + e.getMessage()).showAndWait();
+        new Alert(Alert.AlertType.ERROR,
+            "Failed to load players from CSV: " + e.getMessage()).showAndWait();
         return false;
       }
 
