@@ -27,6 +27,7 @@ public class BestieBattlesView extends BorderPane {
     this.getStyleClass().add("board-root");
     Board boardModel = game.getBoard();
     this.board = new BestieBoard(boardModel.getRows(), boardModel.getCols());
+    this.board.drawBoard(boardModel);
     this.sidePanel = new BestieSidePanel(game);
 
     sidePanel.setRollCallback(() -> {
