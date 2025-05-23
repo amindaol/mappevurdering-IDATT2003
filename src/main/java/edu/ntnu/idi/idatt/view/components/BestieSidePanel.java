@@ -22,6 +22,7 @@ public class BestieSidePanel extends VBox {
   private final Text infoText = new Text("Welcome to Bestie Point Battles!");
   private final Button rollButton = new Button("Roll Dice");
   private final PlayerList playerList;
+  private final DieContainer dieContainer;
   private Runnable onRoll;
 
   /**
@@ -43,6 +44,10 @@ public class BestieSidePanel extends VBox {
       }
     });
 
+    int diceCount = game.getDice().getDiceAmount();
+    dieContainer = new DieContainer(diceCount);
+    dieContainer.setAlignment(Pos.CENTER);
+
     this.playerList = new PlayerList(game.getPlayers());
 
     Text scoreLabel = new Text("Score:");
@@ -50,7 +55,7 @@ public class BestieSidePanel extends VBox {
     playerInfoBox.setPadding(new Insets(5, 10, 5, 10));
     updatePlayerInfo(game.getPlayers());
 
-    getChildren().addAll(infoText, rollButton, playerList, scoreLabel, playerInfoBox);
+    getChildren().addAll(infoText, rollButton, dieContainer, playerList, scoreLabel, playerInfoBox);
   }
 
   /**
@@ -89,15 +94,20 @@ public class BestieSidePanel extends VBox {
   }
 
   /**
+   * Displays the rolled dice on the panel.
+   *
+   * @param roll the list of rolled dice values
+   */
+  public void showDiceRoll(List<Integer> roll) {
+    dieContainer.setDotsAllDice(roll);
+  }
+
+  /**
    * Returns the roll button.
    *
    * @return the roll button
    */
   public Button getRollButton() {
     return rollButton;
-  }
-
-  public void showDiceRoll(List<Integer> roll) {
-    
   }
 }

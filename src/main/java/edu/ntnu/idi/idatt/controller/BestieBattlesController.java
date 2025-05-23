@@ -27,23 +27,29 @@ public class BestieBattlesController implements BoardGameObserver {
 
     engine.addObserver(this);
 
-    initializePlayers();
     setUpRollButton();
   }
 
+  @Override
   public void onGameStateChange(BoardGame game, BoardGameEvent event) {
     switch (event) {
-      case DICE_ROLLED:
-        // Handle dice rolled event;
-        break;
-      case PLAYER_MOVED:
-        // Handle player moved event;
-        break;
-      case GAME_WON:
-        // Handle game won event;
-        break;
-      default:
-        break;
+      case GAME_START -> {
+        initializePlayers();
+        view.updateSidePanel(engine.getPlayers());
+        view.updateCurrentPlayerList(engine.getCurrentPlayer());
+      }
+      case DICE_ROLLED -> {
+        //view.showDiceRoll();
+      }
+
+      case PLAYER_MOVED -> {
+      }
+      // Handle player moved event;
+      case GAME_WON -> {
+      }
+      // Handle game won event;
+      default -> {
+      }
     }
   }
 
@@ -72,12 +78,14 @@ public class BestieBattlesController implements BoardGameObserver {
 
       List<Integer> roll = engine.getDice().roll();
 
+      int total = roll.stream().mapToInt(Integer::intValue).sum();
+
       System.out.println(mover.getName() + " rolled " + roll + " landed on "
           + mover.getCurrentTile().getTileId());
 
-      //view.showDiceRoll(roll);
+      view.showDiceRoll(roll);
 
-      engine.handleTurn(engine.getDice().getRollValue());
+      engine.handleTurn(total);
 
       view.updateSidePanel(engine.getPlayers());
       view.updateCurrentPlayerList(engine.getCurrentPlayer());

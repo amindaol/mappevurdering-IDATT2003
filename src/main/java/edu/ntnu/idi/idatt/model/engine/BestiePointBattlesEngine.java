@@ -79,4 +79,13 @@ public class BestiePointBattlesEngine extends GameEngine {
   public Dice getDice() {
     return dice;
   }
+
+  @Override
+  public void startGame() {
+    Tile start = board.getStartTile();
+    for (Player p : players) {
+      p.placeOnTile(start);
+    }
+    notifyObservers(BoardGameEvent.GAME_START);
+  }
 }
