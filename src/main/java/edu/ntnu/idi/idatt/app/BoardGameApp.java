@@ -1,10 +1,14 @@
 package edu.ntnu.idi.idatt.app;
 
-import edu.ntnu.idi.idatt.config.*;
+import edu.ntnu.idi.idatt.config.GameConfiguration;
+import edu.ntnu.idi.idatt.config.GameInformation;
+import edu.ntnu.idi.idatt.config.GameSetup;
 import edu.ntnu.idi.idatt.model.core.GameRegister;
 import edu.ntnu.idi.idatt.model.core.GameRegisterInitializer;
 import edu.ntnu.idi.idatt.model.engine.GameEngine;
-import edu.ntnu.idi.idatt.model.game.*;
+import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.Player;
+import edu.ntnu.idi.idatt.model.game.Token;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,9 +18,9 @@ import java.util.logging.Logger;
 /**
  * Terminal based application for playing board game Used for checking game logic and testing.
  *
- *  @author Aminda Lunde
- *  @author Ingrid Opheim
- *  @version 1.0
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class BoardGameApp {
 

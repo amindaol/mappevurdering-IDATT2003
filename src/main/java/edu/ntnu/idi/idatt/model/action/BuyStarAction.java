@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.model.action;
 
-import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.BestiePlayer;
+import edu.ntnu.idi.idatt.model.game.Player;
 
 /**
  * Lets the player buy a star if they have enough coins.

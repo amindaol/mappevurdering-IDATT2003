@@ -24,7 +24,7 @@ public class AlertUtil {
    * @param msg   the message to display in the alert
    */
   public static void showError(String title, String msg) {
-    show(Alert.AlertType.ERROR, title, msg);
+    show(title, msg);
   }
 
   /**
@@ -33,13 +33,12 @@ public class AlertUtil {
    * @param title the title of the alert
    * @param msg   the message to display in the alert
    */
-  private static void show(Alert.AlertType type, String title, String msg) {
+  private static void show(String title, String msg) {
     if (disableAlertsForTesting) {
       return;
     }
 
-
-    Alert alert = new Alert(type);
+    Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle(title);
     alert.setHeaderText(null);
     alert.setContentText(msg);
@@ -52,7 +51,7 @@ public class AlertUtil {
    * @param gameMode the game mode identifier (e.g. "LoveAndLadders", "PointBattles")
    */
   public static void showGameHelp(String gameMode) {
-    if (disableAlertsForTesting)  {
+    if (disableAlertsForTesting) {
       return;
     }
 

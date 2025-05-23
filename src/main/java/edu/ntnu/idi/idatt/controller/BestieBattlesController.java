@@ -1,35 +1,25 @@
 package edu.ntnu.idi.idatt.controller;
 
-import static edu.ntnu.idi.idatt.observer.BoardGameEvent.GAME_WON;
-import static edu.ntnu.idi.idatt.observer.BoardGameEvent.PLAYER_MOVED;
 
 import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;
-import edu.ntnu.idi.idatt.model.engine.GameEngine;
 import edu.ntnu.idi.idatt.model.game.BestiePlayer;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
-import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
-import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidPlayerException;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BestieBattlesView;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
+import java.util.Objects;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
-import java.util.HashMap;
-import java.util.Objects;
-import javafx.scene.layout.Pane;
 
 /**
- * Controller for the Bestie PointBattles game mode.
- * Connects the {@link BestiePointBattlesEngine} to the {@link BestieBattlesView},
- * sets up player icons, handles rolling, and reacts to game events.
- * This controller observes the game and updates the GUI accordingly.
- * It handles visual placement of players and displays the winner when the game ends.
+ * Controller for the Bestie PointBattles game mode. Connects the {@link BestiePointBattlesEngine}
+ * to the {@link BestieBattlesView}, sets up player icons, handles rolling, and reacts to game
+ * events. This controller observes the game and updates the GUI accordingly. It handles visual
+ * placement of players and displays the winner when the game ends.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -39,9 +29,14 @@ public class BestieBattlesController implements BoardGameObserver {
 
   private final BestiePointBattlesEngine engine;
   private final BestieBattlesView view;
-  private final Map<Player, PlayerIcon> playerIcons = new HashMap<>();
-  private final Logger logger = Logger.getLogger(BestieBattlesController.class.getName());
 
+  /**
+   * Creates a new BestieBattlesController, connects it to the view and game engine, sets up the
+   * roll button and initializes player icons.
+   *
+   * @param engine the game engine handling turns
+   * @param view   the visual representation of the game
+   */
   public BestieBattlesController(BestiePointBattlesEngine engine, BestieBattlesView view) {
     this.engine = engine;
     this.view = view;
@@ -51,6 +46,12 @@ public class BestieBattlesController implements BoardGameObserver {
     setUpRollButton();
   }
 
+  /**
+   * Handles game state changes and updates the view accordingly.
+   *
+   * @param game  the BoardGame instance that changed
+   * @param event the event that occurred
+   */
   @Override
   public void onGameStateChange(BoardGame game, BoardGameEvent event) {
     switch (event) {
@@ -59,14 +60,10 @@ public class BestieBattlesController implements BoardGameObserver {
         view.updateSidePanel(engine.getPlayers());
         view.updateCurrentPlayerList(engine.getCurrentPlayer());
       }
-      case DICE_ROLLED -> {
-        //view.showDiceRoll();
-      }
 
       case PLAYER_MOVED -> {
         view.updateCurrentPlayerList(engine.getCurrentPlayer());
       }
-      // Handle player moved event;
       case GAME_WON -> {
         BestiePlayer winner = (BestiePlayer) engine.checkWinCondition();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -75,16 +72,21 @@ public class BestieBattlesController implements BoardGameObserver {
         alert.showAndWait();
       }
       default -> {
+        // Handle other events if needed
       }
     }
   }
 
+  /**
+   * Initializes player icons and places them on the board. Updates the side panel with player
+   * information.
+   */
   private void initializePlayers() {
     for (Player player : engine.getPlayers()) {
       if (player instanceof BestiePlayer bp) {
         Tile startTile = bp.getCurrentTile();
         String iconPath = "/icons/players/" + bp.getToken().getIconFileName();
-        Image icon = new Image(getClass().getResourceAsStream(iconPath));
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream(iconPath)));
 
         PlayerIcon playerIcon = new PlayerIcon(bp.getName(), icon);
         playerIcon.setFitHeight(30);
@@ -98,6 +100,10 @@ public class BestieBattlesController implements BoardGameObserver {
     view.updateSidePanel(engine.getPlayers());
   }
 
+  /**
+   * Sets up the roll button to trigger a dice roll and move the current player. Updates the view
+   * with the rolled values and player positions.
+   */
   private void setUpRollButton() {
     view.setRollCallBack(() -> {
       BestiePlayer mover = (BestiePlayer) engine.getCurrentPlayer();
@@ -119,19 +125,5 @@ public class BestieBattlesController implements BoardGameObserver {
       view.updateCurrentPlayerList(engine.getCurrentPlayer());
 
     });
-  }
-
-  /**
-   * Displays an error alert with the specified title and message.
-   *
-   * @param title the title of the alert
-   * @param message the error message
-   */
-  private void showErrorAlert(String title, String message) {
-    Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle(title);
-    alert.setHeaderText(null);
-    alert.setContentText(message);
-    alert.showAndWait();
   }
 }

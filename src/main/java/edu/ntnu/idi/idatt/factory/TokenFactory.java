@@ -6,12 +6,15 @@ import edu.ntnu.idi.idatt.model.game.Token;
  * Factory class for creating {@link Token} objects. This class provides a static method to create a
  * {@code token} from an icon name.
  *
- *  @author Aminda Lunde
- *  @author Ingrid Opheim
- *  @version 1.0
+ * @author Aminda Lunde
+ * @author Ingrid Opheim
+ * @version 1.0
  */
 public class TokenFactory {
 
+  /**
+   * Private constructor to prevent instantiation of the factory class.
+   */
   private TokenFactory() {
 
   }

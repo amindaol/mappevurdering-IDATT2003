@@ -14,12 +14,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 /**
- * A visual board component for games like Love & Ladders or PointBattles.
- * Internally uses a {@link GridPane} to lay out tiles and an overlay {@link Pane}
- * to draw ladders and snakes as lines between tiles.
- * Tiles are arranged in a zigzag pattern (left-to-right, then right-to-left per row),
- * and each tile is mapped to a unique tile ID.
- * Used in the board view to render the game layout and visual effects.
+ * A visual board component for games like Love & Ladders or PointBattles. Internally uses a
+ * {@link GridPane} to lay out tiles and an overlay {@link Pane} to draw ladders and snakes as lines
+ * between tiles. Tiles are arranged in a zigzag pattern (left-to-right, then right-to-left per
+ * row), and each tile is mapped to a unique tile ID. Used in the board view to render the game
+ * layout and visual effects.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -34,8 +33,8 @@ public class LaddersBoard {
   private final StackPane container;
 
   /**
-   * Constructs a new board with the given number of rows and columns.
-   * Tiles are created and added in zigzag layout order.
+   * Constructs a new board with the given number of rows and columns. Tiles are created and added
+   * in zigzag layout order.
    *
    * @param rows number of board rows
    * @param cols number of board columns
@@ -49,12 +48,12 @@ public class LaddersBoard {
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
         int indexInRow = (r % 2 == 0) ? c : (cols - 1 - c);
-        int tileId = r * cols + indexInRow + 1;
 
         Pane tile = new Pane();
         tile.setPrefSize(TILE_SIZE, TILE_SIZE);
         tile.getStyleClass().add("tile");
 
+        int tileId = r * cols + indexInRow + 1;
         int guiRow = rows - 1 - r;
         grid.add(tile, c, guiRow);
         tileMap.put(tileId, tile);
@@ -97,7 +96,7 @@ public class LaddersBoard {
    * Clears and redraws ladder and snake lines on the overlay layer.
    *
    * @param ladders list of ladders to draw
-   * @param snakes list of snakes to draw
+   * @param snakes  list of snakes to draw
    */
   private void redrawLaddersAndSnakes(List<Ladder> ladders, List<Ladder> snakes) {
     overlay.getChildren().clear();
@@ -116,7 +115,7 @@ public class LaddersBoard {
    * Draws a visual connection between two tiles using a line.
    *
    * @param connection the ladder or snake to render
-   * @param color the color of the line (green for ladder, red for snake)
+   * @param color      the color of the line (green for ladder, red for snake)
    * @throws IllegalArgumentException if the connection's fromTileId or toTileId are invalid
    */
   private void drawConnection(Ladder connection, Color color) {

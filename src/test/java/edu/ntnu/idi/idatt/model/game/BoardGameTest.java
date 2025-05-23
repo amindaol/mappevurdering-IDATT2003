@@ -2,7 +2,6 @@ package edu.ntnu.idi.idatt.model.game;
 
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
-import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.TooManyPlayersException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -80,6 +79,7 @@ class BoardGameTest {
 
   // === Dummy Observer ===
   static class DummyObserver implements BoardGameObserver {
+
     boolean wasNotified = false;
 
     @Override
@@ -92,7 +92,7 @@ class BoardGameTest {
   void testNotifyObserversFiresEvent() {
     DummyObserver observer = new DummyObserver();
     game.addObserver(observer);
-    game.notifyObservers(BoardGameEvent.GAME_START);
+    game.notifyObservers();
 
     assertTrue(observer.wasNotified);
   }

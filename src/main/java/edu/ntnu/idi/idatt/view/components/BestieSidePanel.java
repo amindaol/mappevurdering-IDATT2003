@@ -1,16 +1,15 @@
 package edu.ntnu.idi.idatt.view.components;
 
+import edu.ntnu.idi.idatt.model.game.BestiePlayer;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
-import edu.ntnu.idi.idatt.model.game.Token;
-import edu.ntnu.idi.idatt.model.game.BestiePlayer;
+import java.util.List;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import java.util.List;
 
 /**
  * A side panel used in the Bestie PointBattles game mode. Displays player list with icons and
@@ -19,7 +18,6 @@ import java.util.List;
 public class BestieSidePanel extends VBox {
 
   private final VBox playerInfoBox = new VBox(10);
-  private final Text infoText = new Text("Welcome to Bestie Point Battles!");
   private final Button rollButton = new Button("Roll Dice");
   private final PlayerList playerList;
   private final DieContainer dieContainer;
@@ -41,15 +39,19 @@ public class BestieSidePanel extends VBox {
     setPadding(new Insets(15));
     setAlignment(Pos.TOP_CENTER);
     setStyle(
-        "-fx-background-color: #ffe6f0; -fx-border-color: #ff66b2; -fx-border-radius: 10; -fx-background-radius: 10;");
+        "-fx-background-color: #ffe6f0; -fx-border-color: #ff66b2; -fx-border-radius: 10; "
+            + "-fx-background-radius: 10;");
     setMinWidth(300);
 
     rollButton.setOnAction(e -> {
       if (onRoll != null) {
         onRoll.run();
       }
-      if (onRoll != null) onRoll.run();
-      else throw new IllegalStateException("Roll callback is not set.");
+      if (onRoll != null) {
+        onRoll.run();
+      } else {
+        throw new IllegalStateException("Roll callback is not set.");
+      }
     });
 
     int diceCount = game.getDice().getDiceAmount();
@@ -58,11 +60,12 @@ public class BestieSidePanel extends VBox {
 
     this.playerList = new PlayerList(game.getPlayers());
 
-    Text scoreLabel = new Text("Score:");
     playerInfoBox.setAlignment(Pos.CENTER_LEFT);
     playerInfoBox.setPadding(new Insets(5, 10, 5, 10));
     updatePlayerInfo(game.getPlayers());
 
+    Text scoreLabel = new Text("Score:");
+    Text infoText = new Text("Welcome to Bestie Point Battles!");
     getChildren().addAll(infoText, rollButton, dieContainer, playerList, scoreLabel, playerInfoBox);
   }
 
@@ -83,7 +86,6 @@ public class BestieSidePanel extends VBox {
    * Updates the player score list shown in the panel.
    *
    * @param players the list of players with updated values
-   * @param players the list of players with updated point values
    * @throws IllegalArgumentException if the players list is null or empty
    */
   public void updatePlayerInfo(List<Player> players) {
