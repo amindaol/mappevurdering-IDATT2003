@@ -1,5 +1,7 @@
 package edu.ntnu.idi.idatt;
 
+import static java.util.stream.Collectors.toList;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import edu.ntnu.idi.idatt.controller.BestieBattlesController;
@@ -9,6 +11,10 @@ import edu.ntnu.idi.idatt.controller.HomeController;
 import edu.ntnu.idi.idatt.factory.TokenFactory;
 import edu.ntnu.idi.idatt.io.reader.BoardFileReaderGson;
 import edu.ntnu.idi.idatt.io.reader.PlayerFileReaderCsv;
+import edu.ntnu.idi.idatt.model.action.StealStarAction;
+import edu.ntnu.idi.idatt.model.game.BestiePlayer;
+import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;
 import edu.ntnu.idi.idatt.model.engine.GameEngine;
 import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
@@ -43,6 +49,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -50,13 +57,13 @@ import javafx.stage.Stage;
 
 
 /**
- * Main class for launching the Slayboard JavaFX application.
- * Sets up the UI, registers routes, and handles game initialization.
- * Supports two game modes:
+ * Main class for launching the Slayboard JavaFX application. Sets up the UI, registers routes, and
+ * handles game initialization. Supports two game modes:
  * <ul>
  *   <li>Love & Ladders</li>
  *   <li>Bestie Point Battles</li>
  * </ul>
+ * <p>
  * Uses {@link Router} for navigation and {@link AppState} for shared data.
  *
  * @author Aminda Lunde
@@ -90,7 +97,9 @@ public class Main extends Application {
     Router.registerRoute(
         new Route("home",
             () -> new HomeController().getView(),
-            () -> null
+            () -> new NavBar("Slayboard",
+                () -> Router.navigateTo("home"),
+                AlertUtil::showHelpDialog)
         )
     );
 
@@ -107,7 +116,7 @@ public class Main extends Application {
             },
             () -> new NavBar("Love & Ladders",
                 () -> Router.navigateTo("home"),
-                () -> AlertUtil.showHelpDialog())
+                AlertUtil::showHelpDialog)
         ));
 
     Router.registerRoute(
@@ -123,7 +132,7 @@ public class Main extends Application {
             },
             () -> new NavBar("Bestie Point Battles",
                 () -> Router.navigateTo("home"),
-                () -> AlertUtil.showHelpDialog())
+                AlertUtil::showHelpDialog)
         ));
 
     Router.registerRoute(
@@ -170,8 +179,8 @@ public class Main extends Application {
                 return new HomeController().getView();
               } catch (Exception e) {
                 logger.log(Level.SEVERE, "Failed to start Love & Ladders", e);
-                AlertUtil.showError("Load Error", "Could not start Love & Ladders: "
-                    + e.getMessage());
+                AlertUtil.showError("Load Error",
+                    "Could not start Love & Ladders: " + e.getMessage());
                 return new HomeController().getView();
               }
             },
@@ -195,36 +204,45 @@ public class Main extends Application {
                   Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
                   root = JsonParser.parseReader(reader).getAsJsonObject();
                 }
-
                 Board board = new BoardFileReaderGson().parseBoard(root);
-                List<Player> players = AppState.getSelectedPlayers();
-                if (players == null || players.isEmpty())
-                  throw new PlayerNotConfiguredException("No players configured");
+
+                board.getLastTile()
+                    .setNextTile(board.getStartTile());
+
+                List<Player> rawPlayers = AppState.getSelectedPlayers();
+                List<BestiePlayer> players = rawPlayers.stream()
+                    .map(p -> new BestiePlayer(p.getName(), p.getToken(), p.getBirthday()))
+                    .toList();
+                if (players.isEmpty()) {
+                  throw new IllegalStateException("No players configured");
+                }
 
                 Dice dice = new Dice(2);
                 BoardGame game = new BoardGame(board, dice);
                 players.forEach(game::addPlayer);
 
-                GameEngine engine = new BestiePointBattlesEngine(game, game.getDice());
+                BestiePointBattlesEngine engine = new BestiePointBattlesEngine(game, dice);
                 BestieBattlesView view = new BestieBattlesView(game);
-                new BestieBattlesController((BestiePointBattlesEngine) engine, view);
+                new BestieBattlesController(engine, view);
                 engine.startGame();
 
-                return view;
+                return view.getRoot();
+
+
               } catch (BoardFileNotFoundException | PlayerNotConfiguredException e) {
                 logger.log(Level.SEVERE, "Game setup error", e);
                 AlertUtil.showError("Game Setup Error", "Error: " + e.getMessage());
                 return new HomeController().getView();
               } catch (Exception e) {
-                logger.log(Level.SEVERE, "Failed to start Love & Ladders", e);
-                AlertUtil.showError("Load Error", "Could not start Love & Ladders: "
-                    + e.getMessage());
+                logger.log(Level.SEVERE, "Failed to start Bestie Point Battles", e);
+                AlertUtil.showError("Load Error",
+                    "Could not start Bestie Point Battles:\n" + e.getMessage());
                 return new HomeController().getView();
               }
             },
             () -> new NavBar("Bestie Point Battles",
                 () -> Router.navigateTo("home"),
-                () -> AlertUtil.showGameHelp("BestiePointBattles"))
+                () -> AlertUtil.showGameHelp("PointBattles"))
         ));
 
     Router.navigateTo("home");
@@ -233,8 +251,8 @@ public class Main extends Application {
   }
 
   /**
-   * Validates player setup and creates {@link Player}-objects.
-   * Can load from CSV or manual input. Fills {@link AppState} with the result.
+   * Validates player setup and creates {@link Player}-objects. Can load from CSV or manual input.
+   * Fills {@link AppState} with the result.
    *
    * @param content SettingsContent containing user input
    * @return true if all input is valid and players created
@@ -266,8 +284,8 @@ public class Main extends Application {
             "Failed to load players from CSV: " + e.getMessage()).showAndWait();
         return false;
       } catch (Exception e) {
-        new Alert(Alert.AlertType.ERROR, "Failed to load players from CSV: "
-            + e.getMessage()).showAndWait();
+        new Alert(Alert.AlertType.ERROR,
+            "Failed to load players from CSV: " + e.getMessage()).showAndWait();
         return false;
       }
 

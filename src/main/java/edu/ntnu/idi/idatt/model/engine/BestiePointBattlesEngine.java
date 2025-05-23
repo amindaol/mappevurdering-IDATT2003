@@ -1,13 +1,17 @@
 package edu.ntnu.idi.idatt.model.engine;
 
+import edu.ntnu.idi.idatt.model.action.BuyStarAction;
 import edu.ntnu.idi.idatt.model.core.LinearMovement;
 import edu.ntnu.idi.idatt.model.core.Movement;
+import edu.ntnu.idi.idatt.model.game.BestiePlayer;
+import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -24,91 +28,67 @@ public class BestiePointBattlesEngine extends GameEngine {
 
   private final Dice dice;
   private final Movement movement = new LinearMovement();
+  private final int maxStars = 3;
 
-  /**
-   * Constructs a new BestiePointBattlesEngine with the specified game and dice.
-   *
-   * @param game the game to be played
-   * @param dice the dice to be used in the game
-   * @throws NullPointerException if {@code game} or {@code dice} is {@code null}.
-   */
-  public BestiePointBattlesEngine(BoardGame game, Dice dice) {
-    super(game);
-    if (dice == null) {
-      throw new NullPointerException("Dice cannot be null.");
-    }
+  public BestiePointBattlesEngine(BoardGame boardGame, Dice dice) {
+    super(boardGame);
     this.dice = dice;
   }
 
-  /**
-   * Plays the game. This method initializes the game state, places players on the start tile,
-   * notifies observers of the game start, and enters the main game loop. The game loop continues
-   * until a player reaches the last tile, at which point the game ends and the winner is declared.
-   *
-   * @throws GameNotInitializedException if the game is not properly initialized with players or
-   *                                     board.
-   */
   @Override
   public void playGame() {
-    if (board == null || players == null || players.isEmpty()) {
-      throw new GameNotInitializedException("GameConfiguration cannot have null fields.");
-    }
-
-    Tile start = board.getStartTile();
-    for (Player player : players) {
-      player.placeOnTile(start);
-    }
-
-    notifyObservers(BoardGameEvent.GAME_START);
-
-    while (!gameOver) {
-      handleTurn(0);
-    }
+    throw new UnsupportedOperationException("BestieBattles uses manual playTurn()");
   }
 
-  /**
-   * Handles the turn for the current player. This method rolls the dice, moves the player, checks
-   * for win conditions, and notifies observers of the game state changes.
-   */
+  @Override
   public void handleTurn(int steps) {
-    Player player = getCurrentPlayer();
-
-    if (player.isSkipNextTurn()) {
-      player.setSkipNextTurn(false);
-      nextPlayer();
+    if (gameOver) {
       return;
     }
 
+    BestiePlayer mover = (BestiePlayer) getCurrentPlayer();
+    Tile current = mover.getCurrentTile();
+
     notifyObservers(BoardGameEvent.DICE_ROLLED);
 
-    movement.move(player, steps);
-    notifyObservers(BoardGameEvent.PLAYER_MOVED);
+    for (int i = 0; i < steps; i++) {
+      current = current.getNextTile();
+      mover.placeOnTile(current);
+      notifyObservers(BoardGameEvent.PLAYER_MOVED);
+
+      if (current.getAction() instanceof BuyStarAction shop) {
+        if (mover.getCoins() >= 20) {
+          shop.perform(mover);      // decrement coins, increment star count
+          notifyObservers(BoardGameEvent.PLAYER_MOVED); // to refresh UI
+        }
+      }
+    }
+    if (!(current.getAction() instanceof BuyStarAction) && current.getAction() != null) {
+      current.getAction().perform(mover);
+      notifyObservers(BoardGameEvent.PLAYER_MOVED);
+    }
 
     if (checkWinCondition() != null) {
-      notifyObservers(BoardGameEvent.GAME_ENDED);
       notifyObservers(BoardGameEvent.GAME_WON);
+      notifyObservers(BoardGameEvent.GAME_ENDED);
       endGame();
     } else {
       nextPlayer();
     }
   }
 
-  /**
-   * Checks the win condition for the game. In this case, it checks if the game is over and returns
-   * the player with the highest score. If the game is not over, it returns null.
-   *
-   * @return the winning player, or null if the game is not over.
-   */
   @Override
   public Player checkWinCondition() {
-    if (!gameOver) {
-      return null;
-    }
     return players.stream()
-        .max(Comparator.comparingInt(Player::getPoints))
+        .filter(p -> p instanceof BestiePlayer)
+        .map(p -> (BestiePlayer) p)
+        .filter(bp -> bp.getStars() >= maxStars)
+        .findFirst()
         .orElse(null);
   }
 
+  public Dice getDice() {
+    return dice;
   /**
    * Plays one round of the game by rolling the dice,
    * summing the result, and handling the player's turn.
@@ -124,15 +104,12 @@ public class BestiePointBattlesEngine extends GameEngine {
     handleTurn(steps);
   }
 
-
-  /**
-   * Checks whether the game is finished.
-   *
-   * @return true if the game is over, false otherwise
-   */
-  public boolean isFinished() {
-    return gameOver;
+  @Override
+  public void startGame() {
+    Tile start = board.getStartTile();
+    for (Player p : players) {
+      p.placeOnTile(start);
+    }
+    notifyObservers(BoardGameEvent.GAME_START);
   }
-
-
 }
