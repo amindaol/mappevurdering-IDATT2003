@@ -7,6 +7,7 @@ import edu.ntnu.idi.idatt.factory.TokenFactory;
 import edu.ntnu.idi.idatt.io.reader.BoardFileReaderGson;
 import edu.ntnu.idi.idatt.io.reader.PlayerFileReaderCsv;
 import edu.ntnu.idi.idatt.model.action.StealStarAction;
+import edu.ntnu.idi.idatt.model.game.BestiePlayer;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;
@@ -204,7 +205,7 @@ public class Main extends Application {
                 }
                 Board board = new BoardFileReaderGson().parseBoard(root);
 
-                List<Player> players = AppState.getSelectedPlayers();
+                List<BestiePlayer> players = AppState.getSelectedPlayers();
                 if (players == null || players.isEmpty()) {
                   throw new IllegalStateException("No players configured");
                 }
@@ -220,7 +221,7 @@ public class Main extends Application {
 
                 GameEngine engine = new BestiePointBattlesEngine(game, dice);
                 BestieBattlesView view = new BestieBattlesView(game);
-                //new BestieBattlesController((BestiePointBattlesEngine) engine, view);
+                new BestieBattlesController(engine, view);
                 engine.startGame();
 
                 return view.getRoot();
