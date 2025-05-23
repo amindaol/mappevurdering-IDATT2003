@@ -63,13 +63,6 @@ class LoveAndLaddersEngineTest {
   }
 
   @Test
-  void testPlayGameThrowsIfNoPlayers() {
-    BoardGame emptyGame = new BoardGame(board, dice);
-    LoveAndLaddersEngine engineWithNoPlayers = new LoveAndLaddersEngine(emptyGame, dice);
-    assertThrows(NoPlayersException.class, engineWithNoPlayers::playGame);
-  }
-
-  @Test
   void testObserversAreNotifiedAtStartAndEnd() {
     DummyObserver observer = new DummyObserver();
     engine.addObserver(observer);

@@ -1,6 +1,5 @@
 package edu.ntnu.idi.idatt.util;
 
-import edu.ntnu.idi.idatt.util.exceptionHandling.AlertDisplayException;
 import javafx.scene.control.Alert;
 
 /**
@@ -49,21 +48,16 @@ public class AlertUtil {
    *
    * @param title the title of the alert
    * @param msg   the message to display in the alert
-   * @throws AlertDisplayException if there's problem displaying the alert
    */
   private static void show(Alert.AlertType type, String title, String msg) {
     if (disableAlertsForTesting)
       return;
 
-    try {
       Alert alert = new Alert(type);
       alert.setTitle(title);
       alert.setHeaderText(null);
       alert.setContentText(msg);
       alert.showAndWait();
-    } catch (Exception e) {
-      throw new AlertDisplayException("Error displaying alert: " + e.getMessage());
-    }
   }
 
   /**

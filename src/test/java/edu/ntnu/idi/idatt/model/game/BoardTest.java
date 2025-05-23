@@ -1,6 +1,8 @@
 package edu.ntnu.idi.idatt.model.game;
 
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidLadderException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.TileNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +36,7 @@ class BoardTest {
 
   @Test
   void testGetTileThrowsIfNotFound() {
-    assertThrows(InvalidMoveException.class, () -> board.getTile(99));
+    assertThrows(TileNotFoundException.class, () -> board.getTile(99));
   }
 
   @Test

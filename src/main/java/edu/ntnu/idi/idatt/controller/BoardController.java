@@ -6,25 +6,26 @@ import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BoardView;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import javafx.scene.layout.Pane;
 
 /**
- * Controls the board view during gameplay. Connects the {@link GameEngine} with the {@link BoardView},
+ * Controls the board view during gameplay. Connects the {@link GameEngine} with the
+ * {@link BoardView},
  * listens for game events, updates player positions, and handles dice roll actions.
  * Also shows the winner when the game ends.
- *
- * This controller observes the game and reacts to state changes via the {@link BoardGameObserver} interface.
+ * This controller observes the game and reacts to state changes via the {@link BoardGameObserver}
+ * interface.
  * It does not contain game logic, only GUI updates and event binding.
  *
  * @author Aminda Lunde
@@ -45,8 +46,12 @@ public class BoardController implements BoardGameObserver {
    *
    * @param controller the game controller handling turns
    * @param boardView the visual representation of the board
+   * @throws GameNotInitializedException if the game engine is not properly initialized
    */
   public BoardController(GameController controller, BoardView boardView) {
+    if (controller.getEngine() == null) {
+      throw new GameNotInitializedException("Game engine not initialized.");
+    }
     this.engine = controller.getEngine();
     this.boardView = boardView;
 

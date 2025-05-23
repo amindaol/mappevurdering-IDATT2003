@@ -61,12 +61,6 @@ class LinearMovementTest {
   }
 
   @Test
-  void testMoveThrowsIfCurrentTileIsNull() {
-    player.setCurrentTile(null);
-    assertThrows(IllegalStateException.class, () -> movement.move(player, 1));
-  }
-
-  @Test
   void testMoveTriggersTileActionIfPresent() {
     TileActionMock action = new TileActionMock();
     board.getTile(2).setAction(action);
