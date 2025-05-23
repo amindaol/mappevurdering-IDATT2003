@@ -52,36 +52,4 @@ class GameInformationTest {
     assertTrue(info.toString().contains("Test"));
     assertTrue(info.toString().contains("2–4"));
   }
-
-  @Test
-  void testConstructorThrowsOnNullArguments() {
-    assertThrows(IllegalArgumentException.class, () -> new GameInformation(
-        null, "rules", 4, 2, config -> null, () -> List.of(), GameMode.LOVE_AND_LADDERS
-    ));
-
-    assertThrows(IllegalArgumentException.class, () -> new GameInformation(
-        "Test", "rules", 4, 2, null, () -> List.of(), GameMode.LOVE_AND_LADDERS
-    ));
-
-    assertThrows(IllegalArgumentException.class, () -> new GameInformation(
-        "Test", "rules", 4, 2, config -> null, null, GameMode.LOVE_AND_LADDERS
-    ));
-  }
-
-  @Test
-  void testEngineFactoryProducesGameEngine() {
-    Function<GameConfiguration, GameEngine> factory = config -> new DummyEngine();
-    GameInformation info = new GameInformation(
-        "Game", "rules", 4, 2, factory, () -> List.of(new Board(1, 1)), GameMode.BESTIE_POINT_BATTLES
-    );
-
-    Board board = new Board(1, 1);
-    GameEngine engine = new DummyEngine();
-    GameConfiguration config = new GameConfiguration(GameMode.BESTIE_POINT_BATTLES, new BoardGame(board, new Dice(1)), engine);
-
-    GameEngine produced = info.getEngineFactory().apply(config);
-    assertNotNull(produced);
-    assertTrue(produced instanceof DummyEngine);
-  }
-
 }

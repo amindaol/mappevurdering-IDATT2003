@@ -82,8 +82,12 @@ public class Tile {
    * places the player on the tile.
    *
    * @param player the player who landed on the tile.
+   * @throws NullPointerException if the player is null.
    */
   public void onLand(Player player) {
+    if (player == null) {
+      throw new NullPointerException("Player cannot be null.");
+    }
     player.placeOnTile(this);
     if (action != null) {
       action.perform(player);

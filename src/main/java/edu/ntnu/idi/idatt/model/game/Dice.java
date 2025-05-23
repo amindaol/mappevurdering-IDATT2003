@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.model.game;
 
+import edu.ntnu.idi.idatt.util.exceptionHandling.DiceNotRolledException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,8 +59,12 @@ public class Dice {
    * already been rolled.
    *
    * @return The total value of all dice rolls. 0 if the dice have not been rolled.
+   * @throws DiceNotRolledException if the dice have not been rolled yet
    */
   public int getRollValue() {
+    if (dice[0].getValue() == 0) {
+      throw new DiceNotRolledException("Dice must be rolled before retrieving the roll value.");
+    }
     int total = 0;
     for (int i = 0; i < diceAmount; i++) {
       total += dice[i].getValue();

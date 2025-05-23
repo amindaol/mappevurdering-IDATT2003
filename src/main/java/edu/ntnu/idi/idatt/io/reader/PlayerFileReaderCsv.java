@@ -3,6 +3,7 @@ package edu.ntnu.idi.idatt.io.reader;
 import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Token;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidPlayerFormatException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -44,17 +45,17 @@ public class PlayerFileReaderCsv implements PlayerFileReader {
    *
    * @param line CSV line in format "name,iconFile"
    * @return Player instance
-   * @throws IllegalArgumentException if the line is malformed
+   * @throws InvalidPlayerFormatException if the line is malformed
    */
   private Player parsePlayer(String line) {
     if (line == null || line.isBlank()) {
-      throw new IllegalArgumentException("Empty or null CSV line.");
+      throw new InvalidPlayerFormatException("Empty or null CSV line.");
     }
 
     String[] parts = line.split(",");
 
     if (parts.length < 3) {
-      throw new IllegalArgumentException("Malformed player line: " + line);
+      throw new InvalidPlayerFormatException("Malformed player line: " + line);
     }
 
     String name = parts[0].trim();
@@ -62,14 +63,14 @@ public class PlayerFileReaderCsv implements PlayerFileReader {
     String icon = parts[2].trim();
 
     if (name.isEmpty() || icon.isEmpty() || birthday.isEmpty()) {
-      throw new IllegalArgumentException("Empty player name, icon, or birthday: " + line);
+      throw new InvalidPlayerFormatException("Empty player name, icon, or birthday: " + line);
     }
 
     LocalDate birthdayDate;
     try {
       birthdayDate = LocalDate.parse(birthday);
     } catch (Exception e) {
-      throw new IllegalArgumentException("Invalid date format for birthday: " + birthday, e);
+      throw new InvalidPlayerFormatException("Invalid date format for birthday: " + birthday, e);
     }
 
     Token token = new Token(name, icon);

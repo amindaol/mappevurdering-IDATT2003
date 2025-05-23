@@ -5,6 +5,7 @@ import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;
 import edu.ntnu.idi.idatt.model.engine.GameEngine;
 import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
 import edu.ntnu.idi.idatt.model.game.*;
+import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 
 /**
  * Factory class for creating GameEngine instances based on the selected game mode.
@@ -31,8 +32,12 @@ public final class GameEngineFactory {
    * @param game the BoardGame containing players, board, dice, observers
    * @param mode the selected game mode
    * @return a fully initialized GameEngine
+   * @throws GameNotInitializedException if game mode is null
    */
   public static GameEngine create(BoardGame game, GameMode mode) {
+    if (mode == null) {
+      throw new GameNotInitializedException("Game mode cannot be null");
+    }
     return switch (mode) {
       case LOVE_AND_LADDERS -> new LoveAndLaddersEngine(
           game,

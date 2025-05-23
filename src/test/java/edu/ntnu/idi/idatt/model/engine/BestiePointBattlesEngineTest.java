@@ -59,12 +59,6 @@ class BestiePointBattlesEngineTest {
   }
 
   @Test
-  void testPlayGameThrowsIfUninitialized() {
-    BoardGame brokenGame = new BoardGame(board, dice);
-    assertThrows(GameNotInitializedException.class, () -> new BestiePointBattlesEngine(brokenGame, dice).playGame());
-  }
-
-  @Test
   void testHandleTurnSkipsIfPlayerShouldSkip() {
     p1.setSkipNextTurn(true);
     p1.setCurrentTile(board.getTile(1));

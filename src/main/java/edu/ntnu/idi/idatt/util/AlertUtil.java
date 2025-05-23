@@ -50,13 +50,14 @@ public class AlertUtil {
    * @param msg   the message to display in the alert
    */
   private static void show(Alert.AlertType type, String title, String msg) {
-    if (disableAlertsForTesting) return;
+    if (disableAlertsForTesting)
+      return;
 
-    Alert alert = new Alert(type);
-    alert.setTitle(title);
-    alert.setHeaderText(null);
-    alert.setContentText(msg);
-    alert.showAndWait();
+      Alert alert = new Alert(type);
+      alert.setTitle(title);
+      alert.setHeaderText(null);
+      alert.setContentText(msg);
+      alert.showAndWait();
   }
 
   /**

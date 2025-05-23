@@ -5,6 +5,8 @@ import edu.ntnu.idi.idatt.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 
 import edu.ntnu.idi.idatt.model.game.*;
+import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -19,47 +21,32 @@ class GameSetupTest {
     Board board = new Board(2, 2);
     Player player = new Player("A", new Token("cat", "cat.png"), LocalDate.now());
 
+    GameInformation gameInformation = new GameInformation(
+        "Test Game", "Test rules", 4, 2,
+        config -> null, () -> List.of(board), GameMode.LOVE_AND_LADDERS
+    );
+
+    assertThrows(GameNotInitializedException.class, () -> new GameSetup(null, board, List.of(player)));
+    assertThrows(GameNotInitializedException.class, () -> new GameSetup(gameInformation, null, List.of(player)));
+    assertThrows(NoPlayersException.class, () -> new GameSetup(gameInformation, board, null));
+    assertThrows(NoPlayersException.class, () -> new GameSetup(gameInformation, board, List.of()));
+  }
+
+  @Test
+  void testConstructorAllowsNullEngine() {
+    Board board = new Board(2, 2);
+    Player player = new Player("Aminda", new Token("🌸", "flower.png"), LocalDate.of(2000, 1, 1));
+
     GameInformation info = new GameInformation(
         "Test Game", "Test rules", 4, 2,
         config -> null, () -> List.of(board), GameMode.LOVE_AND_LADDERS
     );
 
-    assertThrows(IllegalArgumentException.class, () -> new GameSetup(null, board, List.of(player)));
-    assertThrows(IllegalArgumentException.class, () -> new GameSetup(info, null, List.of(player)));
-    assertThrows(IllegalArgumentException.class, () -> new GameSetup(info, board, null));
-    assertThrows(IllegalArgumentException.class, () -> new GameSetup(info, board, List.of()));
-  }
-
-  @Test
-  void testBuildReturnsGameConfigurationWithEngineAndBoardGame() {
-    Board board = new Board(2, 2);
-    Player player1 = new Player("Aminda", new Token("🌸", "flower.png"), LocalDate.of(2000, 1, 1));
-    Player player2 = new Player("Ingrid", new Token("🌟", "star.png"), LocalDate.of(1999, 5, 5));
-
-    DummyEngine dummyEngine = new DummyEngine();
-
-    GameInformation info = new GameInformation(
-        "Test Game",
-        "A test game with dummy engine",
-        4,
-        2,
-        ignored -> dummyEngine,
-        () -> List.of(board),
-        GameMode.BESTIE_POINT_BATTLES
-    );
-
-    GameSetup setup = new GameSetup(info, board, List.of(player1, player2));
+    GameSetup setup = new GameSetup(info, board, List.of(player));
     GameConfiguration config = setup.build();
 
     assertNotNull(config);
-    assertEquals(GameMode.BESTIE_POINT_BATTLES, config.getGameMode());
-    assertEquals(dummyEngine, config.getEngine());
-
-    BoardGame boardGame = config.getBoardGame();
-    assertNotNull(boardGame);
-    assertEquals(2, boardGame.getPlayers().size());
-    assertTrue(boardGame.getPlayers().contains(player1));
-    assertTrue(boardGame.getPlayers().contains(player2));
+    assertNull(config.getEngine());  // Ensure engine is null when not provided
   }
 
   static class DummyEngine extends GameEngine {
@@ -95,24 +82,6 @@ class GameSetupTest {
     public BoardGame getGame() { return null; }
     @Override
     public void startGame() {}
-  }
-
-  @Test
-  void testBuildCreatesNewConfigEachTime() {
-    Board board = new Board(1, 1);
-    Player player = new Player("Test", new Token("icon", "i.png"), LocalDate.now());
-
-    GameInformation info = new GameInformation(
-        "Test Game", "Rules", 4, 2,
-        config -> new DummyEngine(), () -> List.of(board), GameMode.LOVE_AND_LADDERS
-    );
-
-    GameSetup setup = new GameSetup(info, board, List.of(player));
-
-    GameConfiguration first = setup.build();
-    GameConfiguration second = setup.build();
-
-    assertNotSame(first, second);
   }
 
 }

@@ -7,6 +7,8 @@ import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Dice;
 import edu.ntnu.idi.idatt.model.game.Player;
 
+import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
 import java.util.List;
 
 /**
@@ -29,11 +31,19 @@ public class GameSetup {
    * @param gameInformation the game information
    * @param selectedBoard   the selected board
    * @param players         the list of players
-   * @throws IllegalArgumentException if any of the parameters are null or invalid
+   * @throws GameNotInitializedException if gameinformation is null
+   * @throws GameNotInitializedException if selected board is null
+   * @throws NoPlayersException if player is null or empty
    */
   public GameSetup(GameInformation gameInformation, Board selectedBoard, List<Player> players) {
-    if (gameInformation == null || selectedBoard == null || players == null || players.isEmpty()) {
-      throw new IllegalArgumentException("GameSetup requires valid game info, board, and players.");
+    if (gameInformation == null) {
+      throw new GameNotInitializedException("Game information cannot be null.");
+    }
+    if (selectedBoard == null) {
+      throw new GameNotInitializedException("Selected board cannot be null.");
+    }
+    if (players == null || players.isEmpty()) {
+      throw new NoPlayersException("Players list cannot be null or empty.");
     }
 
     this.gameInformation = gameInformation;

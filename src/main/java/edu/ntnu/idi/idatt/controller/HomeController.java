@@ -1,5 +1,7 @@
 package edu.ntnu.idi.idatt.controller;
 
+import edu.ntnu.idi.idatt.util.AlertUtil;
+import edu.ntnu.idi.idatt.util.exceptionHandling.ViewInitializationException;
 import edu.ntnu.idi.idatt.view.layouts.HomeView;
 import edu.ntnu.idi.idatt.view.route.Router;
 
@@ -17,10 +19,15 @@ public class HomeController {
 
   /**
    * Creates a new HomeController and sets up event handlers for the view.
+   * @throws ViewInitializationException if it fails to initialize the HomeView
    */
   public HomeController() {
-    this.view = new HomeView();
-    setupEventHandlers();
+    try {
+      this.view = new HomeView();
+      setupEventHandlers();
+    } catch (Exception e) {
+      throw new ViewInitializationException("Failed to initialize the HomeView.", e);
+    }
   }
 
   /**
@@ -36,8 +43,12 @@ public class HomeController {
    * Sets up navigation actions for the game mode buttons in the view.
    */
   private void setupEventHandlers() {
-    view.setOnClickLoveAndLaddersButton(() -> Router.navigateTo("lalSettings"));
-    view.setOnClickBestieBattlesButton(() -> Router.navigateTo("bbSettings"));
+    try {
+      view.setOnClickLoveAndLaddersButton(() -> Router.navigateTo("lalSettings"));
+      view.setOnClickBestieBattlesButton(() -> Router.navigateTo("bbSettings"));
+    } catch (Exception e) {
+      AlertUtil.showError("Navigation Error", "Failed to navigate to the requested page.");
+    }
   }
 
 }

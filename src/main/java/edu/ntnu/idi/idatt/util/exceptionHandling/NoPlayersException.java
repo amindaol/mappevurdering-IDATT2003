@@ -12,7 +12,7 @@ public class NoPlayersException extends RuntimeException {
   /**
    * Constructs a new NoPlayersException with the default message.
    */
-  public NoPlayersException() {
+  public NoPlayersException(String s) {
     super("Cannot play turn: No players have been added to the game. ");
   }
 

@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import edu.ntnu.idi.idatt.model.action.JumpToTileAction;
 import edu.ntnu.idi.idatt.model.action.ModifyPointsAction;
 import edu.ntnu.idi.idatt.model.action.SkipNextTurnAction;
@@ -11,6 +12,7 @@ import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Ladder;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidJsonFormatException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,6 +37,7 @@ public class BoardFileReaderGson implements BoardFileReader {
    * @param path the path to the board JSON file
    * @return the loaded Board
    * @throws DaoException if reading or parsing fails
+   * @throws InvalidJsonFormatException if JSON format is invalid
    */
   @Override
   public Board readBoard(Path path) throws DaoException {
@@ -42,8 +45,10 @@ public class BoardFileReaderGson implements BoardFileReader {
       String json = Files.readString(path);
       JsonObject root = JsonParser.parseString(json).getAsJsonObject();
       return parseBoard(root);
-    } catch (IOException | IllegalArgumentException | NullPointerException e) {
+    } catch (IOException e) {
       throw new DaoException("Failed to load board from file: " + path, e);
+    } catch (JsonSyntaxException | IllegalArgumentException | NullPointerException e) {
+      throw new InvalidJsonFormatException("Invalid JSON format in board file: " + path, e);
     }
   }
 

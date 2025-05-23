@@ -6,6 +6,8 @@ import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidPlayerException;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BestieBattlesView;
 import javafx.scene.control.Alert;
@@ -48,29 +50,39 @@ public class BestieBattlesController implements BoardGameObserver {
     engine.addObserver(this);
 
     view.setupBoard();
-    setupPlayers();
-    setupRolling();
+    try {
+      setupPlayers();
+      setupRolling();
+    } catch (InvalidMoveException e) {
+      showErrorAlert("Invalid Player", e.getMessage());
+    }
   }
 
   /**
    * Sets up the initial placement of player icons on the board.
+   *
+   * @throws InvalidPlayerException if player data is missing or invalid
    */
   private void setupPlayers() {
     for (Player player : engine.getPlayers()) {
-      String iconPath = "/icons/players/" + player.getToken().getIconFileName();
-      Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(iconPath)));
-      PlayerIcon icon = new PlayerIcon(player.getName(), image);
+      try {
+        String iconPath = "/icons/players/" + player.getToken().getIconFileName();
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(iconPath)));
+        PlayerIcon icon = new PlayerIcon(player.getName(), image);
 
-      if (playerIcons.containsKey(player)) {
-        PlayerIcon oldIcon = playerIcons.get(player);
-        if (oldIcon.getParent() instanceof Pane parent) {
-          parent.getChildren().remove(oldIcon);
-    }
-  }
-      playerIcons.put(player, icon);
-      Tile tile = player.getCurrentTile();
-      if (tile != null) {
-        view.placePlayerIcon(player.getName(), icon, tile.getTileId());
+        if (playerIcons.containsKey(player)) {
+          PlayerIcon oldIcon = playerIcons.get(player);
+          if (oldIcon.getParent() instanceof Pane parent) {
+            parent.getChildren().remove(oldIcon);
+          }
+        }
+        playerIcons.put(player, icon);
+        Tile tile = player.getCurrentTile();
+        if (tile != null) {
+          view.placePlayerIcon(player.getName(), icon, tile.getTileId());
+        }
+      } catch (InvalidMoveException e) {
+        throw new InvalidPlayerException("Icon file not found for player: " + player.getName());
       }
     }
   }
@@ -78,9 +90,12 @@ public class BestieBattlesController implements BoardGameObserver {
   /**
    * Sets up the dice roll callback to play a round, update the board,
    * and show the winner if the game is finished.
+   *
+   * @throws InvalidMoveException if the player makes an invalid move during the round
    */
   private void setupRolling() {
     view.setRollCallback(() -> {
+      try {
       engine.playOneRound();
       updatePlayerPositions();
       view.updatePlayerInfo();
@@ -88,6 +103,9 @@ public class BestieBattlesController implements BoardGameObserver {
       if (engine.isFinished()) {
         showWinnerAlert(engine.checkWinCondition());
       }
+      } catch (InvalidMoveException e) {
+        showErrorAlert("Invalid Move", e.getMessage());
+        }
     });
   }
 
@@ -138,5 +156,19 @@ public class BestieBattlesController implements BoardGameObserver {
         }
       }
     });
+  }
+
+  /**
+   * Displays an error alert with the specified title and message.
+   *
+   * @param title the title of the alert
+   * @param message the error message
+   */
+  private void showErrorAlert(String title, String message) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
   }
 }

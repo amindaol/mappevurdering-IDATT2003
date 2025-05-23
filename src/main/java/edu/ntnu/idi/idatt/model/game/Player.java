@@ -155,8 +155,12 @@ public class Player {
    * Sets the current tile of the player.
    *
    * @param tile the tile to set as the current tile
+   * @throws NullPointerException if current tile is null
    */
   public void setCurrentTile(Tile tile) {
+    if (tile == null) {
+      throw new NullPointerException("Current tile cannot be null.");
+    }
     this.currentTile = tile;
   }
 }

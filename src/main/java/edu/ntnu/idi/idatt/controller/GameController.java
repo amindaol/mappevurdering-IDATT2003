@@ -2,6 +2,8 @@ package edu.ntnu.idi.idatt.controller;
 
 import edu.ntnu.idi.idatt.model.engine.GameEngine;
 import edu.ntnu.idi.idatt.model.game.Player;
+import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
 import java.util.List;
 
 /**
@@ -22,15 +24,23 @@ public class GameController {
    * Creates a new GameController with the given GameEngine.
    *
    * @param engine the game engine to control
+   * @throws GameNotInitializedException if the engine is not properly initialized
    */
   public GameController(GameEngine engine) {
+    if (engine == null) {
+      throw new GameNotInitializedException("Game engine cannot be null.");
+    }
     this.engine = engine;
   }
 
   /**
    * Plays a turn by rolling the dice and passing the result to the engine.
+   * @throws NoPlayersException if there are no players
    */
   public void playTurn() {
+    if (engine.getPlayers().isEmpty()) {
+      throw new NoPlayersException("There are no players to play the game.");
+    }
     lastRoll = engine.getGame().getDice().roll();
     int total = lastRoll.stream().mapToInt(Integer::intValue).sum();
     engine.handleTurn(total);
@@ -40,8 +50,12 @@ public class GameController {
    * Checks if the game is over.
    *
    * @return true if the game is finished, false otherwise
+   * @throws GameNotInitializedException if game engine is not initialized
    */
   public boolean isGameOver() {
+    if (engine == null) {
+      throw new GameNotInitializedException("Game engine is not initialized.");
+    }
     return engine.isGameOver();
   }
 

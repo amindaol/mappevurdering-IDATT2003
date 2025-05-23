@@ -12,7 +12,6 @@ import java.util.Map;
  * A simplified board layout used for the Bestie PointBattles game.
  * Unlike {@link LaddersBoard}, this board only handles tile layout and player movement,
  * and does not draw ladders or snakes.
- * <p>
  * Tiles are added to a {@link GridPane} and stored in a map for easy access by tile ID.
  * </p>
  *
@@ -80,8 +79,12 @@ public class BestieBoard extends GridPane {
    *
    * @param tileId the ID of the tile
    * @return the TileComponent or null if not found
+   * @throws IllegalArgumentException if the tileId is not found
    */
   public TileComponent getTile(int tileId) {
+    if (!tileMap.containsKey(tileId)) {
+      throw new IllegalArgumentException("Tile not found: " + tileId);
+    }
     return tileMap.get(tileId);
   }
 
