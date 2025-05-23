@@ -12,6 +12,8 @@ import javafx.scene.control.Alert;
  */
 public class AlertUtil {
 
+  static boolean disableAlertsForTesting = false;
+
   /**
    * Displays a warning alert with the specified message.
    *
@@ -48,11 +50,14 @@ public class AlertUtil {
    * @param msg   the message to display in the alert
    */
   private static void show(Alert.AlertType type, String title, String msg) {
-    Alert alert = new Alert(type);
-    alert.setTitle(title);
-    alert.setHeaderText(null);
-    alert.setContentText(msg);
-    alert.showAndWait();
+    if (disableAlertsForTesting)
+      return;
+
+      Alert alert = new Alert(type);
+      alert.setTitle(title);
+      alert.setHeaderText(null);
+      alert.setContentText(msg);
+      alert.showAndWait();
   }
 
   /**
@@ -61,6 +66,8 @@ public class AlertUtil {
    * @param gameMode the game mode identifier (e.g. "LoveAndLadders", "PointBattles")
    */
   public static void showGameHelp(String gameMode) {
+    if (disableAlertsForTesting) return;
+
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Help");
 
@@ -98,6 +105,8 @@ public class AlertUtil {
    * Shows a help dialog explaining how to set up a new game.
    */
   public static void showHelpDialog() {
+    if (disableAlertsForTesting) return;
+
     Alert a = new Alert(Alert.AlertType.INFORMATION);
     a.setTitle("Help");
     a.setHeaderText("How to set up the game");

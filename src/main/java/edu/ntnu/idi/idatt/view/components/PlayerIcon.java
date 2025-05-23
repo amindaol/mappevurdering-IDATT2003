@@ -21,9 +21,20 @@ public class PlayerIcon extends ImageView {
    *
    * @param playerName the name of the player
    * @param icon the image used as the player token
+   * @throws IllegalArgumentException if playerName is null or empty
+   * @throws NullPointerException if icon is null
    */
   public PlayerIcon(String playerName, Image icon) {
     super(icon);
+
+    if (playerName == null || playerName.isEmpty()) {
+      throw new IllegalArgumentException("Player name cannot be null or empty.");
+    }
+
+    if (icon == null) {
+      throw new NullPointerException("Icon image cannot be null.");
+    }
+
     this.playerName = playerName;
 
     setFitWidth(30);

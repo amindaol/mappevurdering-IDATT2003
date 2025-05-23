@@ -2,12 +2,10 @@ package edu.ntnu.idi.idatt.model.game;
 
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
-import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidPlayerException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.TooManyPlayersException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
-import edu.ntnu.idi.idatt.util.exceptionHandling.GameAlreadyFinishedException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -93,7 +91,8 @@ public class BoardGame {
    *
    * @param player the player to add to the game.
    * @throws NullPointerException    if {@code player} is {@code null}.
-   * @throws TooManyPlayersException if adding would exceed the maximum of {@value #MAX_PLAYERS}
+   *  @throws TooManyPlayersException if adding would exceed the maximum of {@value #MAX_PLAYERS}
+   * @throws InvalidPlayerException  if the player has invalid data (e.g., missing name or token)
    */
   public void addPlayer(Player player) {
     if (player == null) {
@@ -101,6 +100,9 @@ public class BoardGame {
     }
     if (players.size() >= MAX_PLAYERS) {
       throw new TooManyPlayersException(MAX_PLAYERS);
+    }
+    if (player.getName() == null || player.getToken() == null) {
+      throw new InvalidPlayerException("Player must have a valid name and token.");
     }
     players.add(player);
   }
@@ -113,7 +115,7 @@ public class BoardGame {
    */
   public Board getBoard() {
     if (board == null) {
-      throw new GameNotInitializedException();
+      throw new GameNotInitializedException("GameConfiguration cannot have null fields.");
     }
     return board;
   }
@@ -126,7 +128,7 @@ public class BoardGame {
    */
   public Dice getDice() {
     if (dice == null) {
-      throw new GameNotInitializedException();
+      throw new GameNotInitializedException("GameConfiguration cannot have null fields.");
     }
     return dice;
   }

@@ -33,6 +33,9 @@ public class LoveAndLaddersEngine extends GameEngine {
    */
   public LoveAndLaddersEngine(BoardGame game, Dice dice) {
     super(game);
+    if (game == null) {
+      throw new NullPointerException("Game cannot be null");
+    }
     if (dice == null) {
       throw new NullPointerException("dice cannot be null");
     }
@@ -50,10 +53,10 @@ public class LoveAndLaddersEngine extends GameEngine {
   @Override
   public void playGame() {
     if (board == null || dice == null) {
-      throw new GameNotInitializedException();
+      throw new GameNotInitializedException("GameConfiguration cannot have null fields.");
     }
     if (players == null || players.isEmpty()) {
-      throw new NoPlayersException();
+      throw new NoPlayersException("Players list cannot be null or empty.");
     }
 
     while (!gameOver) {

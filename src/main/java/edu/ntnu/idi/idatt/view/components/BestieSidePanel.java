@@ -29,9 +29,15 @@ public class BestieSidePanel extends VBox {
    * Constructs the side panel with a roll button and player list.
    *
    * @param game the current {@link BoardGame} instance
+   * @throws IllegalArgumentException if the game or players list is null
    */
   public BestieSidePanel(BoardGame game) {
     setSpacing(15);
+    if (game == null) {
+      throw new IllegalArgumentException("Game cannot be null.");
+    }
+
+    setSpacing(10);
     setPadding(new Insets(15));
     setAlignment(Pos.TOP_CENTER);
     setStyle(
@@ -42,6 +48,8 @@ public class BestieSidePanel extends VBox {
       if (onRoll != null) {
         onRoll.run();
       }
+      if (onRoll != null) onRoll.run();
+      else throw new IllegalStateException("Roll callback is not set.");
     });
 
     int diceCount = game.getDice().getDiceAmount();
@@ -62,8 +70,12 @@ public class BestieSidePanel extends VBox {
    * Sets a callback that runs when the roll button is clicked.
    *
    * @param callback the action to run on button press
+   * @throws IllegalArgumentException if callback is null
    */
   public void setRollCallback(Runnable callback) {
+    if (callback == null) {
+      throw new IllegalArgumentException("Callback cannot be null.");
+    }
     this.onRoll = callback;
   }
 
@@ -71,8 +83,14 @@ public class BestieSidePanel extends VBox {
    * Updates the player score list shown in the panel.
    *
    * @param players the list of players with updated values
+   * @param players the list of players with updated point values
+   * @throws IllegalArgumentException if the players list is null or empty
    */
   public void updatePlayerInfo(List<Player> players) {
+    if (players == null || players.isEmpty()) {
+      throw new IllegalArgumentException("Players list cannot be null or empty.");
+    }
+
     playerInfoBox.getChildren().clear();
     for (Player player : players) {
       if (player instanceof BestiePlayer bp) {

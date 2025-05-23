@@ -11,6 +11,8 @@ import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.model.game.Token;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DaoException;
 
+import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.UnsupportedGameModeException;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -55,13 +57,17 @@ public final class BoardGameFactory {
    *
    * @param mode the game mode
    * @return a new {@link BoardGame} instance
-   * @throws IllegalArgumentException if the game mode is not supported
+   * @throws GameNotInitializedException if game mode is null
+   * @throws UnsupportedGameModeException if the game mode is not supported
    */
   public static BoardGame createGame(GameMode mode) {
+    if (mode == null) {
+      throw new GameNotInitializedException("Game mode cannot be null");
+    }
     return switch (mode) {
       case LOVE_AND_LADDERS -> createLoveAndLaddersGame();
       case BESTIE_POINT_BATTLES -> createBestiePointBattlesGame();
-      default -> throw new IllegalArgumentException("Unsupported game mode: " + mode);
+      default -> throw new UnsupportedGameModeException("Unsupported game mode: " + mode);
     };
   }
 

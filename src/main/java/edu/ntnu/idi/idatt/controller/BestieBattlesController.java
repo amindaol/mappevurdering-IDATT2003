@@ -11,11 +11,15 @@ import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidPlayerException;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BestieBattlesView;
 import java.util.List;
+import java.util.Map;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import java.util.HashMap;
 
 public class BestieBattlesController implements BoardGameObserver {
 
@@ -99,5 +103,19 @@ public class BestieBattlesController implements BoardGameObserver {
       view.updateCurrentPlayerList(engine.getCurrentPlayer());
 
     });
+  }
+
+  /**
+   * Displays an error alert with the specified title and message.
+   *
+   * @param title the title of the alert
+   * @param message the error message
+   */
+  private void showErrorAlert(String title, String message) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
   }
 }

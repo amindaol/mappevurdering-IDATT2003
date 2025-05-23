@@ -1,7 +1,8 @@
 package edu.ntnu.idi.idatt.model.game;
 
-import edu.ntnu.idi.idatt.model.action.StealStarAction;
+import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidLadderException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.TileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,6 @@ public class Board {
   private Tile endTile;
   private List<Ladder> ladders = new ArrayList<>();
   private List<Ladder> snakes = new ArrayList<>();
-  private final Map<Tile, StealStarAction> stealStarActions = new HashMap<>();
 
 
   /**
@@ -58,12 +58,12 @@ public class Board {
    *
    * @param tileId the ID of the tile to retrieve.
    * @return the Tile with the specified ID, or null if it does not exist.
-   * @throws InvalidMoveException if no tile exists with the given ID
+   * @throws TileNotFoundException if no tile exists with the given ID
    */
   public Tile getTile(int tileId) {
     Tile tile = tiles.get(tileId);
     if (tile == null) {
-      throw new InvalidMoveException("Tile not found: " + tileId);
+      throw new TileNotFoundException("Tile not found: " + tileId);
     }
     return tile;
   }
@@ -147,6 +147,9 @@ public class Board {
    * @param ladders list of ladders to set
    */
   public void setLadders(List<Ladder> ladders) {
+    if (ladders == null) {
+      throw new InvalidLadderException("Ladders list cannot be null.");
+    }
     this.ladders = ladders;
   }
 
@@ -196,16 +199,12 @@ public class Board {
    * Sets the list of snakes on the board.
    *
    * @param snakes list of snakes to set
+   * @throws InvalidLadderException if {@code snakes} is {@code null}.
    */
   public void setSnakes(List<Ladder> snakes) {
+    if (snakes == null) {
+      throw new InvalidLadderException("Snakes list cannot be null.");
+    }
     this.snakes = snakes;
-  }
-
-  public void addStealAction(Tile tile, StealStarAction stealStarAction) {
-    stealStarActions.put(tile, stealStarAction);
-  }
-
-  public Map<Tile, StealStarAction> getStealActions() {
-    return stealStarActions;
   }
 }

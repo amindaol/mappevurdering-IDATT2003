@@ -19,6 +19,9 @@ import edu.ntnu.idi.idatt.model.game.Token;
 import edu.ntnu.idi.idatt.controller.BestieBattlesController;
 import edu.ntnu.idi.idatt.controller.BoardController;
 import edu.ntnu.idi.idatt.controller.GameController;
+import edu.ntnu.idi.idatt.util.exceptionHandling.BoardFileNotFoundException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.PlayerFileNotFoundException;
+import edu.ntnu.idi.idatt.util.exceptionHandling.PlayerNotConfiguredException;
 import edu.ntnu.idi.idatt.view.route.PrimaryScene;
 import edu.ntnu.idi.idatt.view.route.Route;
 import edu.ntnu.idi.idatt.view.route.Router;
@@ -51,9 +54,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Main class for launching the Slayboard JavaFX application. Sets up the UI, registers routes, and
- * handles game initialization.
- * <p>
+ * Main class for launching the Slayboard JavaFX application.
+ * Sets up the UI, registers routes, and handles game initialization.
  * Supports two game modes:
  * <ul>
  *   <li>Love & Ladders</li>
@@ -90,7 +92,6 @@ public class Main extends Application {
     StyleUtil.applyStyleSheet(primaryScene, "/styles/styles.css");
     Router.setScene(primaryScene);
 
-    // Home route
     Router.registerRoute(
         new Route("home",
             () -> new HomeController().getView(),
@@ -98,7 +99,6 @@ public class Main extends Application {
         )
     );
 
-    // Settings for Love & Ladders
     Router.registerRoute(
         new Route("lalSettings",
             () -> {
@@ -115,7 +115,6 @@ public class Main extends Application {
                 () -> AlertUtil.showHelpDialog())
         ));
 
-    // Settings for Bestie Point Battles
     Router.registerRoute(
         new Route("bbSettings",
             () -> {
@@ -132,16 +131,14 @@ public class Main extends Application {
                 () -> AlertUtil.showHelpDialog())
         ));
 
-    // Play Love & Ladders from JSON+CSV
     Router.registerRoute(
         new Route("lalPage",
             () -> {
               try {
-                // 1) pick up the JSON filename the user selected
-                String boardFile = AppState.getSelectedBoardFile();        // guaranteed non-null now
+                String boardFile = AppState.getSelectedBoardFile();
                 URL boardRes = Main.class.getResource("/boards/" + boardFile);
                 if (boardRes == null) {
-                  throw new IllegalArgumentException("Missing board file: " + boardFile);
+                  throw new BoardFileNotFoundException("Missing board file: " + boardFile);
                 }
 
                 JsonObject root;
@@ -152,19 +149,15 @@ public class Main extends Application {
 
                 Board board = new BoardFileReaderGson().parseBoard(root);
 
-                // 3) pick up the players list (assuming you already put it in AppState
-                //    via your validateAndStartGame logic, possibly using PlayerFileReaderCsv)
                 List<Player> players = AppState.getSelectedPlayers();
                 if (players == null || players.isEmpty()) {
-                  throw new IllegalStateException("No players configured");
+                  throw new PlayerNotConfiguredException("No players configured");
                 }
 
-                // 4) build the game
                 Dice dice = new Dice(2);
                 BoardGame game = new BoardGame(board, dice);
                 players.forEach(game::addPlayer);
 
-                // 5) wire it up
                 GameEngine engine = new LoveAndLaddersEngine(game, dice);
                 BoardView view = new BoardView(board.getRows(), board.getCols(),
                     dice.getDiceAmount());
@@ -176,10 +169,13 @@ public class Main extends Application {
 
                 return view.getRoot();
 
+              } catch (BoardFileNotFoundException | PlayerNotConfiguredException e) {
+                logger.log(Level.SEVERE, "Game setup error", e);
+                AlertUtil.showError("Game Setup Error", "Error: " + e.getMessage());
+                return new HomeController().getView();
               } catch (Exception e) {
                 logger.log(Level.SEVERE, "Failed to start Love & Ladders", e);
-                AlertUtil.showError("Load Error",
-                    "Could not start Love & Ladders:\n" + e.getMessage());
+                AlertUtil.showError("Load Error", "Could not start Love & Ladders: " + e.getMessage());
                 return new HomeController().getView();
               }
             },
@@ -188,7 +184,6 @@ public class Main extends Application {
                 () -> AlertUtil.showGameHelp("LoveAndLadders"))
         ));
 
-    // Play Bestie Point Battles from JSON+CSV
     Router.registerRoute(
         new Route("bbPage",
             () -> {
@@ -196,7 +191,7 @@ public class Main extends Application {
                 String boardFile = AppState.getSelectedBoardFile();
                 URL boardRes = Main.class.getResource("/boards/" + boardFile);
                 if (boardRes == null) {
-                  throw new IllegalArgumentException("Missing board file: " + boardFile);
+                  throw new BoardFileNotFoundException("Missing board file: " + boardFile);
                 }
 
                 JsonObject root;
@@ -216,6 +211,9 @@ public class Main extends Application {
                 if (players.isEmpty()) {
                   throw new IllegalStateException("No players configured");
                 }
+                List<Player> players = AppState.getSelectedPlayers();
+                if (players == null || players.isEmpty())
+                  throw new PlayerNotConfiguredException("No players configured");
 
                 Dice dice = new Dice(2);
                 BoardGame game = new BoardGame(board, dice);
@@ -233,6 +231,11 @@ public class Main extends Application {
 
                 return view.getRoot();
 
+                return view;
+              } catch (BoardFileNotFoundException | PlayerNotConfiguredException e) {
+                logger.log(Level.SEVERE, "Game setup error", e);
+                AlertUtil.showError("Game Setup Error", "Error: " + e.getMessage());
+                return new HomeController().getView();
               } catch (Exception e) {
                 logger.log(Level.SEVERE, "Failed to start Bestie Point Battles", e);
                 AlertUtil.showError("Load Error",
@@ -245,7 +248,6 @@ public class Main extends Application {
                 () -> AlertUtil.showGameHelp("PointBattles"))
         ));
 
-    // Kick things off
     Router.navigateTo("home");
     primaryStage.show();
     logger.info("UI shown – ready for interaction");
@@ -268,7 +270,7 @@ public class Main extends Application {
             .getResource("players/premadePlayers.csv");
         if (playersUrl == null) {
           throw new
-              IllegalArgumentException("Missing players file: premadePlayers.csv");
+              PlayerFileNotFoundException("Missing players file: premadePlayers.csv");
         }
         Path csvPath = Paths.get(playersUrl.toURI());
         List<Player> all = new PlayerFileReaderCsv().readPlayers(csvPath);
@@ -280,9 +282,12 @@ public class Main extends Application {
           return false;
         }
         players = new ArrayList<>(all.subList(0, count));
-      } catch (Exception e) {
+      } catch (PlayerFileNotFoundException e) {
         new Alert(AlertType.ERROR,
             "Failed to load players from CSV: " + e.getMessage()).showAndWait();
+        return false;
+      } catch (Exception e) {
+        new Alert(Alert.AlertType.ERROR, "Failed to load players from CSV: " + e.getMessage()).showAndWait();
         return false;
       }
 

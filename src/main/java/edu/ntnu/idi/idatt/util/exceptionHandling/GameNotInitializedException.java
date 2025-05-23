@@ -12,7 +12,7 @@ public class GameNotInitializedException extends IllegalStateException {
   /**
    * Constructs a new GameNotInitializedException with the default message.
    */
-  public GameNotInitializedException() {
+  public GameNotInitializedException(String s) {
     super("Game not initialized: Board and/or players are missing. ");
   }
 

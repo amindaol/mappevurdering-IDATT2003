@@ -5,6 +5,7 @@ import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.config.GameMode;
 import edu.ntnu.idi.idatt.config.GameConfiguration;
 
+import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -39,13 +40,13 @@ public class GameInformation {
    * @param engineFactory        a function that creates a GameEngine based on GameConfiguration
    * @param boardOptionsSupplier a supplier that provides a list of Board options
    * @param gameMode             the game mode
-   * @throws IllegalArgumentException if any of the parameters are null
+   * @throws GameNotInitializedException if any of the parameters are null
    */
   public GameInformation(String name, String rules, int playerMax, int playerMin,
       Function<GameConfiguration, GameEngine> engineFactory,
       Supplier<List<Board>> boardOptionsSupplier, GameMode gameMode) {
     if (name == null || engineFactory == null || boardOptionsSupplier == null) {
-      throw new IllegalArgumentException("Fields cannot be null");
+      throw new GameNotInitializedException("Fields cannot be null");
     }
 
     this.name = name;

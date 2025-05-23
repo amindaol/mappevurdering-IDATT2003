@@ -64,6 +64,7 @@ public class BoardFileWriterGson implements BoardFileWriter {
    *
    * @param action the action to serialize
    * @return a JsonObject representing the action
+   * @throws DaoException if the action is unknown
    */
   private JsonObject serializeAction(TileAction action) {
     JsonObject obj = new JsonObject();
@@ -77,7 +78,7 @@ public class BoardFileWriterGson implements BoardFileWriter {
     } else if (action instanceof SkipNextTurnAction) {
       obj.addProperty("type", "SkipNextTurnAction");
     } else {
-      obj.addProperty("type", "UnknownAction");
+      throw new DaoException("Unknown action: " + action);
     }
 
     return obj;
