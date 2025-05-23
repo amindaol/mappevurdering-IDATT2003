@@ -205,7 +205,7 @@
       "id": 4,
       "action": {
         "type": "BuyStar",
-        "price": 25
+        "price": 20
       }
     },
     {
@@ -237,22 +237,10 @@
       }
     },
     {
-      "id": 14,
-      "action": {
-        "type": "StealStar"
-      }
-    },
-    {
       "id": 15,
       "action": {
         "type": "AddCoins",
         "points": 7
-      }
-    },
-    {
-      "id": 18,
-      "action": {
-        "type": "StealStar"
       }
     },
     {
@@ -287,7 +275,7 @@
       "id": 31,
       "action": {
         "type": "BuyStar",
-        "price": 25
+        "price": 20
       }
     },
     {

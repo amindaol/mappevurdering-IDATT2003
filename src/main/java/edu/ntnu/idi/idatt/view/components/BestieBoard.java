@@ -85,6 +85,15 @@ public class BestieBoard {
     });
   }
 
+  public void drawShopTile(int tileId) {
+    Platform.runLater(() -> {
+      Pane tilePane = tileMap.get(tileId);
+      if (tilePane != null) {
+        tilePane.getStyleClass().add("shop-tile");
+      }
+    });
+  }
+
   public StackPane getBoardWithOverlay() {
     return container;
   }

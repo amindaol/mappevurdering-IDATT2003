@@ -209,16 +209,10 @@
       }
     },
     {
-      "id": 8,
-      "action": {
-        "type": "StealStar"
-      }
-    },
-    {
       "id": 10,
       "action": {
         "type": "BuyStar",
-        "price": 15
+        "price": 20
       }
     },
     {
@@ -226,12 +220,6 @@
       "action": {
         "type": "AddCoins",
         "points": 10
-      }
-    },
-    {
-      "id": 16,
-      "action": {
-        "type": "StealStar"
       }
     },
     {
@@ -263,16 +251,10 @@
       }
     },
     {
-      "id": 27,
-      "action": {
-        "type": "StealStar"
-      }
-    },
-    {
       "id": 34,
       "action": {
         "type": "BuyStar",
-        "price": 15
+        "price": 20
       }
     },
     {
@@ -280,12 +262,6 @@
       "action": {
         "type": "AddCoins",
         "points": 5
-      }
-    },
-    {
-      "id": 36,
-      "action": {
-        "type": "StealStar"
       }
     },
     {

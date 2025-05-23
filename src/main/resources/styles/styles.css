@@ -37,7 +37,6 @@
 }
 
 
-
 .title-label {
   -fx-font-size: 28px;
   -fx-font-weight: bold;
@@ -304,3 +303,16 @@
   -fx-cursor: hand;
 }
 
+.coin-tile {
+  -fx-background-color: #ffeab2;
+  -fx-border-color: #CC6699;
+  -fx-border-radius: 4;
+  -fx-padding: 4;
+}
+
+.shop-tile {
+  -fx-background-color: #D81B60;
+  -fx-border-color: #CC6699;
+  -fx-border-radius: 4;
+  -fx-padding: 4;
+}

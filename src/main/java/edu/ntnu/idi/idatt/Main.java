@@ -206,6 +206,9 @@ public class Main extends Application {
                 }
                 Board board = new BoardFileReaderGson().parseBoard(root);
 
+                board.getLastTile()
+                    .setNextTile(board.getStartTile());
+
                 List<Player> rawPlayers = AppState.getSelectedPlayers();
                 List<BestiePlayer> players = rawPlayers.stream()
                     .map(p -> new BestiePlayer(p.getName(), p.getToken(), p.getBirthday()))

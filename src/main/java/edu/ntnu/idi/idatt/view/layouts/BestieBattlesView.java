@@ -1,9 +1,12 @@
 package edu.ntnu.idi.idatt.view.layouts;
 
+import edu.ntnu.idi.idatt.model.action.AddCoinsAction;
+import edu.ntnu.idi.idatt.model.action.BuyStarAction;
 import edu.ntnu.idi.idatt.model.game.BestiePlayer;
 import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.model.game.Player;
+import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.view.components.BestieBoard;
 import edu.ntnu.idi.idatt.view.components.BestieSidePanel;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
@@ -32,6 +35,9 @@ public class BestieBattlesView extends BorderPane {
     this.board = new BestieBoard(boardModel.getRows(), boardModel.getCols());
     this.board.drawBoard(boardModel);
     this.sidePanel = new BestieSidePanel(game);
+
+    highlightCoinTiles(game.getBoard());
+    highlightShopTiles(game.getBoard());
 
     sidePanel.setRollCallback(() -> {
       if (onRoll != null) {
@@ -111,5 +117,25 @@ public class BestieBattlesView extends BorderPane {
 
   public void showDiceRoll(List<Integer> roll) {
     sidePanel.showDiceRoll(roll);
+  }
+
+  public void highlightCoinTiles(Board board) {
+    List<Integer> coinIds = board.getTilesOrdered().stream()
+        .filter(t -> t.getAction() instanceof AddCoinsAction)
+        .map(Tile::getTileId)
+        .toList();
+
+    // tell the board component to style each one
+    coinIds.forEach(this.board::drawCoinsTile);
+  }
+
+  private void highlightShopTiles(Board board) {
+    List<Integer> shopIds = board.getTilesOrdered().stream()
+        .filter(t -> t.getAction() instanceof BuyStarAction)
+        .map(Tile::getTileId)
+        .toList();
+
+    // tell the board component to style each one
+    shopIds.forEach(this.board::drawShopTile);
   }
 }

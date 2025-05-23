@@ -14,6 +14,7 @@ import edu.ntnu.idi.idatt.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BestieBattlesView;
 import java.util.List;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 
 public class BestieBattlesController implements BoardGameObserver {
@@ -43,11 +44,16 @@ public class BestieBattlesController implements BoardGameObserver {
       }
 
       case PLAYER_MOVED -> {
+        view.updateCurrentPlayerList(engine.getCurrentPlayer());
       }
       // Handle player moved event;
       case GAME_WON -> {
+        BestiePlayer winner = (BestiePlayer) engine.checkWinCondition();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Over");
+        alert.setContentText(winner.getName() + " wins the game! 🎉");
+        alert.showAndWait();
       }
-      // Handle game won event;
       default -> {
       }
     }
@@ -84,8 +90,10 @@ public class BestieBattlesController implements BoardGameObserver {
           + mover.getCurrentTile().getTileId());
 
       view.showDiceRoll(roll);
-
       engine.handleTurn(total);
+      view.movePlayerIcon(
+          mover.getName(),
+          mover.getCurrentTile().getTileId());
 
       view.updateSidePanel(engine.getPlayers());
       view.updateCurrentPlayerList(engine.getCurrentPlayer());

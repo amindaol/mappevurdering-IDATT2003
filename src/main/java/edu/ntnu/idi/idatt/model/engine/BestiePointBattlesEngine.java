@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.model.engine;
 
+import edu.ntnu.idi.idatt.model.action.BuyStarAction;
 import edu.ntnu.idi.idatt.model.core.LinearMovement;
 import edu.ntnu.idi.idatt.model.core.Movement;
 import edu.ntnu.idi.idatt.model.game.BestiePlayer;
@@ -40,21 +41,31 @@ public class BestiePointBattlesEngine extends GameEngine {
   }
 
   @Override
-  public void handleTurn(int total) {
+  public void handleTurn(int steps) {
     if (gameOver) {
       return;
     }
 
-    Player currentPlayer = getCurrentPlayer();
+    BestiePlayer mover = (BestiePlayer) getCurrentPlayer();
+    Tile current = mover.getCurrentTile();
 
     notifyObservers(BoardGameEvent.DICE_ROLLED);
 
-    movement.move(currentPlayer, total);
-    notifyObservers(BoardGameEvent.PLAYER_MOVED);
+    for (int i = 0; i < steps; i++) {
+      current = current.getNextTile();
+      mover.placeOnTile(current);
+      notifyObservers(BoardGameEvent.PLAYER_MOVED);
 
-    Tile currentTile = currentPlayer.getCurrentTile();
-    if (currentTile.getAction() != null) {
-      currentTile.getAction().perform(currentPlayer);
+      if (current.getAction() instanceof BuyStarAction shop) {
+        if (mover.getCoins() >= 20) {
+          shop.perform(mover);      // decrement coins, increment star count
+          notifyObservers(BoardGameEvent.PLAYER_MOVED); // to refresh UI
+        }
+      }
+    }
+    if (!(current.getAction() instanceof BuyStarAction) && current.getAction() != null) {
+      current.getAction().perform(mover);
+      notifyObservers(BoardGameEvent.PLAYER_MOVED);
     }
 
     if (checkWinCondition() != null) {

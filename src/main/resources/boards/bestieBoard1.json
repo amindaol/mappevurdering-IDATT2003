@@ -335,7 +335,7 @@
       }
     },
     {
-      "id": 25,
+      "id": 11,
       "action": {
         "type": "BuyStar",
         "price": 20
@@ -346,18 +346,6 @@
       "action": {
         "type": "BuyStar",
         "price": 20
-      }
-    },
-    {
-      "id": 19,
-      "action": {
-        "type": "StealStar"
-      }
-    },
-    {
-      "id": 36,
-      "action": {
-        "type": "StealStar"
       }
     }
   ]
