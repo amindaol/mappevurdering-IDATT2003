@@ -2,53 +2,52 @@ package edu.ntnu.idi.idatt;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import edu.ntnu.idi.idatt.config.GameMode;
-import edu.ntnu.idi.idatt.factory.TokenFactory;
-import edu.ntnu.idi.idatt.io.reader.BoardFileReaderGson;
-import edu.ntnu.idi.idatt.io.reader.PlayerFileReaderCsv;
-import edu.ntnu.idi.idatt.model.game.Board;
-import edu.ntnu.idi.idatt.model.game.BoardGame;
-import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;
-import edu.ntnu.idi.idatt.model.engine.GameEngine;
-import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
-import edu.ntnu.idi.idatt.model.game.Dice;
-import edu.ntnu.idi.idatt.model.game.Player;
-import edu.ntnu.idi.idatt.model.game.Token;
 import edu.ntnu.idi.idatt.controller.BestieBattlesController;
 import edu.ntnu.idi.idatt.controller.BoardController;
 import edu.ntnu.idi.idatt.controller.GameController;
+import edu.ntnu.idi.idatt.controller.HomeController;
+import edu.ntnu.idi.idatt.factory.TokenFactory;
+import edu.ntnu.idi.idatt.io.reader.BoardFileReaderGson;
+import edu.ntnu.idi.idatt.io.reader.PlayerFileReaderCsv;
+import edu.ntnu.idi.idatt.model.engine.BestiePointBattlesEngine;
+import edu.ntnu.idi.idatt.model.engine.GameEngine;
+import edu.ntnu.idi.idatt.model.engine.LoveAndLaddersEngine;
+import edu.ntnu.idi.idatt.model.game.Board;
+import edu.ntnu.idi.idatt.model.game.BoardGame;
+import edu.ntnu.idi.idatt.model.game.Dice;
+import edu.ntnu.idi.idatt.model.game.Player;
+import edu.ntnu.idi.idatt.model.game.Token;
+import edu.ntnu.idi.idatt.util.AlertUtil;
+import edu.ntnu.idi.idatt.util.StyleUtil;
 import edu.ntnu.idi.idatt.util.exceptionHandling.BoardFileNotFoundException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.PlayerFileNotFoundException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.PlayerNotConfiguredException;
-import edu.ntnu.idi.idatt.view.route.PrimaryScene;
-import edu.ntnu.idi.idatt.view.route.Route;
-import edu.ntnu.idi.idatt.view.route.Router;
 import edu.ntnu.idi.idatt.view.AppState;
 import edu.ntnu.idi.idatt.view.components.NavBar;
 import edu.ntnu.idi.idatt.view.components.SettingsContent;
 import edu.ntnu.idi.idatt.view.layouts.BestieBattlesView;
 import edu.ntnu.idi.idatt.view.layouts.BoardView;
-import edu.ntnu.idi.idatt.controller.HomeController;
 import edu.ntnu.idi.idatt.view.layouts.SettingsView;
-import edu.ntnu.idi.idatt.util.AlertUtil;
-import edu.ntnu.idi.idatt.util.StyleUtil;
+import edu.ntnu.idi.idatt.view.route.PrimaryScene;
+import edu.ntnu.idi.idatt.view.route.Route;
+import edu.ntnu.idi.idatt.view.route.Router;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Main class for launching the Slayboard JavaFX application.
@@ -98,7 +97,7 @@ public class Main extends Application {
     Router.registerRoute(
         new Route("lalSettings",
             () -> {
-              SettingsContent content = new SettingsContent(GameMode.LOVE_AND_LADDERS);
+              SettingsContent content = new SettingsContent();
               return new SettingsView(content.getRoot(), () -> {
                 if (!validateAndStartGame(content)) {
                   return;
@@ -114,7 +113,7 @@ public class Main extends Application {
     Router.registerRoute(
         new Route("bbSettings",
             () -> {
-              SettingsContent content = new SettingsContent(GameMode.BESTIE_POINT_BATTLES);
+              SettingsContent content = new SettingsContent();
               return new SettingsView(content.getRoot(), () -> {
                 if (!validateAndStartGame(content)) {
                   return;
@@ -171,7 +170,8 @@ public class Main extends Application {
                 return new HomeController().getView();
               } catch (Exception e) {
                 logger.log(Level.SEVERE, "Failed to start Love & Ladders", e);
-                AlertUtil.showError("Load Error", "Could not start Love & Ladders: " + e.getMessage());
+                AlertUtil.showError("Load Error", "Could not start Love & Ladders: "
+                    + e.getMessage());
                 return new HomeController().getView();
               }
             },
@@ -184,7 +184,7 @@ public class Main extends Application {
         new Route("bbPage",
             () -> {
               try {
-                String boardFile = AppState.getSelectedBoardFile(); // f.eks. "bestie_point_battles.json"
+                String boardFile = AppState.getSelectedBoardFile();
                 URL boardRes = Main.class.getResource("/boards/" + boardFile);
                 if (boardRes == null) {
                   throw new BoardFileNotFoundException("Missing board file: " + boardFile);
@@ -217,7 +217,8 @@ public class Main extends Application {
                 return new HomeController().getView();
               } catch (Exception e) {
                 logger.log(Level.SEVERE, "Failed to start Love & Ladders", e);
-                AlertUtil.showError("Load Error", "Could not start Love & Ladders: " + e.getMessage());
+                AlertUtil.showError("Load Error", "Could not start Love & Ladders: "
+                    + e.getMessage());
                 return new HomeController().getView();
               }
             },
@@ -265,7 +266,8 @@ public class Main extends Application {
             "Failed to load players from CSV: " + e.getMessage()).showAndWait();
         return false;
       } catch (Exception e) {
-        new Alert(Alert.AlertType.ERROR, "Failed to load players from CSV: " + e.getMessage()).showAndWait();
+        new Alert(Alert.AlertType.ERROR, "Failed to load players from CSV: "
+            + e.getMessage()).showAndWait();
         return false;
       }
 

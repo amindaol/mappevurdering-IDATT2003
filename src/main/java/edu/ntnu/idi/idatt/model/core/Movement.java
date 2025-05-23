@@ -1,8 +1,6 @@
 package edu.ntnu.idi.idatt.model.core;
 
-import edu.ntnu.idi.idatt.model.game.Board;
 import edu.ntnu.idi.idatt.model.game.Player;
-import edu.ntnu.idi.idatt.model.game.Token;
 
 /**
  * Represents a movement strategy for a player in the game. This interface is used to define how a

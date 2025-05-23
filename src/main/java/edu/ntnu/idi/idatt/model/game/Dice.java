@@ -3,11 +3,11 @@ package edu.ntnu.idi.idatt.model.game;
 import edu.ntnu.idi.idatt.util.exceptionHandling.DiceNotRolledException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * The {@code Dice} class represents a set of dice. It allows rolling all dice at once and accessing
  * individual dice if needed.
- *
  * This class works with the {@link Die} class, where each die represents a single 6 sided
  * die.
  *
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class Dice {
 
-  private final Die[] dice;
+  private final Die[] diceArray;
   private final int diceAmount;
 
   /**
@@ -34,9 +34,9 @@ public class Dice {
 
     this.diceAmount = dieAmount;
 
-    dice = new Die[dieAmount];
+    diceArray = new Die[dieAmount];
     for (int i = 0; i < dieAmount; i++) {
-      dice[i] = new Die();
+      diceArray[i] = new Die();
     }
   }
 
@@ -48,8 +48,9 @@ public class Dice {
    */
   public List<Integer> roll() {
     List<Integer> results = new ArrayList<>();
+    Random random = new Random();
     for (int i = 0; i < diceAmount; i++) {
-      results.add((int) (Math.random() * 6) + 1);
+      results.add(random.nextInt(6) + 1);
     }
     return results;
   }
@@ -62,12 +63,12 @@ public class Dice {
    * @throws DiceNotRolledException if the dice have not been rolled yet
    */
   public int getRollValue() {
-    if (dice[0].getValue() == 0) {
+    if (diceArray[0].getValue() == 0) {
       throw new DiceNotRolledException("Dice must be rolled before retrieving the roll value.");
     }
     int total = 0;
     for (int i = 0; i < diceAmount; i++) {
-      total += dice[i].getValue();
+      total += diceArray[i].getValue();
     }
     return total;
   }
@@ -81,10 +82,10 @@ public class Dice {
    *                                  dice
    */
   public Die getDie(int dieNumber) {
-    if (dieNumber < 0 || dieNumber >= dice.length) {
+    if (dieNumber < 0 || dieNumber >= diceArray.length) {
       throw new IllegalArgumentException("Invalid die number: " + dieNumber);
     }
-    return dice[dieNumber];
+    return diceArray[dieNumber];
   }
 
   /**
@@ -93,7 +94,7 @@ public class Dice {
    * @return The number of dice.
    */
   public int getDiceAmount() {
-    return dice.length;
+    return diceAmount;
   }
 
 }

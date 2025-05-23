@@ -198,8 +198,10 @@ public class BoardView extends BorderPane {
   }
 
   /**
-   * Initializes the player list by creating a new {@link PlayerList} and populating it with the given players.
-   * The list is then set as the content in the {@link VBox} playerListContainer, displaying the players in the UI.
+   * Initializes the player list by creating a new {@link PlayerList} and populating it with
+   * the given players.
+   * The list is then set as the content in the {@link VBox} playerListContainer, displaying the
+   * players in the UI.
    *
    * @param players the list of players to initialize the player list with
    */

@@ -3,10 +3,8 @@ package edu.ntnu.idi.idatt.util.exceptionHandling;
 /**
  * Exception thrown to indicate that a specified game mode
  * is not supported or recognized by the system.
- * <p>
  * This is a domain-specific unchecked exception used
  * to signal invalid game mode usage.
- * </p>
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim

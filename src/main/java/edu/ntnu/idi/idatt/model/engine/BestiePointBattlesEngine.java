@@ -8,14 +8,13 @@ import edu.ntnu.idi.idatt.model.game.Player;
 import edu.ntnu.idi.idatt.model.game.Tile;
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
-
 import java.util.Comparator;
 import java.util.List;
 
 
 /**
  * Game engine for "Bestie Point Battles": - Game ends when a player reaches last tile - Winner is
- * the one with the highest score at that moment
+ * the one with the highest score at that moment.
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -116,7 +115,9 @@ public class BestiePointBattlesEngine extends GameEngine {
    * Does nothing if the game is already over.
    */
   public void playOneRound() {
-    if (gameOver) return;
+    if (gameOver) {
+      return;
+    }
 
     List<Integer> values = dice.roll();
     int steps = values.stream().mapToInt(Integer::intValue).sum();

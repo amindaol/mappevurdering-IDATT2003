@@ -35,7 +35,6 @@ public class PlayerSettings extends VBox {
   private final ToggleGroup iconGroup = new ToggleGroup();
   private final Map<String, RadioButton> tokenButtons = new HashMap<>();
   private String selectedToken;
-  private final String[] availableTokens = {"cloud", "flower", "heart", "moon", "star"};
 
   /**
    * Creates a new player settings component with fields for name, birthday,
@@ -74,6 +73,7 @@ public class PlayerSettings extends VBox {
     HBox iconChoices = new HBox(6);
     iconChoices.setAlignment(Pos.CENTER);
 
+    String[] availableTokens = {"cloud", "flower", "heart", "moon", "star"};
     for (String token : availableTokens) {
       RadioButton btn = new RadioButton();
       btn.setToggleGroup(iconGroup);

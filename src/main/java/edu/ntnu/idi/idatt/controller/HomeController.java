@@ -19,6 +19,7 @@ public class HomeController {
 
   /**
    * Creates a new HomeController and sets up event handlers for the view.
+   *
    * @throws ViewInitializationException if it fails to initialize the HomeView
    */
   public HomeController() {

@@ -21,8 +21,6 @@ import javafx.scene.layout.VBox;
  */
 public class SettingsView extends BorderPane {
 
-  private final Button startGameButton;
-
   /**
    * Constructs a SettingsView layout with given content and start button action.
    *
@@ -43,7 +41,7 @@ public class SettingsView extends BorderPane {
 
     this.getStyleClass().add("settings-root");
 
-    startGameButton = new Button("Start game");
+    Button startGameButton = new Button("Start game");
     startGameButton.setOnAction(event -> onStartGame.run());
     startGameButton.getStyleClass().add("nav-button");
 

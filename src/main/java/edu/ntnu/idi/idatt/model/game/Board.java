@@ -98,6 +98,11 @@ public class Board {
     return new ArrayList<>(tiles.values());
   }
 
+  /**
+   * Method to get the start tile.
+   *
+   * @return the start tile.
+   */
   public Tile getStartTile() {
     if (startTile == null) {
       throw new InvalidMoveException("Start tile not set.");

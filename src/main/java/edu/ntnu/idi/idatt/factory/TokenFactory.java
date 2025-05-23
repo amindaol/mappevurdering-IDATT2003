@@ -12,6 +12,10 @@ import edu.ntnu.idi.idatt.model.game.Token;
  */
 public class TokenFactory {
 
+  private TokenFactory() {
+
+  }
+
   /**
    * Created a Token object from an icon name.
    *

@@ -16,12 +16,9 @@ import javafx.util.Duration;
 
 /**
  * Container holding all player configuration components.
- * <p>
  * Dynamically creates one {@link PlayerSettings} component per player,
  * and animates them into the layout. Handles synchronization of selected tokens
  * to ensure each player chooses a unique one.
- * </p>
- *
  * Used inside {@link edu.ntnu.idi.idatt.view.components.SettingsContent}.
  *
  * @author Aminda Lunde
@@ -30,7 +27,7 @@ import javafx.util.Duration;
  */
 public class PlayerSettingsContainer {
 
-  private FlowPane root;
+  private final FlowPane root;
   private final List<PlayerSettings> playerSettingsList = new ArrayList<>();
   private final Set<String> usedTokens = new HashSet<>();
 

@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.config;
 
 import edu.ntnu.idi.idatt.model.engine.GameEngine;
-import edu.ntnu.idi.idatt.model.game.*;
+import edu.ntnu.idi.idatt.model.game.BoardGame;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
 
 /**
@@ -14,7 +14,6 @@ import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
  */
 public class GameConfiguration {
 
-  private final GameMode gameMode;
   private final BoardGame boardGame;
   private final GameEngine gameEngine;
 
@@ -30,19 +29,10 @@ public class GameConfiguration {
     if (gameMode == null || boardGame == null) {
       throw new GameNotInitializedException("GameConfiguration cannot have null fields.");
     }
-    this.gameMode = gameMode;
     this.boardGame = boardGame;
     this.gameEngine = gameEngine;
   }
 
-  /**
-   * Returns the game mode of this configuration.
-   *
-   * @return the game mode
-   */
-  public GameMode getGameMode() {
-    return gameMode;
-  }
 
   /**
    * Returns the board game of this configuration.

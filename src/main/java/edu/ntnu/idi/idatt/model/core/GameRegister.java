@@ -37,8 +37,8 @@ public class GameRegister {
    * Retrieves the game information for the specified game mode.
    *
    * @param gameMode the GameMode to retrieve information for
-   * @throws IllegalArgumentException if game mode is null
    * @return the GameInformation object associated with the specified game mode
+   * @throws IllegalArgumentException if game mode is null
    */
   public GameInformation get(GameMode gameMode) {
     if (gameMode == null) {

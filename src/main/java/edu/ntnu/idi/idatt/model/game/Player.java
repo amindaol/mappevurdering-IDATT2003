@@ -1,8 +1,5 @@
 package edu.ntnu.idi.idatt.model.game;
 
-
-import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
-import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
 import java.time.LocalDate;
 
 /**
@@ -89,8 +86,8 @@ public class Player {
    */
   @Override
   public String toString() {
-    return "Player{name='" + name + "', token=" + token + ", tile=" +
-        (currentTile != null ? currentTile.getTileId() : "none") + '}';
+    return "Player{name='" + name + "', token=" + token + ", tile="
+        + (currentTile != null ? currentTile.getTileId() : "none") + '}';
   }
 
   /**

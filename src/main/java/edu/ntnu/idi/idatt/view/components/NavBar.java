@@ -23,9 +23,6 @@ import javafx.scene.layout.VBox;
  */
 public class NavBar extends HBox {
 
-  private final Button homeButton;
-  private final Button helpButton;
-
   /**
    * Constructs a new navigation bar with a title and two buttons.
    *
@@ -72,7 +69,7 @@ public class NavBar extends HBox {
     } catch (Exception e) {
       throw new NullPointerException("Icon path cannot be null.");
     }
-    homeButton = new Button();
+    Button homeButton = new Button();
     homeButton.setGraphic(new ImageView(homeIcon));
     homeButton.setOnAction(event -> onHome.run());
     homeButton.getStyleClass().add("icon-button");
@@ -83,7 +80,7 @@ public class NavBar extends HBox {
     } catch (Exception e) {
       throw new NullPointerException("Help icon image not found at specified path.");
     }
-    helpButton = new Button();
+    Button helpButton = new Button();
     helpButton.setGraphic(new ImageView(helpIcon));
     helpButton.setOnAction(event -> onHelp.run());
     helpButton.getStyleClass().add("icon-button");

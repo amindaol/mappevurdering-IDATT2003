@@ -10,22 +10,20 @@ import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidMoveException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.InvalidPlayerException;
 import edu.ntnu.idi.idatt.view.components.PlayerIcon;
 import edu.ntnu.idi.idatt.view.layouts.BestieBattlesView;
-import javafx.scene.control.Alert;
-import javafx.scene.image.Image;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Logger;
+import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 /**
  * Controller for the Bestie PointBattles game mode.
  * Connects the {@link BestiePointBattlesEngine} to the {@link BestieBattlesView},
  * sets up player icons, handles rolling, and reacts to game events.
- * <p>
  * This controller observes the game and updates the GUI accordingly.
  * It handles visual placement of players and displays the winner when the game ends.
- * </p>
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim
@@ -36,6 +34,7 @@ public class BestieBattlesController implements BoardGameObserver {
   private final BestiePointBattlesEngine engine;
   private final BestieBattlesView view;
   private final Map<Player, PlayerIcon> playerIcons = new HashMap<>();
+  private final Logger logger = Logger.getLogger(BestieBattlesController.class.getName());
 
   /**
    * Creates a new controller for the Bestie PointBattles game mode.
@@ -96,16 +95,16 @@ public class BestieBattlesController implements BoardGameObserver {
   private void setupRolling() {
     view.setRollCallback(() -> {
       try {
-      engine.playOneRound();
-      updatePlayerPositions();
-      view.updatePlayerInfo();
+        engine.playOneRound();
+        updatePlayerPositions();
+        view.updatePlayerInfo();
 
-      if (engine.isFinished()) {
-        showWinnerAlert(engine.checkWinCondition());
-      }
+        if (engine.isFinished()) {
+          showWinnerAlert(engine.checkWinCondition());
+        }
       } catch (InvalidMoveException e) {
         showErrorAlert("Invalid Move", e.getMessage());
-        }
+      }
     });
   }
 
@@ -128,7 +127,9 @@ public class BestieBattlesController implements BoardGameObserver {
    * @param winner the winning player
    */
   private void showWinnerAlert(Player winner) {
-    if (winner == null) return;
+    if (winner == null) {
+      return;
+    }
 
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Game Over");
@@ -152,7 +153,7 @@ public class BestieBattlesController implements BoardGameObserver {
         case PLAYER_MOVED -> updatePlayerPositions();
         case GAME_WON -> showWinnerAlert(engine.checkWinCondition());
         default -> {
-
+          logger.warning("Unexpected event: " + event);
         }
       }
     });

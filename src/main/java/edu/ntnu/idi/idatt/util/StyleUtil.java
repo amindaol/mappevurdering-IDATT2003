@@ -13,6 +13,10 @@ import javafx.scene.Scene;
  */
 public class StyleUtil {
 
+  private StyleUtil() {
+
+  }
+
   /**
    * Applies a stylesheet to the given JavaFX scene.
    *

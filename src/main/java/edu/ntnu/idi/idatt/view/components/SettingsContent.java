@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.view.components;
 
-import edu.ntnu.idi.idatt.config.GameMode;
+import edu.ntnu.idi.idatt.view.AppState;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.geometry.Insets;
@@ -15,7 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import edu.ntnu.idi.idatt.view.AppState;
+
 
 /**
  * A GUI component that displays all game setup options, including:
@@ -23,7 +23,6 @@ import edu.ntnu.idi.idatt.view.AppState;
  * - Number of players
  * - Player name, birthday, and token inputs
  * - Option to load players from file
- *
  * This component is used during the game setup phase before the game starts.
  * It dynamically updates player fields based on selected number of players.
  *
@@ -35,15 +34,12 @@ public class SettingsContent {
 
   private final VBox root;
   private PlayerSettingsContainer playerSettingsContainer;
-  private final GameMode gameMode;
 
   /**
    * Creates a new settings content view for the given game mode.
    *
-   * @param gameMode the selected game mode
    */
-  public SettingsContent(GameMode gameMode) {
-    this.gameMode = gameMode;
+  public SettingsContent() {
     int maxPlayers = 5;
 
     root = new VBox();

@@ -4,9 +4,7 @@ package edu.ntnu.idi.idatt.util.exceptionHandling;
 /**
  * Exception thrown when a player is expected to be on the game board (on a tile),
  * but is found to have no current tile assigned.
- * <p>
  * This indicates an invalid game state where the player is not properly placed on the board.
- * </p>
  *
  * @author Aminda Lunde
  * @author Ingrid Opheim

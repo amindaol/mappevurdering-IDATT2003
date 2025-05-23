@@ -47,34 +47,12 @@ public class GameController {
   }
 
   /**
-   * Checks if the game is over.
-   *
-   * @return true if the game is finished, false otherwise
-   * @throws GameNotInitializedException if game engine is not initialized
-   */
-  public boolean isGameOver() {
-    if (engine == null) {
-      throw new GameNotInitializedException("Game engine is not initialized.");
-    }
-    return engine.isGameOver();
-  }
-
-  /**
    * Returns the current player.
    *
    * @return the player whose turn it is
    */
   public Player getCurrentPlayer() {
     return engine.getCurrentPlayer();
-  }
-
-  /**
-   * Returns the winner of the game, if any.
-   *
-   * @return the winning player, or null if no one has won yet
-   */
-  public Player getWinner() {
-    return engine.checkWinCondition();
   }
 
   /**
