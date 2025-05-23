@@ -22,6 +22,9 @@ public class JumpToTileAction implements TileAction {
    * @throws NullPointerException if {@code destination} is {@code null}
    */
   public JumpToTileAction(Tile destination) {
+    if (destination == null) {
+      throw new NullPointerException("Destination tile cannot be null.");
+    }
     this.destination = destination;
   }
 

@@ -2,12 +2,9 @@ package edu.ntnu.idi.idatt.model.game;
 
 import edu.ntnu.idi.idatt.observer.BoardGameEvent;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
-import edu.ntnu.idi.idatt.util.exceptionHandling.NoPlayersException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.TooManyPlayersException;
 import edu.ntnu.idi.idatt.util.exceptionHandling.GameNotInitializedException;
-import edu.ntnu.idi.idatt.util.exceptionHandling.GameAlreadyFinishedException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -113,7 +110,7 @@ public class BoardGame {
    */
   public Board getBoard() {
     if (board == null) {
-      throw new GameNotInitializedException();
+      throw new GameNotInitializedException("GameConfiguration cannot have null fields.");
     }
     return board;
   }
@@ -126,7 +123,7 @@ public class BoardGame {
    */
   public Dice getDice() {
     if (dice == null) {
-      throw new GameNotInitializedException();
+      throw new GameNotInitializedException("GameConfiguration cannot have null fields.");
     }
     return dice;
   }

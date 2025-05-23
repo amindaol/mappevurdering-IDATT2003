@@ -52,7 +52,7 @@ public class BestiePointBattlesEngine extends GameEngine {
   @Override
   public void playGame() {
     if (board == null || players == null || players.isEmpty()) {
-      throw new GameNotInitializedException();
+      throw new GameNotInitializedException("GameConfiguration cannot have null fields.");
     }
 
     Tile start = board.getStartTile();
